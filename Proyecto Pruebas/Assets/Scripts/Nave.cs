@@ -52,16 +52,17 @@ public class Nave : MonoBehaviour
     public float manejo = 100;
 
 
-
+    public List<Pieza> piezas = new List<Pieza>();
 
     private float currentHealth;
-    private List<Pieza> piezas = new List<Pieza>();
+    
     private Rigidbody rb;
     private Transform piezasGameObject;
     private bool derrape = false;
     private float position = 0;
     private bool inRebufo = false;
     private bool inBoost = false;
+    private Pieza nucleo;
 
     // Use this for initialization
     void Start()
@@ -75,12 +76,21 @@ public class Nave : MonoBehaviour
         foreach (Pieza p in piezas)
         {
             rb.mass += p.Weight;
+            p.nave = this;
+            if(p.nucleo)
+            {
+                nucleo = p;
+            }
         }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(!nucleo)
+        {
+            onNexusDestroyed();
+        }
         Controller();
     }
 
@@ -375,7 +385,11 @@ public class Nave : MonoBehaviour
 
     }
 
-    
+    private void onNexusDestroyed()
+    {
+        Camera.main.gameObject.GetComponent<CameraController>().naveDestruida = true;
+        Destroy(gameObject);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -391,6 +405,18 @@ public class Nave : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         print("relative velocity" + collision.relativeVelocity.magnitude);
+        foreach(ContactPoint cp in collision.contacts)  
+        {
+            foreach(Pieza p in piezas)
+            {
+                if (cp.thisCollider == p.gameObject.GetComponent<Collider>())
+                {
+                    p.Damage(p.CalculateCollisionDamage(collision.relativeVelocity.magnitude));
+                    break;
+                }
+            }
+            
+        }
     }
 
     public bool AnyMovementKeys

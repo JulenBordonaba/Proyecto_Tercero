@@ -7,6 +7,7 @@ TagManager:
   - Jump
   - Obstacle
   - Floor
+  - Nave
   layers:
   - Default
   - TransparentFX

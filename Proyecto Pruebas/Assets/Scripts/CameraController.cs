@@ -23,7 +23,7 @@ public class CameraController : MonoBehaviour
     [Range(0f, -200f)]
     public float min_Y_Angle = 30f;
 
-
+    public bool naveDestruida { get; set; }
 
     private Vector3 diference;
     private float currentX = 0.0f;
@@ -38,7 +38,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-
+        naveDestruida = false;
         //diference = transform.parent.position - transform.position;
 
 
@@ -49,6 +49,8 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (naveDestruida) return;
+
         //hacemos que la posición del padre sea igual a la de la nave
         transform.parent.position = target.position;
         //hacemos que la rotacion del padre sea una interpolación entre su rotación y la de la nave respecto a Time.deltaTime
