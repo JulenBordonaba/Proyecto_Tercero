@@ -77,7 +77,7 @@ public class Nave : MonoBehaviour
         rb.mass = weight;
         foreach (Pieza p in piezas)
         {
-            rb.mass += p.Weight;
+            rb.mass += p.weight;
             p.nave = this;
             if(p.nucleo)
             {
