@@ -12,7 +12,9 @@ public class Nave : MonoBehaviour
     public float levitationForce;
     public float startCorrectionHeight = 10;
     public LineRenderer line;
-    
+    public bool localUp = false;
+    public float falseGravityForce = 1f;
+
 
     [Range(1, 10)]
     public float velocidadDerrape = 1;
@@ -159,8 +161,8 @@ public class Nave : MonoBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
-                        rb.AddForce(-transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
+                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleration  * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(-transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleration  * Time.deltaTime, ForceMode.VelocityChange);
                     }
                     else if (Input.GetAxis("Horizontal") < 0)
                     {
@@ -168,8 +170,8 @@ public class Nave : MonoBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
-                        rb.AddForce(transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
+                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleration  * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleration  * Time.deltaTime, ForceMode.VelocityChange);
                     }
                     else
                     {
@@ -179,7 +181,7 @@ public class Nave : MonoBehaviour
                 }
                 else
                 {
-                    rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse); //fuerza para moverte hacia adelante
+                    rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * aceleration  * Time.deltaTime, ForceMode.VelocityChange); //fuerza para moverte hacia adelante
                 }
 
 
@@ -192,16 +194,21 @@ public class Nave : MonoBehaviour
                     locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
                     //rb.velocity = new Vector3(rb.velocity.x * (1 - friction*2), rb.velocity.y, rb.velocity.z * (1 - friction*2));
                 }
-                rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleration, 2) * backwardVelocity * Time.deltaTime, ForceMode.Impulse); // fuerza para moverte hacia atras
+                rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleration, 2) * backwardVelocity * Time.deltaTime, ForceMode.VelocityChange); // fuerza para moverte hacia atras
 
 
+            }
+
+            if(localUp)
+            {
+                rb.AddForce(-Physics.gravity * (Vector3.up.y - transform.forward.y), ForceMode.Impulse);
             }
 
             //rotación al girar
 
             if (Input.GetAxis("Nave Vertical") >= 0)
             {
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + (Input.GetAxis("Horizontal") * manejo * Time.deltaTime), transform.rotation.eulerAngles.z);
+                transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * manejo * Time.deltaTime), transform.localRotation.eulerAngles.z);
             }
             else if (Input.GetAxis("Nave Vertical") < 0)
             {
@@ -249,17 +256,33 @@ public class Nave : MonoBehaviour
         }
 
 
-
-        if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
+        if(localUp)
         {
-            //Vector3 rayDistance = ray.origin - hit.point; //guardamos la distancia del raycast
-            rb.AddForce(-Vector3.up * impulsoExtraCaida, ForceMode.VelocityChange);
-            //if(rayDistance.magnitude/2<levitationHeight)
-            //{
-            //    startCorrectionHeight = saveStartCorrectingHeight;
-            //}
+            if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
+            {
+                //Vector3 rayDistance = ray.origin - hit.point; //guardamos la distancia del raycast
+                rb.AddForce(-transform.up * impulsoExtraCaida, ForceMode.VelocityChange);
+                //if(rayDistance.magnitude/2<levitationHeight)
+                //{
+                //    startCorrectionHeight = saveStartCorrectingHeight;
+                //}
 
+            }
         }
+        else
+        {
+            if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
+            {
+                //Vector3 rayDistance = ray.origin - hit.point; //guardamos la distancia del raycast
+                rb.AddForce(-Vector3.up * impulsoExtraCaida, ForceMode.VelocityChange);
+                //if(rayDistance.magnitude/2<levitationHeight)
+                //{
+                //    startCorrectionHeight = saveStartCorrectingHeight;
+                //}
+
+            }
+        }
+        
 
 
         rb.angularVelocity = Vector3.zero;
@@ -301,9 +324,17 @@ public class Nave : MonoBehaviour
         RaycastHit hit;
 
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
-
-        ray.origin = piezasGameObject.position +  Vector3.ClampMagnitude((locVel.z*transform.forward),5f);
-        ray.direction = -Vector3.up;
+        if(localUp)
+        {
+            ray.origin = piezasGameObject.position; //+ Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
+            ray.direction = -transform.up;
+        }
+        else
+        {
+            ray.origin = piezasGameObject.position + Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
+            ray.direction = -Vector3.up;
+        }
+        
 
         //lanzamos un raycast hacia el suelo
         if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Floor")))
@@ -315,15 +346,42 @@ public class Nave : MonoBehaviour
             float diference = rayDistance.magnitude - levitationHeight; //diferencia de altura entre la nave y la altura en la que queremos que esté
 
 
-
-            //se le añade una fuerza para que flote a la altura que queremos
-            if(rayDistance.magnitude<levitationHeight)
+            if (!localUp)
             {
-                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 20), ForceMode.Acceleration);
+
+                rb.useGravity = true;
+                //se le añade una fuerza para que flote a la altura que queremos
+                if (rayDistance.magnitude < levitationHeight / 2)
+                {
+                    rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 20), ForceMode.Acceleration);
+                }
+                else if (rayDistance.magnitude < levitationHeight)
+                {
+                    rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
+                }
+                else
+                {
+                    rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
+                }
             }
             else
             {
-                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
+                rb.useGravity = false;
+                //se le añade una fuerza para que flote a la altura que queremos
+                if (rayDistance.magnitude < levitationHeight / 2)
+                {
+                    rb.AddForce((transform.up.normalized * levitationForce + transform.up.normalized * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 20), ForceMode.Acceleration);
+                }
+                else if (rayDistance.magnitude < levitationHeight)
+                {
+                    rb.AddForce((transform.up.normalized * levitationForce + transform.up.normalized * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
+                }
+                else
+                {
+                    rb.AddForce((transform.up.normalized * levitationForce + transform.up.normalized * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
+                }
+                //rb.AddForce(falseGravityForce * (-transform.up)  ,ForceMode.Acceleration);
+                //print("diference" + -diference);
             }
             
 
@@ -368,16 +426,24 @@ public class Nave : MonoBehaviour
             //    rb.velocity = new Vector3(rb.velocity.x, Mathf.Clamp(rb.velocity.y, 1 / Mathf.Tan(rayDistance.magnitude), float.MaxValue), rb.velocity.z);
             //}
 
-
-            //si esta por debajo de la altura que queremos y rb.velocity.y<0  si esta por encima de la altura que queremos y rb.velocity.y>0 reducimos la velocidad del eje y
-            if (diference > 0 && rb.velocity.y > 0)
+            if(!localUp)
             {
-                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.9f, rb.velocity.z);
+                //si esta por debajo de la altura que queremos y rb.velocity.y<0  si esta por encima de la altura que queremos y rb.velocity.y>0 reducimos la velocidad del eje y
+                if ((diference > 0 && rb.velocity.y > 0) || (diference < 0 && rb.velocity.y < 0))
+                {
+                    rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.9f, rb.velocity.z);
+                }
             }
-            if (diference < 0 && rb.velocity.y < 0)
+            else
             {
-                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.9f, rb.velocity.z);
+                if ((diference > 0 && locVel.y > 0) || (diference < 0 && locVel.y < 0))
+                {
+                    locVel = transform.InverseTransformDirection(rb.velocity);
+                    locVel = new Vector3(locVel.x, locVel.y * 0.9f, locVel.z);
+                    rb.velocity = transform.TransformDirection(locVel);
+                }
             }
+            
 
 
 
@@ -397,7 +463,15 @@ public class Nave : MonoBehaviour
         if (other.gameObject.tag == "Floor")
         {
             print("suelo");
-            rb.AddForce(Vector3.up * levitationForce * 100, ForceMode.Acceleration);
+            if(localUp)
+            {
+                rb.AddForce(transform.up * levitationForce * 100, ForceMode.Acceleration);
+            }
+            else
+            {
+                rb.AddForce(Vector3.up * levitationForce * 100, ForceMode.Acceleration);
+            }
+            
         }
 
     }
@@ -411,7 +485,7 @@ public class Nave : MonoBehaviour
             {
                 if (cp.thisCollider == p.gameObject.GetComponent<Collider>())
                 {
-                    p.Damage(p.CalculateCollisionDamage(collision.relativeVelocity.magnitude));
+                    //p.Damage(p.CalculateCollisionDamage(collision.relativeVelocity.magnitude));
                     break;
                 }
             }

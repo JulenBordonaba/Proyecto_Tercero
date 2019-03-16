@@ -99,8 +99,14 @@ public class CameraController : MonoBehaviour
             //igualamos la posicion de la camara a la posición inicial + el desplazamiento de camara + el desplazamiento por velocidad
             transform.localPosition = localPos + new Vector3(-currentX, currentY, 0) / 10 - velocityOffset;
 
+            float z = transform.localEulerAngles.z;
+
             //hacemos que la camara apunte a un objeto que tenemos delante de la nave
             transform.LookAt(frontLookAt);
+
+            float newZ = transform.localEulerAngles.z;
+            transform.Rotate(new Vector3(0, 0, z - newZ));
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, z);
         }
         else
         {
@@ -136,8 +142,14 @@ public class CameraController : MonoBehaviour
             //igualamos la posicion de la camara a la posición inicial + el desplazamiento de camara + el desplazamiento por velocidad
             transform.localPosition = new Vector3(localPos.x,localPos.y,-localPos.z) + new Vector3(-currentX, currentY, 0) / 10;
 
+            float z = transform.localEulerAngles.z;
+
             //hacemos que la camara apunte a un objeto que tenemos delante de la nave
             transform.LookAt(backLookAt);
+
+            float newZ = transform.localEulerAngles.z;
+            transform.Rotate(new Vector3(0, 0, z - newZ));
+            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, z);
         }
 
         
