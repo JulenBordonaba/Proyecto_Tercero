@@ -391,28 +391,42 @@ public class Nave : MonoBehaviour
 
             Vector3 rot = transform.localEulerAngles; // guardamos la rotación actual en eulers
             Quaternion quaternionRot = transform.localRotation; //guardamos la rotación actual en quaternions
-            transform.up = hit.normal; //hacemos que la nave este perpendicular a la normal del punto donde ha colisionado el raycast
-            Vector3 newRot = transform.localEulerAngles; //guardamos la nueva rotación en eulers
 
-            float rotDiference = rot.y - newRot.y;  //guardamos la diferencia de rotación en el eje y
+            Vector3 localNormal = transform.InverseTransformDirection(hit.normal);
 
+            transform.up = transform.TransformDirection(new Vector3(localNormal.x, transform.InverseTransformDirection(transform.up).y, localNormal.z));
 
-            transform.Rotate(0, rotDiference, 0, Space.Self); //se rota el equivalente a lo que se ha disviado al hacer la nave perpendicular a la normal del punto donde ha colisionado el raycast
+            //transform.up = hit.normal; //hacemos que la nave este perpendicular a la normal del punto donde ha colisionado el raycast
+            
+            do
+            {
+                Vector3 newRot = transform.localEulerAngles; //guardamos la nueva rotación en eulers
 
-            //hacemos que la rotación sea la x,z de despues de alinearlo con la normal y la y de antes de alinearlo
-            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rot.y, transform.localEulerAngles.z); //este paso no debería ser necesario, pero en las cuestas el rotate hacia mal la suma de angulos, y si no ponemos el rotate en este paso se aplica mal la rotación (odio las rotaciones en Unity)
-
-
-
-
+                float rotDiference = rot.y - newRot.y;  //guardamos la diferencia de rotación en el eje y
 
 
-            Quaternion quatNewRot = transform.localRotation;  //guardamos la rotación en quaternions despues de corregirla 
+                transform.Rotate(0, rotDiference, 0, Space.Self); //se rota el equivalente a lo que se ha disviado al hacer la nave perpendicular a la normal del punto donde ha colisionado el raycast
 
-            //hacemos una interpolación entre la rotación inicial y la final en relación a la distancia al suelo
-            Quaternion interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (1 - ((rayDistance.magnitude - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance.magnitude));
-            //igualamos la rotación a el resultado de la interpolación
-            transform.localRotation = interpolation;
+                //hacemos que la rotación sea la x,z de despues de alinearlo con la normal y la y de antes de alinearlo
+                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rot.y, transform.localEulerAngles.z); //este paso no debería ser necesario, pero en las cuestas el rotate hacia mal la suma de angulos, y si no ponemos el rotate en este paso se aplica mal la rotación (odio las rotaciones en Unity)
+
+            } while (transform.localEulerAngles.y-rot.y>0.1f || transform.localEulerAngles.y-rot.y<-0.1f);
+
+            
+
+            
+
+
+
+
+
+
+            //Quaternion quatNewRot = transform.localRotation;  //guardamos la rotación en quaternions despues de corregirla 
+
+            ////hacemos una interpolación entre la rotación inicial y la final en relación a la distancia al suelo
+            //Quaternion interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (1 - ((rayDistance.magnitude - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance.magnitude));
+            ////igualamos la rotación a el resultado de la interpolación
+            //transform.localRotation = interpolation;
 
 
 
