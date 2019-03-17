@@ -161,8 +161,8 @@ public class Nave : MonoBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleration  * Time.deltaTime, ForceMode.VelocityChange);
-                        rb.AddForce(-transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleration  * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
+                        rb.AddForce(-transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
                     }
                     else if (Input.GetAxis("Horizontal") < 0)
                     {
@@ -170,8 +170,8 @@ public class Nave : MonoBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleration  * Time.deltaTime, ForceMode.VelocityChange);
-                        rb.AddForce(transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleration  * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
+                        rb.AddForce(transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
                     }
                     else
                     {
@@ -181,7 +181,7 @@ public class Nave : MonoBehaviour
                 }
                 else
                 {
-                    rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * aceleration  * Time.deltaTime, ForceMode.VelocityChange); //fuerza para moverte hacia adelante
+                    rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * aceleration * 100  * Time.deltaTime, ForceMode.Impulse); //fuerza para moverte hacia adelante
                 }
 
 
