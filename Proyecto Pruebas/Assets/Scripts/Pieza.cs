@@ -4,30 +4,29 @@ using UnityEngine;
 
 public class Pieza : MonoBehaviour {
     
-    [Tooltip("Health value between 0 and 300."),Range(0,300)]
+    [Tooltip("Health representa la vida de la pieza, si llega a 0 la pieza se destruye, Rango:0-300"),Range(0,300)]
     public float health = 100;
-    [Tooltip("Weight value between 0 and 100."), Range(0, 100)]
+    [Tooltip("Weight es el valor que representa el peso de la pieza, Rango:0-100."), Range(0, 100)]
     public float weight = 100;
-    [Tooltip("Maximum speed value between 0 and 100."), Range(0, 100)]
-    public float maxVel = 100;
-    [Tooltip("Aceeleration value between 0 and 100."), Range(0, 100)]
+    [Tooltip("Velocity afecta a la velocidad máxima de la nave, Rango:0-100"), Range(0, 100)]
+    public float velocity = 100;
+    [Tooltip("Acceleration afecta a la aceleración de la nave, Rango:0-100"), Range(0, 100)]
     public float acceleration = 100;
-    [Tooltip("Manoeuvrability value between 0 and 100."), Range(0, 100)]
-    public float manoeuvrability = 100;
-    [Tooltip("Damage value between 0 and 100."), Range(0, 100)]
+    [Tooltip("Maniobrabilidad afecta a el manejo de la nave, lo rápido que gira, Rango:0-100"), Range(0, 100)]
+    public float maniobrabilidad = 100;
+    [Tooltip("Damage representa el daño que recive otra nave si colisiona con esta pieza, RAngo:0-100"), Range(0, 100)]
     public float damage = 100;
-    [Tooltip("Recoil value between 0 and 100."), Range(0, 100)]
-    public float recoil = 100;
-    [Tooltip("Turbo value between 0 and 100."), Range(0, 100)]
+    [Tooltip("rebufo afecta a la velocidad que ganará la nave cuando este cogiendo rebufo, Rango:0-100"), Range(0, 100)]
+    public float rebufo = 100;
+    [Tooltip("Turbo afecta a la velocidad que gana la nave durante un turbo, Rango:0-100"), Range(0, 100)]
     public float turbo = 100;
-    [Tooltip("Skid value between 0 and 100."), Range(0, 100)]
-    public float skid = 100;
-    [Tooltip("SideDash value between 0 and 100."), Range(0, 100)]
-    public float sideDash = 100;
-    public bool skill;
+    [Tooltip("Derrape afecta a el valor del derrape de la nave, lo cerrado que es el derrape y la cantidad de energía que gana con él, Rango:0-100."), Range(0, 100)]
+    public float derrape = 100;
+    [Tooltip("Dash Lateral afecta a la velocidad y distancia a la que la nave hace la carga lateral, Rango:0-100"), Range(0, 100)]
+    public float dashLateral = 100;
 
 
-
+    [Tooltip("Esta variable hay que dejarla activada únicamente en la pieza nucleo de la nave")]
     public bool nucleo;
 
     private float currentHealth;

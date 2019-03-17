@@ -51,7 +51,7 @@ public class SliderTotal : MonoBehaviour
             recoil += transform.GetChild(i).GetComponent<Pieza>().recoil;
             turbo += transform.GetChild(i).GetComponent<Pieza>().turbo;
             skid += transform.GetChild(i).GetComponent<Pieza>().skid;
-            sideDash += transform.GetChild(i).GetComponent<Pieza>().sideDash;
+            sideDash += transform.GetChild(i).GetComponent<Pieza>().dashLateral;
         }
     }
     
