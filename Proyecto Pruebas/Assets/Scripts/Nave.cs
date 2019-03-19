@@ -214,7 +214,7 @@ public class Nave : Photon.PunBehaviour
                     locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
                     //rb.velocity = new Vector3(rb.velocity.x * (1 - friction*2), rb.velocity.y, rb.velocity.z * (1 - friction*2));
                 }
-                rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleracion, 2) * backwardVelocity * Time.deltaTime, ForceMode.VelocityChange); // fuerza para moverte hacia atras
+                rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleracion, 2) * backwardVelocity * Time.deltaTime, ForceMode.Impulse); // fuerza para moverte hacia atras
 
 
             }
