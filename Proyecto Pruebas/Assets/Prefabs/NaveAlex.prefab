@@ -26,12 +26,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6539b9f637a9e65449a22823a4b7208e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  weight: 100
-  velocity: 100
-  acceleration: 100
+  vida: 100
+  peso: 100
+  velocidad: 100
+  aceleracion: 100
   maniobrabilidad: 100
-  damage: 100
+  "da\xF1o": 100
   rebufo: 100
   turbo: 100
   derrape: 100
@@ -63,12 +63,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6539b9f637a9e65449a22823a4b7208e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  weight: 100
-  velocity: 100
-  acceleration: 100
+  vida: 100
+  peso: 100
+  velocidad: 100
+  aceleracion: 100
   maniobrabilidad: 100
-  damage: 100
+  "da\xF1o": 100
   rebufo: 100
   turbo: 100
   derrape: 100
@@ -100,12 +100,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6539b9f637a9e65449a22823a4b7208e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
-  weight: 100
-  velocity: 100
-  acceleration: 100
+  vida: 100
+  peso: 100
+  velocidad: 100
+  aceleracion: 100
   maniobrabilidad: 100
-  damage: 100
+  "da\xF1o": 100
   rebufo: 100
   turbo: 100
   derrape: 100
@@ -290,16 +290,20 @@ MonoBehaviour:
   alturaManejo: 299
   impulsoExtraCaida: 1
   rotationDamping: 4
-  maxVel: 5
+  maxVel: 1
   rebufoConst: 0
   positionConst: 0
   healthConst: 0
   boostConst: 0
-  weight: 100
-  maxHealth: 100
-  aceleration: 100
-  velocity: 100
-  manejo: 100
+  vida: 0
+  peso: 0
+  velocidad: 0
+  aceleracion: 0
+  maniobrabilidad: 0
+  rebufo: 0
+  turbo: 0
+  derrape: 0
+  dashLateral: 0
   piezas: []
 --- !u!1 &8437870294638744509
 GameObject:

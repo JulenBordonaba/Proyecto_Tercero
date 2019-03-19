@@ -11427,36 +11427,6 @@ PrefabInstance:
       propertyPath: line
       value: 
       objectReference: {fileID: 1972076640}
-    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
-        type: 3}
-      propertyPath: weight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
-        type: 3}
-      propertyPath: maxHealth
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
-        type: 3}
-      propertyPath: aceleration
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
-        type: 3}
-      propertyPath: velocity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
-        type: 3}
-      propertyPath: manejo
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
-        type: 3}
-      propertyPath: maxVel
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ed6dcc8363b6114e8205f00a697c260, type: 3}
 --- !u!1 &587990593

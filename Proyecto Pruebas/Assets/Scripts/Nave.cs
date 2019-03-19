@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Nave : MonoBehaviour
+public class Nave : Photon.PunBehaviour
 {
-
+    public Camera myCamera;
     public const float friction = 0.05f;
     public const float backwardVelocity = 0.7f;
 
@@ -76,6 +76,10 @@ public class Nave : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if(line)
+        {
+            line = GameObject.Find("Line").GetComponent<LineRenderer>();
+        }
         //saveStartCorrectingHeight = startCorrectionHeight;
         currentHealth = vida;
         piezas = new List<Pieza>(GetComponentsInChildren<Pieza>());
@@ -101,26 +105,34 @@ public class Nave : MonoBehaviour
         {
             onNexusDestroyed();
         }
-        Controller();
+        if (photonView.isMine)
+        {
+            Controller();
+        }
+        
     }
 
 
     private void FixedUpdate()
     {
-
-        Levitate();
+        
+            Levitate();
+        
+        
     }
 
     
 
     private void Controller()
     {
+
+        
         //convertimos la velocidad de global a local
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
 
         //depende de la velocidad la camara esta mas o menos cerca del coche
-        Camera.main.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (velocidad / 15), -4f, 5f));
-        Camera.main.fieldOfView = 60f + Mathf.Clamp(locVel.z / 15f, 0f, 80f);
+        myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (velocidad / 15), -4f, 5f));
+        myCamera.fieldOfView = 60f + Mathf.Clamp(locVel.z / 15f, 0f, 80f);
 
 
 
@@ -227,18 +239,18 @@ public class Nave : MonoBehaviour
                 if (locVel.z > 0)
                 {
                     inDerrape = true;
-                    Camera.main.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 0.3f;
+                    myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 0.3f;
                     //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + (Input.GetAxis("Horizontal") * manejo * Time.deltaTime * 2), transform.rotation.eulerAngles.z);
                 }
                 else
                 {
-                    Camera.main.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
+                    myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
                     inDerrape = false;
                 }
             }
             else
             {
-                Camera.main.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
+                myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
                 inDerrape = false;
             }
 
@@ -253,7 +265,7 @@ public class Nave : MonoBehaviour
         }
         else //si el vehiculo no esta cerca del suelo se añade una fuerza para que caiga más rapido (de lo contrario tarda mucho en caer)
         {
-            Camera.main.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
+            myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
             inDerrape = false;
 
 
@@ -476,8 +488,8 @@ public class Nave : MonoBehaviour
 
     private void onNexusDestroyed()
     {
-        Camera.main.gameObject.GetComponent<CameraController>().naveDestruida = true;
-        Destroy(gameObject);
+        myCamera.gameObject.GetComponent<CameraController>().naveDestruida = true;
+        Destroy(transform.parent);
     }
 
     private void OnTriggerEnter(Collider other)

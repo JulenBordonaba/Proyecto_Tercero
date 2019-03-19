@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraController : Photon.PunBehaviour
 {
 
     private const float Y_ANGLE_MIN = -10.0f;
@@ -37,6 +37,7 @@ public class CameraController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        if (!photonView.isMine) return;
         Cursor.lockState = CursorLockMode.Locked;
         naveDestruida = false;
         //diference = transform.parent.position - transform.position;
@@ -49,6 +50,7 @@ public class CameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.isMine) return;
         if (naveDestruida) return;
 
         //hacemos que la posición del padre sea igual a la de la nave
