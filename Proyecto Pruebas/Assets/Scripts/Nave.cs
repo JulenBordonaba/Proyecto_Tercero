@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Nave : Photon.PunBehaviour
 {
+    public GameObject cameraPrefab,cameraPivot;
+    public Transform cameraFront, cameraBack;
+
     public Camera myCamera;
     public const float friction = 0.05f;
     public const float backwardVelocity = 0.7f;
@@ -76,7 +79,14 @@ public class Nave : Photon.PunBehaviour
     // Use this for initialization
     void Start()
     {
-        if(line)
+
+        myCamera = Instantiate(cameraPrefab, cameraPivot.transform).GetComponent<Camera>();
+        myCamera.GetComponent<CameraController>().localPos = new Vector3(0, 3.5f, -9.6f);
+        myCamera.GetComponent<CameraController>().target = transform;
+        myCamera.GetComponent<CameraController>().frontLookAt = cameraFront;
+        myCamera.GetComponent<CameraController>().backLookAt = cameraBack;
+        Camera.SetupCurrent(myCamera);
+        if (line)
         {
             line = GameObject.Find("Line").GetComponent<LineRenderer>();
         }

@@ -28,7 +28,7 @@ public class CameraController : Photon.PunBehaviour
     private Vector3 diference;
     private float currentX = 0.0f;
     private float currentY = 45.0f;
-    private Vector3 localPos;
+    public Vector3 localPos { get; set; }
     private bool backCamera = false;
 
 
@@ -37,7 +37,6 @@ public class CameraController : Photon.PunBehaviour
     // Use this for initialization
     void Start()
     {
-        if (!photonView.isMine) return;
         Cursor.lockState = CursorLockMode.Locked;
         naveDestruida = false;
         //diference = transform.parent.position - transform.position;
@@ -50,7 +49,6 @@ public class CameraController : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!photonView.isMine) return;
         if (naveDestruida) return;
 
         //hacemos que la posición del padre sea igual a la de la nave
