@@ -126,6 +126,7 @@ public class Nave : Photon.PunBehaviour
     private void Controller()
     {
 
+        Camera.SetupCurrent(myCamera);
         
         //convertimos la velocidad de global a local
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
