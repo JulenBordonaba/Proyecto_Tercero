@@ -4,5 +4,5 @@ using UnityEngine;
 
 public static class G 
 {
-    public static Camera myCam;
+    public static GameObject myCam=null;
 }
