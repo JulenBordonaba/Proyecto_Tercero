@@ -30,7 +30,7 @@ public class CameraController : MonoBehaviour
     private float currentY = 45.0f;
     private Vector3 localPos;
     private bool backCamera = false;
-    
+
 
     public Vector3 velocityOffset { get; set; }
 
@@ -65,7 +65,7 @@ public class CameraController : MonoBehaviour
             backCamera = !backCamera;
         }
 
-        if(!backCamera)
+        if (!backCamera)
         {
             //cambiamos el valor de currentx y currenty respecto a el desplazamiento del joystick derecho/ ratón
             currentX += Input.GetAxis("Camera X") * sensibility.x;
@@ -101,12 +101,18 @@ public class CameraController : MonoBehaviour
 
             float z = transform.localEulerAngles.z;
 
+            Quaternion oldRot = transform.rotation;
+
             //hacemos que la camara apunte a un objeto que tenemos delante de la nave
             transform.LookAt(frontLookAt);
 
             float newZ = transform.localEulerAngles.z;
             transform.Rotate(new Vector3(0, 0, z - newZ));
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, z);
+
+            Quaternion newRot = transform.rotation;
+
+            transform.rotation = Quaternion.Lerp(oldRot, newRot, Time.deltaTime * damping * cameraDampingMultiplayer);
         }
         else
         {
@@ -140,19 +146,24 @@ public class CameraController : MonoBehaviour
 
 
             //igualamos la posicion de la camara a la posición inicial + el desplazamiento de camara + el desplazamiento por velocidad
-            transform.localPosition = new Vector3(localPos.x,localPos.y,-localPos.z) + new Vector3(-currentX, currentY, 0) / 10;
+            transform.localPosition = new Vector3(localPos.x, localPos.y, -localPos.z) + new Vector3(-currentX, currentY, 0) / 10;
 
             float z = transform.localEulerAngles.z;
 
+            Quaternion oldRot = transform.rotation;
+            
             //hacemos que la camara apunte a un objeto que tenemos delante de la nave
             transform.LookAt(backLookAt);
 
             float newZ = transform.localEulerAngles.z;
             transform.Rotate(new Vector3(0, 0, z - newZ));
             transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, z);
+            Quaternion newRot = transform.rotation;
+
+            transform.rotation = Quaternion.Lerp(oldRot, newRot, Time.deltaTime * damping * cameraDampingMultiplayer);
         }
 
-        
+
 
 
         //transform.parent.rotation = Quaternion.Euler(transform.parent.rotation.eulerAngles.x, target.rotation.eulerAngles.y, transform.parent.rotation.eulerAngles.z);

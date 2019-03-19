@@ -41,16 +41,24 @@ public class Nave : MonoBehaviour
 
 
     [Header("Stats")]
-    [Range(0, 100)]
-    public float weight = 100;
-    [Range(0, 100)]
-    public float maxHealth = 100;
-    [Range(0, 100)]
-    public float aceleration = 100;
-    [Range(0, 100)]
-    public float velocity = 100;
-    [Range(0, 100)]
-    public float manejo = 100;
+    [Tooltip("Vida representa la vida de la nave, si llega a 0 la pieza se destruye, Rango:0-500"), Range(0, 500)]
+    public float vida = 0;
+    [Tooltip("Peso es el valor que representa el peso de la nave, Rango:0-500."), Range(0, 500)]
+    public float peso = 0;
+    [Tooltip("Velocidad representa la velocidad máxima de la nave, Rango:0-500"), Range(0, 500)]
+    public float velocidad = 0;
+    [Tooltip("Acceleración representa la aceleración de la nave, Rango:0-500"), Range(0, 500)]
+    public float aceleracion = 0;
+    [Tooltip("Maniobrabilidad representa el manejo de la nave, lo rápido que gira, Rango:0-500"), Range(0, 500)]
+    public float maniobrabilidad = 0;
+    [Tooltip("rebufo representa la velocidad que ganará la nave cuando este cogiendo rebufo, Rango:0-500"), Range(0, 500)]
+    public float rebufo = 0;
+    [Tooltip("Turbo representa la velocidad que gana la nave durante un turbo, Rango:0-500"), Range(0, 500)]
+    public float turbo = 0;
+    [Tooltip("Derrape representa el valor del derrape de la nave, lo cerrado que es el derrape y la cantidad de energía que gana con él, Rango:0-500."), Range(0, 500)]
+    public float derrape = 0;
+    [Tooltip("Dash Lateral representa la velocidad y distancia a la que la nave hace la carga lateral, Rango:0-500"), Range(0, 500)]
+    public float dashLateral = 0;
 
 
     public List<Pieza> piezas = new List<Pieza>();
@@ -59,7 +67,7 @@ public class Nave : MonoBehaviour
     
     private Rigidbody rb;
     private Transform piezasGameObject;
-    private bool derrape = false;
+    private bool inDerrape = false;
     private float position = 0;
     private bool inRebufo = false;
     private bool inBoost = false;
@@ -69,20 +77,21 @@ public class Nave : MonoBehaviour
     void Start()
     {
         //saveStartCorrectingHeight = startCorrectionHeight;
-        currentHealth = maxHealth;
+        currentHealth = vida;
         piezas = new List<Pieza>(GetComponentsInChildren<Pieza>());
         piezasGameObject = piezas[0].transform.parent;
         rb = GetComponent<Rigidbody>();
-        rb.mass = weight;
+        CalculateStats();
         foreach (Pieza p in piezas)
         {
-            rb.mass += p.weight;
             p.nave = this;
             if(p.nucleo)
             {
                 nucleo = p;
             }
         }
+
+        rb.mass = peso;
     }
 
     // Update is called once per frame
@@ -110,13 +119,13 @@ public class Nave : MonoBehaviour
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
 
         //depende de la velocidad la camara esta mas o menos cerca del coche
-        Camera.main.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (velocity / 15), -4f, 5f));
+        Camera.main.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (velocidad / 15), -4f, 5f));
         Camera.main.fieldOfView = 60f + Mathf.Clamp(locVel.z / 15f, 0f, 80f);
 
 
 
 
-        if (!derrape)
+        if (!inDerrape)
         {
             //disminuimos poco a poco la velocidad lateral para que no se vaya demasiado la nave
             locVel.x *= 0.95f;
@@ -152,7 +161,7 @@ public class Nave : MonoBehaviour
                     //rb.velocity = new Vector3(rb.velocity.x * (1 - friction*2), rb.velocity.y, rb.velocity.z * (1 - friction*2));
                     locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
                 }
-                if (derrape)
+                if (inDerrape)
                 {
                     if (Input.GetAxis("Horizontal") > 0)
                     {
@@ -160,8 +169,8 @@ public class Nave : MonoBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
-                        rb.AddForce(-transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
+                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleracion * 100 * Time.deltaTime, ForceMode.Impulse);
+                        rb.AddForce(-transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleracion * 100 * Time.deltaTime, ForceMode.Impulse);
                     }
                     else if (Input.GetAxis("Horizontal") < 0)
                     {
@@ -169,8 +178,8 @@ public class Nave : MonoBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
-                        rb.AddForce(transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleration * 100 * Time.deltaTime, ForceMode.Impulse);
+                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleracion * 100 * Time.deltaTime, ForceMode.Impulse);
+                        rb.AddForce(transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleracion * 100 * Time.deltaTime, ForceMode.Impulse);
                     }
                     else
                     {
@@ -180,7 +189,7 @@ public class Nave : MonoBehaviour
                 }
                 else
                 {
-                    rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * aceleration * 100  * Time.deltaTime, ForceMode.Impulse); //fuerza para moverte hacia adelante
+                    rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * aceleracion * 100  * Time.deltaTime, ForceMode.Impulse); //fuerza para moverte hacia adelante
                 }
 
 
@@ -193,7 +202,7 @@ public class Nave : MonoBehaviour
                     locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
                     //rb.velocity = new Vector3(rb.velocity.x * (1 - friction*2), rb.velocity.y, rb.velocity.z * (1 - friction*2));
                 }
-                rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleration, 2) * backwardVelocity * Time.deltaTime, ForceMode.VelocityChange); // fuerza para moverte hacia atras
+                rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleracion, 2) * backwardVelocity * Time.deltaTime, ForceMode.VelocityChange); // fuerza para moverte hacia atras
 
 
             }
@@ -204,11 +213,11 @@ public class Nave : MonoBehaviour
 
             if (Input.GetAxis("Nave Vertical") >= 0)
             {
-                transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * manejo * Time.deltaTime), transform.localRotation.eulerAngles.z);
+                transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * maniobrabilidad * Time.deltaTime), transform.localRotation.eulerAngles.z);
             }
             else if (Input.GetAxis("Nave Vertical") < 0)
             {
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y - (Input.GetAxis("Horizontal") * manejo * Time.deltaTime), transform.rotation.eulerAngles.z);
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y - (Input.GetAxis("Horizontal") * maniobrabilidad * Time.deltaTime), transform.rotation.eulerAngles.z);
             }
 
 
@@ -217,20 +226,20 @@ public class Nave : MonoBehaviour
             {
                 if (locVel.z > 0)
                 {
-                    derrape = true;
+                    inDerrape = true;
                     Camera.main.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 0.3f;
                     //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + (Input.GetAxis("Horizontal") * manejo * Time.deltaTime * 2), transform.rotation.eulerAngles.z);
                 }
                 else
                 {
                     Camera.main.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
-                    derrape = false;
+                    inDerrape = false;
                 }
             }
             else
             {
                 Camera.main.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
-                derrape = false;
+                inDerrape = false;
             }
 
 
@@ -245,7 +254,7 @@ public class Nave : MonoBehaviour
         else //si el vehiculo no esta cerca del suelo se añade una fuerza para que caiga más rapido (de lo contrario tarda mucho en caer)
         {
             Camera.main.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
-            derrape = false;
+            inDerrape = false;
 
 
 
@@ -284,7 +293,7 @@ public class Nave : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
 
         //rotación lateral al girar
-        piezasGameObject.localEulerAngles = new Vector3(piezasGameObject.localEulerAngles.x, piezasGameObject.localEulerAngles.y, Mathf.LerpAngle(piezasGameObject.localEulerAngles.z, Mathf.Clamp(maxInclination * -Input.GetAxis("Horizontal") * (rb.velocity.magnitude / MaxVelocity) * (manejo / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping));
+        piezasGameObject.localEulerAngles = new Vector3(piezasGameObject.localEulerAngles.x, piezasGameObject.localEulerAngles.y, Mathf.LerpAngle(piezasGameObject.localEulerAngles.z, Mathf.Clamp(maxInclination * -Input.GetAxis("Horizontal") * (rb.velocity.magnitude / MaxVelocity) * (maniobrabilidad / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping));
 
         //si no se esta girando hece que el vehiculo deje de rotar
         if (Input.GetAxis("Horizontal") == 0)
@@ -493,18 +502,83 @@ public class Nave : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         print("relative velocity" + collision.relativeVelocity.magnitude);
-        foreach(ContactPoint cp in collision.contacts)  
+        print("velocity" + rb.velocity.magnitude);
+        List<Pieza> piezasColision = new List<Pieza>();
+        foreach (Pieza p in piezas) 
         {
-            foreach(Pieza p in piezas)
+            bool destroyed = false;
+            foreach (ContactPoint cp in collision.contacts)
             {
                 if (cp.thisCollider == p.gameObject.GetComponent<Collider>())
                 {
-                    //p.Damage(p.CalculateCollisionDamage(collision.relativeVelocity.magnitude));
-                    break;
+                    if(cp.otherCollider.gameObject.GetComponent<Pieza>())
+                    {
+                        piezasColision.Add(cp.otherCollider.gameObject.GetComponent<Pieza>());
+                        
+                    }
+                    else if(cp.otherCollider.gameObject.GetComponent<EnviromentElement>())
+                    {
+                        destroyed = p.Damage(cp.otherCollider.gameObject.GetComponent<EnviromentElement>().damage);
+                    }
                 }
+                if (destroyed) break;
             }
+
+            if(piezasColision.Count>0)
+            {
+                float angle = Vector3.Angle(rb.velocity, piezasColision[0].nave.rb.velocity);
+                float totalDmg = 0;
+                foreach (Pieza pi in piezasColision)
+                {
+                    totalDmg += pi.daño;
+                }
+                float dmg = totalDmg / piezasColision.Count;
+                destroyed = p.Damage(CalculateDamage(dmg,CollisionAngleValue(angle),piezasColision[0].nave));
+            }
+
+            if (destroyed) break;
             
         }
+    }
+
+    public void CalculateStats()
+    {
+        peso += 0;
+        vida +=0;
+        velocidad += 0;
+        aceleracion += 0;
+        maniobrabilidad +=0;
+        rebufo += 0;
+        turbo += 0;
+        derrape +=0;
+        dashLateral += 0;
+        foreach (Pieza p in piezas)
+        {
+            peso += p.peso;
+            vida += p.vida;
+            velocidad += p.velocidad;
+            aceleracion += p.aceleracion;
+            maniobrabilidad += p.maniobrabilidad;
+            rebufo += p.rebufo;
+            turbo += p.turbo;
+            derrape += p.derrape;
+            dashLateral += p.dashLateral;
+        }
+        rb.mass = peso;
+    }
+
+    public float CollisionAngleValue(float angle)
+    {
+        return 0.5f + ((Mathf.Repeat(angle,360)>180 ? (360- Mathf.Repeat(angle, 360)) : Mathf.Repeat(angle, 360)) /180 );
+    }
+
+    public float CalculateDamage(float dmg,float angle,Nave other)
+    {
+        float totalDamage = dmg;
+
+        totalDamage += dmg * (((other.rb.velocity.magnitude / 1000) + angle * (other.peso/500) + 1) - ((rb.velocity.magnitude / 1000) + angle * (peso / 500) + 1));
+
+        return totalDamage;
     }
 
     public bool AnyMovementKeys
@@ -514,12 +588,12 @@ public class Nave : MonoBehaviour
 
     public float VelocityFormula
     {
-        get { return MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + (rebufoConst * (inRebufo ? 1 : 0)) + (boostConst * (inRebufo ? 1 : 0)); }
+        get { return MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0))* rebufo) + ((boostConst * (inBoost ? 1 : 0))*turbo); }
     }
 
     public float MaxVelocity
     {
-        get { return velocity * maxVel; }
+        get { return velocidad * maxVel; }
     }
 
     public float DistanciaPrimero
@@ -529,6 +603,6 @@ public class Nave : MonoBehaviour
 
     public float PorcentajeSalud
     {
-        get { return (currentHealth / maxHealth) * 100; }
+        get { return (currentHealth / vida) * 100; }
     }
 }

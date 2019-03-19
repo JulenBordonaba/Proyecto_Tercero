@@ -42,12 +42,12 @@ public class SliderTotal : MonoBehaviour
         ResetValues();
         for (int i = 0; i < transform.childCount; i++)
         {
-            health += transform.GetChild(i).GetComponent<Pieza>().health;
-            weight += transform.GetChild(i).GetComponent<Pieza>().weight;
-            maxVel += transform.GetChild(i).GetComponent<Pieza>().velocity;
-            acceleration += transform.GetChild(i).GetComponent<Pieza>().acceleration;
+            health += transform.GetChild(i).GetComponent<Pieza>().vida;
+            weight += transform.GetChild(i).GetComponent<Pieza>().peso;
+            maxVel += transform.GetChild(i).GetComponent<Pieza>().velocidad;
+            acceleration += transform.GetChild(i).GetComponent<Pieza>().aceleracion;
             manoeuvrability += transform.GetChild(i).GetComponent<Pieza>().maniobrabilidad;
-            damage += transform.GetChild(i).GetComponent<Pieza>().damage;
+            damage += transform.GetChild(i).GetComponent<Pieza>().daño;
             recoil += transform.GetChild(i).GetComponent<Pieza>().rebufo;
             turbo += transform.GetChild(i).GetComponent<Pieza>().turbo;
             skid += transform.GetChild(i).GetComponent<Pieza>().derrape;
