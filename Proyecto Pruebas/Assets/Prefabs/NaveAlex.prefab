@@ -280,12 +280,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4b3ad80f844db3498cf8521d4404464, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levitationHeight: 10
+  levitationHeight: 30
   levitationForce: 6
   startCorrectionHeight: 100
   line: {fileID: 0}
   localUp: 0
-  falseGravityForce: 9.81
   velocidadDerrape: 3
   maxInclination: 44
   alturaManejo: 299

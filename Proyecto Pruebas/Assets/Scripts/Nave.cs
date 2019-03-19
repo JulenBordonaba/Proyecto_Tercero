@@ -13,7 +13,6 @@ public class Nave : MonoBehaviour
     public float startCorrectionHeight = 10;
     public LineRenderer line;
     public bool localUp = false;
-    public float falseGravityForce = 1f;
 
 
     [Range(1, 10)]
@@ -199,10 +198,7 @@ public class Nave : MonoBehaviour
 
             }
 
-            if(localUp)
-            {
-                rb.AddForce(-Physics.gravity * (Vector3.up.y - transform.forward.y), ForceMode.Impulse);
-            }
+            
 
             //rotación al girar
 
@@ -334,7 +330,11 @@ public class Nave : MonoBehaviour
             ray.origin = piezasGameObject.position + Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
             ray.direction = -Vector3.up;
         }
-        
+
+        if (localUp)
+        {
+            rb.AddForce(-Physics.gravity * (Vector3.up.y - transform.forward.y), ForceMode.Impulse);
+        }
 
         //lanzamos un raycast hacia el suelo
         if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Floor")))
@@ -412,21 +412,21 @@ public class Nave : MonoBehaviour
 
             //} while (transform.localEulerAngles.y-rot.y>0.1f || transform.localEulerAngles.y-rot.y<-0.1f);
 
-            
-
-            
 
 
 
 
 
 
-            //Quaternion quatNewRot = transform.localRotation;  //guardamos la rotación en quaternions despues de corregirla 
 
-            ////hacemos una interpolación entre la rotación inicial y la final en relación a la distancia al suelo
-            //Quaternion interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (1 - ((rayDistance.magnitude - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance.magnitude));
-            ////igualamos la rotación a el resultado de la interpolación
-            //transform.localRotation = interpolation;
+
+
+            Quaternion quatNewRot = transform.localRotation;  //guardamos la rotación en quaternions despues de corregirla 
+
+            //hacemos una interpolación entre la rotación inicial y la final en relación a la distancia al suelo
+            Quaternion interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (1 - ((rayDistance.magnitude - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance.magnitude));
+            //igualamos la rotación a el resultado de la interpolación
+            transform.localRotation = interpolation;
 
 
 
@@ -440,7 +440,7 @@ public class Nave : MonoBehaviour
             //    rb.velocity = new Vector3(rb.velocity.x, Mathf.Clamp(rb.velocity.y, 1 / Mathf.Tan(rayDistance.magnitude), float.MaxValue), rb.velocity.z);
             //}
 
-            if(!localUp)
+            if (!localUp)
             {
                 //si esta por debajo de la altura que queremos y rb.velocity.y<0  si esta por encima de la altura que queremos y rb.velocity.y>0 reducimos la velocidad del eje y
                 if ((diference > 0 && rb.velocity.y > 0) || (diference < 0 && rb.velocity.y < 0))
