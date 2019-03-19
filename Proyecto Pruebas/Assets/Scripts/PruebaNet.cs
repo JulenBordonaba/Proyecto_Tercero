@@ -23,7 +23,7 @@ public class PruebaNet : Photon.PunBehaviour
     }
 
     public void InstantiateNave()
-    {if (!photonView.isMine) return;
+    {
         if (nave!=null) Destroy(nave);
         nave = PhotonNetwork.Instantiate("NaveAlex 1", spawn.position, Quaternion.identity, 0, null);
     }
