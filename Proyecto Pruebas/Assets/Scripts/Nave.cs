@@ -79,13 +79,17 @@ public class Nave : Photon.PunBehaviour
     // Use this for initialization
     void Start()
     {
-
-        myCamera = Instantiate(cameraPrefab, cameraPivot.transform).GetComponent<Camera>();
-        myCamera.GetComponent<CameraController>().localPos = new Vector3(0, 3.5f, -9.6f);
-        myCamera.GetComponent<CameraController>().target = transform;
-        myCamera.GetComponent<CameraController>().frontLookAt = cameraFront;
-        myCamera.GetComponent<CameraController>().backLookAt = cameraBack;
-        Camera.SetupCurrent(myCamera);
+        if(G.myCam)
+        {
+            myCamera = Instantiate(cameraPrefab, cameraPivot.transform).GetComponent<Camera>();
+            myCamera.GetComponent<CameraController>().localPos = new Vector3(0, 3.5f, -9.6f);
+            myCamera.GetComponent<CameraController>().target = transform;
+            myCamera.GetComponent<CameraController>().frontLookAt = cameraFront;
+            myCamera.GetComponent<CameraController>().backLookAt = cameraBack;
+            Camera.SetupCurrent(myCamera);
+            G.myCam = myCamera;
+        }
+        
         if (line)
         {
             line = GameObject.Find("Line").GetComponent<LineRenderer>();
