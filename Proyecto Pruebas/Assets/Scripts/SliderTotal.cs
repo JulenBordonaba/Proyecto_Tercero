@@ -44,13 +44,13 @@ public class SliderTotal : MonoBehaviour
         {
             health += transform.GetChild(i).GetComponent<Pieza>().health;
             weight += transform.GetChild(i).GetComponent<Pieza>().weight;
-            maxVel += transform.GetChild(i).GetComponent<Pieza>().maxVel;
+            maxVel += transform.GetChild(i).GetComponent<Pieza>().velocity;
             acceleration += transform.GetChild(i).GetComponent<Pieza>().acceleration;
-            manoeuvrability += transform.GetChild(i).GetComponent<Pieza>().manoeuvrability;
+            manoeuvrability += transform.GetChild(i).GetComponent<Pieza>().maniobrabilidad;
             damage += transform.GetChild(i).GetComponent<Pieza>().damage;
-            recoil += transform.GetChild(i).GetComponent<Pieza>().recoil;
+            recoil += transform.GetChild(i).GetComponent<Pieza>().rebufo;
             turbo += transform.GetChild(i).GetComponent<Pieza>().turbo;
-            skid += transform.GetChild(i).GetComponent<Pieza>().skid;
+            skid += transform.GetChild(i).GetComponent<Pieza>().derrape;
             sideDash += transform.GetChild(i).GetComponent<Pieza>().dashLateral;
         }
     }

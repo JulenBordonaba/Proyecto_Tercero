@@ -394,12 +394,12 @@ public class Nave : MonoBehaviour
 
             Vector3 localNormal = transform.InverseTransformDirection(hit.normal);
 
-            transform.up = transform.TransformDirection(new Vector3(localNormal.x, transform.InverseTransformDirection(transform.up).y, localNormal.z));
+            //transform.up = transform.TransformDirection(new Vector3(localNormal.x, transform.InverseTransformDirection(transform.up).y, localNormal.z));
 
-            //transform.up = hit.normal; //hacemos que la nave este perpendicular a la normal del punto donde ha colisionado el raycast
+            transform.up = hit.normal; //hacemos que la nave este perpendicular a la normal del punto donde ha colisionado el raycast
             
-            do
-            {
+            //do
+            //{
                 Vector3 newRot = transform.localEulerAngles; //guardamos la nueva rotación en eulers
 
                 float rotDiference = rot.y - newRot.y;  //guardamos la diferencia de rotación en el eje y
@@ -410,7 +410,7 @@ public class Nave : MonoBehaviour
                 //hacemos que la rotación sea la x,z de despues de alinearlo con la normal y la y de antes de alinearlo
                 transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rot.y, transform.localEulerAngles.z); //este paso no debería ser necesario, pero en las cuestas el rotate hacia mal la suma de angulos, y si no ponemos el rotate en este paso se aplica mal la rotación (odio las rotaciones en Unity)
 
-            } while (transform.localEulerAngles.y-rot.y>0.1f || transform.localEulerAngles.y-rot.y<-0.1f);
+            //} while (transform.localEulerAngles.y-rot.y>0.1f || transform.localEulerAngles.y-rot.y<-0.1f);
 
             
 
