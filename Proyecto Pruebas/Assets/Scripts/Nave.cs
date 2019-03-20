@@ -17,6 +17,7 @@ public class Nave : Photon.PunBehaviour
     public LineRenderer line;
     public bool localUp = false;
     public bool dmgInmune = false;
+    public bool online = false;
 
 
     [Range(1, 10)]
@@ -120,7 +121,7 @@ public class Nave : Photon.PunBehaviour
         {
             onNexusDestroyed();
         }
-        if (photonView.isMine)
+        if (photonView.isMine || !online)
         {
             Controller();
         }
