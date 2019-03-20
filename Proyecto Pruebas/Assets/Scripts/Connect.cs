@@ -13,7 +13,8 @@ public class Connect : Photon.PunBehaviour
 
     public override void OnJoinedRoom()
     {
-        SceneManager.LoadScene("Blocking Nivel");
+        //SceneManager.LoadScene("Blocking Nivel");
+        PhotonNetwork.LoadLevel("Blocking Nivel");
     }
 
     public override void OnConnectedToPhoton()
