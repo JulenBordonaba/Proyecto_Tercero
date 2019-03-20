@@ -81,7 +81,7 @@ public class Nave : Photon.PunBehaviour
     // Use this for initialization
     void Start()
     {
-        if(G.myCam == null)
+        if(G.myCam == null && online)
         {
             myCamera = Instantiate(cameraPrefab, cameraPivot.transform).GetComponent<Camera>();
             myCamera.GetComponent<CameraController>().localPos = new Vector3(0, 3.5f, -9.6f);
