@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Pieza : MonoBehaviour {
     
-    [Tooltip("Vida representa la vida de la pieza, si llega a 0 la pieza se destruye, Rango:0-100"),Range(0,100)]
+    [Tooltip("Vida representa la vida de la pieza, si llega a 0 la pieza se destruye, Rango:0-100"),Range(0,400)]
     public float vida = 100;
     [Tooltip("Peso es el valor que representa el peso de la pieza, Rango:0-100."), Range(0, 100)]
     public float peso = 100;
@@ -25,6 +26,9 @@ public class Pieza : MonoBehaviour {
     [Tooltip("Dash Lateral afecta a la velocidad y distancia a la que la nave hace la carga lateral, Rango:0-100"), Range(0, 100)]
     public float dashLateral = 100;
 
+    public Slider sliderVida;
+    public Text dmgText;
+
 
     [Tooltip("Esta variable hay que dejarla activada únicamente en la pieza nucleo de la nave")]
     public bool nucleo;
@@ -35,11 +39,18 @@ public class Pieza : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         currentHealth = vida;
-	}
+        sliderVida.value = vida;
+        sliderVida.maxValue = vida;
+    }
 	
 	// Update is called once per frame
 	void Update () {
-	}
+        sliderVida.value = currentHealth;
+        if(Input.GetKeyDown(KeyCode.O))
+        {
+            Damage(40f);
+        }
+    }
 
 
     private void onPieceDestroyed()
@@ -54,7 +65,8 @@ public class Pieza : MonoBehaviour {
         print(gameObject.name + " " + ammount);
         currentHealth -= ammount;
         nave.dmgInmune = true;
-        StartCoroutine(MakeVulnerable(0.5f));
+        dmgText.text = ammount.ToString();
+        nave.MakeVulnerable(0.5f);
         if(currentHealth<=0)
         {
             onPieceDestroyed();
@@ -63,12 +75,7 @@ public class Pieza : MonoBehaviour {
         }
         return false;
     }
-
-    IEnumerator MakeVulnerable(float time)
-    {
-        yield return new WaitForSeconds(time);
-        nave.dmgInmune = false;
-    }
+    
 
     
 }

@@ -121,7 +121,11 @@ public class Nave : Photon.PunBehaviour
         {
             onNexusDestroyed();
         }
-        if (photonView.isMine || !online)
+        if(!online)
+        {
+            Controller();
+        }
+        else if (photonView.isMine)
         {
             Controller();
         }
@@ -547,7 +551,9 @@ public class Nave : Photon.PunBehaviour
                     }
                     else if(cp.otherCollider.gameObject.GetComponent<EnviromentElement>())
                     {
-                        destroyed = p.Damage(cp.otherCollider.gameObject.GetComponent<EnviromentElement>().damage);
+                        destroyed = p.Damage(CalculateObjectDamage(cp.otherCollider.gameObject.GetComponent<EnviromentElement>(), CollisionAngleValue(Vector3.Angle(rb.velocity,Vector3.zero))));
+                        dmgInmune = true;
+                        MakeVulnerable(0.5f);
                     }
                 }
                 if (destroyed) break;
@@ -568,6 +574,28 @@ public class Nave : Photon.PunBehaviour
             if (destroyed) break;
             
         }
+    }
+
+    private float CalculateObjectDamage(EnviromentElement other, float angle)
+    {
+        float totalDamage = other.damage;
+
+        print(totalDamage + " += " + other.damage + " * Mathf.Clamp((" + angle + " * (" + other.peso + " / " + 500f + ") + " + 1 + ") - ((" + rb.velocity.magnitude + " / " + 1000 + ") + " + angle + " * (" + peso + " / " + 500 + ") + " + 1 + ")");
+        totalDamage += other.damage * Mathf.Clamp((angle * (other.peso / 500) + 1) - ((rb.velocity.magnitude / 1000) + angle * (peso / 500) + 1),0,float.MaxValue);
+        
+
+        return totalDamage;
+    }
+
+    public void MakeVulnerable(float time)
+    {
+        StartCoroutine(MakeVulnerableCoroutine(time));
+    }
+
+    IEnumerator MakeVulnerableCoroutine(float time)
+    {
+        yield return new WaitForSeconds(time);
+        dmgInmune = false;
     }
 
     public void CalculateStats()
@@ -604,7 +632,7 @@ public class Nave : Photon.PunBehaviour
     public float CalculateDamage(float dmg,float angle,Nave other)
     {
         float totalDamage = dmg;
-
+        print("a");
         totalDamage += dmg * (((other.rb.velocity.magnitude / 1000) + angle * (other.peso/500) + 1) - ((rb.velocity.magnitude / 1000) + angle * (peso / 500) + 1));
 
         return totalDamage;
