@@ -54,7 +54,7 @@ public class Pieza : MonoBehaviour {
         print(gameObject.name + " " + ammount);
         currentHealth -= ammount;
         nave.dmgInmune = true;
-        StartCoroutine(MakeVulnerable(3f));
+        StartCoroutine(MakeVulnerable(0.5f));
         if(currentHealth<=0)
         {
             onPieceDestroyed();
