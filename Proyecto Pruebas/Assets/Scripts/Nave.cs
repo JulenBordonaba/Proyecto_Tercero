@@ -16,6 +16,7 @@ public class Nave : Photon.PunBehaviour
     public float startCorrectionHeight = 10;
     public LineRenderer line;
     public bool localUp = false;
+    public bool dmgInmune = false;
 
 
     [Range(1, 10)]
@@ -90,7 +91,7 @@ public class Nave : Photon.PunBehaviour
             G.myCam = myCamera.gameObject;
         }
         
-        if (line)
+        if (!line)
         {
             line = GameObject.Find("Line").GetComponent<LineRenderer>();
         }

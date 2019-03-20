@@ -50,7 +50,11 @@ public class Pieza : MonoBehaviour {
 
     public bool Damage(float ammount)
     {
+        if (nave.dmgInmune) return false;
+        print(gameObject.name + " " + ammount);
         currentHealth -= ammount;
+        nave.dmgInmune = true;
+        StartCoroutine(MakeVulnerable(3f));
         if(currentHealth<=0)
         {
             onPieceDestroyed();
@@ -58,6 +62,12 @@ public class Pieza : MonoBehaviour {
             return true;
         }
         return false;
+    }
+
+    IEnumerator MakeVulnerable(float time)
+    {
+        yield return new WaitForSeconds(time);
+        nave.dmgInmune = false;
     }
 
     
