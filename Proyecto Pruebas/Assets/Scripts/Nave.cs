@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Nave : Photon.PunBehaviour
 {
@@ -68,6 +69,11 @@ public class Nave : Photon.PunBehaviour
 
     public List<Pieza> piezas = new List<Pieza>();
 
+    [Header("Sliders")]
+    public Slider sliderVelocidad;
+    public Text maxVelText;
+    public Text actualVelText;
+
     private float currentHealth;
     
     private Rigidbody rb;
@@ -112,6 +118,8 @@ public class Nave : Photon.PunBehaviour
         }
 
         rb.mass = peso;
+        sliderVelocidad.maxValue = MaxVelocity;
+        maxVelText.text = Mathf.FloorToInt(MaxVelocity).ToString();
     }
 
     // Update is called once per frame
@@ -129,7 +137,12 @@ public class Nave : Photon.PunBehaviour
         {
             Controller();
         }
-        
+
+        //actualizar sliders
+        sliderVelocidad.value =  new Vector2(transform.InverseTransformDirection( rb.velocity).x, transform.InverseTransformDirection(rb.velocity).z).magnitude;
+        actualVelText.text = Mathf.FloorToInt(new Vector2(transform.InverseTransformDirection(rb.velocity).x, transform.InverseTransformDirection(rb.velocity).z).magnitude).ToString();
+
+
     }
 
 
@@ -162,6 +175,10 @@ public class Nave : Photon.PunBehaviour
         {
             //disminuimos poco a poco la velocidad lateral para que no se vaya demasiado la nave
             locVel.x *= 0.95f;
+            if(Mathf.Abs(locVel.x)<2f)
+            {
+                locVel = new Vector3(0, locVel.y, locVel.z);
+            }
         }
 
 
@@ -281,6 +298,10 @@ public class Nave : Photon.PunBehaviour
             {
                 //locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction))); //se ralentiza el vehiculo
                 locVel = new Vector3(locVel.x, locVel.y, locVel.z - locVel.z * 0.02f);
+                if(Mathf.Abs(locVel.z)<2f)
+                {
+                    locVel = new Vector3(locVel.x, locVel.y, 0f);
+                }
             }
 
         }
