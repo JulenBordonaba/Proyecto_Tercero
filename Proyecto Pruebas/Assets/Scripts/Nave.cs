@@ -20,6 +20,9 @@ public class Nave : Photon.PunBehaviour
     public bool dmgInmune = false;
     public bool online = false;
 
+    public float constanteVelocidadPeso;
+    public float constanteAceleracionPeso;
+
 
     [Range(1, 10)]
     public float velocidadDerrape = 1;
@@ -69,10 +72,20 @@ public class Nave : Photon.PunBehaviour
 
     public List<Pieza> piezas = new List<Pieza>();
 
-    [Header("Sliders")]
+    [Header("Sliders Velocidad")]
+
     public Slider sliderVelocidad;
+    public Slider actualVelSlider;
     public Text maxVelText;
     public Text actualVelText;
+    public Text maxVelWeightText;
+
+    [Header("Sliders Aceleración")]
+    public Slider sliderAceleration;
+    public Slider actualAcelerationSlider;
+    public Text maxAcelerationText;
+    public Text actualAcelerationText;
+    public Text maxAcelerationWeightText;
 
     private float currentHealth;
     
@@ -118,13 +131,22 @@ public class Nave : Photon.PunBehaviour
         }
 
         rb.mass = peso;
-        sliderVelocidad.maxValue = MaxVelocity;
-        maxVelText.text = Mathf.FloorToInt(MaxVelocity).ToString();
+        sliderVelocidad.maxValue = Mathf.FloorToInt(MaxVelNoWeight);
+        actualVelSlider.maxValue = Mathf.FloorToInt(MaxVelNoWeight);
+        maxVelText.text = Mathf.FloorToInt(MaxVelNoWeight).ToString();
+
+        sliderAceleration.maxValue = Mathf.FloorToInt(aceleracion);
+        actualAcelerationSlider.maxValue = Mathf.FloorToInt(aceleracion);
+        maxAcelerationText.text = Mathf.FloorToInt(aceleracion).ToString();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+
+
+
         if(!nucleo)
         {
             onNexusDestroyed();
@@ -139,8 +161,18 @@ public class Nave : Photon.PunBehaviour
         }
 
         //actualizar sliders
-        sliderVelocidad.value =  new Vector2(transform.InverseTransformDirection( rb.velocity).x, transform.InverseTransformDirection(rb.velocity).z).magnitude;
+        sliderVelocidad.value= Mathf.FloorToInt(MaxVelocity);
         actualVelText.text = Mathf.FloorToInt(new Vector2(transform.InverseTransformDirection(rb.velocity).x, transform.InverseTransformDirection(rb.velocity).z).magnitude).ToString();
+        maxVelWeightText.text= Mathf.FloorToInt(MaxVelocity).ToString();
+        actualVelSlider.value= Mathf.FloorToInt(new Vector2(transform.InverseTransformDirection(rb.velocity).x, transform.InverseTransformDirection(rb.velocity).z).magnitude);
+
+        sliderAceleration.value = Mathf.FloorToInt(AcelerationWithWeight);
+        actualAcelerationSlider.value =  Mathf.FloorToInt(AcelerationWithWeight * Mathf.Abs(Input.GetAxis("Nave Vertical")));
+        maxAcelerationWeightText.text = Mathf.FloorToInt(AcelerationWithWeight).ToString();
+        actualAcelerationText.text = Mathf.FloorToInt(AcelerationWithWeight * Mathf.Abs(Input.GetAxis("Nave Vertical"))).ToString();
+
+
+
 
 
     }
@@ -153,7 +185,6 @@ public class Nave : Photon.PunBehaviour
         
         
     }
-
     
 
     private void Controller()
@@ -219,8 +250,8 @@ public class Nave : Photon.PunBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleracion * 100 * Time.deltaTime, ForceMode.Impulse);
-                        rb.AddForce(-transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleracion * 100 * Time.deltaTime, ForceMode.Impulse);
+                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(-transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                     }
                     else if (Input.GetAxis("Horizontal") < 0)
                     {
@@ -228,8 +259,8 @@ public class Nave : Photon.PunBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * aceleracion * 100 * Time.deltaTime, ForceMode.Impulse);
-                        rb.AddForce(transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * aceleracion * 100 * Time.deltaTime, ForceMode.Impulse);
+                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                     }
                     else
                     {
@@ -239,7 +270,7 @@ public class Nave : Photon.PunBehaviour
                 }
                 else
                 {
-                    rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * aceleracion * 100  * Time.deltaTime, ForceMode.Impulse); //fuerza para moverte hacia adelante
+                    rb.AddForce((transform.forward * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime) , ForceMode.VelocityChange); //fuerza para moverte hacia adelante
                 }
 
 
@@ -621,15 +652,15 @@ public class Nave : Photon.PunBehaviour
 
     public void CalculateStats()
     {
-        peso += 0;
-        vida +=0;
-        velocidad += 0;
-        aceleracion += 0;
-        maniobrabilidad +=0;
-        rebufo += 0;
-        turbo += 0;
-        derrape +=0;
-        dashLateral += 0;
+        peso = 0;
+        vida =0;
+        velocidad = 0;
+        aceleracion = 0;
+        maniobrabilidad =0;
+        rebufo = 0;
+        turbo = 0;
+        derrape =0;
+        dashLateral = 0;
         foreach (Pieza p in piezas)
         {
             peso += p.peso;
@@ -671,6 +702,11 @@ public class Nave : Photon.PunBehaviour
 
     public float MaxVelocity
     {
+        get { return VelocityWithWeight * maxVel; }
+    }
+
+    public float MaxVelNoWeight
+    {
         get { return velocidad * maxVel; }
     }
 
@@ -682,5 +718,15 @@ public class Nave : Photon.PunBehaviour
     public float PorcentajeSalud
     {
         get { return (currentHealth / vida) * 100; }
+    }
+
+    public float VelocityWithWeight
+    {
+        get { return velocidad - (peso * constanteVelocidadPeso); }
+    }
+
+    public float AcelerationWithWeight
+    {
+        get { return aceleracion - (constanteAceleracionPeso * peso); }
     }
 }
