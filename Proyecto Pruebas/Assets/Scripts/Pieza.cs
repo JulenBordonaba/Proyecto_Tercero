@@ -32,8 +32,8 @@ public class Pieza : MonoBehaviour {
 
     [Tooltip("Esta variable hay que dejarla activada únicamente en la pieza nucleo de la nave")]
     public bool nucleo;
-
-    private float currentHealth;
+    [HideInInspector]
+    public float currentHealth;
     public Nave nave { get; set; }
 
 	// Use this for initialization

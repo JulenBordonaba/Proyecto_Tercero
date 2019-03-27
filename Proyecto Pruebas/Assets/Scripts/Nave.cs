@@ -87,8 +87,46 @@ public class Nave : Photon.PunBehaviour
     public Text actualAcelerationText;
     public Text maxAcelerationWeightText;
 
-    private float currentHealth;
     
+    [Header("Sliders Health")]
+    public Slider sliderHealth;
+    public Slider actualHealthSlider;
+    public Text maxHealthText;
+    public Text actualHealthText;
+    private float currentHealth;
+
+    [Header("Sliders Maniobrabilidad")]
+    public Slider sliderManiobrabilidad;
+    public Slider actualManiobrabilidadSlider;
+    public Text maxManiobrabilidadText;
+    public Text actualManiobrabilidadText;
+
+    [Header("Sliders Rebufo")]
+    public Slider sliderRebufo;
+    public Slider actualRebufoSlider;
+    public Text maxRebufoText;
+    public Text actualRebufoText;
+
+    [Header("Sliders Turbo")]
+    public Slider sliderTurbo;
+    public Slider actualTurboSlider;
+    public Text maxTurboText;
+    public Text actualTurboText;
+
+    [Header("Sliders Derrape")]
+    public Slider sliderDerrape;
+    public Slider actualDerrapeSlider;
+    public Text maxDerrapeText;
+    public Text actualDerrapeText;
+
+    [Header("Sliders Dash Lateral")]
+    public Slider sliderDash;
+    public Slider actualDashSlider;
+    public Text maxDashText;
+    public Text actualDashText;
+
+
+
     private Rigidbody rb;
     private Transform piezasGameObject;
     private bool inDerrape = false;
@@ -116,7 +154,7 @@ public class Nave : Photon.PunBehaviour
             line = GameObject.Find("Line").GetComponent<LineRenderer>();
         }
         //saveStartCorrectingHeight = startCorrectionHeight;
-        currentHealth = vida;
+        
         piezas = new List<Pieza>(GetComponentsInChildren<Pieza>());
         piezasGameObject = piezas[0].transform.parent;
         rb = GetComponent<Rigidbody>();
@@ -129,6 +167,8 @@ public class Nave : Photon.PunBehaviour
                 nucleo = p;
             }
         }
+        
+       
 
         rb.mass = peso;
         sliderVelocidad.maxValue = Mathf.FloorToInt(MaxVelNoWeight);
@@ -139,15 +179,44 @@ public class Nave : Photon.PunBehaviour
         actualAcelerationSlider.maxValue = Mathf.FloorToInt(aceleracion);
         maxAcelerationText.text = Mathf.FloorToInt(aceleracion).ToString();
 
+        sliderHealth.maxValue = Mathf.FloorToInt(vida);
+        actualHealthSlider.maxValue = Mathf.FloorToInt(vida);
+        actualHealthSlider.value = Mathf.FloorToInt(vida);
+        maxHealthText.text = Mathf.FloorToInt(vida).ToString();
+
+        sliderManiobrabilidad.maxValue = Mathf.FloorToInt(maniobrabilidad);
+        actualManiobrabilidadSlider.maxValue = Mathf.FloorToInt(maniobrabilidad);
+        actualManiobrabilidadSlider.value = Mathf.FloorToInt(maniobrabilidad);
+        maxManiobrabilidadText.text = Mathf.FloorToInt(maniobrabilidad).ToString();
+
+        sliderRebufo.maxValue = Mathf.FloorToInt(rebufo);
+        actualRebufoSlider.maxValue = Mathf.FloorToInt(rebufo);
+        actualRebufoSlider.value = Mathf.FloorToInt(rebufo);
+        maxRebufoText.text = Mathf.FloorToInt(rebufo).ToString();
+
+        sliderTurbo.maxValue = Mathf.FloorToInt(turbo);
+        actualTurboSlider.maxValue = Mathf.FloorToInt(turbo);
+        actualTurboSlider.value = Mathf.FloorToInt(turbo);
+        maxTurboText.text = Mathf.FloorToInt(turbo).ToString();
+
+        sliderDerrape.maxValue = Mathf.FloorToInt(derrape);
+        actualDerrapeSlider.maxValue = Mathf.FloorToInt(derrape);
+        actualDerrapeSlider.value = Mathf.FloorToInt(derrape);
+        maxDerrapeText.text = Mathf.FloorToInt(derrape).ToString();
+
+        sliderDash.maxValue = Mathf.FloorToInt(dashLateral);
+        actualDashSlider.maxValue = Mathf.FloorToInt(dashLateral);
+        actualDashSlider.value = Mathf.FloorToInt(dashLateral);
+        maxDashText.text = Mathf.FloorToInt(dashLateral).ToString();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        CalculateStats();
 
-
-
-        if(!nucleo)
+        if (!nucleo)
         {
             onNexusDestroyed();
         }
@@ -170,6 +239,37 @@ public class Nave : Photon.PunBehaviour
         actualAcelerationSlider.value =  Mathf.FloorToInt(AcelerationWithWeight * Mathf.Abs(Input.GetAxis("Nave Vertical")));
         maxAcelerationWeightText.text = Mathf.FloorToInt(AcelerationWithWeight).ToString();
         actualAcelerationText.text = Mathf.FloorToInt(AcelerationWithWeight * Mathf.Abs(Input.GetAxis("Nave Vertical"))).ToString();
+
+        sliderHealth.value = Mathf.FloorToInt(vida);
+        actualHealthSlider.value = Mathf.FloorToInt(currentHealth);
+        maxHealthText.text = Mathf.FloorToInt(vida).ToString();
+        actualHealthText.text = Mathf.FloorToInt(currentHealth).ToString();
+
+        sliderManiobrabilidad.value = Mathf.FloorToInt(maniobrabilidad);
+        actualManiobrabilidadSlider.value = Mathf.FloorToInt(maniobrabilidad);
+        maxManiobrabilidadText.text = Mathf.FloorToInt(maniobrabilidad).ToString();
+        actualManiobrabilidadText.text = Mathf.FloorToInt(maniobrabilidad).ToString();
+
+        sliderRebufo.value = Mathf.FloorToInt(rebufo);
+        actualRebufoSlider.value = Mathf.FloorToInt(rebufo);
+        maxRebufoText.text = Mathf.FloorToInt(rebufo).ToString();
+        actualRebufoText.text = Mathf.FloorToInt(rebufo).ToString();
+
+        sliderTurbo.value = Mathf.FloorToInt(turbo);
+        actualTurboSlider.value = Mathf.FloorToInt(turbo);
+        maxTurboText.text = Mathf.FloorToInt(turbo).ToString();
+        actualTurboText.text = Mathf.FloorToInt(turbo).ToString();
+
+        sliderDerrape.value = Mathf.FloorToInt(derrape);
+        actualDerrapeSlider.value = Mathf.FloorToInt(derrape);
+        maxDerrapeText.text = Mathf.FloorToInt(derrape).ToString();
+        actualDerrapeText.text = Mathf.FloorToInt(derrape).ToString();
+
+        sliderDash.value = Mathf.FloorToInt(dashLateral);
+        actualDashSlider.value = Mathf.FloorToInt(dashLateral);
+        maxDashText.text = Mathf.FloorToInt(dashLateral).ToString();
+        actualDashText.text = Mathf.FloorToInt(dashLateral).ToString();
+
 
 
 
@@ -661,10 +761,12 @@ public class Nave : Photon.PunBehaviour
         turbo = 0;
         derrape =0;
         dashLateral = 0;
+        currentHealth = 0;
         foreach (Pieza p in piezas)
         {
             peso += p.peso;
             vida += p.vida;
+            currentHealth += p.currentHealth;
             velocidad += p.velocidad;
             aceleracion += p.aceleracion;
             maniobrabilidad += p.maniobrabilidad;
