@@ -28,12 +28,13 @@ public class Pieza : MonoBehaviour {
 
     public Slider sliderVida;
     public Text dmgText;
+    
 
 
     [Tooltip("Esta variable hay que dejarla activada únicamente en la pieza nucleo de la nave")]
-    public bool nucleo;
     [HideInInspector]
     public float currentHealth;
+    public bool nucleo;
     public Nave nave { get; set; }
 
 	// Use this for initialization

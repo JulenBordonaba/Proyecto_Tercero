@@ -179,33 +179,33 @@ public class Nave : Photon.PunBehaviour
         actualAcelerationSlider.maxValue = Mathf.FloorToInt(aceleracion);
         maxAcelerationText.text = Mathf.FloorToInt(aceleracion).ToString();
 
-        sliderHealth.maxValue = Mathf.FloorToInt(vida);
-        actualHealthSlider.maxValue = Mathf.FloorToInt(vida);
+        sliderHealth.maxValue = Mathf.FloorToInt(1200);
+        actualHealthSlider.maxValue = Mathf.FloorToInt(1200);
         actualHealthSlider.value = Mathf.FloorToInt(vida);
         maxHealthText.text = Mathf.FloorToInt(vida).ToString();
 
-        sliderManiobrabilidad.maxValue = Mathf.FloorToInt(maniobrabilidad);
-        actualManiobrabilidadSlider.maxValue = Mathf.FloorToInt(maniobrabilidad);
+        sliderManiobrabilidad.maxValue = Mathf.FloorToInt(300);
+        actualManiobrabilidadSlider.maxValue = Mathf.FloorToInt(300);
         actualManiobrabilidadSlider.value = Mathf.FloorToInt(maniobrabilidad);
         maxManiobrabilidadText.text = Mathf.FloorToInt(maniobrabilidad).ToString();
 
-        sliderRebufo.maxValue = Mathf.FloorToInt(rebufo);
-        actualRebufoSlider.maxValue = Mathf.FloorToInt(rebufo);
+        sliderRebufo.maxValue = Mathf.FloorToInt(300);
+        actualRebufoSlider.maxValue = Mathf.FloorToInt(300);
         actualRebufoSlider.value = Mathf.FloorToInt(rebufo);
         maxRebufoText.text = Mathf.FloorToInt(rebufo).ToString();
 
-        sliderTurbo.maxValue = Mathf.FloorToInt(turbo);
-        actualTurboSlider.maxValue = Mathf.FloorToInt(turbo);
+        sliderTurbo.maxValue = Mathf.FloorToInt(300);
+        actualTurboSlider.maxValue = Mathf.FloorToInt(300);
         actualTurboSlider.value = Mathf.FloorToInt(turbo);
         maxTurboText.text = Mathf.FloorToInt(turbo).ToString();
 
-        sliderDerrape.maxValue = Mathf.FloorToInt(derrape);
-        actualDerrapeSlider.maxValue = Mathf.FloorToInt(derrape);
+        sliderDerrape.maxValue = Mathf.FloorToInt(300);
+        actualDerrapeSlider.maxValue = Mathf.FloorToInt(300);
         actualDerrapeSlider.value = Mathf.FloorToInt(derrape);
         maxDerrapeText.text = Mathf.FloorToInt(derrape).ToString();
 
-        sliderDash.maxValue = Mathf.FloorToInt(dashLateral);
-        actualDashSlider.maxValue = Mathf.FloorToInt(dashLateral);
+        sliderDash.maxValue = Mathf.FloorToInt(300);
+        actualDashSlider.maxValue = Mathf.FloorToInt(300);
         actualDashSlider.value = Mathf.FloorToInt(dashLateral);
         maxDashText.text = Mathf.FloorToInt(dashLateral).ToString();
 
