@@ -293,7 +293,7 @@ public class Nave : Photon.PunBehaviour
         Camera.SetupCurrent(myCamera);
         
         //convertimos la velocidad de global a local
-        Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
+        Vector3 locVel = piezasGameObject.InverseTransformDirection(rb.velocity);
 
         //depende de la velocidad la camara esta mas o menos cerca del coche
         myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (velocidad / 15), -4f, 5f));
@@ -328,7 +328,14 @@ public class Nave : Photon.PunBehaviour
         RaycastHit hit;
 
         ray.origin = piezasGameObject.position;//+ new Vector3(0, 0, Mathf.Clamp(locVel.z / (velocity / 10), -6f, 6f));
-        ray.direction = -Vector3.up;
+        if (localUp)
+        {
+            ray.direction = -piezasGameObject.up;
+        }
+        else
+        {
+            ray.direction = -Vector3.up;
+        }
 
         //si el vehiculo esta cerca del suelo 
         if (Physics.Raycast(ray, out hit, alturaManejo, LayerMask.GetMask("Floor")))
@@ -350,8 +357,8 @@ public class Nave : Photon.PunBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
-                        rb.AddForce(-transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(piezasGameObject.forward * 0.2f * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(-piezasGameObject.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                     }
                     else if (Input.GetAxis("Horizontal") < 0)
                     {
@@ -359,8 +366,8 @@ public class Nave : Photon.PunBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(transform.forward * 0.2f * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
-                        rb.AddForce(transform.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(piezasGameObject.forward * 0.2f * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(piezasGameObject.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                     }
                     else
                     {
@@ -370,7 +377,7 @@ public class Nave : Photon.PunBehaviour
                 }
                 else
                 {
-                    rb.AddForce((transform.forward * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime) , ForceMode.VelocityChange); //fuerza para moverte hacia adelante
+                    rb.AddForce((piezasGameObject.forward * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime) , ForceMode.VelocityChange); //fuerza para moverte hacia adelante
                 }
 
 
@@ -383,7 +390,7 @@ public class Nave : Photon.PunBehaviour
                     locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
                     //rb.velocity = new Vector3(rb.velocity.x * (1 - friction*2), rb.velocity.y, rb.velocity.z * (1 - friction*2));
                 }
-                rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleracion, 2) * backwardVelocity * Time.deltaTime, ForceMode.Impulse); // fuerza para moverte hacia atras
+                rb.AddForce(piezasGameObject.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleracion, 2) * backwardVelocity * Time.deltaTime, ForceMode.Impulse); // fuerza para moverte hacia atras
 
 
             }
@@ -394,11 +401,11 @@ public class Nave : Photon.PunBehaviour
 
             if (Input.GetAxis("Nave Vertical") >= 0)
             {
-                transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * maniobrabilidad * Time.deltaTime), transform.localRotation.eulerAngles.z);
+                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * maniobrabilidad * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
             }
             else if (Input.GetAxis("Nave Vertical") < 0)
             {
-                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y - (Input.GetAxis("Horizontal") * maniobrabilidad * Time.deltaTime), transform.rotation.eulerAngles.z);
+                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y - (Input.GetAxis("Horizontal") * maniobrabilidad * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
             }
 
 
@@ -451,7 +458,7 @@ public class Nave : Photon.PunBehaviour
             if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
             {
                 //Vector3 rayDistance = ray.origin - hit.point; //guardamos la distancia del raycast
-                rb.AddForce(-transform.up * impulsoExtraCaida, ForceMode.VelocityChange);
+                rb.AddForce(-piezasGameObject.up * impulsoExtraCaida, ForceMode.VelocityChange);
                 //if(rayDistance.magnitude/2<levitationHeight)
                 //{
                 //    startCorrectionHeight = saveStartCorrectingHeight;
@@ -478,7 +485,7 @@ public class Nave : Photon.PunBehaviour
         rb.angularVelocity = Vector3.zero;
 
         //rotación lateral al girar
-        piezasGameObject.localEulerAngles = new Vector3(piezasGameObject.localEulerAngles.x, piezasGameObject.localEulerAngles.y, Mathf.LerpAngle(piezasGameObject.localEulerAngles.z, Mathf.Clamp(maxInclination * -Input.GetAxis("Horizontal") * (rb.velocity.magnitude / MaxVelocity) * (maniobrabilidad / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping));
+        //piezasGameObject.localEulerAngles = new Vector3(piezasGameObject.localEulerAngles.x, piezasGameObject.localEulerAngles.y, Mathf.LerpAngle(piezasGameObject.localEulerAngles.z, Mathf.Clamp(maxInclination * -Input.GetAxis("Horizontal") * (rb.velocity.magnitude / MaxVelocity) * (maniobrabilidad / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping));
 
         //si no se esta girando hece que el vehiculo deje de rotar
         if (Input.GetAxis("Horizontal") == 0)
@@ -500,7 +507,7 @@ public class Nave : Photon.PunBehaviour
         }
 
         //convertimos la velocidad local en la velocidad global y la aplicamos
-        rb.velocity = transform.TransformDirection(locVel);
+        rb.velocity = piezasGameObject.TransformDirection(locVel);
 
 
 
@@ -523,11 +530,6 @@ public class Nave : Photon.PunBehaviour
         {
             ray.origin = piezasGameObject.position + Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
             ray.direction = -Vector3.up;
-        }
-
-        if (localUp)
-        {
-            rb.AddForce(-Physics.gravity * (Vector3.up.y - transform.forward.y), ForceMode.Impulse);
         }
 
         //lanzamos un raycast hacia el suelo
@@ -574,65 +576,30 @@ public class Nave : Photon.PunBehaviour
                 {
                     rb.AddForce((transform.up.normalized * levitationForce + transform.up.normalized * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
                 }
-                //rb.AddForce(falseGravityForce * (-transform.up)  ,ForceMode.Acceleration);
-                //print("diference" + -diference);
             }
+
             
-
-
-
-
-
-            Vector3 rot = transform.localEulerAngles; // guardamos la rotación actual en eulers
             Quaternion quaternionRot = transform.localRotation; //guardamos la rotación actual en quaternions
-
-            Vector3 localNormal = transform.InverseTransformDirection(hit.normal);
-
-            //transform.up = transform.TransformDirection(new Vector3(localNormal.x, transform.InverseTransformDirection(transform.up).y, localNormal.z));
 
             transform.up = hit.normal; //hacemos que la nave este perpendicular a la normal del punto donde ha colisionado el raycast
             
-            //do
-            //{
-                Vector3 newRot = transform.localEulerAngles; //guardamos la nueva rotación en eulers
-
-                float rotDiference = rot.y - newRot.y;  //guardamos la diferencia de rotación en el eje y
-
-
-                transform.Rotate(0, rotDiference, 0, Space.Self); //se rota el equivalente a lo que se ha disviado al hacer la nave perpendicular a la normal del punto donde ha colisionado el raycast
-
-                //hacemos que la rotación sea la x,z de despues de alinearlo con la normal y la y de antes de alinearlo
-                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, rot.y, transform.localEulerAngles.z); //este paso no debería ser necesario, pero en las cuestas el rotate hacia mal la suma de angulos, y si no ponemos el rotate en este paso se aplica mal la rotación (odio las rotaciones en Unity)
-
-            //} while (transform.localEulerAngles.y-rot.y>0.1f || transform.localEulerAngles.y-rot.y<-0.1f);
-
-
-
-
-
-
-
-
-
-
             Quaternion quatNewRot = transform.localRotation;  //guardamos la rotación en quaternions despues de corregirla 
-
+            Quaternion interpolation;
             //hacemos una interpolación entre la rotación inicial y la final en relación a la distancia al suelo
-            Quaternion interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (1 - ((rayDistance.magnitude - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance.magnitude));
+            if (!localUp)
+            {
+                interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (1 - ((rayDistance.magnitude - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance.magnitude));
+            }
+            else
+            {
+                interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, Time.deltaTime * 10);
+            }
             //igualamos la rotación a el resultado de la interpolación
             transform.localRotation = interpolation;
+            
 
 
-
-
-            //if (diference > 0 && rb.velocity.y > 0)
-            //{
-            //    rb.velocity = new Vector3(rb.velocity.x, Mathf.Clamp(rb.velocity.y, float.MinValue, 1 / Mathf.Tan(rayDistance.magnitude)), rb.velocity.z);
-            //}
-            //if (diference < 0 && rb.velocity.y < 0)
-            //{
-            //    rb.velocity = new Vector3(rb.velocity.x, Mathf.Clamp(rb.velocity.y, 1 / Mathf.Tan(rayDistance.magnitude), float.MaxValue), rb.velocity.z);
-            //}
+            
 
             if (!localUp)
             {
