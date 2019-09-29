@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Nave : Photon.PunBehaviour
 {
-    public GameObject cameraPrefab,cameraPivot; //prefab de la camara y pivote del cual se mueve alrededor
+    public GameObject cameraPrefab, cameraPivot; //prefab de la camara y pivote del cual se mueve alrededor
     public Transform cameraFront, cameraBack;   //tranforms a los que apunta la cámara dependiendo de si mira hacia delante o hacia atras
 
     public Camera myCamera;     //cámara del jugador
@@ -35,7 +35,7 @@ public class Nave : Photon.PunBehaviour
 
     [Range(0, 5)]
     public float impulsoExtraCaida = 2;     //variable que modifica el la velocidad con la que cae la nave, de lo contrario parece que cae muy lento
-    
+
 
     //constantes de la fórmula de velocidad
     [Header("Constantes Formula Velocidad")]
@@ -85,7 +85,7 @@ public class Nave : Photon.PunBehaviour
     public Text actualAcelerationText;
     public Text maxAcelerationWeightText;
 
-    
+
     [Header("Sliders Health")]
     public Slider sliderHealth;
     public Slider actualHealthSlider;
@@ -136,7 +136,7 @@ public class Nave : Photon.PunBehaviour
     // Use this for initialization
     void Start()
     {
-        if(G.myCam == null && online)
+        if (G.myCam == null && online)
         {
             myCamera = Instantiate(cameraPrefab, cameraPivot.transform).GetComponent<Camera>();
             myCamera.GetComponent<CameraController>().localPos = new Vector3(0, 3.5f, -9.6f);
@@ -152,7 +152,7 @@ public class Nave : Photon.PunBehaviour
             line = GameObject.Find("Line").GetComponent<LineRenderer>();
         }
         //saveStartCorrectingHeight = startCorrectionHeight;
-        
+
         piezas = new List<Pieza>(GetComponentsInChildren<Pieza>());
         piezasGameObject = piezas[0].transform.parent;
         rb = GetComponent<Rigidbody>();
@@ -160,13 +160,13 @@ public class Nave : Photon.PunBehaviour
         foreach (Pieza p in piezas)
         {
             p.nave = this;
-            if(p.nucleo)
+            if (p.nucleo)
             {
                 nucleo = p;
             }
         }
-        
-       
+
+
         //Inicializar sliders
         rb.mass = peso;
         sliderVelocidad.maxValue = Mathf.FloorToInt(MaxVelNoWeight);
@@ -218,7 +218,7 @@ public class Nave : Photon.PunBehaviour
         {
             onNexusDestroyed();
         }
-        if(!online)
+        if (!online)
         {
             Controller();
         }
@@ -228,13 +228,13 @@ public class Nave : Photon.PunBehaviour
         }
 
         //actualizar sliders
-        sliderVelocidad.value= Mathf.FloorToInt(MaxVelocity);
+        sliderVelocidad.value = Mathf.FloorToInt(MaxVelocity);
         actualVelText.text = Mathf.FloorToInt(new Vector2(transform.InverseTransformDirection(rb.velocity).x, transform.InverseTransformDirection(rb.velocity).z).magnitude).ToString();
-        maxVelWeightText.text= Mathf.FloorToInt(MaxVelocity).ToString();
-        actualVelSlider.value= Mathf.FloorToInt(new Vector2(transform.InverseTransformDirection(rb.velocity).x, transform.InverseTransformDirection(rb.velocity).z).magnitude);
+        maxVelWeightText.text = Mathf.FloorToInt(MaxVelocity).ToString();
+        actualVelSlider.value = Mathf.FloorToInt(new Vector2(transform.InverseTransformDirection(rb.velocity).x, transform.InverseTransformDirection(rb.velocity).z).magnitude);
 
         sliderAceleration.value = Mathf.FloorToInt(AcelerationWithWeight);
-        actualAcelerationSlider.value =  Mathf.FloorToInt(AcelerationWithWeight * Mathf.Abs(Input.GetAxis("Nave Vertical")));
+        actualAcelerationSlider.value = Mathf.FloorToInt(AcelerationWithWeight * Mathf.Abs(Input.GetAxis("Nave Vertical")));
         maxAcelerationWeightText.text = Mathf.FloorToInt(AcelerationWithWeight).ToString();
         actualAcelerationText.text = Mathf.FloorToInt(AcelerationWithWeight * Mathf.Abs(Input.GetAxis("Nave Vertical"))).ToString();
 
@@ -278,18 +278,18 @@ public class Nave : Photon.PunBehaviour
 
     private void FixedUpdate()
     {
-        
-            Levitate();
-        
-        
+
+        Levitate();
+
+
     }
-    
+
 
     private void Controller()
     {
 
         Camera.SetupCurrent(myCamera);
-        
+
         //convertimos la velocidad de global a local
         Vector3 locVel = piezasGameObject.InverseTransformDirection(rb.velocity);
 
@@ -304,7 +304,7 @@ public class Nave : Photon.PunBehaviour
         {
             //disminuimos poco a poco la velocidad lateral para que no se vaya demasiado la nave
             locVel.x *= 0.95f;
-            if(Mathf.Abs(locVel.x)<2f)
+            if (Mathf.Abs(locVel.x) < 2f)
             {
                 locVel = new Vector3(0, locVel.y, locVel.z);
             }
@@ -375,7 +375,7 @@ public class Nave : Photon.PunBehaviour
                 }
                 else
                 {
-                    rb.AddForce((piezasGameObject.forward * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime) , ForceMode.VelocityChange); //fuerza para moverte hacia adelante
+                    rb.AddForce((piezasGameObject.forward * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime), ForceMode.VelocityChange); //fuerza para moverte hacia adelante
                 }
 
 
@@ -393,7 +393,7 @@ public class Nave : Photon.PunBehaviour
 
             }
 
-            
+
 
             //rotación al girar
 
@@ -434,7 +434,7 @@ public class Nave : Photon.PunBehaviour
             {
                 //locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction))); //se ralentiza el vehiculo
                 locVel = new Vector3(locVel.x, locVel.y, locVel.z - locVel.z * 0.02f);
-                if(Mathf.Abs(locVel.z)<2f)
+                if (Mathf.Abs(locVel.z) < 2f)
                 {
                     locVel = new Vector3(locVel.x, locVel.y, 0f);
                 }
@@ -451,7 +451,7 @@ public class Nave : Photon.PunBehaviour
         }
 
 
-        if(localUp)
+        if (localUp)
         {
             if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
             {
@@ -477,7 +477,7 @@ public class Nave : Photon.PunBehaviour
 
             }
         }
-        
+
 
 
         rb.angularVelocity = Vector3.zero;
@@ -509,9 +509,9 @@ public class Nave : Photon.PunBehaviour
 
 
 
-
-
     }
+
+
 
     private void Levitate()
     {
@@ -519,7 +519,7 @@ public class Nave : Photon.PunBehaviour
         RaycastHit hit;
 
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
-        if(localUp)
+        if (localUp)
         {
             ray.origin = piezasGameObject.position; //+ Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
             ray.direction = -transform.up;
@@ -576,11 +576,11 @@ public class Nave : Photon.PunBehaviour
                 }
             }
 
-            
+
             Quaternion quaternionRot = transform.localRotation; //guardamos la rotación actual en quaternions
 
             transform.up = hit.normal; //hacemos que la nave este perpendicular a la normal del punto donde ha colisionado el raycast
-            
+
             Quaternion quatNewRot = transform.localRotation;  //guardamos la rotación en quaternions despues de corregirla 
             Quaternion interpolation;
             //hacemos una interpolación entre la rotación inicial y la final en relación a la distancia al suelo
@@ -594,10 +594,10 @@ public class Nave : Photon.PunBehaviour
             }
             //igualamos la rotación a el resultado de la interpolación
             transform.localRotation = interpolation;
-            
 
 
-            
+
+
 
             if (!localUp)
             {
@@ -616,11 +616,46 @@ public class Nave : Photon.PunBehaviour
                     rb.velocity = transform.TransformDirection(locVel);
                 }
             }
-            
+
 
 
 
         }
+
+    }
+
+
+    private void SurfaceChecker()
+    {
+
+        Ray ray = new Ray();
+        RaycastHit hit;
+
+        Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
+        if (localUp)
+        {
+            ray.origin = piezasGameObject.position; //+ Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
+            ray.direction = -transform.up;
+        }
+        else
+        {
+            ray.origin = piezasGameObject.position + Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
+            ray.direction = -Vector3.up;
+        }
+        //lanzamos un raycast hacia el suelo
+        if (Physics.Raycast(ray, out hit, alturaManejo/2, LayerMask.GetMask("Floor")))
+        {
+            if (localUp) return;
+            
+            //comprobar la inclinación del terreno y si esta lo suficientemente inclinado cambiar a localUp
+
+        }
+        else
+        {
+            if (!localUp) return;
+            localUp = false;
+        }
+
 
     }
 
@@ -636,7 +671,7 @@ public class Nave : Photon.PunBehaviour
         if (other.gameObject.tag == "Floor")
         {
             print("suelo");
-            if(localUp)
+            if (localUp)
             {
                 rb.AddForce(transform.up * levitationForce * 100, ForceMode.Acceleration);
             }
@@ -644,7 +679,7 @@ public class Nave : Photon.PunBehaviour
             {
                 rb.AddForce(Vector3.up * levitationForce * 100, ForceMode.Acceleration);
             }
-            
+
         }
 
     }
@@ -654,21 +689,21 @@ public class Nave : Photon.PunBehaviour
         print("relative velocity" + collision.relativeVelocity.magnitude);
         print("velocity" + rb.velocity.magnitude);
         List<Pieza> piezasColision = new List<Pieza>();
-        foreach (Pieza p in piezas) 
+        foreach (Pieza p in piezas)
         {
             bool destroyed = false;
             foreach (ContactPoint cp in collision.contacts)
             {
                 if (cp.thisCollider == p.gameObject.GetComponent<Collider>())
                 {
-                    if(cp.otherCollider.gameObject.GetComponent<Pieza>())
+                    if (cp.otherCollider.gameObject.GetComponent<Pieza>())
                     {
                         piezasColision.Add(cp.otherCollider.gameObject.GetComponent<Pieza>());
-                        
+
                     }
-                    else if(cp.otherCollider.gameObject.GetComponent<EnviromentElement>())
+                    else if (cp.otherCollider.gameObject.GetComponent<EnviromentElement>())
                     {
-                        destroyed = p.Damage(CalculateObjectDamage(cp.otherCollider.gameObject.GetComponent<EnviromentElement>(), CollisionAngleValue(Vector3.Angle(rb.velocity,transform.position-collision.contacts[0].point))));
+                        destroyed = p.Damage(CalculateObjectDamage(cp.otherCollider.gameObject.GetComponent<EnviromentElement>(), CollisionAngleValue(Vector3.Angle(rb.velocity, transform.position - collision.contacts[0].point))));
                         dmgInmune = true;
                         MakeVulnerable(0.5f);
                     }
@@ -676,7 +711,7 @@ public class Nave : Photon.PunBehaviour
                 if (destroyed) break;
             }
 
-            if(piezasColision.Count>0)
+            if (piezasColision.Count > 0)
             {
                 float angle = Vector3.Angle(rb.velocity, piezasColision[0].nave.rb.velocity);
                 float totalDmg = 0;
@@ -685,11 +720,11 @@ public class Nave : Photon.PunBehaviour
                     totalDmg += pi.daño;
                 }
                 float dmg = totalDmg / piezasColision.Count;
-                destroyed = p.Damage(CalculateDamage(dmg,CollisionAngleValue(angle),piezasColision[0].nave));
+                destroyed = p.Damage(CalculateDamage(dmg, CollisionAngleValue(angle), piezasColision[0].nave));
             }
 
             if (destroyed) break;
-            
+
         }
     }
 
@@ -698,8 +733,8 @@ public class Nave : Photon.PunBehaviour
         float totalDamage = other.damage;
 
         print(totalDamage + " += " + other.damage + " * Mathf.Clamp((" + angle + " * (" + other.peso + " / " + 500f + ") + " + 1 + ") - ((" + rb.velocity.magnitude + " / " + 1000 + ") + " + angle + " * (" + peso + " / " + 500 + ") + " + 1 + ")");
-        totalDamage += other.damage * Mathf.Clamp((angle * (other.peso / 500) + 1) - ((rb.velocity.magnitude / 1000) + angle * (peso / 500) + 1),0,float.MaxValue);
-        
+        totalDamage += other.damage * Mathf.Clamp((angle * (other.peso / 500) + 1) - ((rb.velocity.magnitude / 1000) + angle * (peso / 500) + 1), 0, float.MaxValue);
+
 
         return totalDamage;
     }
@@ -718,13 +753,13 @@ public class Nave : Photon.PunBehaviour
     public void CalculateStats()
     {
         peso = 0;
-        vida =0;
+        vida = 0;
         velocidad = 0;
         aceleracion = 0;
-        maniobrabilidad =0;
+        maniobrabilidad = 0;
         rebufo = 0;
         turbo = 0;
-        derrape =0;
+        derrape = 0;
         dashLateral = 0;
         currentHealth = 0;
         foreach (Pieza p in piezas)
@@ -745,14 +780,14 @@ public class Nave : Photon.PunBehaviour
 
     public float CollisionAngleValue(float angle)
     {
-        return 0.5f + ((Mathf.Repeat(angle,360)>180 ? (360- Mathf.Repeat(angle, 360)) : Mathf.Repeat(angle, 360)) /180 );
+        return 0.5f + ((Mathf.Repeat(angle, 360) > 180 ? (360 - Mathf.Repeat(angle, 360)) : Mathf.Repeat(angle, 360)) / 180);
     }
 
-    public float CalculateDamage(float dmg,float angle,Nave other)
+    public float CalculateDamage(float dmg, float angle, Nave other)
     {
         float totalDamage = dmg;
         print("a");
-        totalDamage += dmg * (((other.rb.velocity.magnitude / 1000) + angle * (other.peso/500) + 1) - ((rb.velocity.magnitude / 1000) + angle * (peso / 500) + 1));
+        totalDamage += dmg * (((other.rb.velocity.magnitude / 1000) + angle * (other.peso / 500) + 1) - ((rb.velocity.magnitude / 1000) + angle * (peso / 500) + 1));
 
         return totalDamage;
     }
@@ -764,7 +799,7 @@ public class Nave : Photon.PunBehaviour
 
     public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
     {
-        get { return MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0))* rebufo) + ((boostConst * (inBoost ? 1 : 0))*turbo); }
+        get { return MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0)) * rebufo) + ((boostConst * (inBoost ? 1 : 0)) * turbo); }
     }
 
     public float MaxVelocity    //devuelve la velocidad máxima de la nave sin aplicar modificadores por posición, rebufo, turbo y salud
