@@ -5,40 +5,39 @@ using UnityEngine.UI;
 
 public class Nave : Photon.PunBehaviour
 {
-    public GameObject cameraPrefab,cameraPivot;
-    public Transform cameraFront, cameraBack;
+    public GameObject cameraPrefab,cameraPivot; //prefab de la camara y pivote del cual se mueve alrededor
+    public Transform cameraFront, cameraBack;   //tranforms a los que apunta la cámara dependiendo de si mira hacia delante o hacia atras
 
-    public Camera myCamera;
-    public const float friction = 0.05f;
-    public const float backwardVelocity = 0.7f;
+    public Camera myCamera;     //cámara del jugador
+    public const float friction = 0.05f;    //valor de fricción artificial, ya que la nave esta flotando y no aplica ninguna fricción creamos una
+    public const float backwardVelocity = 0.7f;     //multiplicador a la velocidad cuando la nave va marcha atrás
 
-    public float levitationHeight = 1;
-    public float levitationForce;
-    public float startCorrectionHeight = 10;
-    public LineRenderer line;
-    public bool localUp = false;
-    public bool dmgInmune = false;
-    public bool online = false;
+    public float levitationHeight = 1;      //variable que indica la altura a la que la nave estará flotando
+    public float levitationForce;       //fuerza que se aplica a la nave para que levite en la altura designada
+    public float startCorrectionHeight = 10;    //altura a la que la nave empezará a corregir la rotación para acabar cayendo paralela a la superficie
+    public LineRenderer line;       //variable que guarda la línea que se usa para ver el recorrido del raycast de la nave al suelo
+    public bool localUp = false;    //variable que altera el modo en el que la gravedad se aplica a la nave, para poder hacer looping o simplemente ir por el suelo
+    public bool dmgInmune = false;      //Variable que hace a la nave inmune al daño
+    public bool online = false;     //variable para pruebas de online
 
-    public float constanteVelocidadPeso;
-    public float constanteAceleracionPeso;
+    public float constanteVelocidadPeso;    //variable para cálculos de velocidad
+    public float constanteAceleracionPeso;      //variable para cálculos de aceleración
 
 
     [Range(1, 10)]
-    public float velocidadDerrape = 1;
+    public float velocidadDerrape = 1;      //variable que modifica la cantidad de velocidad lateral que recive la nave en medio de un derrape
 
     [Range(0, 60)]
-    public float maxInclination = 45f;
+    public float maxInclination = 45f;      //variable que indica la cantidad máxima de grados que se puede inclinar la nave lateralmente
 
     [Range(0, 600)]
-    public float alturaManejo = 30;
+    public float alturaManejo = 30;         //variable que indica la altura del suelo a la que se puede manejar la nave
 
     [Range(0, 5)]
-    public float impulsoExtraCaida = 2;
+    public float impulsoExtraCaida = 2;     //variable que modifica el la velocidad con la que cae la nave, de lo contrario parece que cae muy lento
+    
 
-    [Range(1, 5)]
-    public float rotationDamping = 2;
-
+    //constantes de la fórmula de velocidad
     [Header("Constantes Formula Velocidad")]
     [Range(1, 10)]
     public float maxVel = 1;
@@ -46,9 +45,8 @@ public class Nave : Photon.PunBehaviour
     public float positionConst = 0; //este es el de la distancia con el primero
     public float healthConst = 0;
     public float boostConst = 0;
-    //la última constante es la velocidad maxima (C1)
 
-
+    //Estadísticas de la nave
     [Header("Stats")]
     [Tooltip("Vida representa la vida de la nave, si llega a 0 la pieza se destruye, Rango:0-500"), Range(0, 500)]
     public float vida = 0;
@@ -69,11 +67,11 @@ public class Nave : Photon.PunBehaviour
     [Tooltip("Dash Lateral representa la velocidad y distancia a la que la nave hace la carga lateral, Rango:0-500"), Range(0, 500)]
     public float dashLateral = 0;
 
-
+    //lista con todas las piezas de la nave
     public List<Pieza> piezas = new List<Pieza>();
 
+    //Sliders que muestran las estadísticas de la nave
     [Header("Sliders Velocidad")]
-
     public Slider sliderVelocidad;
     public Slider actualVelSlider;
     public Text maxVelText;
@@ -127,13 +125,13 @@ public class Nave : Photon.PunBehaviour
 
 
 
-    private Rigidbody rb;
-    private Transform piezasGameObject;
-    private bool inDerrape = false;
-    private float position = 0;
-    private bool inRebufo = false;
-    private bool inBoost = false;
-    private Pieza nucleo;
+    private Rigidbody rb;       //rigidbody de la nave
+    private Transform piezasGameObject;     //transform del objeto que contiene el modelo con todas las piezas
+    private bool inDerrape = false;     //variable que indica cuando la nave esta derrapando
+    private float position = 0;     //variable que indica la posición de la nave en la carrera, sirve para hacer cálculos de velocidad
+    private bool inRebufo = false;  //variable que indica cuando la nave esta cogiendo rebufo, sirve para hacer cálculos de velocidad
+    private bool inBoost = false;   //variable que indica cuando la nave esta en un boost, sirve para hacer cálculos de velocidad
+    private Pieza nucleo;   //variable que contiene el nucleo de la nave, si este se destruye la nave se destruye
 
     // Use this for initialization
     void Start()
@@ -148,7 +146,7 @@ public class Nave : Photon.PunBehaviour
             Camera.SetupCurrent(myCamera);
             G.myCam = myCamera.gameObject;
         }
-        
+        //asignar valor a line
         if (!line)
         {
             line = GameObject.Find("Line").GetComponent<LineRenderer>();
@@ -169,7 +167,7 @@ public class Nave : Photon.PunBehaviour
         }
         
        
-
+        //Inicializar sliders
         rb.mass = peso;
         sliderVelocidad.maxValue = Mathf.FloorToInt(MaxVelNoWeight);
         actualVelSlider.maxValue = Mathf.FloorToInt(MaxVelNoWeight);
@@ -764,37 +762,37 @@ public class Nave : Photon.PunBehaviour
         get { return (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Joystick1Button2) || Input.GetAxis("Nave Vertical") != 0)/* || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)*/; }
     }
 
-    public float VelocityFormula
+    public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
     {
         get { return MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0))* rebufo) + ((boostConst * (inBoost ? 1 : 0))*turbo); }
     }
 
-    public float MaxVelocity
+    public float MaxVelocity    //devuelve la velocidad máxima de la nave sin aplicar modificadores por posición, rebufo, turbo y salud
     {
         get { return VelocityWithWeight * maxVel; }
     }
 
-    public float MaxVelNoWeight
+    public float MaxVelNoWeight //devuelve la velocidad de la nave sin ser afectada por el peso
     {
         get { return velocidad * maxVel; }
     }
 
-    public float DistanciaPrimero
+    public float DistanciaPrimero   //devuelve la distancia de la nave respecto al primero de la carrera
     {
         get { return 1; }
     }
 
-    public float PorcentajeSalud
+    public float PorcentajeSalud    //devuelve el porcentaje de salud de la nave
     {
         get { return (currentHealth / vida) * 100; }
     }
 
-    public float VelocityWithWeight
+    public float VelocityWithWeight //devuelve la velocidad base de la nave afectada por el peso
     {
         get { return velocidad - (peso * constanteVelocidadPeso); }
     }
 
-    public float AcelerationWithWeight
+    public float AcelerationWithWeight  //devuelve la aceleración de la nave afectada por el peso
     {
         get { return aceleracion - (constanteAceleracionPeso * peso); }
     }

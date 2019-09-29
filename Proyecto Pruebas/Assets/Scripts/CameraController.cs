@@ -19,9 +19,13 @@ public class CameraController : Photon.PunBehaviour
 
     [Header("Camera Limits")]
     [Range(0f, 200f)]
+    public float max_X_Angle = 30f;
+    [Range(0f, -200f)]
+    public float min_X_Angle = 30f;
+    [Range(0f, 200f)]
     public float max_Y_Angle = 30f;
     [Range(0f, -200f)]
-    public float min_Y_Angle = 30f;
+    public float min_Y_Angle = -10f;
 
     public bool naveDestruida { get; set; }
 
@@ -53,121 +57,96 @@ public class CameraController : Photon.PunBehaviour
 
         //hacemos que la posición del padre sea igual a la de la nave
         transform.parent.position = target.position;
-        //hacemos que la rotacion del padre sea una interpolación entre su rotación y la de la nave respecto a Time.deltaTime
+        //hacemos que la rotacion del pivote sea una interpolación entre su rotación y la de la nave respecto a Time.deltaTime
         transform.parent.rotation = Quaternion.Lerp(transform.parent.rotation, target.rotation, Time.deltaTime * damping * cameraDampingMultiplayer);
 
         //transform.localPosition = transform.parent.position - diference + velocityOffset;
         //Vector3 rot = transform.rotation.eulerAngles;
         //transform.rotation = Quaternion.Euler(new Vector3(rot.x, target.rotation.eulerAngles.y, rot.z));
 
+        //cambiamos de cámara al pulsar un botón
         if (Input.GetKeyDown(KeyCode.Joystick1Button11))
         {
             backCamera = !backCamera;
         }
 
-        if (!backCamera)
+        CameraFocus(!backCamera);
+        
+    }
+
+    private void CameraFocus(bool front)
+    {
+        //cambiamos el valor de currentx y currenty respecto a el desplazamiento del joystick derecho/ ratón
+        if(front)
         {
-            //cambiamos el valor de currentx y currenty respecto a el desplazamiento del joystick derecho/ ratón
             currentX += Input.GetAxis("Camera X") * sensibility.x;
             currentY += Input.GetAxis("Camera Y") * sensibility.y;
-
-            if (Input.GetAxis("Camera X") == 0)            //
-            {                                           //
-                currentX *= 0.9f;                       //
-            }                                           // para mando solo
-            if (Input.GetAxis("Camera Y") == 0)         //
-            {                                           //
-                currentY *= 0.9f;                       //
-            }                                           //
-
-
-
-
-            //limitamos la posición de la camara
-            currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
-            currentX = Mathf.Clamp(currentX, min_Y_Angle, max_Y_Angle);
-
-
-
-            //Vector3 dir = new Vector3(0, -diference.y, diference.z);
-            //Quaternion rotation = Quaternion.Euler(currentY, -currentX, 0);
-            //transform.localRotation = rotation;
-
-            //transform.localPosition = transform.parent.localPosition + ((rotation * dir)*velocityOffset.magnitude);
-
-
-            //igualamos la posicion de la camara a la posición inicial + el desplazamiento de camara + el desplazamiento por velocidad
-            transform.localPosition = localPos + new Vector3(-currentX, currentY, 0) / 10 - velocityOffset;
-
-            float z = transform.localEulerAngles.z;
-
-            Quaternion oldRot = transform.rotation;
-
-            //hacemos que la camara apunte a un objeto que tenemos delante de la nave
-            transform.LookAt(frontLookAt);
-
-            float newZ = transform.localEulerAngles.z;
-            transform.Rotate(new Vector3(0, 0, z - newZ));
-            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, z);
-
-            Quaternion newRot = transform.rotation;
-
-            transform.rotation = Quaternion.Lerp(oldRot, newRot, Time.deltaTime * damping * cameraDampingMultiplayer);
         }
         else
         {
-            //cambiamos el valor de currentx y currenty respecto a el desplazamiento del joystick derecho/ ratón
             currentX -= Input.GetAxis("Camera X") * sensibility.x;
             currentY += Input.GetAxis("Camera Y") * sensibility.y;
-
-            if (Input.GetAxis("Camera X") == 0)            //
-            {                                           //
-                currentX *= 0.9f;                       //
-            }                                           // para mando solo
-            if (Input.GetAxis("Camera Y") == 0)         //
-            {                                           //
-                currentY *= 0.9f;                       //
-            }                                           //
-
-
-
-
-            //limitamos la posición de la camara
-            currentY = Mathf.Clamp(currentY, Y_ANGLE_MIN, Y_ANGLE_MAX);
-            currentX = Mathf.Clamp(currentX, min_Y_Angle, max_Y_Angle);
-
-
-
-            //Vector3 dir = new Vector3(0, -diference.y, diference.z);
-            //Quaternion rotation = Quaternion.Euler(currentY, -currentX, 0);
-            //transform.localRotation = rotation;
-
-            //transform.localPosition = transform.parent.localPosition + ((rotation * dir)*velocityOffset.magnitude);
-
-
-            //igualamos la posicion de la camara a la posición inicial + el desplazamiento de camara + el desplazamiento por velocidad
-            transform.localPosition = new Vector3(localPos.x, localPos.y, -localPos.z) + new Vector3(-currentX, currentY, 0) / 10;
-
-            float z = transform.localEulerAngles.z;
-
-            Quaternion oldRot = transform.rotation;
-            
-            //hacemos que la camara apunte a un objeto que tenemos delante de la nave
-            transform.LookAt(backLookAt);
-
-            float newZ = transform.localEulerAngles.z;
-            transform.Rotate(new Vector3(0, 0, z - newZ));
-            transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, z);
-            Quaternion newRot = transform.rotation;
-
-            transform.rotation = Quaternion.Lerp(oldRot, newRot, Time.deltaTime * damping * cameraDampingMultiplayer);
         }
+        
+
+        
+        //vuelve a apuntar al centro si se suelta el joystick
+        if (Input.GetAxis("Camera X") == 0)         //
+        {                                           //
+            currentX *= 0.9f;                       //
+        }                                           // para mando solo
+        if (Input.GetAxis("Camera Y") == 0)         //
+        {                                           //
+            currentY *= 0.9f;                       //
+        }                                           //
+        
+
+        
+        //limitamos la posición de la camara
+        currentY = Mathf.Clamp(currentY, min_Y_Angle, max_Y_Angle);
+        currentX = Mathf.Clamp(currentX, min_X_Angle, max_X_Angle);
+        
+
+        
+        //igualamos la posicion de la camara a la posición inicial + el desplazamiento de camara + el desplazamiento por velocidad
+        if (front)
+        {
+            transform.localPosition = localPos + new Vector3(-currentX, currentY, 0) / 10 - velocityOffset;
+        }
+        else
+        {
+            transform.localPosition = new Vector3(localPos.x, localPos.y, -localPos.z) + new Vector3(-currentX, currentY, 0) / 10;
+        }
+        
+        
+
+        float z = transform.localEulerAngles.z; //guardamos la rotación local z
+
+        Quaternion oldRot = transform.rotation; //guardamos la rotación antes de apuntar al objetivo
 
 
 
+        if(front)
+        {
+            //hacemos que la camara apunte a un objeto que tenemos delante de la nave
+            transform.LookAt(frontLookAt);
+        }
+        else
+        {
+            //hacemos que la camara apunte a un objeto que tenemos detras de la nave
+            transform.LookAt(backLookAt);
+        }
+        
 
-        //transform.parent.rotation = Quaternion.Euler(transform.parent.rotation.eulerAngles.x, target.rotation.eulerAngles.y, transform.parent.rotation.eulerAngles.z);
 
+        float newZ = transform.localEulerAngles.z;  //guardamos la nueva rotación local z
 
+        transform.Rotate(new Vector3(0, 0, z - newZ));  //
+
+        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, z);
+
+        Quaternion newRot = transform.rotation;
+
+        transform.rotation = Quaternion.Lerp(oldRot, newRot, Time.deltaTime * damping * cameraDampingMultiplayer);
     }
 }
