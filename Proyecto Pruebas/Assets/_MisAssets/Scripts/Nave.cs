@@ -760,7 +760,7 @@ public class Nave : Photon.PunBehaviour
 
     public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
     {
-        get { return MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0)) * rebufoBase) + ((boostConst * (inBoost ? 1 : 0)) * turboBase); }
+        get { return MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0)) * Rebufo()) + ((boostConst * (inBoost ? 1 : 0)) * Turbo()); }
     }
 
     public float MaxVelocity    //devuelve la velocidad máxima de la nave sin aplicar modificadores por posición, rebufo, turbo y salud
@@ -770,7 +770,7 @@ public class Nave : Photon.PunBehaviour
 
     public float MaxVelNoWeight //devuelve la velocidad de la nave sin ser afectada por el peso
     {
-        get { return velocidadBase * maxVel; }
+        get { return Velocidad() * maxVel; }
     }
 
     public float DistanciaPrimero   //devuelve la distancia de la nave respecto al primero de la carrera
@@ -780,19 +780,23 @@ public class Nave : Photon.PunBehaviour
 
     public float PorcentajeSalud    //devuelve el porcentaje de salud de la nave
     {
-        get { return (currentHealth / vidaBase) * 100; }
+        get { return (currentHealth / MaxVida) * 100; }
     }
 
     public float VelocityWithWeight //devuelve la velocidad base de la nave afectada por el peso
     {
-        get { return velocidadBase - (pesoBase * constanteVelocidadPeso); }
+        get { return Velocidad() - (Peso() * constanteVelocidadPeso); }
     }
 
     public float AcelerationWithWeight  //devuelve la aceleración de la nave afectada por el peso
     {
-        get { return aceleracionBase - (constanteAceleracionPeso * pesoBase); }
+        get { return Aceleracion() - (constanteAceleracionPeso * pesoBase); }
     }
-
+    
+    public float MaxVida
+    {
+        get { return vidaBase * 2; }
+    }
 
     //Stats Actuales
 
@@ -861,20 +865,9 @@ public class Nave : Photon.PunBehaviour
         return dashLateral;
     }
 
-    public float Vida() 
-    {
-        float vida = vidaBase;
-        foreach (Pieza p in piezas)
-        {
-            if (!p.nucleo)
-            {
-                vida += vidaBase * p.Importancia;
-            }
-        }
-        return vida;
-    }
+    
 
-    public float Damage() 
+public float Damage() 
     {
         float damage = damageBase;
         foreach (Pieza p in piezas)
