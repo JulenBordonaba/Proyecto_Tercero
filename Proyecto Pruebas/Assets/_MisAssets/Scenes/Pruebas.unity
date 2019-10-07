@@ -34938,6 +34938,51 @@ PrefabInstance:
       propertyPath: alturaManejo
       value: 394
       objectReference: {fileID: 0}
+    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
+        type: 3}
+      propertyPath: maxVel
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
+        type: 3}
+      propertyPath: vidaBase
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
+        type: 3}
+      propertyPath: pesoBase
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
+        type: 3}
+      propertyPath: velocidadBase
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
+        type: 3}
+      propertyPath: aceleracionBase
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
+        type: 3}
+      propertyPath: manejoBase
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
+        type: 3}
+      propertyPath: rebufoBase
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
+        type: 3}
+      propertyPath: turboBase
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8397426279672282111, guid: 7ed6dcc8363b6114e8205f00a697c260,
+        type: 3}
+      propertyPath: dashLateralBase
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 1791411857, guid: 7ed6dcc8363b6114e8205f00a697c260, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

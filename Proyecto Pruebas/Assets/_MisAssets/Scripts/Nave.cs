@@ -69,7 +69,7 @@ public class Nave : Photon.PunBehaviour
 
     //lista con todas las piezas de la nave
     public List<Pieza> piezas = new List<Pieza>();
-
+    /*
     //Sliders que muestran las estadísticas de la nave
     [Header("Sliders Velocidad")]
     public Slider sliderVelocidad;
@@ -116,7 +116,7 @@ public class Nave : Photon.PunBehaviour
     public Slider sliderDash;
     public Slider actualDashSlider;
     public Text maxDashText;
-    public Text actualDashText;
+    public Text actualDashText;*/
 
 
 
@@ -129,7 +129,7 @@ public class Nave : Photon.PunBehaviour
     private Pieza nucleo;   //variable que contiene el nucleo de la nave, si este se destruye la nave se destruye
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         if (G.myCam == null && online)
         {
@@ -161,7 +161,7 @@ public class Nave : Photon.PunBehaviour
             }
         }
 
-
+        /*
         //Inicializar sliders
         rb.mass = pesoBase;
         sliderVelocidad.maxValue = Mathf.FloorToInt(MaxVelNoWeight);
@@ -196,7 +196,7 @@ public class Nave : Photon.PunBehaviour
         sliderDash.maxValue = Mathf.FloorToInt(300);
         actualDashSlider.maxValue = Mathf.FloorToInt(300);
         actualDashSlider.value = Mathf.FloorToInt(dashLateralBase);
-        maxDashText.text = Mathf.FloorToInt(dashLateralBase).ToString();
+        maxDashText.text = Mathf.FloorToInt(dashLateralBase).ToString();*/
 
     }
 
@@ -217,7 +217,7 @@ public class Nave : Photon.PunBehaviour
         {
             Controller();
         }
-
+        /*
         //actualizar sliders
         sliderVelocidad.value = Mathf.FloorToInt(MaxVelocity);
         actualVelText.text = Mathf.FloorToInt(new Vector2(transform.InverseTransformDirection(rb.velocity).x, transform.InverseTransformDirection(rb.velocity).z).magnitude).ToString();
@@ -229,10 +229,10 @@ public class Nave : Photon.PunBehaviour
         maxAcelerationWeightText.text = Mathf.FloorToInt(AcelerationWithWeight).ToString();
         actualAcelerationText.text = Mathf.FloorToInt(AcelerationWithWeight * Mathf.Abs(Input.GetAxis("Nave Vertical"))).ToString();
 
-        /*sliderHealth.value = Mathf.FloorToInt(vidaBase);
+        sliderHealth.value = Mathf.FloorToInt(vidaBase);
         actualHealthSlider.value = Mathf.FloorToInt(currentHealth);
         maxHealthText.text = Mathf.FloorToInt(vidaBase).ToString();
-        actualHealthText.text = Mathf.FloorToInt(currentHealth).ToString();*/
+        actualHealthText.text = Mathf.FloorToInt(currentHealth).ToString();
 
         sliderManejo.value = Mathf.FloorToInt(manejoBase);
         actualManejo.value = Mathf.FloorToInt(manejoBase);
@@ -255,7 +255,7 @@ public class Nave : Photon.PunBehaviour
         maxDashText.text = Mathf.FloorToInt(dashLateralBase).ToString();
         actualDashText.text = Mathf.FloorToInt(dashLateralBase).ToString();
 
-
+        */
 
 
 
@@ -281,7 +281,7 @@ public class Nave : Photon.PunBehaviour
         Vector3 locVel = piezasGameObject.InverseTransformDirection(rb.velocity);
 
         //depende de la velocidad la camara esta mas o menos cerca del coche
-        myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (velocidadBase / 15), -4f, 5f));
+        myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (Velocity() / 15), -4f, 5f));
         myCamera.fieldOfView = 60f + Mathf.Clamp(locVel.z / 15f, 0f, 80f);
 
 
@@ -770,7 +770,7 @@ public class Nave : Photon.PunBehaviour
 
     public float MaxVelNoWeight //devuelve la velocidad de la nave sin ser afectada por el peso
     {
-        get { return Velocidad() * maxVel; }
+        get { return Velocity() * maxVel; }
     }
 
     public float DistanciaPrimero   //devuelve la distancia de la nave respecto al primero de la carrera
@@ -785,7 +785,7 @@ public class Nave : Photon.PunBehaviour
 
     public float VelocityWithWeight //devuelve la velocidad base de la nave afectada por el peso
     {
-        get { return Velocidad() - (Peso() * constanteVelocidadPeso); }
+        get { return Velocity() - (Peso() * constanteVelocidadPeso); }
     }
 
     public float AcelerationWithWeight  //devuelve la aceleración de la nave afectada por el peso
@@ -796,7 +796,7 @@ public class Nave : Photon.PunBehaviour
 
     //Stats Actuales
 
-    public float Velocidad () 
+    public float Velocity () 
     {
         float velocidad = velocidadBase;
         foreach(Pieza p in piezas)
