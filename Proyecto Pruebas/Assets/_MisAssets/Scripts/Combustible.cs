@@ -10,7 +10,6 @@ public class Combustible : MonoBehaviour
     public float pasiveConsumption;     //cantidad de combustoble que se gasta cuando se usa activamente
     public float activeConsumption;     //cantidad de combustible que se gasta pasivamente
     public float duration;      //duración de la acción del combustible
-    public Type habilityType;
 
     private float currentAmmount;     //cantidad actual de combustible
 
