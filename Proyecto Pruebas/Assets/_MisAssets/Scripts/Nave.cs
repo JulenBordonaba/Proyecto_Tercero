@@ -49,23 +49,23 @@ public class Nave : Photon.PunBehaviour
     //Estadísticas de la nave
     [Header("Stats")]
     [Tooltip("Vida representa la vida de la nave, si llega a 0 la pieza se destruye, Rango:0-500"), Range(0, 500)]
-    public float vida = 0;
+    public float vidaBase = 0;
     [Tooltip("Peso es el valor que representa el peso de la nave, Rango:0-500."), Range(0, 500)]
-    public float peso = 0;
+    public float pesoBase = 0;
     [Tooltip("Velocidad representa la velocidad máxima de la nave, Rango:0-500"), Range(0, 500)]
-    public float velocidad = 0;
+    public float velocidadBase = 0;
     [Tooltip("Acceleración representa la aceleración de la nave, Rango:0-500"), Range(0, 500)]
-    public float aceleracion = 0;
-    [Tooltip("Maniobrabilidad representa el manejo de la nave, lo rápido que gira, Rango:0-500"), Range(0, 500)]
-    public float maniobrabilidad = 0;
+    public float aceleracionBase = 0;
+    [Tooltip("Maniobrabilidad representa el manejo de la nave, lo rápido que gira y lo bien que derrapa, Rango:0-500"), Range(0, 500)]
+    public float manejoBase = 0;
     [Tooltip("rebufo representa la velocidad que ganará la nave cuando este cogiendo rebufo, Rango:0-500"), Range(0, 500)]
-    public float rebufo = 0;
+    public float rebufoBase = 0;
     [Tooltip("Turbo representa la velocidad que gana la nave durante un turbo, Rango:0-500"), Range(0, 500)]
-    public float turbo = 0;
-    [Tooltip("Derrape representa el valor del derrape de la nave, lo cerrado que es el derrape y la cantidad de energía que gana con él, Rango:0-500."), Range(0, 500)]
-    public float derrape = 0;
+    public float turboBase = 0;
     [Tooltip("Dash Lateral representa la velocidad y distancia a la que la nave hace la carga lateral, Rango:0-500"), Range(0, 500)]
-    public float dashLateral = 0;
+    public float dashLateralBase = 0;
+    [Tooltip("Daño representa el daño que recive otra nave si colisiona con esta, RAngo:0-100"), Range(0, 100)]
+    public float damageBase = 100;
 
     //lista con todas las piezas de la nave
     public List<Pieza> piezas = new List<Pieza>();
@@ -93,11 +93,11 @@ public class Nave : Photon.PunBehaviour
     public Text actualHealthText;
     private float currentHealth;
 
-    [Header("Sliders Maniobrabilidad")]
-    public Slider sliderManiobrabilidad;
-    public Slider actualManiobrabilidadSlider;
-    public Text maxManiobrabilidadText;
-    public Text actualManiobrabilidadText;
+    [Header("Sliders Manejo")]
+    public Slider sliderManejo;
+    public Slider actualManejo;
+    public Text maxManejoText;
+    public Text actualManejoText;
 
     [Header("Sliders Rebufo")]
     public Slider sliderRebufo;
@@ -110,12 +110,7 @@ public class Nave : Photon.PunBehaviour
     public Slider actualTurboSlider;
     public Text maxTurboText;
     public Text actualTurboText;
-
-    [Header("Sliders Derrape")]
-    public Slider sliderDerrape;
-    public Slider actualDerrapeSlider;
-    public Text maxDerrapeText;
-    public Text actualDerrapeText;
+    
 
     [Header("Sliders Dash Lateral")]
     public Slider sliderDash;
@@ -156,7 +151,7 @@ public class Nave : Photon.PunBehaviour
         piezas = new List<Pieza>(GetComponentsInChildren<Pieza>());
         piezasGameObject = piezas[0].transform.parent;
         rb = GetComponent<Rigidbody>();
-        CalculateStats();
+        
         foreach (Pieza p in piezas)
         {
             p.nave = this;
@@ -168,51 +163,47 @@ public class Nave : Photon.PunBehaviour
 
 
         //Inicializar sliders
-        rb.mass = peso;
+        rb.mass = pesoBase;
         sliderVelocidad.maxValue = Mathf.FloorToInt(MaxVelNoWeight);
         actualVelSlider.maxValue = Mathf.FloorToInt(MaxVelNoWeight);
         maxVelText.text = Mathf.FloorToInt(MaxVelNoWeight).ToString();
 
-        sliderAceleration.maxValue = Mathf.FloorToInt(aceleracion);
-        actualAcelerationSlider.maxValue = Mathf.FloorToInt(aceleracion);
-        maxAcelerationText.text = Mathf.FloorToInt(aceleracion).ToString();
+        sliderAceleration.maxValue = Mathf.FloorToInt(aceleracionBase);
+        actualAcelerationSlider.maxValue = Mathf.FloorToInt(aceleracionBase);
+        maxAcelerationText.text = Mathf.FloorToInt(aceleracionBase).ToString();
 
         sliderHealth.maxValue = Mathf.FloorToInt(1200);
         actualHealthSlider.maxValue = Mathf.FloorToInt(1200);
-        actualHealthSlider.value = Mathf.FloorToInt(vida);
-        maxHealthText.text = Mathf.FloorToInt(vida).ToString();
+        actualHealthSlider.value = Mathf.FloorToInt(vidaBase);
+        maxHealthText.text = Mathf.FloorToInt(vidaBase).ToString();
 
-        sliderManiobrabilidad.maxValue = Mathf.FloorToInt(300);
-        actualManiobrabilidadSlider.maxValue = Mathf.FloorToInt(300);
-        actualManiobrabilidadSlider.value = Mathf.FloorToInt(maniobrabilidad);
-        maxManiobrabilidadText.text = Mathf.FloorToInt(maniobrabilidad).ToString();
+        sliderManejo.maxValue = Mathf.FloorToInt(300);
+        actualManejo.maxValue = Mathf.FloorToInt(300);
+        actualManejo.value = Mathf.FloorToInt(manejoBase);
+        maxManejoText.text = Mathf.FloorToInt(manejoBase).ToString();
 
         sliderRebufo.maxValue = Mathf.FloorToInt(300);
         actualRebufoSlider.maxValue = Mathf.FloorToInt(300);
-        actualRebufoSlider.value = Mathf.FloorToInt(rebufo);
-        maxRebufoText.text = Mathf.FloorToInt(rebufo).ToString();
+        actualRebufoSlider.value = Mathf.FloorToInt(rebufoBase);
+        maxRebufoText.text = Mathf.FloorToInt(rebufoBase).ToString();
 
         sliderTurbo.maxValue = Mathf.FloorToInt(300);
         actualTurboSlider.maxValue = Mathf.FloorToInt(300);
-        actualTurboSlider.value = Mathf.FloorToInt(turbo);
-        maxTurboText.text = Mathf.FloorToInt(turbo).ToString();
-
-        sliderDerrape.maxValue = Mathf.FloorToInt(300);
-        actualDerrapeSlider.maxValue = Mathf.FloorToInt(300);
-        actualDerrapeSlider.value = Mathf.FloorToInt(derrape);
-        maxDerrapeText.text = Mathf.FloorToInt(derrape).ToString();
+        actualTurboSlider.value = Mathf.FloorToInt(turboBase);
+        maxTurboText.text = Mathf.FloorToInt(turboBase).ToString();
+        
 
         sliderDash.maxValue = Mathf.FloorToInt(300);
         actualDashSlider.maxValue = Mathf.FloorToInt(300);
-        actualDashSlider.value = Mathf.FloorToInt(dashLateral);
-        maxDashText.text = Mathf.FloorToInt(dashLateral).ToString();
+        actualDashSlider.value = Mathf.FloorToInt(dashLateralBase);
+        maxDashText.text = Mathf.FloorToInt(dashLateralBase).ToString();
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        CalculateStats();
+        
 
         if (!nucleo)
         {
@@ -238,35 +229,31 @@ public class Nave : Photon.PunBehaviour
         maxAcelerationWeightText.text = Mathf.FloorToInt(AcelerationWithWeight).ToString();
         actualAcelerationText.text = Mathf.FloorToInt(AcelerationWithWeight * Mathf.Abs(Input.GetAxis("Nave Vertical"))).ToString();
 
-        sliderHealth.value = Mathf.FloorToInt(vida);
+        sliderHealth.value = Mathf.FloorToInt(vidaBase);
         actualHealthSlider.value = Mathf.FloorToInt(currentHealth);
-        maxHealthText.text = Mathf.FloorToInt(vida).ToString();
+        maxHealthText.text = Mathf.FloorToInt(vidaBase).ToString();
         actualHealthText.text = Mathf.FloorToInt(currentHealth).ToString();
 
-        sliderManiobrabilidad.value = Mathf.FloorToInt(maniobrabilidad);
-        actualManiobrabilidadSlider.value = Mathf.FloorToInt(maniobrabilidad);
-        maxManiobrabilidadText.text = Mathf.FloorToInt(maniobrabilidad).ToString();
-        actualManiobrabilidadText.text = Mathf.FloorToInt(maniobrabilidad).ToString();
+        sliderManejo.value = Mathf.FloorToInt(manejoBase);
+        actualManejo.value = Mathf.FloorToInt(manejoBase);
+        maxManejoText.text = Mathf.FloorToInt(manejoBase).ToString();
+        actualManejoText.text = Mathf.FloorToInt(manejoBase).ToString();
 
-        sliderRebufo.value = Mathf.FloorToInt(rebufo);
-        actualRebufoSlider.value = Mathf.FloorToInt(rebufo);
-        maxRebufoText.text = Mathf.FloorToInt(rebufo).ToString();
-        actualRebufoText.text = Mathf.FloorToInt(rebufo).ToString();
+        sliderRebufo.value = Mathf.FloorToInt(rebufoBase);
+        actualRebufoSlider.value = Mathf.FloorToInt(rebufoBase);
+        maxRebufoText.text = Mathf.FloorToInt(rebufoBase).ToString();
+        actualRebufoText.text = Mathf.FloorToInt(rebufoBase).ToString();
 
-        sliderTurbo.value = Mathf.FloorToInt(turbo);
-        actualTurboSlider.value = Mathf.FloorToInt(turbo);
-        maxTurboText.text = Mathf.FloorToInt(turbo).ToString();
-        actualTurboText.text = Mathf.FloorToInt(turbo).ToString();
+        sliderTurbo.value = Mathf.FloorToInt(turboBase);
+        actualTurboSlider.value = Mathf.FloorToInt(turboBase);
+        maxTurboText.text = Mathf.FloorToInt(turboBase).ToString();
+        actualTurboText.text = Mathf.FloorToInt(turboBase).ToString();
+        
 
-        sliderDerrape.value = Mathf.FloorToInt(derrape);
-        actualDerrapeSlider.value = Mathf.FloorToInt(derrape);
-        maxDerrapeText.text = Mathf.FloorToInt(derrape).ToString();
-        actualDerrapeText.text = Mathf.FloorToInt(derrape).ToString();
-
-        sliderDash.value = Mathf.FloorToInt(dashLateral);
-        actualDashSlider.value = Mathf.FloorToInt(dashLateral);
-        maxDashText.text = Mathf.FloorToInt(dashLateral).ToString();
-        actualDashText.text = Mathf.FloorToInt(dashLateral).ToString();
+        sliderDash.value = Mathf.FloorToInt(dashLateralBase);
+        actualDashSlider.value = Mathf.FloorToInt(dashLateralBase);
+        maxDashText.text = Mathf.FloorToInt(dashLateralBase).ToString();
+        actualDashText.text = Mathf.FloorToInt(dashLateralBase).ToString();
 
 
 
@@ -294,7 +281,7 @@ public class Nave : Photon.PunBehaviour
         Vector3 locVel = piezasGameObject.InverseTransformDirection(rb.velocity);
 
         //depende de la velocidad la camara esta mas o menos cerca del coche
-        myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (velocidad / 15), -4f, 5f));
+        myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (velocidadBase / 15), -4f, 5f));
         myCamera.fieldOfView = 60f + Mathf.Clamp(locVel.z / 15f, 0f, 80f);
 
 
@@ -388,7 +375,7 @@ public class Nave : Photon.PunBehaviour
                     locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
                     //rb.velocity = new Vector3(rb.velocity.x * (1 - friction*2), rb.velocity.y, rb.velocity.z * (1 - friction*2));
                 }
-                rb.AddForce(piezasGameObject.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleracion, 2) * backwardVelocity * Time.deltaTime, ForceMode.Impulse); // fuerza para moverte hacia atras
+                rb.AddForce(piezasGameObject.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleracionBase, 2) * backwardVelocity * Time.deltaTime, ForceMode.Impulse); // fuerza para moverte hacia atras
 
 
             }
@@ -399,11 +386,11 @@ public class Nave : Photon.PunBehaviour
 
             if (Input.GetAxis("Nave Vertical") >= 0)
             {
-                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * maniobrabilidad * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
+                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * manejoBase * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
             }
             else if (Input.GetAxis("Nave Vertical") < 0)
             {
-                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y - (Input.GetAxis("Horizontal") * maniobrabilidad * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
+                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y - (Input.GetAxis("Horizontal") * manejoBase * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
             }
 
 
@@ -717,7 +704,7 @@ public class Nave : Photon.PunBehaviour
                 float totalDmg = 0;
                 foreach (Pieza pi in piezasColision)
                 {
-                    totalDmg += pi.daño;
+                    totalDmg += damageBase * pi.Importancia;
                 }
                 float dmg = totalDmg / piezasColision.Count;
                 destroyed = p.Damage(CalculateDamage(dmg, CollisionAngleValue(angle), piezasColision[0].nave));
@@ -732,8 +719,8 @@ public class Nave : Photon.PunBehaviour
     {
         float totalDamage = other.damage;
 
-        print(totalDamage + " += " + other.damage + " * Mathf.Clamp((" + angle + " * (" + other.peso + " / " + 500f + ") + " + 1 + ") - ((" + rb.velocity.magnitude + " / " + 1000 + ") + " + angle + " * (" + peso + " / " + 500 + ") + " + 1 + ")");
-        totalDamage += other.damage * Mathf.Clamp((angle * (other.peso / 500) + 1) - ((rb.velocity.magnitude / 1000) + angle * (peso / 500) + 1), 0, float.MaxValue);
+        print(totalDamage + " += " + other.damage + " * Mathf.Clamp((" + angle + " * (" + other.peso + " / " + 500f + ") + " + 1 + ") - ((" + rb.velocity.magnitude + " / " + 1000 + ") + " + angle + " * (" + pesoBase + " / " + 500 + ") + " + 1 + ")");
+        totalDamage += other.damage * Mathf.Clamp((angle * (other.peso / 500) + 1) - ((rb.velocity.magnitude / 1000) + angle * (pesoBase / 500) + 1), 0, float.MaxValue);
 
 
         return totalDamage;
@@ -750,33 +737,7 @@ public class Nave : Photon.PunBehaviour
         dmgInmune = false;
     }
 
-    public void CalculateStats()
-    {
-        peso = 0;
-        vida = 0;
-        velocidad = 0;
-        aceleracion = 0;
-        maniobrabilidad = 0;
-        rebufo = 0;
-        turbo = 0;
-        derrape = 0;
-        dashLateral = 0;
-        currentHealth = 0;
-        foreach (Pieza p in piezas)
-        {
-            peso += p.peso;
-            vida += p.vida;
-            currentHealth += p.currentHealth;
-            velocidad += p.velocidad;
-            aceleracion += p.aceleracion;
-            maniobrabilidad += p.maniobrabilidad;
-            rebufo += p.rebufo;
-            turbo += p.turbo;
-            derrape += p.derrape;
-            dashLateral += p.dashLateral;
-        }
-        rb.mass = peso;
-    }
+    
 
     public float CollisionAngleValue(float angle)
     {
@@ -787,7 +748,7 @@ public class Nave : Photon.PunBehaviour
     {
         float totalDamage = dmg;
         print("a");
-        totalDamage += dmg * (((other.rb.velocity.magnitude / 1000) + angle * (other.peso / 500) + 1) - ((rb.velocity.magnitude / 1000) + angle * (peso / 500) + 1));
+        totalDamage += dmg * (((other.rb.velocity.magnitude / 1000) + angle * (other.pesoBase / 500) + 1) - ((rb.velocity.magnitude / 1000) + angle * (pesoBase / 500) + 1));
 
         return totalDamage;
     }
@@ -799,7 +760,7 @@ public class Nave : Photon.PunBehaviour
 
     public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
     {
-        get { return MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0)) * rebufo) + ((boostConst * (inBoost ? 1 : 0)) * turbo); }
+        get { return MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0)) * rebufoBase) + ((boostConst * (inBoost ? 1 : 0)) * turboBase); }
     }
 
     public float MaxVelocity    //devuelve la velocidad máxima de la nave sin aplicar modificadores por posición, rebufo, turbo y salud
@@ -809,7 +770,7 @@ public class Nave : Photon.PunBehaviour
 
     public float MaxVelNoWeight //devuelve la velocidad de la nave sin ser afectada por el peso
     {
-        get { return velocidad * maxVel; }
+        get { return velocidadBase * maxVel; }
     }
 
     public float DistanciaPrimero   //devuelve la distancia de la nave respecto al primero de la carrera
@@ -819,16 +780,137 @@ public class Nave : Photon.PunBehaviour
 
     public float PorcentajeSalud    //devuelve el porcentaje de salud de la nave
     {
-        get { return (currentHealth / vida) * 100; }
+        get { return (currentHealth / vidaBase) * 100; }
     }
 
     public float VelocityWithWeight //devuelve la velocidad base de la nave afectada por el peso
     {
-        get { return velocidad - (peso * constanteVelocidadPeso); }
+        get { return velocidadBase - (pesoBase * constanteVelocidadPeso); }
     }
 
     public float AcelerationWithWeight  //devuelve la aceleración de la nave afectada por el peso
     {
-        get { return aceleracion - (constanteAceleracionPeso * peso); }
+        get { return aceleracionBase - (constanteAceleracionPeso * pesoBase); }
     }
+
+
+    //Stats Actuales
+
+    public float Velocidad () 
+    {
+        float velocidad = velocidadBase;
+        foreach(Pieza p in piezas)
+        {
+            if(!p.nucleo)
+            {
+                velocidad += velocidadBase * p.Importancia;
+            }
+        }
+        return velocidad;
+    }
+
+    public float Aceleracion() 
+    {
+        float aceleracion = aceleracionBase;
+        foreach (Pieza p in piezas)
+        {
+            if (!p.nucleo)
+            {
+                aceleracion += aceleracionBase * p.Importancia;
+            }
+        }
+        return aceleracion;
+    }
+
+    public float Manejo() 
+    {
+        float manejo = manejoBase;
+        foreach (Pieza p in piezas)
+        {
+            if (!p.nucleo)
+            {
+                manejo += manejoBase * p.Importancia;
+            }
+        }
+        return manejo;
+    }
+
+    public float Peso() 
+    {
+        float peso = pesoBase;
+        foreach (Pieza p in piezas)
+        {
+            if (!p.nucleo)
+            {
+                peso += pesoBase * p.Importancia;
+            }
+        }
+        return peso;
+    }
+
+    public float DashLateral()
+    {
+        float dashLateral = dashLateralBase;
+        foreach (Pieza p in piezas)
+        {
+            if (!p.nucleo)
+            {
+                dashLateral += dashLateralBase * p.Importancia;
+            }
+        }
+        return dashLateral;
+    }
+
+    public float Vida() 
+    {
+        float vida = vidaBase;
+        foreach (Pieza p in piezas)
+        {
+            if (!p.nucleo)
+            {
+                vida += vidaBase * p.Importancia;
+            }
+        }
+        return vida;
+    }
+
+    public float Damage() 
+    {
+        float damage = damageBase;
+        foreach (Pieza p in piezas)
+        {
+            if (!p.nucleo)
+            {
+                damage += damageBase * p.Importancia;
+            }
+        }
+        return damage;
+    }
+
+    public float Turbo()
+    {
+        float turbo = turboBase;
+        foreach (Pieza p in piezas)
+        {
+            if (!p.nucleo)
+            {
+                turbo += turboBase * p.Importancia;
+            }
+        }
+        return turbo;
+    }
+
+    public float Rebufo()
+    {
+        float rebufo = rebufoBase;
+        foreach (Pieza p in piezas)
+        {
+            if (!p.nucleo)
+            {
+                rebufo += rebufoBase * p.Importancia;
+            }
+        }
+        return rebufo;
+    }
+
 }

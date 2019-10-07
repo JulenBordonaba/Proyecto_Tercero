@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Pieza : MonoBehaviour {
-    
-    [Tooltip("Vida representa la vida de la pieza, si llega a 0 la pieza se destruye, Rango:0-100"),Range(0,400)]
+
+    /*[Tooltip("Vida representa la vida de la pieza, si llega a 0 la pieza se destruye, Rango:0-100"),Range(0,400)]
     public float vida = 100;
     [Tooltip("Peso es el valor que representa el peso de la pieza, Rango:0-100."), Range(0, 100)]
     public float peso = 100;
@@ -14,7 +14,7 @@ public class Pieza : MonoBehaviour {
     [Tooltip("Acceleración afecta a la aceleración de la nave, Rango:0-100"), Range(0, 100)]
     public float aceleracion = 100;
     [Tooltip("Maniobrabilidad afecta a el manejo de la nave, lo rápido que gira, Rango:0-100"), Range(0, 100)]
-    public float maniobrabilidad = 100;
+    public float manejo = 100;
     [Tooltip("Daño representa el daño que recive otra nave si colisiona con esta pieza, RAngo:0-100"), Range(0, 100)]
     public float daño = 100;
     [Tooltip("rebufo afecta a la velocidad que ganará la nave cuando este cogiendo rebufo, Rango:0-100"), Range(0, 100)]
@@ -24,7 +24,9 @@ public class Pieza : MonoBehaviour {
     [Tooltip("Derrape afecta a el valor del derrape de la nave, lo cerrado que es el derrape y la cantidad de energía que gana con él, Rango:0-100."), Range(0, 100)]
     public float derrape = 100;
     [Tooltip("Dash Lateral afecta a la velocidad y distancia a la que la nave hace la carga lateral, Rango:0-100"), Range(0, 100)]
-    public float dashLateral = 100;
+    public float dashLateral = 100;*/
+    [Tooltip("Importancia que tiene la pieza, el porcentage en el que aumenta los stats de la nave, Rango:0-100"), Range(0, 100)]
+    public float importancia = 25;
 
     public Slider sliderVida;
     public Text dmgText;
@@ -39,9 +41,9 @@ public class Pieza : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        currentHealth = vida;
-        sliderVida.value = vida;
-        sliderVida.maxValue = vida;
+        currentHealth = nave.vidaBase * Importancia;
+        sliderVida.value = nave.vidaBase * Importancia;
+        sliderVida.maxValue = nave.vidaBase * Importancia;
     }
 	
 	// Update is called once per frame
@@ -77,6 +79,10 @@ public class Pieza : MonoBehaviour {
         return false;
     }
     
+    public float Importancia
+    {
+        get { return importancia / 100; }
+    }
 
     
 }
