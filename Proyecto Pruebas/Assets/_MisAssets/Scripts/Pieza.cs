@@ -66,14 +66,13 @@ public class Pieza : MonoBehaviour {
     {
         if (nave.dmgInmune) return false;
         print(gameObject.name + " " + ammount);
-        currentHealth -= ammount;
+        //currentHealth -= ammount;
         nave.dmgInmune = true;
         dmgText.text = ammount.ToString();
         nave.MakeVulnerable(0.5f);
         if(currentHealth<=0)
         {
             onPieceDestroyed();
-            nave.CalculateStats();
             return true;
         }
         return false;

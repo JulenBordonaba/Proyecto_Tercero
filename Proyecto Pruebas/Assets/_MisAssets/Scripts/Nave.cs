@@ -91,7 +91,7 @@ public class Nave : Photon.PunBehaviour
     public Slider actualHealthSlider;
     public Text maxHealthText;
     public Text actualHealthText;
-    private float currentHealth;
+    //private float currentHealth;
 
     [Header("Sliders Manejo")]
     public Slider sliderManejo;
@@ -229,10 +229,10 @@ public class Nave : Photon.PunBehaviour
         maxAcelerationWeightText.text = Mathf.FloorToInt(AcelerationWithWeight).ToString();
         actualAcelerationText.text = Mathf.FloorToInt(AcelerationWithWeight * Mathf.Abs(Input.GetAxis("Nave Vertical"))).ToString();
 
-        sliderHealth.value = Mathf.FloorToInt(vidaBase);
+        /*sliderHealth.value = Mathf.FloorToInt(vidaBase);
         actualHealthSlider.value = Mathf.FloorToInt(currentHealth);
         maxHealthText.text = Mathf.FloorToInt(vidaBase).ToString();
-        actualHealthText.text = Mathf.FloorToInt(currentHealth).ToString();
+        actualHealthText.text = Mathf.FloorToInt(currentHealth).ToString();*/
 
         sliderManejo.value = Mathf.FloorToInt(manejoBase);
         actualManejo.value = Mathf.FloorToInt(manejoBase);
@@ -780,7 +780,7 @@ public class Nave : Photon.PunBehaviour
 
     public float PorcentajeSalud    //devuelve el porcentaje de salud de la nave
     {
-        get { return (currentHealth / MaxVida) * 100; }
+        get { return (nucleo.currentHealth / vidaBase) * 100; }
     }
 
     public float VelocityWithWeight //devuelve la velocidad base de la nave afectada por el peso
@@ -793,10 +793,6 @@ public class Nave : Photon.PunBehaviour
         get { return Aceleracion() - (constanteAceleracionPeso * pesoBase); }
     }
     
-    public float MaxVida
-    {
-        get { return vidaBase * 2; }
-    }
 
     //Stats Actuales
 
