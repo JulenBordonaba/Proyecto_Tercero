@@ -15,7 +15,6 @@ public class NaveManager : MonoBehaviour
     {
 
     }
-
     private void CombustibleManager()
     {
 
