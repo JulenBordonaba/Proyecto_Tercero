@@ -1,0 +1,86 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class LevitationManager : MonoBehaviour
+{
+    public Transform levitationObject;
+    public float levitationHeight = 20;
+    public float levitationForce = 10;
+    public float startCorrectionHeight = 50;
+    public LineRenderer line;
+
+    private Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Update()
+    {
+        
+    }
+
+    private void Levitate()
+    {
+        Ray ray = new Ray();
+        RaycastHit hit;
+
+        Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
+
+        {
+            ray.origin = levitationObject.position + Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
+            ray.direction = -Vector3.up;
+        }
+
+        //lanzamos un raycast hacia el suelo
+        if (Physics.Raycast(ray, out hit, 1000, LayerMask.GetMask("Floor")))
+        {
+            Vector3 rayDistance = ray.origin - hit.point; //guardamos la distancia del raycast
+            line.SetPosition(0, ray.origin); //ponemos un line renderer en el recorrido del raycast
+            line.SetPosition(1, hit.point);
+
+            float diference = rayDistance.magnitude - levitationHeight; //diferencia de altura entre la nave y la altura en la que queremos que esté
+            
+            //se le añade una fuerza para que flote a la altura que queremos
+            if (rayDistance.magnitude < levitationHeight / 2)
+            {
+                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 20), ForceMode.Acceleration);
+            }
+            else if (rayDistance.magnitude < levitationHeight)
+            {
+                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
+            }
+            else
+            {
+                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
+            }
+
+
+            //Modificamos la rotación de la nave
+
+            Quaternion quaternionRot = transform.localRotation; //guardamos la rotación actual en quaternions
+
+            transform.up = hit.normal; //hacemos que la nave este perpendicular a la normal del punto donde ha colisionado el raycast
+
+            Quaternion quatNewRot = transform.localRotation;  //guardamos la rotación en quaternions despues de corregirla 
+            Quaternion interpolation;
+            //hacemos una interpolación entre la rotación inicial y la final en relación a la distancia al suelo
+
+            interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (1 - ((rayDistance.magnitude - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance.magnitude));
+
+            //igualamos la rotación a el resultado de la interpolación
+            transform.localRotation = interpolation;
+
+            
+            //si esta por debajo de la altura que queremos y rb.velocity.y<0  si esta por encima de la altura que queremos y rb.velocity.y>0 reducimos la velocidad del eje y
+            if ((diference > 0 && rb.velocity.y > 0) || (diference < 0 && rb.velocity.y < 0))
+            {
+                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.9f, rb.velocity.z);
+            }
+            
+        }
+
+    }
+}

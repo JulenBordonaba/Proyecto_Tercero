@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class HabilidadCombustible : MonoBehaviour
 {
-    public Color color;
+    //public Color color;
 
     public abstract void Use();
 }

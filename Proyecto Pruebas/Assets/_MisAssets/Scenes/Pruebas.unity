@@ -47595,6 +47595,10 @@ GameObject:
   - component: {fileID: 759190025}
   - component: {fileID: 759190024}
   - component: {fileID: 759190023}
+  - component: {fileID: 759190030}
+  - component: {fileID: 759190029}
+  - component: {fileID: 759190028}
+  - component: {fileID: 759190027}
   m_Layer: 0
   m_Name: Prueba Combustible
   m_TagString: Untagged
@@ -47646,7 +47650,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26315ea36c24b404aa52c58bf3f0ac29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &759190024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47659,7 +47662,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9213042e4f68b2c448b1163c4d3e91f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &759190025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47672,7 +47674,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b479a70a3cca3b049aae61a76d2b0815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &759190026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47685,7 +47686,78 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0982b4e1c0f974883ca79158bc899a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &759190027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759190020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa50533a4e64f24a818980f7c7c9920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipoCombustible: 3
+  color: {r: 0, g: 1, b: 0, a: 0}
+  deposit: 0
+  pasiveConsumption: 0
+  activeConsumption: 0
+  duration: 0
+--- !u!114 &759190028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759190020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa50533a4e64f24a818980f7c7c9920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipoCombustible: 2
+  color: {r: 1, g: 0, b: 1, a: 0}
+  deposit: 0
+  pasiveConsumption: 0
+  activeConsumption: 0
+  duration: 0
+--- !u!114 &759190029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759190020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa50533a4e64f24a818980f7c7c9920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipoCombustible: 1
+  color: {r: 0, g: 0, b: 1, a: 0}
+  deposit: 0
+  pasiveConsumption: 0
+  activeConsumption: 0
+  duration: 0
+--- !u!114 &759190030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759190020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fa50533a4e64f24a818980f7c7c9920, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tipoCombustible: 0
+  color: {r: 1, g: 1, b: 0, a: 0}
+  deposit: 0
+  pasiveConsumption: 0
+  activeConsumption: 0
+  duration: 0
 --- !u!1001 &763876103
 PrefabInstance:
   m_ObjectHideFlags: 0
