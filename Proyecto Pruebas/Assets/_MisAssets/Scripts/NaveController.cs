@@ -19,7 +19,7 @@ public class NaveController : MonoBehaviour
 
     private void Controller()
     {
-
+        /*
         Camera.SetupCurrent(myCamera);
 
         //convertimos la velocidad de global a local
@@ -208,7 +208,7 @@ public class NaveController : MonoBehaviour
         //convertimos la velocidad local en la velocidad global y la aplicamos
         rb.velocity = piezasGameObject.TransformDirection(locVel);
 
-
+        */
 
     }
 }
