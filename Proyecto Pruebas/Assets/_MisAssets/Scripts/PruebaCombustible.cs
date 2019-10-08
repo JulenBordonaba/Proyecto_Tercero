@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class PruebaCombustible : MonoBehaviour
 {
-    public string[] combustibles;
+    [Tooltip("Pon el numero de combustibles correspondiente en Size. Luego elige una de las 4 opciones para cada uno de ellos")]
+    public List<TipoCombustible> combustibles;     //tipo del combustible
     public HabilidadCombustible habilidadCombustible;
     private int combustibleActivo = 0;
 
@@ -14,7 +15,7 @@ public class PruebaCombustible : MonoBehaviour
     {
         try
         {
-            habilidadCombustible = GetComponent(combustibles[0]) as HabilidadCombustible;
+            habilidadCombustible = GetComponent(combustibles[0].ToString()) as HabilidadCombustible;
             combustibleActivo = 0;
         }
         catch
@@ -36,9 +37,9 @@ public class PruebaCombustible : MonoBehaviour
                 combustibleActivo -= 1;
                 if(combustibleActivo<0) //comprueba que no se salga del límite del array
                 {
-                    combustibleActivo = combustibles.Length - 1;
+                    combustibleActivo = combustibles.Count - 1;
                 }
-                habilidadCombustible = GetComponent(combustibles[combustibleActivo]) as HabilidadCombustible;
+                habilidadCombustible = GetComponent(combustibles[combustibleActivo].ToString()) as HabilidadCombustible;
 
 
             }
@@ -52,11 +53,12 @@ public class PruebaCombustible : MonoBehaviour
             try
             {
                 combustibleActivo += 1;
-                if (combustibleActivo >= combustibles.Length) //comprueba que no se salga del límite del array
+                Debug.Log(combustibles.Count);
+                if (combustibleActivo >= combustibles.Count) //comprueba que no se salga del límite del array
                 {
                     combustibleActivo =  0;
                 }
-                habilidadCombustible = GetComponent(combustibles[combustibleActivo]) as HabilidadCombustible;
+                habilidadCombustible = GetComponent(combustibles[combustibleActivo].ToString()) as HabilidadCombustible;
 
 
             }

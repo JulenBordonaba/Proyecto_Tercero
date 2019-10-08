@@ -8,6 +8,9 @@ public class Escudo : HabilidadCombustible
 
     public override void Use()
     {
+        //Activar el escudo siempre y cuando no haya un escudo activo
+        if (GetComponentInParent<NaveManager>().inShield == true) return;
+
         Combustible combustibleEscudo = new Combustible(); //variable para guardar el componente combustible del escudo del objeto padre
 
         //activar animacion escudo
