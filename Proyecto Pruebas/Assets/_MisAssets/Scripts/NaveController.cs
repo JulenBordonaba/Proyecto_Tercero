@@ -17,7 +17,7 @@ public class NaveController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
-    private void Controller()
+    public void Controller()
     {
         /*
         Camera.SetupCurrent(myCamera);

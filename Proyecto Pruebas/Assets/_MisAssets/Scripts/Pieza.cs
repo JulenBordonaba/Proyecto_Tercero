@@ -37,22 +37,15 @@ public class Pieza : MonoBehaviour {
     [HideInInspector]
     public float currentHealth;
     public bool nucleo;
-    public Nave nave { get; set; }
+    public NaveManager nave { get; set; }
 
 	// Use this for initialization
 	void Start () {
-        currentHealth = nave.vidaBase * Importancia;
-        sliderVida.value = nave.vidaBase * Importancia;
-        sliderVida.maxValue = nave.vidaBase * Importancia;
     }
 	
 	// Update is called once per frame
 	void Update () {
-        sliderVida.value = currentHealth;
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            Damage(40f);
-        }
+        
     }
 
 
@@ -64,17 +57,6 @@ public class Pieza : MonoBehaviour {
 
     public bool Damage(float ammount)
     {
-        if (nave.dmgInmune) return false;
-        print(gameObject.name + " " + ammount);
-        //currentHealth -= ammount;
-        nave.dmgInmune = true;
-        dmgText.text = ammount.ToString();
-        nave.MakeVulnerable(0.5f);
-        if(currentHealth<=0)
-        {
-            onPieceDestroyed();
-            return true;
-        }
         return false;
     }
     
