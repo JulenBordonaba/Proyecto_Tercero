@@ -23,7 +23,12 @@ public class Nave : Photon.PunBehaviour
     public float constanteVelocidadPeso;    //variable para cálculos de velocidad
     public float constanteAceleracionPeso;      //variable para cálculos de aceleración
 
+    [Header("Pruebas fuerzas")]
+    public float fuerzaPorEncima;
+    public float fuerzaPorDebajo;
+    public float fuerzaPorMuyDebajo;
 
+    [Header("Variables formula")]
     [Range(1, 10)]
     public float velocidadDerrape = 1;      //variable que modifica la cantidad de velocidad lateral que recive la nave en medio de un derrape
 
@@ -534,15 +539,15 @@ public class Nave : Photon.PunBehaviour
                 //se le añade una fuerza para que flote a la altura que queremos
                 if (rayDistance.magnitude < levitationHeight / 2)
                 {
-                    rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 20), ForceMode.Acceleration);
+                    rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * fuerzaPorMuyDebajo), ForceMode.Acceleration);
                 }
                 else if (rayDistance.magnitude < levitationHeight)
                 {
-                    rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
+                    rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * fuerzaPorDebajo), ForceMode.Acceleration);
                 }
                 else
                 {
-                    rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
+                    rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * fuerzaPorEncima), ForceMode.Acceleration);
                 }
             }
             else

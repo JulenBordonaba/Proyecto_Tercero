@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class LevitationManager : MonoBehaviour
 {
-    public Transform levitationObject;
+    [Tooltip("Pon la altura a la que se mantendrá la nave a flote")]
     public float levitationHeight = 20;
+    [Tooltip("Pon la fuerza con la que se impulsa la nave para mantenerla a flote")]
     public float levitationForce = 10;
+    [Tooltip("Pon la altura a la que la nave empieza a corregir su rotación para alinearse con el suelo")]
     public float startCorrectionHeight = 50;
-    public LineRenderer line;
+    [Tooltip("Pon un LineRenderer (Provisional)")]
+    public LineRenderer line;   //linea para ver el recorrido del raycast
 
-    private Rigidbody rb;
+    private Rigidbody rb;   //rigidbody de la nave
 
     private void Start()
     {
@@ -19,7 +22,7 @@ public class LevitationManager : MonoBehaviour
 
     private void Update()
     {
-        
+        Levitate();
     }
 
     private void Levitate()
@@ -30,7 +33,7 @@ public class LevitationManager : MonoBehaviour
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
 
         {
-            ray.origin = levitationObject.position + Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
+            ray.origin = transform.position + Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
             ray.direction = -Vector3.up;
         }
 

@@ -1,0 +1,214 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class NaveController : MonoBehaviour
+{
+    [Tooltip("Pon la cámara de la nave")]
+    public Camera myCamera;   //cámara de la nave
+    [Tooltip("Pon un LineRenderer (Provisional)")]
+    public LineRenderer line;   //linea para ver el recorrido del raycast
+
+    private Rigidbody rb;   //rigidbody de la nave
+
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void Controller()
+    {
+
+        Camera.SetupCurrent(myCamera);
+
+        //convertimos la velocidad de global a local
+        Vector3 locVel = piezasGameObject.InverseTransformDirection(rb.velocity);
+
+        //depende de la velocidad la camara esta mas o menos cerca del coche
+        myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (Velocity() / 15), -4f, 5f));
+        myCamera.fieldOfView = 60f + Mathf.Clamp(locVel.z / 15f, 0f, 80f);
+
+
+
+
+        if (!inDerrape)
+        {
+            //disminuimos poco a poco la velocidad lateral para que no se vaya demasiado la nave
+            locVel.x *= 0.95f;
+            if (Mathf.Abs(locVel.x) < 2f)
+            {
+                locVel = new Vector3(0, locVel.y, locVel.z);
+            }
+        }
+
+        
+        Ray ray = new Ray();
+        RaycastHit hit;
+
+        ray.origin = transform.position;//+ new Vector3(0, 0, Mathf.Clamp(locVel.z / (velocity / 10), -6f, 6f));
+            ray.direction = -Vector3.up;
+        
+
+        //si el vehiculo esta cerca del suelo 
+        if (Physics.Raycast(ray, out hit, alturaManejo, LayerMask.GetMask("Floor")))
+        {
+
+            //mover hacia adelante
+            if (Input.GetAxis("Nave Vertical") > 0)
+            {
+                if (locVel.z < 0) // si estas moviendote hacia atras y quieres ir hacia adelante se ayuda a parar el vehiculo
+                {
+                    //rb.velocity = new Vector3(rb.velocity.x * (1 - friction*2), rb.velocity.y, rb.velocity.z * (1 - friction*2));
+                    locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
+                }
+                if (inDerrape)
+                {
+                    if (Input.GetAxis("Horizontal") > 0)
+                    {
+                        if (locVel.x > 0)
+                        {
+                            locVel.x = 0;
+                        }
+                        rb.AddForce(piezasGameObject.forward * 0.2f * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(-piezasGameObject.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                    }
+                    else if (Input.GetAxis("Horizontal") < 0)
+                    {
+                        if (locVel.x < 0)
+                        {
+                            locVel.x = 0;
+                        }
+                        rb.AddForce(piezasGameObject.forward * 0.2f * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(piezasGameObject.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                    }
+                    else
+                    {
+                        //rb.AddForce(transform.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleration, 2) * Time.deltaTime, ForceMode.Impulse);
+                    }
+
+                }
+                else
+                {
+                    rb.AddForce((piezasGameObject.forward * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime), ForceMode.VelocityChange); //fuerza para moverte hacia adelante
+                }
+
+
+
+            }
+            else if (Input.GetAxis("Nave Vertical") < 0)  //mover hacia atras
+            {
+                if (locVel.z > 0)// si estas moviendote hacia adelante y quieres ir hacia atras se ayuda a parar el vehiculo
+                {
+                    locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
+                    //rb.velocity = new Vector3(rb.velocity.x * (1 - friction*2), rb.velocity.y, rb.velocity.z * (1 - friction*2));
+                }
+                rb.AddForce(piezasGameObject.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleracionBase, 2) * backwardVelocity * Time.deltaTime, ForceMode.Impulse); // fuerza para moverte hacia atras
+
+
+            }
+
+
+
+            //rotación al girar
+
+            if (Input.GetAxis("Nave Vertical") >= 0)
+            {
+                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * manejoBase * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
+            }
+            else if (Input.GetAxis("Nave Vertical") < 0)
+            {
+                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y - (Input.GetAxis("Horizontal") * manejoBase * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
+            }
+
+
+            //derrape
+            if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetKey(KeyCode.LeftShift))
+            {
+                if (locVel.z > 0)
+                {
+                    inDerrape = true;
+                    myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 0.3f;
+                    //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + (Input.GetAxis("Horizontal") * manejo * Time.deltaTime * 2), transform.rotation.eulerAngles.z);
+                }
+                else
+                {
+                    myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
+                    inDerrape = false;
+                }
+            }
+            else
+            {
+                myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
+                inDerrape = false;
+            }
+
+
+            //si no se estan pulsando las teclas que hacen moverse al vehiculo
+            if (!AnyMovementKeys)
+            {
+                //locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction))); //se ralentiza el vehiculo
+                locVel = new Vector3(locVel.x, locVel.y, locVel.z - locVel.z * 0.02f);
+                if (Mathf.Abs(locVel.z) < 2f)
+                {
+                    locVel = new Vector3(locVel.x, locVel.y, 0f);
+                }
+            }
+
+        }
+        else //si el vehiculo no esta cerca del suelo se añade una fuerza para que caiga más rapido (de lo contrario tarda mucho en caer)
+        {
+            myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
+            inDerrape = false;
+
+
+
+        }
+
+
+        
+            if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
+            {
+                //Vector3 rayDistance = ray.origin - hit.point; //guardamos la distancia del raycast
+                rb.AddForce(-Vector3.up * impulsoExtraCaida, ForceMode.VelocityChange);
+                //if(rayDistance.magnitude/2<levitationHeight)
+                //{
+                //    startCorrectionHeight = saveStartCorrectingHeight;
+                //}
+
+            }
+        
+
+
+
+        rb.angularVelocity = Vector3.zero;
+
+        //rotación lateral al girar
+        //piezasGameObject.localEulerAngles = new Vector3(piezasGameObject.localEulerAngles.x, piezasGameObject.localEulerAngles.y, Mathf.LerpAngle(piezasGameObject.localEulerAngles.z, Mathf.Clamp(maxInclination * -Input.GetAxis("Horizontal") * (rb.velocity.magnitude / MaxVelocity) * (maniobrabilidad / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping));
+
+        //si no se esta girando hece que el vehiculo deje de rotar
+        if (Input.GetAxis("Horizontal") == 0)
+        {
+            rb.angularVelocity = new Vector3(rb.angularVelocity.x, 0, rb.angularVelocity.z);
+        }
+
+        //rb.angularVelocity = new Vector3(rb.angularVelocity.x, rb.angularVelocity.y*0.95f, rb.angularVelocity.z);
+
+        //controlamos la velocidad no vertical para ponerle un tope
+        Vector2 notVerticalVel = new Vector2(locVel.x, locVel.z);
+
+        //si la velocidad no vertical supera la velocidad maxima del vehiculo la bajamos hasta la velocidad maxima
+        if (notVerticalVel.magnitude > MaxVelocity)
+        {
+            Vector2 correctedVel = notVerticalVel.normalized * MaxVelocity;
+
+            locVel = new Vector3(correctedVel.x, locVel.y, correctedVel.y);
+        }
+
+        //convertimos la velocidad local en la velocidad global y la aplicamos
+        rb.velocity = piezasGameObject.TransformDirection(locVel);
+
+
+
+    }
+}
