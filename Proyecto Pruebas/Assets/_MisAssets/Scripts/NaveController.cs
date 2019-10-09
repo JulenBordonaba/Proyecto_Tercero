@@ -11,7 +11,6 @@ public class NaveController : MonoBehaviour
 
     private Rigidbody rb;   //rigidbody de la nave
 
-
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -114,11 +113,11 @@ public class NaveController : MonoBehaviour
 
             if (Input.GetAxis("Nave Vertical") >= 0)
             {
-                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * manejoBase * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
+                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * getComponent<Maneuverability>().maneuver * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
             }
             else if (Input.GetAxis("Nave Vertical") < 0)
             {
-                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y - (Input.GetAxis("Horizontal") * manejoBase * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
+                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y - (Input.GetAxis("Horizontal") * getComponent<Maneuverability>().maneuver * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
             }
 
 
@@ -129,7 +128,7 @@ public class NaveController : MonoBehaviour
                 {
                     inDerrape = true;
                     myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 0.3f;
-                    //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + (Input.GetAxis("Horizontal") * manejo * Time.deltaTime * 2), transform.rotation.eulerAngles.z);
+                    //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + (Input.GetAxis("Horizontal") * getComponent<Maneuverability>().maneuver * Time.deltaTime * 2), transform.rotation.eulerAngles.z);
                 }
                 else
                 {
