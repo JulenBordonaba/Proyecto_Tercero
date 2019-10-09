@@ -20,11 +20,13 @@ public class NaveManager : MonoBehaviour
     private Pieza nucleo;   //variable que contiene el nucleo de la nave, si este se destruye la nave se destruye
     private Stats stats;    //variable con las stats de la nave
     private NaveController controller;  //script con el controlador de la nave
+    private Maneuverability maneuverability;
 
     private void Start()
     {
         stats = GetComponent<Stats>();
         controller = GetComponent<NaveController>();
+        maneuverability = GetComponent<Maneuverability>();
         
 
         piezas = new List<Pieza>(GetComponentsInChildren<Pieza>());
@@ -32,7 +34,7 @@ public class NaveManager : MonoBehaviour
 
         foreach (Pieza p in piezas)
         {
-            p.nave = this;
+            //p.nave = this;
             if (p.nucleo)
             {
                 nucleo = p;
@@ -54,4 +56,34 @@ public class NaveManager : MonoBehaviour
         //cambiar entre los distintos combustibles
     }
 
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+    }
+
+    public bool AnyMovementKeys
+    {
+        get { return (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Joystick1Button2) || Input.GetAxis("Nave Vertical") != 0)/* || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)*/; }
+    }
+
+    public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
+    {
+        get { return MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0)) * Rebufo()) + ((boostConst * (inBoost ? 1 : 0)) * Turbo()); }
+    }
+
+    public float PorcentajeSalud    //devuelve el porcentaje de salud de la nave
+    {
+        get { return (nucleo.currentHealth / vidaBase) * 100; }
+    }
+
+    public float MaxVelocity    //devuelve la velocidad máxima de la nave sin aplicar modificadores por posición, rebufo, turbo y salud
+    {
+        get { return VelocityWithWeight * maxVel; }
+    }
+
+    public float VelocityWithWeight //devuelve la velocidad base de la nave afectada por el peso
+    {
+        get { return Velocity() - (Peso() * constanteVelocidadPeso); }
+    }
 }

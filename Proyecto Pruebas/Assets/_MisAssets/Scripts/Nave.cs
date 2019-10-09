@@ -159,7 +159,7 @@ public class Nave : Photon.PunBehaviour
         
         foreach (Pieza p in piezas)
         {
-            p.nave = this;
+            //p.nave = this;
             if (p.nucleo)
             {
                 nucleo = p;
@@ -518,7 +518,7 @@ public class Nave : Photon.PunBehaviour
         }
         else
         {
-            ray.origin = piezasGameObject.position + Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
+            ray.origin = piezasGameObject.position + Vector3.ClampMagnitude((locVel.z * transform.forward), 10f);
             ray.direction = -Vector3.up;
         }
 

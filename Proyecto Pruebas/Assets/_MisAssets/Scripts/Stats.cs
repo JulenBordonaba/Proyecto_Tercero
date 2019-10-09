@@ -32,4 +32,6 @@ public class Stats : MonoBehaviour
         actualShotDamage = shotDamage;
         actualWeight = weight;
     }
+
+    
 }

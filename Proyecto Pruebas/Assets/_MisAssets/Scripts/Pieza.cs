@@ -37,7 +37,7 @@ public class Pieza : MonoBehaviour {
     [HideInInspector]
     public float currentHealth;
     public bool nucleo;
-    public NaveManager nave { get; set; }
+    public Nave nave { get; set; }
 
 	// Use this for initialization
 	void Start () {
