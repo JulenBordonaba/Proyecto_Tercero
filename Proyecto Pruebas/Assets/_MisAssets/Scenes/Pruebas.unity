@@ -67165,8 +67165,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   combustibles: 02000000010000000000000003000000
+  habilidadCombustible: {fileID: 0}
   inShield: 0
-  piezas: []
 --- !u!4 &1075311703
 Transform:
   m_ObjectHideFlags: 0
@@ -67224,6 +67224,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e737875222e5594bab187f57fae61ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!54 &1075311707

@@ -11,33 +11,32 @@ public class Reparar : HabilidadCombustible
         if (repairing == false) { 
 
         Combustible combustibleReparar = new Combustible(); //variable para guardar el componente combustible de reparacion del objeto padre
-                      
+
         //activar animacion reparacion
         //GetComponentInParent<Animator>().SetBool("repair",true);
 
         //activar sonido reparqacion
         //GetComponentInParent<AudioSource>().Play();
 
-        //codigo que busca entre todos los combustibles del objeto y guarda el combustible del escudo. 
-        //Así se pueden acceder a las variables del combustible del escudo
-
-        Component[] combustibles;
-        combustibles = GetComponentsInParent(typeof(Combustible));
-        if (combustibles != null)
-        {
-            foreach (Combustible combustible in combustibles)
-                if (combustible.tipoCombustible == TipoCombustible.Reparar)
-                {
-                    combustibleReparar = combustible;
-                }
-        }
-        else
-        {
-            //lo que sea
-        }
+        //codigo que busca entre todos los combustibles del objeto y guarda el combustible de reparar.  
+        //Así se pueden acceder a las variables del combustible de reparar
+            Component[] combustibles;
+            combustibles = GetComponentsInParent(typeof(Combustible));
+            if (combustibles != null)
+            {
+                foreach (Combustible combustible in combustibles)
+                    if (combustible.tipoCombustible == TipoCombustible.Reparar)
+                    {
+                        combustibleReparar = combustible;
+                    }
+            }
+            else
+            {
+                //lo que sea
+            }
 
             repairing = true;
-        StartCoroutine(Repairs(combustibleReparar.duration));
+            StartCoroutine(Repairs(combustibleReparar.duration));
         }
     }
 
