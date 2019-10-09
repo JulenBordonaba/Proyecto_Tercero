@@ -31,4 +31,9 @@ public class Maneuverability : MonoBehaviour
         get { return Velocity() - (Peso() * constanteVelocidadPeso); }
     }
 
+    public float AcelerationWithWeight  //devuelve la aceleración de la nave afectada por el peso
+    {
+        get { return Aceleracion() - (constanteAceleracionPeso * Peso()); }
+    }
+
 }
