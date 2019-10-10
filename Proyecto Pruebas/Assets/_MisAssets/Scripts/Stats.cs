@@ -13,16 +13,11 @@ public class Stats : MonoBehaviour
     public float shotDamage;     //daño por disparo
     [Tooltip("Asigna el peso que tiene el objeto")]
     public float weight;      //pero del objeto. Influye en su daño y velocidad
-
-    [Header("Estado actual")]
-    [Tooltip("Vida que tiene actualmente el objeto")]
-    public float actualLife;   //vida que tendrá el objeto
-    [Tooltip("Daño por colision que tiene actualmente el objeto")]
-    public float actualCollisionDamage;     //daño por colision
-    [Tooltip("Daño por disparo que tiene actualmente el objeto")]
-    public float actualShotDamage;     //daño por disparo
-    [Tooltip("Peso que tiene actualmente el objeto")]
-    public float actualWeight;      //pero del objeto. Influye en su daño y velocidad
+    
+    public float actualLife { get; set; }     //vida que tendrá el objeto
+    public float actualCollisionDamage { get; set; }       //daño por colision
+    public float actualShotDamage { get; set; }       //daño por disparo
+    public float actualWeight { get; set; }        //pero del objeto. Influye en su daño y velocidad
 
     private void Start()
     {

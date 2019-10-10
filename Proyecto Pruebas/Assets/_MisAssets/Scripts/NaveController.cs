@@ -6,10 +6,12 @@ public class NaveController : MonoBehaviour
 {
     [Tooltip("Pon la cámara de la nave")]
     public Camera myCamera;   //cámara de la nave
+    public float maneuverHeight;    //altura a la que se puede manejar la nave
     [Tooltip("Pon un LineRenderer (Provisional)")]
     public LineRenderer line;   //linea para ver el recorrido del raycast
 
     private Rigidbody rb;   //rigidbody de la nave
+    private bool inDerrape;     //variable que controla cuando esta derrapando la nave
 
     private void Start()
     {
@@ -18,14 +20,14 @@ public class NaveController : MonoBehaviour
 
     public void Controller()
     {
-        /*
+        
         Camera.SetupCurrent(myCamera);
 
         //convertimos la velocidad de global a local
         Vector3 locVel = piezasGameObject.InverseTransformDirection(rb.velocity);
 
         //depende de la velocidad la camara esta mas o menos cerca del coche
-        myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (Velocity() / 15), -4f, 5f));
+        myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (GetComponent<Maneuverability>().currentVelocity / 15), -4f, 5f));
         myCamera.fieldOfView = 60f + Mathf.Clamp(locVel.z / 15f, 0f, 80f);
 
 
@@ -50,7 +52,7 @@ public class NaveController : MonoBehaviour
         
 
         //si el vehiculo esta cerca del suelo 
-        if (Physics.Raycast(ray, out hit, alturaManejo, LayerMask.GetMask("Floor")))
+        if (Physics.Raycast(ray, out hit, maneuverHeight, LayerMask.GetMask("Floor")))
         {
 
             //mover hacia adelante
@@ -69,8 +71,8 @@ public class NaveController : MonoBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(piezasGameObject.forward * 0.2f * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
-                        rb.AddForce(-piezasGameObject.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(piezasGameObject.forward * 0.2f * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(-piezasGameObject.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                     }
                     else if (Input.GetAxis("Horizontal") < 0)
                     {
@@ -78,8 +80,8 @@ public class NaveController : MonoBehaviour
                         {
                             locVel.x = 0;
                         }
-                        rb.AddForce(piezasGameObject.forward * 0.2f * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
-                        rb.AddForce(piezasGameObject.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(piezasGameObject.forward * 0.2f * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(piezasGameObject.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                     }
                     else
                     {
@@ -89,7 +91,7 @@ public class NaveController : MonoBehaviour
                 }
                 else
                 {
-                    rb.AddForce((piezasGameObject.forward * Input.GetAxis("Nave Vertical") * AcelerationWithWeight * Time.deltaTime), ForceMode.VelocityChange); //fuerza para moverte hacia adelante
+                    rb.AddForce((piezasGameObject.forward * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime), ForceMode.VelocityChange); //fuerza para moverte hacia adelante
                 }
 
 
@@ -102,7 +104,7 @@ public class NaveController : MonoBehaviour
                     locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
                     //rb.velocity = new Vector3(rb.velocity.x * (1 - friction*2), rb.velocity.y, rb.velocity.z * (1 - friction*2));
                 }
-                rb.AddForce(piezasGameObject.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(aceleracionBase, 2) * backwardVelocity * Time.deltaTime, ForceMode.Impulse); // fuerza para moverte hacia atras
+                rb.AddForce(piezasGameObject.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(GetComponent<Maneuverability>().acceleration, 2) * backwardVelocity * Time.deltaTime, ForceMode.Impulse); // fuerza para moverte hacia atras
 
 
             }
@@ -113,11 +115,11 @@ public class NaveController : MonoBehaviour
 
             if (Input.GetAxis("Nave Vertical") >= 0)
             {
-                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * getComponent<Maneuverability>().maneuver * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
+                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * GetComponent<Maneuverability>().maneuver * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
             }
             else if (Input.GetAxis("Nave Vertical") < 0)
             {
-                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y - (Input.GetAxis("Horizontal") * getComponent<Maneuverability>().maneuver * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
+                piezasGameObject.localRotation = Quaternion.Euler(piezasGameObject.localRotation.eulerAngles.x, piezasGameObject.localRotation.eulerAngles.y - (Input.GetAxis("Horizontal") * GetComponent<Maneuverability>().maneuver * Time.deltaTime), piezasGameObject.localRotation.eulerAngles.z);
             }
 
 
@@ -197,9 +199,9 @@ public class NaveController : MonoBehaviour
         Vector2 notVerticalVel = new Vector2(locVel.x, locVel.z);
 
         //si la velocidad no vertical supera la velocidad maxima del vehiculo la bajamos hasta la velocidad maxima
-        if (notVerticalVel.magnitude > MaxVelocity)
+        if (notVerticalVel.magnitude > GetComponent<Maneuverability>().MaxVelocity)
         {
-            Vector2 correctedVel = notVerticalVel.normalized * MaxVelocity;
+            Vector2 correctedVel = notVerticalVel.normalized * GetComponent<Maneuverability>().MaxVelocity;
 
             locVel = new Vector3(correctedVel.x, locVel.y, correctedVel.y);
         }
@@ -207,7 +209,27 @@ public class NaveController : MonoBehaviour
         //convertimos la velocidad local en la velocidad global y la aplicamos
         rb.velocity = piezasGameObject.TransformDirection(locVel);
 
-        */
+        
 
+    }
+
+    public bool AnyMovementKeys
+    {
+        get { return (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Joystick1Button2) || Input.GetAxis("Nave Vertical") != 0)/* || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)*/; }
+    }
+
+    public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
+    {
+        get { return GetComponent<Maneuverability>().MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0)) * Rebufo()) + ((boostConst * (inBoost ? 1 : 0)) * Turbo()); }
+    }
+
+    public float PorcentajeSalud    //devuelve el porcentaje de salud de la nave
+    {
+        get { return (nucleo.currentHealth / GetComponent<Stats>().life) * 100; }
+    }
+
+    public float DistanciaPrimero   //devuelve la distancia de la nave respecto al primero de la carrera
+    {
+        get { return 1; }
     }
 }

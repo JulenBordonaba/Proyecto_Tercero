@@ -16,6 +16,13 @@ public class Maneuverability : MonoBehaviour
     public float recoil;        //bonus de velocidad del rebufo
     [Tooltip("Asigna el bonus de velocidad que otorgara estar en Turbo")]
     public float turbo;        //bonus de velocidad del turbo
+    
+    public float currentVelocity { get; set; }     //Velocidad maxima actual que alcanzara la nave
+    public float currentAcceleration { get; set; }        //Aceleracion actual de la nave
+    public float currentManeuver { get; set; }        //El manejo  actual de la nave
+    public float currentDash { get; set; }        //Dash actual de la nave
+    public float currentRecoil { get; set; }          //bonus de velocidad del rebufo actual
+    public float currentTurbo { get; set; }          //bonus de velocidad del turbo actual
 
 
 
@@ -28,12 +35,12 @@ public class Maneuverability : MonoBehaviour
 
     public float VelocityWithWeight //devuelve la velocidad base de la nave afectada por el peso
     {
-        get { return Velocity() - (Peso() * constanteVelocidadPeso); }
+        get { return currentVelocity - (GetComponent<Stats>().actualWeight * constanteVelocidadPeso); }
     }
 
     public float AcelerationWithWeight  //devuelve la aceleración de la nave afectada por el peso
     {
-        get { return Aceleracion() - (constanteAceleracionPeso * Peso()); }
+        get { return currentAcceleration - (constanteAceleracionPeso * GetComponent<Stats>().actualWeight); }
     }
 
 }

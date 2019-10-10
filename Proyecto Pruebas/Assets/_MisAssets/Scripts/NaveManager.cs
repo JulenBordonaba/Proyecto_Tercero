@@ -57,23 +57,5 @@ public class NaveManager : MonoBehaviour
     }
 
    
-    public bool AnyMovementKeys
-    {
-        get { return (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Joystick1Button2) || Input.GetAxis("Nave Vertical") != 0)/* || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)*/; }
-    }
-
-    public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
-    {
-        get { return GetComponent<Maneuverability>().MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0)) * Rebufo()) + ((boostConst * (inBoost ? 1 : 0)) * Turbo()); }
-    }
-
-    public float PorcentajeSalud    //devuelve el porcentaje de salud de la nave
-    {
-        get { return (nucleo.currentHealth / GetComponent<Stats>().life) * 100; }
-    }
-
-    public float DistanciaPrimero   //devuelve la distancia de la nave respecto al primero de la carrera
-    {
-        get { return 1; }
-    }
+    
 }
