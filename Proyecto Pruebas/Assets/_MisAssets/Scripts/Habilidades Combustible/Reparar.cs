@@ -43,8 +43,10 @@ public class Reparar : HabilidadCombustible
     private IEnumerator Repairs(float waitTime)
     {
         /*
-         * 
-         * 
+         * piezas = GetComponentsInParent(typeof(Pieza));
+         * foreach(Pieza pieza in piezas)                   // Se reparara cada pieza en funcion de la vida resante que le quede. una pieza al 10% se regenerara hasta un 33% por ejemplo
+         *                                                  // Mientras que una al 85% subira hasta el 90%
+         * {pieza.currenHealth += 100 - pieza.currenHealth * (Estat de reparar que la nave tenga) * Time.deltaTime }
          * 
          * 
          */
