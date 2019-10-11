@@ -6,9 +6,20 @@ public class NaveController : MonoBehaviour
 {
     [Tooltip("Pon la cámara de la nave")]
     public Camera myCamera;   //cámara de la nave
+    [Tooltip("Pon la altura máxima a la que la nave podrá controlarse, a partir de esta altura los controles no funcionarán")]
     public float maneuverHeight;    //altura a la que se puede manejar la nave
     [Tooltip("Pon un LineRenderer (Provisional)")]
     public LineRenderer line;   //linea para ver el recorrido del raycast
+    [Tooltip("Pon la fricción de la nave")]
+    public float friction;      //la fricción de la nave, ya que esta flotando y no roza con nada hay que aplicarle una fricción para que no se deslice hasta el infinito
+    [Tooltip("Pon la velocidad lateral de la nave al derrapar")]
+    public float driftVelocity;     //velocidad lateral que se aplica cuando la nave derrapa
+    [Tooltip("Pon la altura a la que la nave flotará")]
+    public float levitationHeight;  //altura a la que queremos que la nave flote
+    [Tooltip("Pon el modificador a la velocidad cuando va marcha atrás, 1 es igual, 0,7 un 70%, 1,3 un 130%")]
+    public float backwardVelocity;  //modificador de velocidad cuando la nave va marcha atrás, se multiplica por la velocidad
+    [Tooltip("Pon el impulso vertical extra que se le aplica a la nave para que no parezca que cae a cámara lenta")]
+    public float extraFallImpulse;  //impulso extra que se le aplica a la nave al caer para que no parezca que cae a cámara lenta
 
     private Rigidbody rb;   //rigidbody de la nave
     private bool inDerrape;     //variable que controla cuando esta derrapando la nave
@@ -72,7 +83,7 @@ public class NaveController : MonoBehaviour
                             locVel.x = 0;
                         }
                         rb.AddForce(piezasGameObject.forward * 0.2f * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
-                        rb.AddForce(-piezasGameObject.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(-piezasGameObject.right * driftVelocity * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                     }
                     else if (Input.GetAxis("Horizontal") < 0)
                     {
@@ -81,7 +92,7 @@ public class NaveController : MonoBehaviour
                             locVel.x = 0;
                         }
                         rb.AddForce(piezasGameObject.forward * 0.2f * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
-                        rb.AddForce(piezasGameObject.right * velocidadDerrape * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(piezasGameObject.right * driftVelocity * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                     }
                     else
                     {
@@ -171,7 +182,7 @@ public class NaveController : MonoBehaviour
             if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
             {
                 //Vector3 rayDistance = ray.origin - hit.point; //guardamos la distancia del raycast
-                rb.AddForce(-Vector3.up * impulsoExtraCaida, ForceMode.VelocityChange);
+                rb.AddForce(-Vector3.up * extraFallImpulse, ForceMode.VelocityChange);
                 //if(rayDistance.magnitude/2<levitationHeight)
                 //{
                 //    startCorrectionHeight = saveStartCorrectingHeight;
