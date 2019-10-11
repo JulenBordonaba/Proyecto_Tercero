@@ -21,6 +21,19 @@ public class NaveController : MonoBehaviour
     [Tooltip("Pon el impulso vertical extra que se le aplica a la nave para que no parezca que cae a cámara lenta")]
     public float extraFallImpulse;  //impulso extra que se le aplica a la nave al caer para que no parezca que cae a cámara lenta
 
+    [Header("Constantes fórmulas")]
+    [Tooltip("Pon la constante de la vida")]
+    public float healthConst;
+    [Tooltip("Pon la constante de la posición")]
+    public float positionConst;
+    [Tooltip("Pon la constante del rebufo")]
+    public float recoilConst;
+    [Tooltip("Pon la constante del turbo")]
+    public float turboConst;
+
+    private bool inRecoil = false;
+    private bool inTurbo = false;
+
     private Rigidbody rb;   //rigidbody de la nave
     private bool inDerrape;     //variable que controla cuando esta derrapando la nave
 
@@ -231,7 +244,7 @@ public class NaveController : MonoBehaviour
 
     public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
     {
-        get { return GetComponent<Maneuverability>().MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((rebufoConst * (inRebufo ? 1 : 0)) * Rebufo()) + ((boostConst * (inBoost ? 1 : 0)) * Turbo()); }
+        get { return GetComponent<Maneuverability>().MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((recoilConst * (inRecoil ? 1 : 0)) * GetComponent<Maneuverability>().currentRecoil) + ((turboConst * (inTurbo ? 1 : 0)) * GetComponent<Maneuverability>().currentTurbo); }
     }
 
     public float PorcentajeSalud    //devuelve el porcentaje de salud de la nave
