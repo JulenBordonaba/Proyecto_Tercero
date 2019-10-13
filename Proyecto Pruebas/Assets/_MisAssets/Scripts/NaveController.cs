@@ -23,13 +23,18 @@ public class NaveController : MonoBehaviour
 
     [Header("Constantes fórmulas")]
     [Tooltip("Pon la constante de la vida")]
-    public float healthConst;
+    public float healthConst;   //constante que se le multiplica a la vida en la fórmula de velocidad
     [Tooltip("Pon la constante de la posición")]
-    public float positionConst;
+    public float positionConst; //constante que se le multiplica a la posición en la fórmula de velocidad
     [Tooltip("Pon la constante del rebufo")]
-    public float recoilConst;
+    public float recoilConst;   //constante que se le multiplica al rebufo(recoil) en la fórmula de velocidad
     [Tooltip("Pon la constante del turbo")]
-    public float turboConst;
+    public float turboConst;    //constante que se le multiplica al turbo en la fórmula de velocidad
+
+    [Header("Piezas de la nave")]
+    [Tooltip("Pon el transform del objeto que contiene las diferentes piezas de la nave")]
+    public Transform piezasGameObject;  //transform del objeto que contiene las piezas de la nave
+    public Pieza nucleo { get; set; }   //Variable que contiene la pieza que es el núcleo de la nave
 
     private bool inRecoil = false;
     private bool inTurbo = false;
