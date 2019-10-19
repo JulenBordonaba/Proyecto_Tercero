@@ -31,10 +31,10 @@ public class LevitationManager : MonoBehaviour
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
 
 
-        ray.origin = transform.position + Vector3.ClampMagnitude((locVel.z * transform.forward), 5f);
+        ray.origin = GetComponent<NaveController>().modelTransform.position + Vector3.ClampMagnitude((locVel.z * GetComponent<NaveController>().modelTransform.forward), 5f);
         ray.direction = -Vector3.up;
 
-        //Debug.DrawRay(ray.origin,-Vector3.up, Color.green);  //dibujamos el resultado del raycast
+        Debug.DrawRay(ray.origin,-Vector3.up, Color.green);  //dibujamos el resultado del raycast
 
         //lanzamos un raycast hacia el suelo
         if (Physics.Raycast(ray, out hit, LayerMask.GetMask("Floor")))
@@ -71,6 +71,7 @@ public class LevitationManager : MonoBehaviour
             //hacemos una interpolación entre la rotación inicial y la final en relación a la distancia al suelo
 
             interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (1 - ((rayDistance.magnitude - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance.magnitude));
+            //interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, );
 
             //igualamos la rotación a el resultado de la interpolación
             transform.localRotation = interpolation;
