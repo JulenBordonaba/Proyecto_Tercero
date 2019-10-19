@@ -67096,6 +67096,7 @@ GameObject:
   - component: {fileID: 1075311702}
   - component: {fileID: 1075311706}
   - component: {fileID: 1075311705}
+  - component: {fileID: 1075311708}
   - component: {fileID: 1075311701}
   - component: {fileID: 1075311700}
   - component: {fileID: 1075311699}
@@ -67105,7 +67106,6 @@ GameObject:
   - component: {fileID: 1075311695}
   - component: {fileID: 1075311694}
   - component: {fileID: 1075311693}
-  - component: {fileID: 1075311708}
   m_Layer: 0
   m_Name: naveVirtualParaPruebasProgramacion
   m_TagString: Untagged
@@ -67334,8 +67334,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
 --- !u!114 &1075311708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67353,8 +67353,8 @@ MonoBehaviour:
   maneuver: 100
   dash: 100
   recoil: 100
-  turbo: 100
-  velocityMultiplier: 5
+  boost: 0
+  velocityMultiplier: 3
   velocityWeightInfluence: 0.3
   accelerationWeightInfluence: 0.5
 --- !u!1 &1076184988

@@ -24,7 +24,7 @@ public class NaveManager : MonoBehaviour
 
     private void Update()
     {
-        controller.Controller();
+        
     }
 
     private void AsignarCombustibleInicial()

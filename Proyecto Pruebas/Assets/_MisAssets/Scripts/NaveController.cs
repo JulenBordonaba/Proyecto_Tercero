@@ -52,6 +52,7 @@ public class NaveController : MonoBehaviour
     private void Update()
     {
         Controller();
+        
     }
 
     public void Controller()
@@ -95,27 +96,30 @@ public class NaveController : MonoBehaviour
             {
                 if (locVel.z < 0) // si estas moviendote hacia atras y quieres ir hacia adelante se ayuda a parar el vehiculo
                 {
-                    //rb.velocity = new Vector3(rb.velocity.x * (1 - friction*2), rb.velocity.y, rb.velocity.z * (1 - friction*2));
                     locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
                 }
-                if (inDrift)
+                if (inDrift)    //si la nave esta derrapando
                 {
-                    if (Input.GetAxis("Horizontal") > 0)
+                    if (Input.GetAxis("Horizontal") > 0)    //si esta girando hacia la derecha
                     {
-                        if (locVel.x > 0)
+                        if (locVel.x > 0)   //si la velocidad lateral hacia la derecha es positiva se pone a 0
                         {
                             locVel.x = 0;
                         }
+                        //impulso hacia delante, más pequeño que cuando no esta derrapando
                         rb.AddForce(modelTransform.forward * 0.2f * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        //impulso lateral hacia el lado contrario que se esta girando
                         rb.AddForce(-modelTransform.right * driftVelocity * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                     }
-                    else if (Input.GetAxis("Horizontal") < 0)
+                    else if (Input.GetAxis("Horizontal") < 0)   //si esta girando hacia la izquierda
                     {
                         if (locVel.x < 0)
                         {
                             locVel.x = 0;
                         }
+                        //impulso hacia delante, más pequeño que cuando no esta derrapando
                         rb.AddForce(modelTransform.forward * 0.2f * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        //impulso lateral hacia el lado contrario que se esta girando
                         rb.AddForce(modelTransform.right * driftVelocity * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                     }
                     else
@@ -126,7 +130,8 @@ public class NaveController : MonoBehaviour
                 }
                 else
                 {
-                    rb.AddForce((modelTransform.forward * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime), ForceMode.VelocityChange); //fuerza para moverte hacia adelante
+                    print("entra en mover hacia delante" + modelTransform.forward * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime);
+                    rb.AddForce(modelTransform.forward * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange); //fuerza para moverte hacia adelante
                 }
 
 
@@ -137,14 +142,13 @@ public class NaveController : MonoBehaviour
                 if (locVel.z > 0)// si estas moviendote hacia adelante y quieres ir hacia atras se ayuda a parar el vehiculo
                 {
                     locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
-                    //rb.velocity = new Vector3(rb.velocity.x * (1 - friction*2), rb.velocity.y, rb.velocity.z * (1 - friction*2));
                 }
-                rb.AddForce(modelTransform.forward * Input.GetAxis("Nave Vertical") * Mathf.Pow(GetComponent<Maneuverability>().acceleration, 2) * backwardVelocity * Time.deltaTime, ForceMode.Impulse); // fuerza para moverte hacia atras
-
+                rb.AddForce(modelTransform.forward * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * backwardVelocity * Time.deltaTime, ForceMode.VelocityChange); // fuerza para moverte hacia atras
+                print("entra en mover hacia atras" + modelTransform.forward * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * backwardVelocity * Time.deltaTime);
 
             }
 
-
+            
 
             //rotación al girar
 
@@ -190,7 +194,7 @@ public class NaveController : MonoBehaviour
                     locVel = new Vector3(locVel.x, locVel.y, 0f);
                 }
             }
-
+            
         }
         else //si el vehiculo no esta cerca del suelo se añade una fuerza para que caiga más rapido (de lo contrario tarda mucho en caer)
         {
@@ -200,8 +204,8 @@ public class NaveController : MonoBehaviour
 
 
         }
-
-
+        
+       
 
         if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
         {
@@ -240,11 +244,12 @@ public class NaveController : MonoBehaviour
 
             locVel = new Vector3(correctedVel.x, locVel.y, correctedVel.y);
         }
+        print("max vel: " + GetComponent<Maneuverability>().MaxVelocity);
 
         //convertimos la velocidad local en la velocidad global y la aplicamos
         rb.velocity = modelTransform.TransformDirection(locVel);
 
-
+        
 
     }
 
@@ -255,7 +260,7 @@ public class NaveController : MonoBehaviour
 
     public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
     {
-        get { return GetComponent<Maneuverability>().MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((recoilConst * (inRecoil ? 1 : 0)) * GetComponent<Maneuverability>().currentRecoil) + ((turboConst * (inBoost ? 1 : 0)) * GetComponent<Maneuverability>().currentTurbo); }
+        get { return GetComponent<Maneuverability>().MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((recoilConst * (inRecoil ? 1 : 0)) * GetComponent<Maneuverability>().currentRecoil) + ((turboConst * (inBoost ? 1 : 0)) * GetComponent<Maneuverability>().currentBoost); }
     }
 
     public float PorcentajeSalud    //devuelve el porcentaje de salud de la nave

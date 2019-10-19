@@ -30,7 +30,7 @@ public class DamageTaken : MonoBehaviour
             {
                 if (!damageInmune) // si no es inmune se reproduce la animación de daño y los sonidos correspondientes
                 {
-                    GetComponentInParent<Stats>().actualLife = GetComponentInParent<Stats>().actualLife - collision.gameObject.GetComponent<Stats>().actualCollisionDamage;
+                    GetComponentInParent<Stats>().currentLife = GetComponentInParent<Stats>().currentLife - collision.gameObject.GetComponent<Stats>().currentCollisionDamage;
                     // sonido chocar
                 }
 
@@ -39,7 +39,7 @@ public class DamageTaken : MonoBehaviour
             {
                 if (!damageInmune) // si no es inmune se reproduce la animación de daño y los sonidos correspondientes
                 {
-                    GetComponentInParent<Stats>().actualLife = GetComponentInParent<Stats>().actualLife - collision.gameObject.GetComponent<Stats>().actualShotDamage;
+                    GetComponentInParent<Stats>().currentLife = GetComponentInParent<Stats>().currentLife - collision.gameObject.GetComponent<Stats>().currentShotDamage;
                     // sonido recibir un disparo
                 }
             }

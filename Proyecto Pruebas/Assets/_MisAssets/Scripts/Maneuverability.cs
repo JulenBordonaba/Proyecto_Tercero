@@ -16,7 +16,7 @@ public class Maneuverability : MonoBehaviour
     [Tooltip("Asigna el bonus de velocidad que otorgara estar en Rebufo")]
     public float recoil;        //bonus de velocidad del rebufo
     [Tooltip("Asigna el bonus de velocidad que otorgara estar en Turbo")]
-    public float turbo;        //bonus de velocidad del turbo
+    public float boost;        //bonus de velocidad del turbo
     [Header("Constantes")]
     [Tooltip("Pon el multiplicador a la velocidad de la nave")]
     public float velocityMultiplier;    //multiplicador a la velocidad de la nave, sirve para mantener las estadísticas en un rango de 0-100 y poder aumentar la velocidad de las naves
@@ -29,10 +29,18 @@ public class Maneuverability : MonoBehaviour
     public float currentManeuver { get; set; }        //El manejo  actual de la nave
     public float currentDash { get; set; }        //Dash actual de la nave
     public float currentRecoil { get; set; }          //bonus de velocidad del rebufo actual
-    public float currentTurbo { get; set; }          //bonus de velocidad del turbo actual
+    public float currentBoost { get; set; }          //bonus de velocidad del turbo actual
 
 
-
+    private void Start()
+    {
+        currentVelocity = velocity;
+        currentAcceleration = acceleration;
+        currentManeuver = maneuver;
+        currentDash = dash;
+        currentRecoil = recoil;
+        currentBoost = boost;
+    }
 
 
     public float MaxVelocity    //devuelve la velocidad máxima de la nave sin aplicar modificadores por posición, rebufo, turbo y salud
@@ -42,12 +50,12 @@ public class Maneuverability : MonoBehaviour
 
     public float VelocityWithWeight //devuelve la velocidad base de la nave afectada por el peso
     {
-        get { return currentVelocity - (GetComponent<Stats>().actualWeight * velocityWeightInfluence); }
+        get { return currentVelocity - (GetComponent<Stats>().currentWeight * velocityWeightInfluence); }
     }
 
     public float AcelerationWithWeight  //devuelve la aceleración de la nave afectada por el peso
     {
-        get { return currentAcceleration - (accelerationWeightInfluence * GetComponent<Stats>().actualWeight); }
+        get { return currentAcceleration - (accelerationWeightInfluence * GetComponent<Stats>().currentWeight); }
     }
 
 }
