@@ -705,14 +705,14 @@ public class Nave : Photon.PunBehaviour
 
             if (piezasColision.Count > 0)
             {
-                float angle = Vector3.Angle(rb.velocity, piezasColision[0].nave.rb.velocity);
+                //float angle = Vector3.Angle(rb.velocity, piezasColision[0].nave.rb.velocity);
                 float totalDmg = 0;
                 foreach (Pieza pi in piezasColision)
                 {
                     totalDmg += damageBase * pi.Importancia;
                 }
                 float dmg = totalDmg / piezasColision.Count;
-                destroyed = p.Damage(CalculateDamage(dmg, CollisionAngleValue(angle), piezasColision[0].nave));
+                //destroyed = p.Damage(CalculateDamage(dmg, CollisionAngleValue(angle), piezasColision[0].nave));
             }
 
             if (destroyed) break;

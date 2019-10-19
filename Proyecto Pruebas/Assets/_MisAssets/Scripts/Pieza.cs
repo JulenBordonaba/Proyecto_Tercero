@@ -25,19 +25,17 @@ public class Pieza : MonoBehaviour {
     public float derrape = 100;
     [Tooltip("Dash Lateral afecta a la velocidad y distancia a la que la nave hace la carga lateral, Rango:0-100"), Range(0, 100)]
     public float dashLateral = 100;*/
-    [Tooltip("Importancia que tiene la pieza, el porcentage en el que aumenta los stats de la nave, Rango:0-100"), Range(0, 100)]
+    [Tooltip("Importancia que tiene la pieza, el porcentage en el que aumenta los stats de la nave, Rango:0-100, si es el núcleo poner a 0"), Range(0, 100)]
     public float importancia = 25;
-
-    public Slider sliderVida;
-    public Text dmgText;
+    
     
 
 
-    [Tooltip("Esta variable hay que dejarla activada únicamente en la pieza nucleo de la nave")]
+    
     [HideInInspector]
     public float currentHealth;
+    [Tooltip("Esta variable hay que dejarla activada únicamente en la pieza nucleo de la nave")]
     public bool nucleo;
-    public Nave nave { get; set; }
 
 	// Use this for initialization
 	void Start () {
@@ -51,8 +49,7 @@ public class Pieza : MonoBehaviour {
 
     private void onPieceDestroyed()
     {
-        nave.piezas.Remove(this);
-        Destroy(gameObject);
+        
     }
 
     public bool Damage(float ammount)
