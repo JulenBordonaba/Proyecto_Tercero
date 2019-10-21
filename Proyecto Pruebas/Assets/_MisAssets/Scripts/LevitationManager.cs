@@ -13,6 +13,8 @@ public class LevitationManager : MonoBehaviour
     [Tooltip("damping")]
     public float damping = 2;
 
+    public float upDamping = 2;
+
     private Rigidbody rb;   //rigidbody de la nave
 
     private void Start()
@@ -84,7 +86,7 @@ public class LevitationManager : MonoBehaviour
         if(rayDistance>startCorrectionHeight)
         {
             Quaternion interpolation;
-            interpolation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0),Time.deltaTime);
+            interpolation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0),Time.deltaTime * upDamping);
             transform.localRotation = interpolation;
         }
         else
