@@ -18,13 +18,11 @@ public class LevitationManager : MonoBehaviour
     public float upDamping = 2;
 
     private Rigidbody rb;   //rigidbody de la nave
-    private float lastRayDistance;  //variable que guarda la distancia que ha recorrido el raycast el frame anterior
     private float lastInclination;  //variable que guarda el último valor de forward.y
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        lastRayDistance = 0;
     }
 
     private void Update()
@@ -81,7 +79,6 @@ public class LevitationManager : MonoBehaviour
             {
                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.9f, rb.velocity.z);
             }
-            lastRayDistance = rayDistance.magnitude;
             lastInclination = GetComponent<NaveController>().modelTransform.forward.y;
         }
 
@@ -112,10 +109,14 @@ public class LevitationManager : MonoBehaviour
 
             //igualamos la rotación a el resultado de la interpolación
             transform.localRotation = interpolation;
-            if(GetComponent<NaveController>().modelTransform.forward.y<lastInclination && rb.velocity.y>0)
+
+            /*if(GetComponent<NaveController>().modelTransform.forward.y<lastInclination && rb.velocity.y>0)
             {
-                transform.localRotation = rot;
-            }
+                if(rayDistance>levitationHeight)
+                {
+                    transform.localRotation = rot;
+                }
+            }*/
         }
     }
 }
