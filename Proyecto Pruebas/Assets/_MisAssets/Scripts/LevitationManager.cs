@@ -10,16 +10,21 @@ public class LevitationManager : MonoBehaviour
     public float levitationForce = 10;
     [Tooltip("Pon la altura a la que la nave empieza a corregir su rotación para alinearse con el suelo")]
     public float startCorrectionHeight = 50;
+    [Tooltip("Pon la distancia máxima a la que el raycast disparara respecto al centro de la nave")]
+    public float rayOffset = 8;
     [Tooltip("damping")]
     public float damping = 2;
 
     public float upDamping = 2;
 
     private Rigidbody rb;   //rigidbody de la nave
+    private float lastRayDistance;  //variable que guarda la distancia que ha recorrido el raycast el frame anterior
+    private float lastInclination;  //variable que guarda el último valor de forward.y
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        lastRayDistance = 0;
     }
 
     private void Update()
@@ -35,7 +40,7 @@ public class LevitationManager : MonoBehaviour
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
 
 
-        ray.origin = GetComponent<NaveController>().modelTransform.position + Vector3.ClampMagnitude((locVel.z * GetComponent<NaveController>().modelTransform.forward), 5f);
+        ray.origin = GetComponent<NaveController>().modelTransform.position + Vector3.ClampMagnitude((locVel.z * GetComponent<NaveController>().modelTransform.forward), rayOffset);
         ray.direction = -Vector3.up;
 
         Debug.DrawRay(ray.origin, -Vector3.up, Color.green);  //dibujamos el resultado del raycast
@@ -51,13 +56,14 @@ public class LevitationManager : MonoBehaviour
 
 
 
-            
+
             //se le añade una fuerza para que flote a la altura que queremos
             /*if (rayDistance.magnitude < levitationHeight / 2)
             {
                 rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 20), ForceMode.Acceleration);
             }
-            else */if (rayDistance.magnitude < levitationHeight)
+            else */
+            if (rayDistance.magnitude < levitationHeight)
             {
                 rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
             }
@@ -75,7 +81,8 @@ public class LevitationManager : MonoBehaviour
             {
                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.9f, rb.velocity.z);
             }
-
+            lastRayDistance = rayDistance.magnitude;
+            lastInclination = GetComponent<NaveController>().modelTransform.forward.y;
         }
 
     }
@@ -83,14 +90,15 @@ public class LevitationManager : MonoBehaviour
     //Modificamos la rotación de la nave
     private void Rotaion(RaycastHit hit, float rayDistance)
     {
-        if(rayDistance>startCorrectionHeight)
+        if (rayDistance > startCorrectionHeight)
         {
             Quaternion interpolation;
-            interpolation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localRotation.x, transform.localRotation.y, 0),Time.deltaTime * upDamping);
+            interpolation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 0), Time.deltaTime * upDamping);
             transform.localRotation = interpolation;
         }
         else
         {
+            Quaternion rot = transform.localRotation;
             Quaternion quaternionRot = transform.localRotation; //guardamos la rotación actual en quaternions
 
             transform.up = hit.normal; //hacemos que la nave este perpendicular a la normal del punto donde ha colisionado el raycast
@@ -100,11 +108,14 @@ public class LevitationManager : MonoBehaviour
             //hacemos una interpolación entre la rotación inicial y la final en relación a la distancia al suelo
 
             //interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (1 - ((rayDistance - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance));
-            interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (rayDistance - levitationHeight) < levitationHeight*0.2f ? Time.deltaTime*damping : (1 - ((rayDistance - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance));
+            interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (rayDistance - levitationHeight) < levitationHeight * 0.2f ? Time.deltaTime * damping : (1 - ((rayDistance - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance));
 
             //igualamos la rotación a el resultado de la interpolación
             transform.localRotation = interpolation;
+            if(GetComponent<NaveController>().modelTransform.forward.y<lastInclination && rb.velocity.y>0)
+            {
+                transform.localRotation = rot;
+            }
         }
-        
     }
 }

@@ -130,7 +130,7 @@ public class NaveController : MonoBehaviour
                 }
                 else
                 {
-                    print("entra en mover hacia delante" + modelTransform.forward * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime);
+
                     rb.AddForce(modelTransform.forward * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange); //fuerza para moverte hacia adelante
                 }
 
@@ -144,7 +144,6 @@ public class NaveController : MonoBehaviour
                     locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
                 }
                 rb.AddForce(modelTransform.forward * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * backwardVelocity * Time.deltaTime, ForceMode.VelocityChange); // fuerza para moverte hacia atras
-                print("entra en mover hacia atras" + modelTransform.forward * Input.GetAxis("Nave Vertical") * GetComponent<Maneuverability>().AcelerationWithWeight * backwardVelocity * Time.deltaTime);
 
             }
 
@@ -209,12 +208,7 @@ public class NaveController : MonoBehaviour
 
         if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
         {
-            //Vector3 rayDistance = ray.origin - hit.point; //guardamos la distancia del raycast
             rb.AddForce(-Vector3.up * extraFallImpulse, ForceMode.VelocityChange);
-            //if(rayDistance.magnitude/2<levitationHeight)
-            //{
-            //    startCorrectionHeight = saveStartCorrectingHeight;
-            //}
 
         }
 
