@@ -138,7 +138,7 @@ public class CameraController : Photon.PunBehaviour
         }
         
 
-
+/*
         float newZ = transform.localEulerAngles.z;  //guardamos la nueva rotación local z
 
         transform.Rotate(new Vector3(0, 0, z - newZ));  //
@@ -147,6 +147,6 @@ public class CameraController : Photon.PunBehaviour
 
         Quaternion newRot = transform.rotation;
 
-        transform.rotation = Quaternion.Lerp(oldRot, newRot, Time.deltaTime * damping * cameraDampingMultiplayer);
+        transform.rotation = Quaternion.Lerp(oldRot, newRot, Time.deltaTime * damping * cameraDampingMultiplayer);*/
     }
 }
