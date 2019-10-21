@@ -71,7 +71,6 @@ public class LevitationManager : MonoBehaviour
             //hacemos una interpolación entre la rotación inicial y la final en relación a la distancia al suelo
 
             interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (1 - ((rayDistance.magnitude - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance.magnitude));
-            //interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, );
 
             //igualamos la rotación a el resultado de la interpolación
             transform.localRotation = interpolation;
