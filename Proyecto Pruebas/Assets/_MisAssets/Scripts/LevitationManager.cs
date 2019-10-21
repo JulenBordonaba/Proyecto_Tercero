@@ -53,11 +53,11 @@ public class LevitationManager : MonoBehaviour
 
             
             //se le añade una fuerza para que flote a la altura que queremos
-            if (rayDistance.magnitude < levitationHeight / 2)
+            /*if (rayDistance.magnitude < levitationHeight / 2)
             {
                 rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 20), ForceMode.Acceleration);
             }
-            else if (rayDistance.magnitude < levitationHeight)
+            else */if (rayDistance.magnitude < levitationHeight)
             {
                 rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
             }
