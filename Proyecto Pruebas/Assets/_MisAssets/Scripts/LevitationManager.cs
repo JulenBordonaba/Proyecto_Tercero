@@ -38,7 +38,7 @@ public class LevitationManager : MonoBehaviour
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
 
 
-        ray.origin = GetComponent<NaveController>().modelTransform.position + Vector3.ClampMagnitude((locVel.z * GetComponent<NaveController>().modelTransform.forward), rayOffset);
+        ray.origin = GetComponent<NaveController>().modelTransform.position + Vector3.ClampMagnitude((locVel.z * GetComponent<NaveController>().modelTransform.forward*rayOffset/5), rayOffset);
         //ray.origin += GetComponent<NaveController>().modelTransform.up * rayDifference;
         //print(transform.position - ray.origin);
         ray.direction = -Vector3.up;
