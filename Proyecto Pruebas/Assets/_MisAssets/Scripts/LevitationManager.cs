@@ -15,6 +15,8 @@ public class LevitationManager : MonoBehaviour
     [Tooltip("damping")]
     public float damping = 2;
 
+    public float rayDifference;
+
     public float upDamping = 2;
 
     private Rigidbody rb;   //rigidbody de la nave
@@ -39,39 +41,46 @@ public class LevitationManager : MonoBehaviour
 
 
         ray.origin = GetComponent<NaveController>().modelTransform.position + Vector3.ClampMagnitude((locVel.z * GetComponent<NaveController>().modelTransform.forward), rayOffset);
+        //ray.origin += GetComponent<NaveController>().modelTransform.up * rayDifference;
+        //print(transform.position - ray.origin);
         ray.direction = -Vector3.up;
 
-        Debug.DrawRay(ray.origin, -Vector3.up, Color.green);  //dibujamos el resultado del raycast
+        Debug.DrawRay(ray.origin, -GetComponent<NaveController>().modelTransform.up * 100, Color.green);  //dibujamos el resultado del raycast
 
+        print(GetComponent<NaveController>().modelTransform.up);
+        //LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "")
         //lanzamos un raycast hacia el suelo
-        if (Physics.Raycast(ray, out hit, LayerMask.GetMask("Floor")))
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Floor"), QueryTriggerInteraction.UseGlobal))
         {
+            //print(hit.transform.gameObject.name);
 
+            Vector3 rayPath = ray.origin - hit.point;
+            float rayDistance = Mathf.Clamp(rayPath.magnitude - rayDifference, 1, Mathf.Infinity); //guardamos la distancia del raycast
+            //print(rayDistance);
 
-            Vector3 rayDistance = ray.origin - hit.point; //guardamos la distancia del raycast
+            float diference = rayDistance - levitationHeight; //diferencia de altura entre la nave y la altura en la que queremos que esté
 
-            float diference = rayDistance.magnitude - levitationHeight; //diferencia de altura entre la nave y la altura en la que queremos que esté
+            /*Vector3 rayPath = ray.origin - hit.point; //guardamos la distancia del raycast
 
+            float rayDistance = rayPath.magnitude;
 
-
+            float diference = rayDistance - levitationHeight; //diferencia de altura entre la nave y la altura en la que queremos que esté
+            print(rayDistance);*/
 
             //se le añade una fuerza para que flote a la altura que queremos
-            /*if (rayDistance.magnitude < levitationHeight / 2)
+            if (rayDistance < levitationHeight)
             {
-                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 20), ForceMode.Acceleration);
-            }
-            else */
-            if (rayDistance.magnitude < levitationHeight)
-            {
-                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
+                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance) * 1), ForceMode.Acceleration);
             }
             else
             {
-                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance.magnitude) * (levitationHeight - rayDistance.magnitude) * 1), ForceMode.Acceleration);
+                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance) * 1), ForceMode.Acceleration);
             }
 
 
-            Rotaion(hit, rayDistance.magnitude);
+
+            if(GetComponent<NaveController>().modelTransform.up.y>0.3f)
+            Rotaion(hit, rayDistance);
 
 
             //si esta por debajo de la altura que queremos y rb.velocity.y<0  si esta por encima de la altura que queremos y rb.velocity.y>0 reducimos la velocidad del eje y

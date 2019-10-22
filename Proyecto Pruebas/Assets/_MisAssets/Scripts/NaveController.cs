@@ -238,7 +238,7 @@ public class NaveController : MonoBehaviour
 
             locVel = new Vector3(correctedVel.x, locVel.y, correctedVel.y);
         }
-        print("max vel: " + GetComponent<Maneuverability>().MaxVelocity);
+
 
         //convertimos la velocidad local en la velocidad global y la aplicamos
         rb.velocity = modelTransform.TransformDirection(locVel);
