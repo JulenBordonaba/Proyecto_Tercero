@@ -14,9 +14,7 @@ public class LevitationManager : MonoBehaviour
     public float rayOffset = 8;
     [Tooltip("damping")]
     public float damping = 2;
-
-    public float rayDifference;
-
+    
     public float upDamping = 2;
 
     private Rigidbody rb;   //rigidbody de la nave
@@ -45,7 +43,7 @@ public class LevitationManager : MonoBehaviour
         //print(transform.position - ray.origin);
         ray.direction = -Vector3.up;
 
-        Debug.DrawRay(ray.origin, -GetComponent<NaveController>().modelTransform.up * 100, Color.green);  //dibujamos el resultado del raycast
+        Debug.DrawRay(ray.origin, -Vector3.up * 100, Color.green);  //dibujamos el resultado del raycast
 
         print(GetComponent<NaveController>().modelTransform.up);
         //LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "")
@@ -55,7 +53,8 @@ public class LevitationManager : MonoBehaviour
             //print(hit.transform.gameObject.name);
 
             Vector3 rayPath = ray.origin - hit.point;
-            float rayDistance = Mathf.Clamp(rayPath.magnitude - rayDifference, 1, Mathf.Infinity); //guardamos la distancia del raycast
+            //float rayDistance = Mathf.Clamp(rayPath.magnitude - rayDifference, 1, Mathf.Infinity); //guardamos la distancia del raycast
+            float rayDistance = Mathf.Clamp(rayPath.magnitude,1,Mathf.Infinity);
             //print(rayDistance);
 
             float diference = rayDistance - levitationHeight; //diferencia de altura entre la nave y la altura en la que queremos que esté
@@ -79,7 +78,7 @@ public class LevitationManager : MonoBehaviour
 
 
 
-            if(GetComponent<NaveController>().modelTransform.up.y>0.3f)
+            
             Rotaion(hit, rayDistance);
 
 
@@ -96,10 +95,11 @@ public class LevitationManager : MonoBehaviour
     //Modificamos la rotación de la nave
     private void Rotaion(RaycastHit hit, float rayDistance)
     {
+        
         if (rayDistance > startCorrectionHeight)
         {
             Quaternion interpolation;
-            interpolation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 0), Time.deltaTime * upDamping);
+            interpolation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, transform.localEulerAngles.y, 0), Time.deltaTime * upDamping);
             transform.localRotation = interpolation;
         }
         else
