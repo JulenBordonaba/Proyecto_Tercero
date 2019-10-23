@@ -16,8 +16,6 @@ public class NaveController : MonoBehaviour
     public float levitationHeight;  //altura a la que queremos que la nave flote
     [Tooltip("Pon el modificador a la velocidad cuando va marcha atrás, 1 es igual, 0,7 un 70%, 1,3 un 130%")]
     public float backwardVelocity;  //modificador de velocidad cuando la nave va marcha atrás, se multiplica por la velocidad
-    [Tooltip("Pon el impulso vertical extra que se le aplica a la nave para que no parezca que cae a cámara lenta")]
-    public float extraFallImpulse;  //impulso extra que se le aplica a la nave al caer para que no parezca que cae a cámara lenta
 
     [Header("Constantes fórmulas")]
     [Tooltip("Pon la constante de la vida")]
@@ -207,11 +205,7 @@ public class NaveController : MonoBehaviour
         
        
 
-        if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
-        {
-            rb.AddForce(-Vector3.up * extraFallImpulse, ForceMode.VelocityChange);
-
-        }
+        
 
 
 
