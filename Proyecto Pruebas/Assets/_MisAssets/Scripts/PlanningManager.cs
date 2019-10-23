@@ -18,6 +18,8 @@ public class PlanningManager : MonoBehaviour
     public float xSensivility;
     [Tooltip("pon la sensivilidad en el eje z (de la izquierda a la derecha de la nave)")]
     public float zSensivility;
+    [Tooltip("pon un valor de 0 a 1 para disminuir el manejo mientras planea, 0,7 lo disminuye hasta un 70% del total")]
+    public float maneuverLimitator = 0.1f;
 
 
     private Rigidbody rb;   //rigidbody de la nave
@@ -77,6 +79,10 @@ public class PlanningManager : MonoBehaviour
 
         //añadimos la fuerza hacia delante
         rb.AddForce(GetComponent<NaveController>().modelTransform.forward * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+        //movimiento lateral
+        rb.AddForce(new Vector3( GetComponent<NaveController>().modelTransform.up.x,0, GetComponent<NaveController>().modelTransform.up.z) * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+        //girar
+        GetComponent<NaveController>().modelTransform.localRotation = Quaternion.Euler(GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.x, GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * GetComponent<Maneuverability>().maneuver * maneuverLimitator * Time.deltaTime), GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.z);
     }
 
     private void LimitateFallVelocity()
