@@ -22,6 +22,8 @@ public class PlanningManager : MonoBehaviour
     public float maneuverLimitator = 0.1f;
     [Tooltip("pon la rotación vertical por defecto")]
     public float defaultXRotation;
+    [Tooltip("Variable que controla si el control vertical al planear esta invertido o no")]
+    public bool verticalInverted = false;
 
 
     private Rigidbody rb;   //rigidbody de la nave
@@ -54,7 +56,7 @@ public class PlanningManager : MonoBehaviour
             //si el ángulo esta dentro del límite establecido y se tocan las teclas la nave se rota
             if ((xRotation <= maxXAngle + 0.1f && xRotation >= 0) || (xRotation <= 360 && xRotation >= 360 - 0.1f + minXAngle))
             {
-                xRotation += InputManager.MainVertical() * Time.deltaTime * xSensivility;
+                xRotation += InputManager.MainVertical() * Time.deltaTime * xSensivility * (verticalInverted?-1:1);
                 xRotation = ClampAngle(xRotation, minXAngle, maxXAngle);
             }
             if ((zRotation <= maxZAngle + 0.1f && zRotation >= 0) || (zRotation <= 360 && zRotation >= 360 - 0.1f + minZAngle))
