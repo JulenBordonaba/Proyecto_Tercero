@@ -39,7 +39,7 @@ public class PlanningManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
         LimitateFallVelocity();
         Controller();
 
@@ -56,7 +56,7 @@ public class PlanningManager : MonoBehaviour
             //si el ángulo esta dentro del límite establecido y se tocan las teclas la nave se rota
             if ((xRotation <= maxXAngle + 0.1f && xRotation >= 0) || (xRotation <= 360 && xRotation >= 360 - 0.1f + minXAngle))
             {
-                xRotation += InputManager.MainVertical() * Time.deltaTime * xSensivility * (verticalInverted?-1:1);
+                xRotation += InputManager.MainVertical() * Time.deltaTime * xSensivility * (verticalInverted ? -1 : 1);
                 xRotation = ClampAngle(xRotation, minXAngle, maxXAngle);
             }
             if ((zRotation <= maxZAngle + 0.1f && zRotation >= 0) || (zRotation <= 360 && zRotation >= 360 - 0.1f + minZAngle))
@@ -65,7 +65,7 @@ public class PlanningManager : MonoBehaviour
                 zRotation = ClampAngle(zRotation, minZAngle, maxZAngle);
             }
         }
-            
+
 
 
         //si no se estan tocando las teclas la rotación vuelve a 0
@@ -73,24 +73,28 @@ public class PlanningManager : MonoBehaviour
         {
             zRotation = Mathf.LerpAngle(zRotation, 0, Time.deltaTime);
         }
-        if (InputManager.MainVertical() == 0)
+
+
+        if (GetComponent<NaveManager>().isPlanning)
         {
-            if(!GetComponent<NaveManager>().isPlanning)
+            if (InputManager.MainVertical() == 0)
             {
                 xRotation = Mathf.LerpAngle(xRotation, defaultXRotation, Time.deltaTime);
             }
-            else
-            {
-                xRotation = Mathf.LerpAngle(xRotation, 0, Time.deltaTime);
-            }
         }
+        else
+        {
+            xRotation = Mathf.LerpAngle(xRotation, 0, Time.deltaTime);
+        }
+
 
         //modificamos la rotación del objeto
         GetComponent<NaveController>().modelTransform.localRotation = Quaternion.Euler(xRotation, GetComponent<NaveController>().modelTransform.localEulerAngles.y, zRotation);
 
         //añadimos la fuerza hacia delante
         rb.AddForce(GetComponent<NaveController>().modelTransform.forward * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
-        if(GetComponent<NaveManager>().isPlanning)
+
+        if (GetComponent<NaveManager>().isPlanning)
         {
             //movimiento lateral
             rb.AddForce(new Vector3(GetComponent<NaveController>().modelTransform.up.x, 0, GetComponent<NaveController>().modelTransform.up.z) * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
