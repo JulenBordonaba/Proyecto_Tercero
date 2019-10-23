@@ -71,9 +71,16 @@ public class PlanningManager : MonoBehaviour
         {
             zRotation = Mathf.LerpAngle(zRotation, 0, Time.deltaTime);
         }
-        if (InputManager.MainVertical() == 0 || !GetComponent<NaveManager>().isPlanning)
+        if (InputManager.MainVertical() == 0)
         {
-            xRotation = Mathf.LerpAngle(xRotation, 0, Time.deltaTime);
+            if(!GetComponent<NaveManager>().isPlanning)
+            {
+                xRotation = Mathf.LerpAngle(xRotation, defaultXRotation, Time.deltaTime);
+            }
+            else
+            {
+                xRotation = Mathf.LerpAngle(xRotation, 0, Time.deltaTime);
+            }
         }
 
         //modificamos la rotación del objeto
@@ -90,7 +97,7 @@ public class PlanningManager : MonoBehaviour
 
         }
     }
-
+    //función que limita la velocidad vertical negativa
     private void LimitateFallVelocity()
     {
         if (maxFallVelocity < 0) return;

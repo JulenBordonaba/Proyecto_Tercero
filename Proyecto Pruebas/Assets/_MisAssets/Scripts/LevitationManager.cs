@@ -16,6 +16,8 @@ public class LevitationManager : MonoBehaviour
     public float damping = 2;
     [Tooltip("pon la variable que aumenta o disminuye el tiempo que tarda la nave en corregir su rotación cuando está lejos del suelo")]
     public float upDamping = 2;
+    [Tooltip("Pon el impulso vertical extra que se le aplica a la nave para que no parezca que cae a cámara lenta")]
+    public float extraFallImpulse;  //impulso extra que se le aplica a la nave al caer para que no parezca que cae a cámara lenta
 
     private Rigidbody rb;   //rigidbody de la nave
 
@@ -83,6 +85,12 @@ public class LevitationManager : MonoBehaviour
             if ((diference > 0 && rb.velocity.y > 0) || (diference < 0 && rb.velocity.y < 0))
             {
                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.9f, rb.velocity.z);
+            }
+
+            if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
+            {
+                rb.AddForce(-Vector3.up * extraFallImpulse, ForceMode.VelocityChange);
+
             }
         }
 
