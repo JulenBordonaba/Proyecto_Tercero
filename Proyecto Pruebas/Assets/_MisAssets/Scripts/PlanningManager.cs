@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlanningManager : MonoBehaviour
 {
-    [Tooltip("pon la máxima velocidad de caída, poner a 0 si no se quiere modificar")]
+    [Tooltip("pon la máxima velocidad de caída, poner a -1 si no se quiere modificar")]
     public float maxFallVelocity;   //velocidad de caída máxima
     [Tooltip("pon el ángulo máximo que puede tomar el eje x")]
     public float maxXAngle;
@@ -33,7 +33,7 @@ public class PlanningManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!GetComponent<NaveManager>().isPlanning) return;
+        
         LimitateFallVelocity();
         Controller();
 
@@ -45,26 +45,29 @@ public class PlanningManager : MonoBehaviour
         float xRotation = GetComponent<NaveController>().modelTransform.localEulerAngles.x;
         float zRotation = GetComponent<NaveController>().modelTransform.localEulerAngles.z;
 
-
-        //si el ángulo esta dentro del límite establecido y se tocan las teclas la nave se rota
-        if ((xRotation <= maxXAngle + 0.1f && xRotation >= 0) || (xRotation <= 360 && xRotation >= 360 - 0.1f + minXAngle))
+        if (GetComponent<NaveManager>().isPlanning)
         {
-            xRotation += InputManager.MainVertical() * Time.deltaTime * xSensivility;
-            xRotation = ClampAngle(xRotation, minXAngle, maxXAngle);
+            //si el ángulo esta dentro del límite establecido y se tocan las teclas la nave se rota
+            if ((xRotation <= maxXAngle + 0.1f && xRotation >= 0) || (xRotation <= 360 && xRotation >= 360 - 0.1f + minXAngle))
+            {
+                xRotation += InputManager.MainVertical() * Time.deltaTime * xSensivility;
+                xRotation = ClampAngle(xRotation, minXAngle, maxXAngle);
+            }
+            if ((zRotation <= maxZAngle + 0.1f && zRotation >= 0) || (zRotation <= 360 && zRotation >= 360 - 0.1f + minZAngle))
+            {
+                zRotation -= InputManager.MainHorizontal() * Time.deltaTime * zSensivility;
+                zRotation = ClampAngle(zRotation, minZAngle, maxZAngle);
+            }
         }
-        if ((zRotation <= maxZAngle + 0.1f && zRotation >= 0) || (zRotation <= 360 && zRotation >= 360 - 0.1f + minZAngle))
-        {
-            zRotation += InputManager.MainHorizontal() * Time.deltaTime * zSensivility;
-            zRotation = ClampAngle(zRotation, minZAngle, maxZAngle);
-        }
+            
 
 
         //si no se estan tocando las teclas la rotación vuelve a 0
-        if (InputManager.MainHorizontal() == 0)
+        if (InputManager.MainHorizontal() == 0 || !GetComponent<NaveManager>().isPlanning)
         {
             zRotation = Mathf.LerpAngle(zRotation, 0, Time.deltaTime);
         }
-        if (InputManager.MainVertical() == 0)
+        if (InputManager.MainVertical() == 0 || !GetComponent<NaveManager>().isPlanning)
         {
             xRotation = Mathf.LerpAngle(xRotation, 0, Time.deltaTime);
         }
@@ -78,6 +81,7 @@ public class PlanningManager : MonoBehaviour
 
     private void LimitateFallVelocity()
     {
+        if (maxFallVelocity < 0) return;
         if (rb.velocity.y < -maxFallVelocity)
         {
             rb.velocity = new Vector3(rb.velocity.x, -maxFallVelocity, rb.velocity.z);

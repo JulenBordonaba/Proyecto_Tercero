@@ -295,7 +295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09d0091419f1b7046bd0b9e62eddcc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxFallVelocity: 10
+  maxFallVelocity: -1
   maxXAngle: 45
   minXAngle: -45
   maxZAngle: 45
