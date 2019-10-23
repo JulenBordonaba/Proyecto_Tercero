@@ -58172,6 +58172,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxFallVelocity: 10
+  maxXAngle: 45
+  minXAngle: -45
+  maxZAngle: 45
+  minZAngle: -45
+  xSensivility: 30
+  zSensivility: 30
 --- !u!1 &921409386
 GameObject:
   m_ObjectHideFlags: 0

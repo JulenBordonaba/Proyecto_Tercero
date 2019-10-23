@@ -94,12 +94,14 @@ public class LevitationManager : MonoBehaviour
         
         if (rayDistance > startCorrectionHeight)
         {
+            GetComponent<NaveManager>().isPlanning = true;
             Quaternion interpolation;
             interpolation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, transform.localEulerAngles.y, 0), Time.deltaTime * upDamping);
             transform.localRotation = interpolation;
         }
         else
         {
+            GetComponent<NaveManager>().isPlanning = false;
             Quaternion rot = transform.localRotation;
             Quaternion quaternionRot = transform.localRotation; //guardamos la rotación actual en quaternions
 

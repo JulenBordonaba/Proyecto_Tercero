@@ -51,6 +51,7 @@ public class NaveController : MonoBehaviour
 
     private void Update()
     {
+        if (GetComponent<NaveManager>().isPlanning) return;
         Controller();
         
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public static int numPlayer = 0;
+    public static int numPlayer = 1;
 
     //eje horizontal del joystick principal
     public static float MainHorizontal()
