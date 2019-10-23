@@ -12,13 +12,12 @@ public class LevitationManager : MonoBehaviour
     public float startCorrectionHeight = 50;
     [Tooltip("Pon la distancia máxima a la que el raycast disparara respecto al centro de la nave")]
     public float rayOffset = 8;
-    [Tooltip("damping")]
+    [Tooltip("pon la variable que aumenta o disminuye el tiempo que tarda la nave en corregir su rotación cuando está cerca del suelo")]
     public float damping = 2;
-    
+    [Tooltip("pon la variable que aumenta o disminuye el tiempo que tarda la nave en corregir su rotación cuando está lejos del suelo")]
     public float upDamping = 2;
 
     private Rigidbody rb;   //rigidbody de la nave
-    private float lastInclination;  //variable que guarda el último valor de forward.y
 
     private void Start()
     {
@@ -45,9 +44,7 @@ public class LevitationManager : MonoBehaviour
 
         Debug.DrawRay(ray.origin, -Vector3.up * 100, Color.green);  //dibujamos el resultado del raycast
 
-        print(GetComponent<NaveController>().modelTransform.up);
-        //LayerMask.GetMask("Default", "TransparentFX", "Ignore Raycast", "")
-        //lanzamos un raycast hacia el suelo
+        //print(GetComponent<NaveController>().modelTransform.up);
         if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Floor"), QueryTriggerInteraction.UseGlobal))
         {
             //print(hit.transform.gameObject.name);
@@ -87,7 +84,6 @@ public class LevitationManager : MonoBehaviour
             {
                 rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * 0.9f, rb.velocity.z);
             }
-            lastInclination = GetComponent<NaveController>().modelTransform.forward.y;
         }
 
     }
