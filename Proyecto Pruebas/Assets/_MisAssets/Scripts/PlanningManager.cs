@@ -94,7 +94,7 @@ public class PlanningManager : MonoBehaviour
         if (GetComponent<NaveManager>().isPlanning)
         {
             //añadimos la fuerza hacia delante
-            rb.AddForce(GetComponent<NaveController>().modelTransform.forward * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(GetComponent<NaveController>().modelTransform.forward * GetComponent<Maneuverability>().AcelerationWithWeight * InputManager.Accelerate() * Time.deltaTime, ForceMode.VelocityChange);
 
         
             //movimiento lateral
