@@ -20,7 +20,7 @@ public class Combustible : MonoBehaviour
     public float duration;      //duración de la acción del combustible
 
 
-    private float currentAmmount;     //cantidad actual de combustible
+    public float currentAmmount { get; set; }    //cantidad actual de combustible
 
     
 

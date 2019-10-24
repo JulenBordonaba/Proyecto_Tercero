@@ -6,6 +6,9 @@ public class InputManager : MonoBehaviour
 {
     public static int numPlayer = 1;
 
+    private static bool leftFuel = false;
+    private static bool rightFuel = false;
+
     //eje horizontal del joystick principal
     public static float MainHorizontal()
     {
@@ -118,12 +121,38 @@ public class InputManager : MonoBehaviour
         return r;
     }
 
-    public static float ChangeFuel()
+    public static bool ChangeFuelRight()
     {
         float r = 0;
         r += Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString());
         r += Input.GetAxisRaw("PS4ChangeFuel" + numPlayer.ToString());
-        return r;
+        if(r<0 && !rightFuel)
+        {
+            rightFuel = true;
+            return true;
+        }
+        else
+        {
+            rightFuel = false;
+        }
+        return false;
+    }
+
+    public static bool ChangeFuelLeft()
+    {
+        float r = 0;
+        r += Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString());
+        r += Input.GetAxisRaw("PS4ChangeFuel" + numPlayer.ToString());
+        if (r > 0 && !leftFuel)
+        {
+            leftFuel = true;
+            return true;
+        }
+        else
+        {
+            leftFuel = false;
+        }
+        return false;
     }
 
 

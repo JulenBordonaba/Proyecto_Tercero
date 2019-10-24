@@ -91,11 +91,12 @@ public class PlanningManager : MonoBehaviour
         //modificamos la rotación del objeto
         GetComponent<NaveController>().modelTransform.localRotation = Quaternion.Euler(xRotation, GetComponent<NaveController>().modelTransform.localEulerAngles.y, zRotation);
 
-        //añadimos la fuerza hacia delante
-        rb.AddForce(GetComponent<NaveController>().modelTransform.forward * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
-
         if (GetComponent<NaveManager>().isPlanning)
         {
+            //añadimos la fuerza hacia delante
+            rb.AddForce(GetComponent<NaveController>().modelTransform.forward * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+
+        
             //movimiento lateral
             rb.AddForce(new Vector3(GetComponent<NaveController>().modelTransform.up.x, 0, GetComponent<NaveController>().modelTransform.up.z) * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
             //girar
