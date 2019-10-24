@@ -10,7 +10,7 @@ public class Reparar : HabilidadCombustible
     {
         if (repairing == false) { 
 
-        Combustible combustibleReparar = new Combustible(); //variable para guardar el componente combustible de reparacion del objeto padre
+        Combustible combustibleReparar = null; //variable para guardar el componente combustible de reparacion del objeto padre
 
         //activar animacion reparacion
         //GetComponentInParent<Animator>().SetBool("repair",true);
@@ -32,7 +32,7 @@ public class Reparar : HabilidadCombustible
             }
             else
             {
-                //lo que sea
+                return;
             }
 
             repairing = true;

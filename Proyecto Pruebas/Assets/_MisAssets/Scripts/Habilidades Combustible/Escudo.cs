@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class Escudo : HabilidadCombustible
 {
-    
+
 
     public override void Use()
     {
         //Activar el escudo siempre y cuando no haya un escudo activo
         if (GetComponentInParent<NaveManager>().inShield == true) return;
 
-        Combustible combustibleEscudo = new Combustible(); //variable para guardar el componente combustible del escudo del objeto padre
+        Combustible combustibleEscudo = null; //variable para guardar el componente combustible del escudo del objeto padre
 
         //activar animacion escudo
         //GetComponentInParent<Animator>().SetBool("inShield",true);
@@ -25,20 +25,20 @@ public class Escudo : HabilidadCombustible
 
         //codigo que busca entre todos los combustibles del objeto y guarda el combustible del escudo. 
         //Así se pueden acceder a las variables del combustible del escudo
-                Component[] combustibles;
-                combustibles = GetComponentsInParent(typeof(Combustible));
-                if (combustibles != null)
+        Component[] combustibles;
+        combustibles = GetComponentsInParent(typeof(Combustible));
+        if (combustibles != null)
+        {
+            foreach (Combustible combustible in combustibles)
+                if (combustible.tipoCombustible == TipoCombustible.Escudo)
                 {
-                    foreach (Combustible combustible in combustibles)
-                        if (combustible.tipoCombustible == TipoCombustible.Escudo)
-                        {
-                            combustibleEscudo = combustible;
-                        }
+                    combustibleEscudo = combustible;
                 }
-                else
-                {
-                    //lo que sea
-                }
+        }
+        else
+        {
+            return;
+        }
 
         //Inicar corrutina con la duración del escudo
         StartCoroutine(DeactivateShield(combustibleEscudo.duration));

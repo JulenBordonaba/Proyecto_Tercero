@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class Turbo : HabilidadCombustible
 {
-    private bool inJump = false;
 
     public override void Use()
     {
         //Activar el Turbo siempre y cuando no este en pleno Turbo       
 
-        Combustible combustibleTurbo = new Combustible(); //variable para guardar el componente combustible del escudo del objeto padre        
+        Combustible combustibleTurbo = null; //variable para guardar el componente combustible del escudo del objeto padre        
 
         //if (GetComponentInParent<NaveManager>().Turbo == 0)
 
@@ -31,7 +30,7 @@ public class Turbo : HabilidadCombustible
         }
         else
         {
-            //lo que sea
+            return;
         }
 
         

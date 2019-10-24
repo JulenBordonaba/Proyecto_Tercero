@@ -10,7 +10,7 @@ public class Salto : HabilidadCombustible
     public override void Use()
     {
         if (GetComponent<NaveManager>().isPlanning) return;
-        Combustible combustibleSalto = new Combustible(); //variable para guardar el componente combustible del escudo del objeto padre        
+        Combustible combustibleSalto=null; //variable para guardar el componente combustible del escudo del objeto padre        
         
 
         //codigo que busca entre todos los combustibles del objeto y guarda el combustible del escudo. 
@@ -32,6 +32,7 @@ public class Salto : HabilidadCombustible
 
         //Saltar
         GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        if(combustibleSalto!=null)
         combustibleSalto.currentAmmount -= combustibleSalto.activeConsumption;
 
         //activar animacion Salto
