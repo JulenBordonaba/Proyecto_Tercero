@@ -41,6 +41,7 @@ public class Turbo : HabilidadCombustible
 
         GetComponent<Rigidbody>().AddForce(GetComponent<NaveController>().modelTransform.forward * impulse, ForceMode.Acceleration);
         GetComponent<NaveController>().inBoost = true;
+        inTurbo = true;
         StartCoroutine(Cooldown(combustibleTurbo));
         
     }
