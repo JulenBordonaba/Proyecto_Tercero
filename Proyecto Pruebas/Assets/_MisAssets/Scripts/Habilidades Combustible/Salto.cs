@@ -6,10 +6,13 @@ public class Salto : HabilidadCombustible
 {
     [Tooltip("Pon la fuerza del salto")]
     public float jumpForce; //variable que controla cuánta fuerza se impulsa la nave hacia arriba para saltar
+    [Tooltip("pon el cooldown del salto")]
+    public float cooldown;
 
+    private bool inJump = false;
     public override void Use()
     {
-        if (GetComponent<NaveManager>().isPlanning) return;
+        if (GetComponent<NaveManager>().isPlanning || inJump) return;
         Combustible combustibleSalto=null; //variable para guardar el componente combustible del escudo del objeto padre        
         
 
@@ -31,9 +34,13 @@ public class Salto : HabilidadCombustible
         }
 
         //Saltar
+        inJump = true;
         GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         if(combustibleSalto!=null)
-        combustibleSalto.currentAmmount -= combustibleSalto.activeConsumption;
+        {
+
+            combustibleSalto.currentAmmount -= combustibleSalto.activeConsumption;
+        }
 
         //activar animacion Salto
         //GetComponentInParent<Animator>().SetBool("jump",true);
@@ -41,8 +48,12 @@ public class Salto : HabilidadCombustible
         //activar sonido salto
         //GetComponentInParent<AudioSource>().Play();
           
-         
-         
+    }
+
+    private IEnumerator Cooldown()
+    {
+        yield return new WaitForSeconds(cooldown);
+        inJump = false;
     }
     
 

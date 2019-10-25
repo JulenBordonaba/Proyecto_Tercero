@@ -47663,6 +47663,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9213042e4f68b2c448b1163c4d3e91f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpForce: 0
+  cooldown: 0
 --- !u!114 &759190025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78309,7 +78311,7 @@ PrefabInstance:
     - target: {fileID: 5045542139451472853, guid: a3e413a466ef11040b15cfe60e443be1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 658
+      value: 16.5
       objectReference: {fileID: 0}
     - target: {fileID: 5045542139451472853, guid: a3e413a466ef11040b15cfe60e443be1,
         type: 3}
@@ -78355,15 +78357,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5045542137871149923, guid: a3e413a466ef11040b15cfe60e443be1,
-        type: 3}
-      propertyPath: extraFallImpulse
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 920980669, guid: a3e413a466ef11040b15cfe60e443be1, type: 3}
-      propertyPath: defaultXRotation
-      value: -30
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3e413a466ef11040b15cfe60e443be1, type: 3}
