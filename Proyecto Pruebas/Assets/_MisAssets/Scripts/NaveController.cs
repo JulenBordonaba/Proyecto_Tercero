@@ -34,6 +34,10 @@ public class NaveController : MonoBehaviour
     public List<Pieza> piezas = new List<Pieza>(); //lista con todas las piezas de la nave
     [Tooltip("Asigna la pieza que sea el núcleo de la nave")]
     public Pieza nucleo;  //Variable que contiene la pieza que es el núcleo de la nave
+    [Tooltip("Pon los grados máximos que se puede inclinar la nave al girar")]
+    public float maxInclination = 30;
+    [Tooltip("pon el tiempo que tarda la nave en corregir su rotación al girar cuando está lejos del suelo")]
+    public float rotationDamping = 2;
     /*[Tooltip("Pon el desfase mínimo de la cámara")]
     public float minCameraOffset = -4;  
     [Tooltip("Pon el desfase máximo de la cámara")]
@@ -171,17 +175,16 @@ public class NaveController : MonoBehaviour
                 {
                     inDrift = true;
                     myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 0.3f;
-                    //transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y + (Input.GetAxis("Horizontal") * getComponent<Maneuverability>().maneuver * Time.deltaTime * 2), transform.rotation.eulerAngles.z);
                 }
                 else
                 {
-                    myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
+                    myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = Mathf.Lerp(myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer, 1f, Time.deltaTime);
                     inDrift = false;
                 }
             }
             else
             {
-                myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = 1f;
+                myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer = Mathf.Lerp(myCamera.gameObject.GetComponent<CameraController>().cameraDampingMultiplayer, 1f, Time.deltaTime);
                 inDrift = false;
             }
 
@@ -217,7 +220,7 @@ public class NaveController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
 
         //rotación lateral al girar
-        //piezasGameObject.localEulerAngles = new Vector3(piezasGameObject.localEulerAngles.x, piezasGameObject.localEulerAngles.y, Mathf.LerpAngle(piezasGameObject.localEulerAngles.z, Mathf.Clamp(maxInclination * -Input.GetAxis("Horizontal") * (rb.velocity.magnitude / MaxVelocity) * (maniobrabilidad / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping));
+        modelTransform.localEulerAngles = new Vector3(modelTransform.localEulerAngles.x, modelTransform.localEulerAngles.y, Mathf.LerpAngle(modelTransform.localEulerAngles.z, Mathf.Clamp(maxInclination * -Input.GetAxis("Horizontal") * (rb.velocity.magnitude / VelocityFormula) * (GetComponent<Maneuverability>().currentManeuver / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping));
 
         //si no se esta girando hece que el vehiculo deje de rotar
         if (Input.GetAxis("Horizontal") == 0)

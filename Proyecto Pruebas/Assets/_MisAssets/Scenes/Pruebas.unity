@@ -78312,7 +78312,7 @@ PrefabInstance:
     - target: {fileID: 5045542139451472853, guid: a3e413a466ef11040b15cfe60e443be1,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 16.5
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 5045542139451472853, guid: a3e413a466ef11040b15cfe60e443be1,
         type: 3}
@@ -78389,6 +78389,16 @@ PrefabInstance:
       propertyPath: turboConst
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 5045542137871149920, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: maxInclination
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542137871149923, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: startCorrectionHeight
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5045542137871149931, guid: a3e413a466ef11040b15cfe60e443be1,
         type: 3}
       propertyPath: cooldown
@@ -78397,7 +78407,7 @@ PrefabInstance:
     - target: {fileID: 5045542137871149941, guid: a3e413a466ef11040b15cfe60e443be1,
         type: 3}
       propertyPath: impulse
-      value: 1000
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 5045542138147048862, guid: a3e413a466ef11040b15cfe60e443be1,
         type: 3}
