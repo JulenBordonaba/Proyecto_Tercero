@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Turbo : HabilidadCombustible
 {
+    [Tooltip("pon el impulso que se le aplica a la nave al usar el turbo")]
     public float impulse;   //variable que contiene la fuerza del turbo
+    [Tooltip("pon el tiempo que pasa despues de que acabe el turbo para poder volver  usarlo")]
+    public float cooldown;  //tiempo que pasa despues de que acabe el turbo para poder volver  usarlo
 
     private bool inTurbo = false;
     public override void Use()
@@ -45,7 +48,8 @@ public class Turbo : HabilidadCombustible
     private IEnumerator Cooldown(Combustible combustible)
     {
         yield return new WaitForSeconds(combustible.duration);
-        inTurbo = false;
         GetComponent<NaveController>().inBoost = false;
+        yield return new WaitForSeconds(cooldown);
+        inTurbo = false;
     }
 }
