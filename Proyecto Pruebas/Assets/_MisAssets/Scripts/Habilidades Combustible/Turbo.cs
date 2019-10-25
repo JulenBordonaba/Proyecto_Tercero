@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Turbo : HabilidadCombustible
 {
+    public float impulse;   //variable que contiene la fuerza del turbo
 
+    private bool inTurbo = false;
     public override void Use()
     {
         //Activar el Turbo siempre y cuando no este en pleno Turbo       
-
+        if (inTurbo) return;
         Combustible combustibleTurbo = null; //variable para guardar el componente combustible del escudo del objeto padre        
 
         //if (GetComponentInParent<NaveManager>().Turbo == 0)
@@ -33,6 +35,17 @@ public class Turbo : HabilidadCombustible
             return;
         }
 
+
+        GetComponent<Rigidbody>().AddForce(GetComponent<NaveController>().modelTransform.forward * impulse, ForceMode.Acceleration);
+        GetComponent<NaveController>().inBoost = true;
+        StartCoroutine(Cooldown(combustibleTurbo));
         
+    }
+
+    private IEnumerator Cooldown(Combustible combustible)
+    {
+        yield return new WaitForSeconds(combustible.duration);
+        inTurbo = false;
+        GetComponent<NaveController>().inBoost = false;
     }
 }

@@ -111,7 +111,7 @@ public class CameraController : Photon.PunBehaviour
         //igualamos la posicion de la camara a la posición inicial + el desplazamiento de camara + el desplazamiento por velocidad
         if (front)
         {
-            transform.localPosition = localPos + new Vector3(-currentX, currentY, 0) / 10; /*- velocityOffset;*/
+            transform.localPosition = localPos + new Vector3(-currentX, currentY, 0) / 10;/* - velocityOffset;*/
         }
         else
         {

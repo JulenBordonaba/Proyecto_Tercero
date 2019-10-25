@@ -34,9 +34,13 @@ public class NaveController : MonoBehaviour
     public List<Pieza> piezas = new List<Pieza>(); //lista con todas las piezas de la nave
     [Tooltip("Asigna la pieza que sea el núcleo de la nave")]
     public Pieza nucleo;  //Variable que contiene la pieza que es el núcleo de la nave
+    /*[Tooltip("Pon el desfase mínimo de la cámara")]
+    public float minCameraOffset = -4;  
+    [Tooltip("Pon el desfase máximo de la cámara")]
+    public float maxCameraOffset = 5;*/
 
     private bool inRecoil = false;  //variable que controla cuando la nave esta cogiendo rebufo
-    private bool inBoost = false;   //variable que controla cuando la nave esta en turbo
+    public bool inBoost { get; set; }   //variable que controla cuando la nave esta en turbo
     private bool inDrift = false;   //variable que controla cuando esta derrapando la nave
 
     private Rigidbody rb;   //rigidbody de la nave
@@ -51,7 +55,7 @@ public class NaveController : MonoBehaviour
     {
         if (GetComponent<NaveManager>().isPlanning) return;
         Controller();
-        
+
     }
 
     public void Controller()
@@ -63,8 +67,8 @@ public class NaveController : MonoBehaviour
         Vector3 locVel = modelTransform.InverseTransformDirection(rb.velocity);
 
         //depende de la velocidad la camara esta mas o menos cerca del coche
-        myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (GetComponent<Maneuverability>().currentVelocity / 15), -4f, 5f));
-        myCamera.fieldOfView = 60f + Mathf.Clamp(locVel.z / 15f, 0f, 80f);
+        //myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (GetComponent<Maneuverability>().currentVelocity / 15), minCameraOffset, maxCameraOffset));
+        myCamera.fieldOfView = Mathf.Lerp(myCamera.fieldOfView, 60f + Mathf.Clamp(locVel.z * (inBoost? 2 : 1) / 15f, 0f, 80f), Time.deltaTime);
 
 
 
@@ -146,7 +150,7 @@ public class NaveController : MonoBehaviour
 
             }
 
-            
+
 
             //rotación al girar
 
@@ -192,7 +196,7 @@ public class NaveController : MonoBehaviour
                     locVel = new Vector3(locVel.x, locVel.y, 0f);
                 }
             }
-            
+
         }
         else //si el vehiculo no esta cerca del suelo se añade una fuerza para que caiga más rapido (de lo contrario tarda mucho en caer)
         {
@@ -202,10 +206,10 @@ public class NaveController : MonoBehaviour
 
 
         }
-        
-       
 
-        
+
+
+
 
 
 
@@ -229,16 +233,16 @@ public class NaveController : MonoBehaviour
         //si la velocidad no vertical supera la velocidad maxima del vehiculo la bajamos hasta la velocidad maxima
         if (notVerticalVel.magnitude > GetComponent<Maneuverability>().MaxVelocity)
         {
-            Vector2 correctedVel = notVerticalVel.normalized * GetComponent<Maneuverability>().MaxVelocity;
+            Vector2 correctedVel = notVerticalVel.normalized * VelocityFormula;
 
-            locVel = new Vector3(correctedVel.x, locVel.y, correctedVel.y);
+            locVel = Vector3.Lerp( locVel,new Vector3(correctedVel.x, locVel.y, correctedVel.y),Time.deltaTime);
         }
 
 
         //convertimos la velocidad local en la velocidad global y la aplicamos
         rb.velocity = modelTransform.TransformDirection(locVel);
 
-        
+
 
     }
 

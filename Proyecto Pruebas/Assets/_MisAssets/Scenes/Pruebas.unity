@@ -47651,6 +47651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26315ea36c24b404aa52c58bf3f0ac29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  impulse: 0
 --- !u!114 &759190024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -78357,6 +78358,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542137871149932, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: combustibles.Array.data[0]
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542137871149932, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: combustibles.Array.data[1]
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542137871149932, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: combustibles.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542137871149920, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: minCameraOffset
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542137871149920, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: maxCameraOffset
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542137871149920, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: turboConst
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542137871149931, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: cooldown
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542137871149941, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: impulse
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542138147048862, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: field of view
+      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3e413a466ef11040b15cfe60e443be1, type: 3}
