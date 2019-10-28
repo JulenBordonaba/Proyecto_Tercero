@@ -234,7 +234,7 @@ public class NaveController : MonoBehaviour
         Vector2 notVerticalVel = new Vector2(locVel.x, locVel.z);
 
         //si la velocidad no vertical supera la velocidad maxima del vehiculo la bajamos hasta la velocidad maxima
-        if (notVerticalVel.magnitude > GetComponent<Maneuverability>().MaxVelocity)
+        if (notVerticalVel.magnitude > VelocityFormula)
         {
             Vector2 correctedVel = notVerticalVel.normalized * VelocityFormula;
 

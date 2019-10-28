@@ -8,8 +8,6 @@ public class AimWeapon : MonoBehaviour
     public Camera myCamera;
     [Tooltip("Pon la distancia del raycast de la cámara a la que apunta el disparo si se esta apuntando al aire")]
     public float shotDistance = 200;
-    [Tooltip("Pon el tiempo que tarda en disparar desde el último disparo")]
-    public float cooldown = 0.1f;
     [Tooltip("Pon en false para bloquear la rotación en el eje x")]
     public bool x = true;
     [Tooltip("Pon en false para bloquear la rotación en el eje y")]
@@ -26,16 +24,8 @@ public class AimWeapon : MonoBehaviour
     void Update()
     {
         Aim();
-        if(InputManager.Shot())
-        {
-            Shot();
-        }
     }
-
-    public void Shot()
-    {
-
-    }
+    
 
     public void Aim()
     {

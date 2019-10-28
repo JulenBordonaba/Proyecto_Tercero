@@ -12,10 +12,13 @@ public class Turbo : HabilidadCombustible
     private bool inTurbo = false;
     public override void Use()
     {
+        if (GetComponent<NaveController>().inBoost)
+        {
+            ApplyTurbo();
+        }
         //Activar el Turbo siempre y cuando no este en pleno Turbo       
         if (inTurbo)
         {
-            ApplyTurbo();
             return;
         }
         Combustible combustibleTurbo = null; //variable para guardar el componente combustible del escudo del objeto padre        
@@ -43,7 +46,7 @@ public class Turbo : HabilidadCombustible
         }
 
 
-        GetComponent<Rigidbody>().AddForce(GetComponent<NaveController>().modelTransform.forward * impulse, ForceMode.Acceleration);
+        //GetComponent<Rigidbody>().AddForce(GetComponent<NaveController>().modelTransform.forward * impulse, ForceMode.Acceleration);
         GetComponent<NaveController>().inBoost = true;
         inTurbo = true;
         StartCoroutine(Cooldown(combustibleTurbo));
@@ -52,7 +55,7 @@ public class Turbo : HabilidadCombustible
 
     private void ApplyTurbo()
     {
-        GetComponent<Rigidbody>().AddForce(GetComponent<NaveController>().modelTransform.forward * impulse, ForceMode.VelocityChange);
+        GetComponent<Rigidbody>().AddForce(GetComponent<NaveController>().modelTransform.forward * impulse, ForceMode.Acceleration);
     }
 
     private IEnumerator Cooldown(Combustible combustible)
