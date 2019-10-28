@@ -11,12 +11,11 @@ public class Turbo : HabilidadCombustible
 
     private bool inTurbo = false;
 
-    private void Update()
+    private NaveController naveController;
+
+    private void Start()
     {
-        if (GetComponent<NaveController>().inBoost)
-        {
-            ApplyTurbo();
-        }
+        naveController = GetComponent<NaveController>();
     }
 
     public override void Use()
@@ -50,23 +49,19 @@ public class Turbo : HabilidadCombustible
             return;
         }
 
-
-        //GetComponent<Rigidbody>().AddForce(GetComponent<NaveController>().modelTransform.forward * impulse, ForceMode.Acceleration);
-        GetComponent<NaveController>().inBoost = true;
+        
+        naveController.inBoost = true;
         inTurbo = true;
         StartCoroutine(Cooldown(combustibleTurbo));
         
     }
 
-    private void ApplyTurbo()
-    {
-        GetComponent<Rigidbody>().AddForce(GetComponent<NaveController>().modelTransform.forward * impulse, ForceMode.Acceleration);
-    }
+    
 
     private IEnumerator Cooldown(Combustible combustible)
     {
         yield return new WaitForSeconds(combustible.duration);
-        GetComponent<NaveController>().inBoost = false;
+        naveController.inBoost = false;
         yield return new WaitForSeconds(cooldown);
         inTurbo = false;
     }

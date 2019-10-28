@@ -18,13 +18,13 @@ public class NaveController : MonoBehaviour
     public float backwardVelocity;  //modificador de velocidad cuando la nave va marcha atrás, se multiplica por la velocidad
 
     [Header("Constantes fórmulas")]
-    [Tooltip("Pon la velocidad máxima que se aumenta según la vida")]
+    [Tooltip("Pon la velocidad máxima que se aumenta según la vida, se multiplica con el porcentaje de vida de la nave")]
     public float healthConst;   //constante que se le multiplica a la vida en la fórmula de velocidad
-    [Tooltip("Pon la velocidad máxima que se aumenta según la posición")]
+    [Tooltip("Pon la velocidad máxima que se aumenta según la posición, se multiplica con la posición de la nave empezando desde detrás")]
     public float positionConst; //constante que se le multiplica a la posición en la fórmula de velocidad
     [Tooltip("Pon la velocidad máxima que se aumenta cuando se está en rebufo")]
     public float recoilConst;   //constante que se le multiplica al rebufo(recoil) en la fórmula de velocidad
-    [Tooltip("Pon la velocidad máxima que se aumenta cuando se está en turbo")]
+    [Tooltip("Pon la velocidad máxima que se aumenta cuando se está en turbo, se multiplica con la stat de turbo actual de la nave")]
     public float turboConst;    //constante que se le multiplica al turbo en la fórmula de velocidad
 
     [Header("Piezas de la nave")]
@@ -57,6 +57,11 @@ public class NaveController : MonoBehaviour
 
     private void Update()
     {
+        print(VelocityFormula + " + " + GetComponent<Maneuverability>().MaxVelocity + " + " + BoostFormula);
+        if (inBoost)
+        {
+            ApplyTurbo();
+        }
         if (GetComponent<NaveManager>().isPlanning) return;
         Controller();
 
@@ -238,7 +243,8 @@ public class NaveController : MonoBehaviour
         {
             Vector2 correctedVel = notVerticalVel.normalized * VelocityFormula;
 
-            locVel = Vector3.Lerp( locVel,new Vector3(correctedVel.x, locVel.y, correctedVel.y),Time.deltaTime);
+            //locVel = Vector3.Lerp( locVel,new Vector3(correctedVel.x, locVel.y, correctedVel.y),Time.deltaTime*1000);
+            locVel = new Vector3(correctedVel.x, locVel.y, correctedVel.y);
         }
 
 
@@ -249,6 +255,11 @@ public class NaveController : MonoBehaviour
 
     }
 
+    private void ApplyTurbo()
+    {
+        GetComponent<Rigidbody>().AddForce(modelTransform.forward * GetComponent<Turbo>().impulse * GetComponent<Maneuverability>().currentBoost, ForceMode.Acceleration);
+    }
+
     public bool AnyMovementKeys
     {
         get { return (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Joystick1Button2) || Input.GetAxis("Nave Vertical") != 0)/* || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)*/; }
@@ -256,7 +267,27 @@ public class NaveController : MonoBehaviour
 
     public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
     {
-        get { return GetComponent<Maneuverability>().MaxVelocity + (PorcentajeSalud * healthConst) + (DistanciaPrimero * positionConst) + ((recoilConst * (inRecoil ? 1 : 0)) * GetComponent<Maneuverability>().currentRecoil) + ((turboConst * (inBoost ? 1 : 0)) * GetComponent<Maneuverability>().currentBoost); }
+        get { return GetComponent<Maneuverability>().MaxVelocity + HealthFormula + PositionFormula +  RecoilFormula +  BoostFormula; }
+    }
+
+    public float BoostFormula
+    {
+        get { return ((turboConst * (inBoost == true ? 1 : 0) * GetComponent<Maneuverability>().currentBoost)); }
+    }
+
+    public float RecoilFormula
+    {
+        get { return ((recoilConst * (inRecoil==true ? 1 : 0) * GetComponent<Maneuverability>().currentRecoil)); }
+    }
+
+    public float PositionFormula
+    {
+        get { return (DistanciaPrimero * positionConst); }
+    }
+
+    public float HealthFormula
+    {
+        get { return (PorcentajeSalud * healthConst); }
     }
 
     public float PorcentajeSalud    //devuelve el porcentaje de salud de la nave
