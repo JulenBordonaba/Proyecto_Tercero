@@ -10,13 +10,18 @@ public class Turbo : HabilidadCombustible
     public float cooldown;  //tiempo que pasa despues de que acabe el turbo para poder volver  usarlo
 
     private bool inTurbo = false;
-    public override void Use()
+
+    private void Update()
     {
         if (GetComponent<NaveController>().inBoost)
         {
             ApplyTurbo();
         }
-        //Activar el Turbo siempre y cuando no este en pleno Turbo       
+    }
+
+    public override void Use()
+    {
+        //sale si ya esta enn turbo  
         if (inTurbo)
         {
             return;

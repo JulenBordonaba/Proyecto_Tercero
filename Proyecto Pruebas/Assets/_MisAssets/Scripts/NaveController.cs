@@ -18,13 +18,13 @@ public class NaveController : MonoBehaviour
     public float backwardVelocity;  //modificador de velocidad cuando la nave va marcha atrás, se multiplica por la velocidad
 
     [Header("Constantes fórmulas")]
-    [Tooltip("Pon la constante de la vida")]
+    [Tooltip("Pon la velocidad máxima que se aumenta según la vida")]
     public float healthConst;   //constante que se le multiplica a la vida en la fórmula de velocidad
-    [Tooltip("Pon la constante de la posición")]
+    [Tooltip("Pon la velocidad máxima que se aumenta según la posición")]
     public float positionConst; //constante que se le multiplica a la posición en la fórmula de velocidad
-    [Tooltip("Pon la constante del rebufo")]
+    [Tooltip("Pon la velocidad máxima que se aumenta cuando se está en rebufo")]
     public float recoilConst;   //constante que se le multiplica al rebufo(recoil) en la fórmula de velocidad
-    [Tooltip("Pon la constante del turbo")]
+    [Tooltip("Pon la velocidad máxima que se aumenta cuando se está en turbo")]
     public float turboConst;    //constante que se le multiplica al turbo en la fórmula de velocidad
 
     [Header("Piezas de la nave")]
