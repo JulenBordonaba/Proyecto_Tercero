@@ -12,12 +12,14 @@ public class AimWeapon : MonoBehaviour
     public bool x = true;
     [Tooltip("Pon en false para bloquear la rotación en el eje y")]
     public bool y = true;
+    [Tooltip("Pon las layers contra las que choca el raycast del disparo")]
+    public LayerMask layers;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -25,7 +27,7 @@ public class AimWeapon : MonoBehaviour
     {
         Aim();
     }
-    
+
 
     public void Aim()
     {
@@ -33,13 +35,20 @@ public class AimWeapon : MonoBehaviour
         RaycastHit hit;
         ray.origin = myCamera.transform.position;
         ray.direction = myCamera.transform.forward;
-        if(Physics.Raycast(ray, out hit,shotDistance))
+        Quaternion rotation = transform.rotation;
+        if (Physics.Raycast(ray, out hit, shotDistance,layers))
         {
-            //weapon.transform.LookAt(hit.point);
+            transform.LookAt(hit.point);
+            Debug.DrawRay(ray.origin, ray.direction * (hit.point - ray.origin).magnitude, Color.red);
         }
         else
         {
-            //weapon.transform.LookAt(ray.origin+ray.direction*shotDistance);
+            transform.LookAt(ray.origin + ray.direction * shotDistance);
+            Debug.DrawRay(ray.origin, ray.direction * shotDistance, Color.red);
         }
+
+        Quaternion finalRotation = Quaternion.Euler(x ? transform.eulerAngles.x : rotation.eulerAngles.x, y ? transform.eulerAngles.y : rotation.eulerAngles.y, rotation.eulerAngles.z);
+        transform.rotation = finalRotation;
+
     }
 }

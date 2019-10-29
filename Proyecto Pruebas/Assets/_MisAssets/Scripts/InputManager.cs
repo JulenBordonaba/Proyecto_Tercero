@@ -110,7 +110,7 @@ public class InputManager : MonoBehaviour
 
     public static bool Shot()
     {
-        return Input.GetButtonDown("PCShot" + numPlayer.ToString()) || Input.GetButtonDown("PS4Shot" + numPlayer.ToString());
+        return Input.GetButton("PCShot" + numPlayer.ToString()) || Input.GetButton("PS4Shot" + numPlayer.ToString());
     }
 
     public static float Accelerate()

@@ -57,7 +57,7 @@ public class NaveController : MonoBehaviour
 
     private void Update()
     {
-        print(VelocityFormula + " + " + GetComponent<Maneuverability>().MaxVelocity + " + " + BoostFormula);
+        //print(VelocityFormula + " + " + GetComponent<Maneuverability>().MaxVelocity + " + " + BoostFormula);
         if (inBoost)
         {
             ApplyTurbo();

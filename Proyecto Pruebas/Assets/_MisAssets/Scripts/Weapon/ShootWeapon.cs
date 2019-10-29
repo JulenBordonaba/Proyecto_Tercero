@@ -10,6 +10,8 @@ public class ShootWeapon : MonoBehaviour
     public GameObject shotPrefab;
     [Tooltip("Pon la velocidad a la que se disparará")]
     public float shotForce = 100;
+    [Tooltip("Pon el objeto donde aparecen los disparos")]
+    public Transform shotSpawn;
     [Tooltip("Pon la lista de los sonidos que pueden sonar cuando se dispara")]
     public AudioClip[] shotSounds;
 
@@ -35,9 +37,23 @@ public class ShootWeapon : MonoBehaviour
     {
         if (!canShoot) return;
         canShoot = false;
+        StartCoroutine(Cooldown());
 
         //sonido
-        audioSource.PlayOneShot(shotSounds[Random.Range((int)0, (int)shotSounds.Length)]);
+        if(shotSounds.Length>0)
+        {
+            audioSource.PlayOneShot(shotSounds[Random.Range((int)0, (int)shotSounds.Length - 1)]);
+        }
+        //disparo
+        GameObject shot = Instantiate(shotPrefab, shotSpawn.position, transform.rotation);
+        if(shot.GetComponent<Rigidbody>()!=null)
+        {
+            shot.GetComponent<Rigidbody>().AddForce(transform.forward * shotForce, ForceMode.VelocityChange);
+        }
+        Destroy(shot, 5f);
+        //Onomatopeya
+
+
 
     }
 
