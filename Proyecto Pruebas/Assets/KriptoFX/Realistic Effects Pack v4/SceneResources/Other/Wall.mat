@@ -8,8 +8,8 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Wall
-  m_Shader: {fileID: 4800000, guid: fb59f728b27f196418cd3f51315d7dde, type: 3}
-  m_ShaderKeywords: _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
+  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_ShaderKeywords: _NORMALMAP _PARALLAXMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -28,7 +28,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 56456b3961a1d7845bde81b8c3dadaaa, type: 3}
+        m_Texture: {fileID: 2800000, guid: adbd061c51fa063418a3a6a69422800a, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Curvature:
@@ -68,11 +68,11 @@ Material:
         m_Scale: {x: 20, y: 20}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: ed0bdf02f985c084998c53162a8ad5a9, type: 3}
+        m_Texture: {fileID: 2800000, guid: e7aaf372818d03f4ebfa436fa358a503, type: 3}
         m_Scale: {x: 0.5, y: 0.5}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: d4e76a759952e2745914caaf85e664a4, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Normals:
@@ -80,11 +80,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
-        m_Texture: {fileID: 2800000, guid: 134d768e4e5c8654c8ef6ec2e1a91b3a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 4ff48a85fed033b439f7a9fec34f5dd0, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: 6506193dac9b2f44fb8c65ca228c57c2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 5e517cda2d13ddb4a9c7caff47f02320, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texturasombraproyectada:
@@ -101,7 +101,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _Ambientlight: 1
-    - _BumpScale: 1.4
+    - _BumpScale: 1
     - _CelShadingBands: 600
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -110,17 +110,17 @@ Material:
     - _FranjasSombra: 2
     - _Gloss: 1
     - _GlossMapScale: 0
-    - _Glossiness: 0
+    - _Glossiness: 0.03
     - _GlossyReflections: 1
     - _IntensidadAO: 0.5
     - _IntensidadCurvature: 0
     - _IntensidadSombra: 0.682
     - _LightAtten: 0.937
     - _MaximoDegradadoDistancia: 25
-    - _Metallic: 0.22
+    - _Metallic: 0.024
     - _MinimoDegrafadoDistancia: 0
     - _Mode: 0
-    - _OcclusionStrength: 1
+    - _OcclusionStrength: 0.24
     - _Parallax: 0.08
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -133,14 +133,14 @@ Material:
     - _ZWrite: 1
     - _intensidadluz: 1
     - _limitesombra: 0.69
-    - _outlinewith: 0.003
+    - _outlinewith: 0
     - _rimlighthardness: 2
     - _rimlighthardness_sombra: 2
     - _rimlightsize: 5
     - _rimlightsizesombra: 2.64
     - _valorsombra: 0
     m_Colors:
-    - _Color: {r: 0.5660378, g: 0.4749423, b: 0.4031684, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _ColorDistanciaCamara: {r: 0.6117647, g: 0.3882353, b: 0.28627452, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Outlinecolor: {r: 0.01886791, g: 0.01886791, b: 0.01886791, a: 1}
