@@ -42,7 +42,8 @@ public class ShootWeapon : MonoBehaviour
         //sonido
         if(shotSounds.Length>0)
         {
-            audioSource.PlayOneShot(shotSounds[Random.Range((int)0, (int)shotSounds.Length - 1)]);
+            print("asdf");
+            audioSource.PlayOneShot(shotSounds[Random.Range((int)0, (int)shotSounds.Length)]);
         }
         //disparo
         GameObject shot = Instantiate(shotPrefab, shotSpawn.position, transform.rotation);
