@@ -6,7 +6,7 @@ TerrainLayer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: NewLayer 5
+  m_Name: Big Rocks 1
   m_DiffuseTexture: {fileID: 2800000, guid: e7aaf372818d03f4ebfa436fa358a503, type: 3}
   m_NormalMapTexture: {fileID: 2800000, guid: adbd061c51fa063418a3a6a69422800a, type: 3}
   m_MaskMapTexture: {fileID: 0}
