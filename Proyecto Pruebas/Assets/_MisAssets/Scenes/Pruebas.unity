@@ -10979,7 +10979,7 @@ MonoBehaviour:
   shotSounds:
   - {fileID: 8300000, guid: 749adc368d162f04a89fdf69fe8ed8c1, type: 3}
   - {fileID: 8300000, guid: 209bf773a16bee547bad1987b44002cd, type: 3}
-  shootDistance: 1000
+  shootDistance: 200
   layers:
     serializedVersion: 2
     m_Bits: 2871
