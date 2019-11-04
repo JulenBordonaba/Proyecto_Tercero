@@ -30,7 +30,6 @@ public class NaveManager : MonoBehaviour
 
     private void Update()
     {
-        print(Input.GetAxisRaw("PCChangeFuel1") + " changefuel");
         CombustibleManager();
     }
 
@@ -94,6 +93,13 @@ public class NaveManager : MonoBehaviour
         }
     }
 
-    
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag=="Obstacle")
+        {
+            print(gameObject.name);
+        }
+        
+    }
 
 }

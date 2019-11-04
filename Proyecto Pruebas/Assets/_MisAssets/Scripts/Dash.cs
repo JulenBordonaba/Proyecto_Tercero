@@ -44,7 +44,7 @@ public class Dash : MonoBehaviour
         {
             Vector3 locVel = GetComponent<NaveController>().modelTransform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);
             locVel = new Vector3(locVel.x * (1-stopForce), locVel.y, locVel.z);
-            GetComponent<Rigidbody>().velocity = GetComponent<NaveController>().modelTransform.InverseTransformDirection(locVel);
+            GetComponent<Rigidbody>().velocity = GetComponent<NaveController>().modelTransform.TransformDirection(locVel);
             yield return new WaitForEndOfFrame();
         }
     }
