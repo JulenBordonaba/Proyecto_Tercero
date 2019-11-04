@@ -30,6 +30,7 @@ public class NaveManager : MonoBehaviour
 
     private void Update()
     {
+        print(Input.GetAxisRaw("PCChangeFuel1") + " changefuel");
         CombustibleManager();
     }
 
@@ -74,7 +75,6 @@ public class NaveManager : MonoBehaviour
             try
             {
                 combustibleActivo += 1;
-                Debug.Log(combustibles.Count);
                 if (combustibleActivo >= combustibles.Count) //comprueba que no se salga del límite del array
                 {
                     combustibleActivo = 0;

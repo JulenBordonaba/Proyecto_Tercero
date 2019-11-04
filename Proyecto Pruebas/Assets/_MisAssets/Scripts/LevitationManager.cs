@@ -18,6 +18,7 @@ public class LevitationManager : MonoBehaviour
     public float upDamping = 2;
     [Tooltip("Pon el impulso vertical extra que se le aplica a la nave para que no parezca que cae a cámara lenta")]
     public float extraFallImpulse;  //impulso extra que se le aplica a la nave al caer para que no parezca que cae a cámara lenta
+    [Tooltip("Pon las layers con las que puede colisionar el linecast para definir el origen del raycast y que no se quede encallado en otros objetos, pon las layers de los objetos")]
 
     private Rigidbody rb;   //rigidbody de la nave
 
@@ -39,11 +40,13 @@ public class LevitationManager : MonoBehaviour
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
 
 
-        //hacer una linecast desde el centro hasta donde debería estar el origen del raycast, si el linecast colisiona con algo que no sea la nave colocar el origen del raycast en dicha posición
+
+
 
         ray.origin = GetComponent<NaveController>().modelTransform.position + Vector3.ClampMagnitude((locVel.z * GetComponent<NaveController>().modelTransform.forward*rayOffset/5), rayOffset);
-        //ray.origin += GetComponent<NaveController>().modelTransform.up * rayDifference;
-        //print(transform.position - ray.origin);
+        //hacer una linecast desde el centro hasta donde debería estar el origen del raycast, si el linecast colisiona con algo que no sea la nave colocar el origen del raycast en dicha posición
+        //Physics.Linecast(GetComponent<NaveController>().modelTransform.position,ray.origin,)
+        
         ray.direction = -Vector3.up;
 
         Debug.DrawRay(ray.origin, -Vector3.up * 100, Color.green);  //dibujamos el resultado del raycast

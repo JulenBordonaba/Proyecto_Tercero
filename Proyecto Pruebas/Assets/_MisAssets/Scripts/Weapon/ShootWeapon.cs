@@ -22,7 +22,6 @@ public abstract class ShootWeapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print("entra al update");
         if (InputManager.Shot())
         {
             Shoot();

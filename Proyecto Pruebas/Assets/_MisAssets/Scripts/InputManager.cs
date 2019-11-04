@@ -116,8 +116,8 @@ public class InputManager : MonoBehaviour
     public static float Accelerate()
     {
         float r = 0;
-        r+=Input.GetAxis("PCAccelerate" + numPlayer.ToString());
-        r+=Input.GetAxis("PS4Accelerate" + numPlayer.ToString());
+        r += Input.GetAxis("PCAccelerate" + numPlayer.ToString());
+        r += Input.GetAxis("PS4Accelerate" + numPlayer.ToString());
         return r;
     }
 
@@ -126,10 +126,14 @@ public class InputManager : MonoBehaviour
         float r = 0;
         r += Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString());
         r += Input.GetAxisRaw("PS4ChangeFuel" + numPlayer.ToString());
-        if(r<0 && !rightFuel)
+        if (r > 0)
         {
-            rightFuel = true;
-            return true;
+            if(!rightFuel)
+            {
+                rightFuel = true;
+                return true;
+            }
+            
         }
         else
         {
@@ -143,10 +147,14 @@ public class InputManager : MonoBehaviour
         float r = 0;
         r += Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString());
         r += Input.GetAxisRaw("PS4ChangeFuel" + numPlayer.ToString());
-        if (r > 0 && !leftFuel)
+        if (r < 0)
         {
-            leftFuel = true;
-            return true;
+            if(!leftFuel)
+            {
+                leftFuel = true;
+                return true;
+            }
+            
         }
         else
         {
