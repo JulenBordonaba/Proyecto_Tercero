@@ -88,7 +88,7 @@ public class NaveManager : MonoBehaviour
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }
-        else if (InputManager.UseFuel())
+        if (InputManager.UseFuel())
         {
             habilidadCombustible.Use();
         }
