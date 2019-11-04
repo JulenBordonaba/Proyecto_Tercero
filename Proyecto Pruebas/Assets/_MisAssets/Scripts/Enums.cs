@@ -6,3 +6,8 @@ public enum TipoCombustible
 {
     Turbo,Salto,Escudo,Reparar
 }
+
+public enum TipoDisparo
+{
+    Ray,ObjectShot
+}
