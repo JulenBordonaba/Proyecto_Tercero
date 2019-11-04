@@ -28,7 +28,17 @@ public class DamageManager : MonoBehaviour
         StartCoroutine(InmunityCooldown());
 
         //recibir daño
-        GetComponent<Stats>().currentLife -= damage; 
+        if(GetComponent<Stats>())
+        {
+            GetComponent<Stats>().currentLife -= damage;
+            if (GetComponent<Stats>().currentLife <= 0) Destroy(gameObject);
+        }
+        else if(GetComponent<Pieza>())
+        {
+            GetComponent<Pieza>().Damage(damage);
+        }
+
+        print(damage);
 
     }
 

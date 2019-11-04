@@ -695,7 +695,7 @@ public class Nave : Photon.PunBehaviour
                     }
                     else if (cp.otherCollider.gameObject.GetComponent<EnviromentElement>())
                     {
-                        destroyed = p.Damage(CalculateObjectDamage(cp.otherCollider.gameObject.GetComponent<EnviromentElement>(), CollisionAngleValue(Vector3.Angle(rb.velocity, transform.position - collision.contacts[0].point))));
+                        //destroyed = p.Damage(CalculateObjectDamage(cp.otherCollider.gameObject.GetComponent<EnviromentElement>(), CollisionAngleValue(Vector3.Angle(rb.velocity, transform.position - collision.contacts[0].point))));
                         dmgInmune = true;
                         MakeVulnerable(0.5f);
                     }

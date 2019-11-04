@@ -34,12 +34,33 @@ public class Maneuverability : MonoBehaviour
 
     private void Start()
     {
+        //al inicializarse el objeto los valores actuales son iguales al doble de los totales
         currentVelocity = velocity;
         currentAcceleration = acceleration;
         currentManeuver = maneuver;
         currentDash = dash;
         currentRecoil = recoil;
         currentBoost = boost;
+    }
+
+    public void AddPieceValues(float importance)
+    {
+        currentVelocity += velocity * (importance / 100);
+        currentAcceleration += acceleration * (importance / 100);
+        currentManeuver += maneuver * (importance / 100);
+        currentDash += dash * (importance / 100);
+        currentRecoil += recoil * (importance / 100);
+        currentBoost += boost * (importance / 100);
+    }
+
+    public void OnPieceDestroyed(float importance)
+    {
+        currentVelocity -= velocity * (importance/100);
+        currentAcceleration -= acceleration * (importance / 100);
+        currentManeuver -= maneuver * (importance / 100);
+        currentDash -= dash * (importance / 100);
+        currentRecoil -= recoil * (importance / 100);
+        currentBoost -= boost * (importance / 100);
     }
 
 

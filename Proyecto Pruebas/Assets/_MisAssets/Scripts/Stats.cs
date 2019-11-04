@@ -21,12 +21,28 @@ public class Stats : MonoBehaviour
 
     private void Start()
     {
-        //al inicializarse el objeto los valores actuales son iguales a los totales
-        currentLife = life;
-        currentCollisionDamage = collisionDamage;
-        currentShotDamage = shotDamage;
-        currentWeight = weight;
+        //al inicializarse el objeto los valores actuales son iguales al doble de los totales
+        currentLife = life*2;
+        currentCollisionDamage = collisionDamage*2;
+        currentShotDamage = shotDamage*2;
+        currentWeight = weight*2;
     }
 
-    
+    public void AddPieceValues(float importance)
+    {
+        currentLife += life * (importance / 100);
+        currentCollisionDamage += collisionDamage * (importance / 100);
+        currentShotDamage += shotDamage * (importance / 100);
+        currentWeight += weight * (importance / 100);
+    }
+
+    public void OnPieceDestroyed(float importance)
+    {
+        currentLife -= life * (importance / 100);
+        currentCollisionDamage -= collisionDamage * (importance / 100);
+        currentShotDamage -= shotDamage * (importance / 100);
+        currentWeight -= weight * (importance / 100);
+    }
+
+
 }

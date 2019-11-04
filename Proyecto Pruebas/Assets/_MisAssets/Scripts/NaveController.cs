@@ -250,8 +250,7 @@ public class NaveController : MonoBehaviour
 
         //convertimos la velocidad local en la velocidad global y la aplicamos
         rb.velocity = modelTransform.TransformDirection(locVel);
-
-
+        
 
     }
 

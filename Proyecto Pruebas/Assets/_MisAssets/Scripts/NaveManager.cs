@@ -13,6 +13,9 @@ public class NaveManager : MonoBehaviour
     public bool inShield = false; //variable de control. Si es true el escudo está activo y no recibe daño
     [Tooltip("Variable que controla si la nave está planeando o no")]
     public bool isPlanning = false;//variable de control. Si es true la nave está planeando
+    [Tooltip("Pon la reducción de daño por colisión")]
+    [Range(0, 1)]
+    public float collisionDamageReduction = 0.8f;
 
 
     private int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
@@ -97,9 +100,26 @@ public class NaveManager : MonoBehaviour
     {
         if(collision.gameObject.tag=="Obstacle")
         {
-            print(gameObject.name);
+            DamageManager dm = collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>();
+            float impactForce = Vector3.Dot(collision.contacts[0].normal, collision.relativeVelocity);
+            impactForce = Mathf.Clamp(impactForce, 0, float.MaxValue);
+            if(collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>())
+            {
+                collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * GetComponent<Stats>().currentCollisionDamage * (1 - collisionDamageReduction));
+            }
+            if (collision.gameObject.GetComponent<DamageManager>())
+            {
+                collision.gameObject.GetComponent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 - collisionDamageReduction));
+            }
         }
         
+    }
+
+    
+
+    private float CalculateImpactForce(Vector3 collisionNormal, Vector3 collisionVelocity)
+    {
+        return Vector3.Dot(collisionNormal, collisionVelocity);
     }
 
 }
