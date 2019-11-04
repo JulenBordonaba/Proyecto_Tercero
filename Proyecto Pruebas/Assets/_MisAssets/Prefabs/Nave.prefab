@@ -793,7 +793,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dashForce: 50
-  cooldown: 0.1
+  cooldown: 0.5
+  duration: 0.2
+  stopForce: 0.2
 --- !u!1 &5045542138147048858
 GameObject:
   m_ObjectHideFlags: 0
