@@ -39,6 +39,8 @@ public class LevitationManager : MonoBehaviour
         Vector3 locVel = transform.InverseTransformDirection(rb.velocity);
 
 
+        //hacer una linecast desde el centro hasta donde debería estar el origen del raycast, si el linecast colisiona con algo que no sea la nave colocar el origen del raycast en dicha posición
+
         ray.origin = GetComponent<NaveController>().modelTransform.position + Vector3.ClampMagnitude((locVel.z * GetComponent<NaveController>().modelTransform.forward*rayOffset/5), rayOffset);
         //ray.origin += GetComponent<NaveController>().modelTransform.up * rayDifference;
         //print(transform.position - ray.origin);
@@ -100,6 +102,8 @@ public class LevitationManager : MonoBehaviour
     private void Rotaion(RaycastHit hit, float rayDistance)
     {
         
+        //hay que corregir que no se suba por cualquier superficie
+
         if (rayDistance > startCorrectionHeight)
         {
             GetComponent<NaveManager>().isPlanning = true;

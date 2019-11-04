@@ -36,7 +36,7 @@ public class Salto : HabilidadCombustible
         //Saltar
         inJump = true;
         StartCoroutine(Cooldown());
-        GetComponent<Rigidbody>().AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        GetComponent<Rigidbody>().AddForce(/*Vector3.up*/GetComponent<NaveController>().modelTransform.up * jumpForce, ForceMode.Impulse);
         if(combustibleSalto!=null)
         {
 
