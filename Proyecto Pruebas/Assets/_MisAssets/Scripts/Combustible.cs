@@ -20,8 +20,13 @@ public class Combustible : MonoBehaviour
     public float duration;      //duración de la acción del combustible
 
 
-    public float currentAmmount { get; set; }    //cantidad actual de combustible
+    public float currentAmmount;    //cantidad actual de combustible
 
-    
+    private void Start()
+    {
+        currentAmmount = deposit;
+    }
+
+
 
 }

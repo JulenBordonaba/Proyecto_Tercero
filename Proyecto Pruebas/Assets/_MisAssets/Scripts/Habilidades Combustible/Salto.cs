@@ -19,7 +19,7 @@ public class Salto : HabilidadCombustible
         //codigo que busca entre todos los combustibles del objeto y guarda el combustible del escudo. 
         //Así se pueden acceder a las variables del combustible del escudo
         Component[] combustibles;
-        combustibles = GetComponentsInParent(typeof(Combustible));
+        combustibles = GetComponents(typeof(Combustible));
         if (combustibles != null)
         {
             foreach (Combustible combustible in combustibles)

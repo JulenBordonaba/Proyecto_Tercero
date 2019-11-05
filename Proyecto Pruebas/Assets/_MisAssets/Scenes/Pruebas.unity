@@ -30564,6 +30564,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inmunityCooldown: 1
+  minDamage: 0
 --- !u!1 &498152043
 GameObject:
   m_ObjectHideFlags: 0
@@ -47748,6 +47749,7 @@ MonoBehaviour:
   pasiveConsumption: 0
   activeConsumption: 0
   duration: 0
+  currentAmmount: 0
 --- !u!114 &759190028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47766,6 +47768,7 @@ MonoBehaviour:
   pasiveConsumption: 0
   activeConsumption: 0
   duration: 0
+  currentAmmount: 0
 --- !u!114 &759190029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47784,6 +47787,7 @@ MonoBehaviour:
   pasiveConsumption: 0
   activeConsumption: 0
   duration: 0
+  currentAmmount: 0
 --- !u!114 &759190030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47802,6 +47806,7 @@ MonoBehaviour:
   pasiveConsumption: 0
   activeConsumption: 0
   duration: 0
+  currentAmmount: 0
 --- !u!1001 &763876103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -78403,6 +78408,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5045542138147048859, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -15.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542138147048859, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045542137871149934, guid: a3e413a466ef11040b15cfe60e443be1,
+        type: 3}
+      propertyPath: duration
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2143371423, guid: a3e413a466ef11040b15cfe60e443be1, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
@@ -87813,6 +87833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inmunityCooldown: 1
+  minDamage: 0
 --- !u!1 &1426823186
 GameObject:
   m_ObjectHideFlags: 0
@@ -93920,6 +93941,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inmunityCooldown: 1
+  minDamage: 0
 --- !u!1 &1538201801
 GameObject:
   m_ObjectHideFlags: 0
@@ -129772,6 +129794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inmunityCooldown: 1
+  minDamage: 0
 --- !u!1 &2105182156
 GameObject:
   m_ObjectHideFlags: 0
@@ -132083,6 +132106,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7299123977407817752, guid: 23835cdaf7b83464fb81c02d923c8630,
+        type: 3}
+      propertyPath: duration
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2544233907067257833, guid: 23835cdaf7b83464fb81c02d923c8630,
         type: 3}

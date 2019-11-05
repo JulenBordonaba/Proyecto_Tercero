@@ -18,8 +18,9 @@ public class Escudo : HabilidadCombustible
 
     public override void Use()
     {
+        print("Entra al Use");
         //Activar el escudo siempre y cuando no haya un escudo activo
-        if (inShield == true) return;
+        if (inShield) return;
 
         Combustible combustibleEscudo = null; //variable para guardar el componente combustible del escudo del objeto padre
 
@@ -34,7 +35,7 @@ public class Escudo : HabilidadCombustible
         //codigo que busca entre todos los combustibles del objeto y guarda el combustible del escudo. 
         //Así se pueden acceder a las variables del combustible del escudo
         Component[] combustibles;
-        combustibles = GetComponentsInParent(typeof(Combustible));
+        combustibles = GetComponents(typeof(Combustible));
         if (combustibles != null)
         {
             foreach (Combustible combustible in combustibles)
@@ -56,6 +57,7 @@ public class Escudo : HabilidadCombustible
         //poner a true variable estado en escudo
         inShield = true;
         shield.SetActive(true);
+        print("pone el escudo");
 
 
         //Inicar corrutina con la duración del escudo

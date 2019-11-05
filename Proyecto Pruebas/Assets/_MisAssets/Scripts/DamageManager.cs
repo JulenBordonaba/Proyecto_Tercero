@@ -6,6 +6,8 @@ public class DamageManager : MonoBehaviour
 {
     [Tooltip("Pon el tiempo de inmunidad que tiene la nave despues de recibir daño")]
     public float inmunityCooldown;
+    [Tooltip("Pon el daño mínimo para que pueda recibir daño")]
+    public float minDamage;
 
     private bool canBeDamaged = true;
 
@@ -24,6 +26,7 @@ public class DamageManager : MonoBehaviour
     public void TakeDamage(float damage)
     {
         if (!canBeDamaged) return;
+        if (damage < minDamage) return;
         canBeDamaged = false;
         StartCoroutine(InmunityCooldown());
 

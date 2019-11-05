@@ -54,13 +54,10 @@ public class NaveManager : MonoBehaviour
     private void CombustibleManager()
     {
         //cambiar entre los distintos combustibles
-        print(combustibleActivo);
         if (InputManager.ChangeFuelLeft())
         {
-            print("left");
             try
             {
-                print("entra al try");
                 combustibleActivo -= 1;
                 if (combustibleActivo < 0) //comprueba que no se salga del límite del array
                 {
@@ -72,16 +69,13 @@ public class NaveManager : MonoBehaviour
             }
             catch
             {
-                print("entra al catch");
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }
         else if (InputManager.ChangeFuelRight())
         {
-            print("right");
             try
             {
-                print("entra al try");
                 combustibleActivo += 1;
                 if (combustibleActivo >= combustibles.Count) //comprueba que no se salga del límite del array
                 {
@@ -93,7 +87,6 @@ public class NaveManager : MonoBehaviour
             }
             catch
             {
-                print("entra al catch");
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }
