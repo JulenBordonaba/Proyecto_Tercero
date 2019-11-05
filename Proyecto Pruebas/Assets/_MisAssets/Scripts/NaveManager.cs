@@ -8,9 +8,8 @@ public class NaveManager : MonoBehaviour
 
     [Tooltip("Pon el numero de combustibles correspondiente en Size. Luego elige una de las 4 opciones para cada uno de ellos")]
     public List<TipoCombustible> combustibles;     //tipo del combustible
+    [Tooltip("Habilidad de combustible activa")]
     public HabilidadCombustible habilidadCombustible; //variable que almacena la habilidad del cumbustible activo
-    [Tooltip("Variable que controla si el escudo esta activo o no")]
-    public bool inShield = false; //variable de control. Si es true el escudo está activo y no recibe daño
     [Tooltip("Variable que controla si la nave está planeando o no")]
     public bool isPlanning = false;//variable de control. Si es true la nave está planeando
     [Tooltip("Pon la reducción de daño por colisión")]
@@ -55,11 +54,13 @@ public class NaveManager : MonoBehaviour
     private void CombustibleManager()
     {
         //cambiar entre los distintos combustibles
-
+        print(combustibleActivo);
         if (InputManager.ChangeFuelLeft())
         {
+            print("left");
             try
             {
+                print("entra al try");
                 combustibleActivo -= 1;
                 if (combustibleActivo < 0) //comprueba que no se salga del límite del array
                 {
@@ -71,13 +72,16 @@ public class NaveManager : MonoBehaviour
             }
             catch
             {
+                print("entra al catch");
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }
         else if (InputManager.ChangeFuelRight())
         {
+            print("right");
             try
             {
+                print("entra al try");
                 combustibleActivo += 1;
                 if (combustibleActivo >= combustibles.Count) //comprueba que no se salga del límite del array
                 {
@@ -89,6 +93,7 @@ public class NaveManager : MonoBehaviour
             }
             catch
             {
+                print("entra al catch");
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }

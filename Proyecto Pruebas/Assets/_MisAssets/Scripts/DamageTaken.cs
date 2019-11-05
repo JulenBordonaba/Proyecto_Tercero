@@ -14,12 +14,12 @@ public class DamageTaken : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         // si el objeto es una nave y tiene activo el escudo, no puede recibe daño
-        if (GetComponentInParent<NaveManager>() != null && GetComponentInParent<NaveManager>().inShield == true)
+        //if (GetComponentInParent<NaveManager>() != null && GetComponentInParent<NaveManager>().inShield == true)
         {
             inShield = true;
         }
         //si el objeto es una nave y no tiene el escudo activo puede recibir daño
-        else if (GetComponentInParent<NaveManager>() != null && GetComponentInParent<NaveManager>().inShield == false)
+        //else if (GetComponentInParent<NaveManager>() != null && GetComponentInParent<NaveManager>().inShield == false)
         {
             inShield = false;
         }

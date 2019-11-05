@@ -49,6 +49,11 @@ public class Turbo : HabilidadCombustible
             return;
         }
 
+        if (combustibleTurbo == null) return;
+
+        if (combustibleTurbo.currentAmmount < combustibleTurbo.activeConsumption) return;
+
+        combustibleTurbo.currentAmmount -= combustibleTurbo.activeConsumption;
         
         naveController.inBoost = true;
         inTurbo = true;

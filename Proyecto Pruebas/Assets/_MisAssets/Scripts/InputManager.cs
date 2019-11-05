@@ -123,45 +123,15 @@ public class InputManager : MonoBehaviour
 
     public static bool ChangeFuelRight()
     {
-        float r = 0;
-        r += Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString());
-        r += Input.GetAxisRaw("PS4ChangeFuel" + numPlayer.ToString());
-        if (r > 0)
-        {
-            if(!rightFuel)
-            {
-                rightFuel = true;
-                return true;
-            }
-            
-        }
-        else
-        {
-            rightFuel = false;
-        }
-        return false;
+        return (Input.GetButtonDown("PCChangeFuel" + numPlayer.ToString()) && Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString()) > 0) || (Input.GetButtonDown("PS4ChangeFuel" + numPlayer.ToString()) && Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString()) > 0);
+        
     }
 
     public static bool ChangeFuelLeft()
     {
-        float r = 0;
-        r += Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString());
-        r += Input.GetAxisRaw("PS4ChangeFuel" + numPlayer.ToString());
-        if (r < 0)
-        {
-            if(!leftFuel)
-            {
-                leftFuel = true;
-                return true;
-            }
-            
-        }
-        else
-        {
-            leftFuel = false;
-        }
-        return false;
+        return (Input.GetButtonDown("PCChangeFuel" + numPlayer.ToString()) && Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString()) < 0) || (Input.GetButtonDown("PS4ChangeFuel" + numPlayer.ToString()) && Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString()) < 0);
     }
+    
 
 
 

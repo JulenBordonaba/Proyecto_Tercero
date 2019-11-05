@@ -34,6 +34,7 @@ public class ShootRay : ShootWeapon
 
     private void DamageObjective(GameObject other)
     {
+        if (other.layer == LayerMask.NameToLayer("OtherShield")) return;
         if(other.GetComponent<DamageManager>())
         {
             other.GetComponent<DamageManager>().TakeDamage(GetComponentInParent<Stats>().currentShotDamage);

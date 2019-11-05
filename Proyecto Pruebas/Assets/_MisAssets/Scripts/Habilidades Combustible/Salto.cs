@@ -32,16 +32,16 @@ public class Salto : HabilidadCombustible
         {
             return;
         }
+        if (combustibleSalto == null) return;
+
+            if (combustibleSalto.currentAmmount < combustibleSalto.activeConsumption) return;
+
+        combustibleSalto.currentAmmount -= combustibleSalto.activeConsumption;
 
         //Saltar
         inJump = true;
         StartCoroutine(Cooldown());
         GetComponent<Rigidbody>().AddForce(/*Vector3.up*/GetComponent<NaveController>().modelTransform.up * jumpForce, ForceMode.Impulse);
-        if(combustibleSalto!=null)
-        {
-
-            combustibleSalto.currentAmmount -= combustibleSalto.activeConsumption;
-        }
 
         //activar animacion Salto
         //GetComponentInParent<Animator>().SetBool("jump",true);
