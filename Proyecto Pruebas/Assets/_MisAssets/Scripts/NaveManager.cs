@@ -16,6 +16,8 @@ public class NaveManager : MonoBehaviour
     [Tooltip("Pon la reducción de daño por colisión")]
     [Range(0, 1)]
     public float collisionDamageReduction = 0.8f;
+    [Tooltip("Pon el prefab de la explosión")]
+    public GameObject explosionPrefab;
 
 
     private int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
@@ -115,7 +117,14 @@ public class NaveManager : MonoBehaviour
         
     }
 
-    
+    public void OnShipDestroyed()
+    {
+        GameObject explosion = Instantiate(explosionPrefab, GetComponent<NaveController>().transform.position, Quaternion.identity);
+        Destroy(explosion, explosion.GetComponentInChildren<ParticleSystem>().main.duration);
+        Destroy(transform.parent.gameObject);
+    }
+
+
 
     private float CalculateImpactForce(Vector3 collisionNormal, Vector3 collisionVelocity)
     {

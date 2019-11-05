@@ -46,7 +46,10 @@ public class Pieza : MonoBehaviour {
 
     private void onPieceDestroyed()
     {
-        
+        if(nucleo)
+        {
+            GetComponentInParent<NaveManager>().OnShipDestroyed();
+        }
     }
 
     public void Damage(float ammount)
