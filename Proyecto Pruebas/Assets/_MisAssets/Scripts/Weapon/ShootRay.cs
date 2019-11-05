@@ -28,7 +28,7 @@ public class ShootRay : ShootWeapon
             //destruir efecto
             Destroy(impactGO, impactGO.GetComponent<ParticleSystem>().main.duration);
             //hacer daño al objetivo
-            DamageObjective(hit.transform.gameObject);
+            DamageObjective(hit.collider.gameObject);
         }
     }
 
@@ -37,6 +37,10 @@ public class ShootRay : ShootWeapon
         if(other.GetComponent<DamageManager>())
         {
             other.GetComponent<DamageManager>().TakeDamage(GetComponentInParent<Stats>().currentShotDamage);
+        }
+        else if(other.GetComponentInParent<DamageManager>())
+        {
+            other.GetComponentInParent<DamageManager>().TakeDamage(GetComponentInParent<Stats>().currentShotDamage);
         }
     }
 }

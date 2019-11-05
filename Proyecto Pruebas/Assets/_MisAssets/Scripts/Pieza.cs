@@ -14,12 +14,12 @@ public class Pieza : MonoBehaviour {
 
 
 
-    [HideInInspector]
+    //[HideInInspector]
     public float currentHealth;
     [Tooltip("Esta variable hay que dejarla activada únicamente en la pieza nucleo de la nave")]
     public bool nucleo;
 
-    private float maxHealth;
+    public float maxHealth;
     private GameObject piezaOk;
     private GameObject piezaBroken;
     private GameObject piezaDead;
