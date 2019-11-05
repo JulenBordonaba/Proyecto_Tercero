@@ -4,11 +4,32 @@ using UnityEngine;
 
 public class Reparar : HabilidadCombustible
 {
-    private bool repairing = false;
+    [Tooltip("Pon la cantidad de vida que repara la nave por segundo")]
+    public float repairAmmount;
+    [Tooltip("Pon el cooldown de la habilidad, cuenta a partir de cuando se acaba")]
+    public float cooldown;
+    [Tooltip("Pon las partíaculas de la reparación")]
+    public GameObject healingParticles;
+
+    private bool isRepairing = false;
+    private bool canRepair = true;
+    private List<Pieza> piezas;
+
+    private void Start()
+    {
+        piezas= new List<Pieza>( GetComponentsInChildren<Pieza>());
+        healingParticles.SetActive(isRepairing);
+    }
+
+    private void Update()
+    {
+        Repair();
+    }
 
     public override void Use()
     {
-        if (repairing == false) { 
+        print("entra a Use");
+        if (!canRepair) return;
 
         Combustible combustibleReparar = null; //variable para guardar el componente combustible de reparacion del objeto padre
 
@@ -20,41 +41,58 @@ public class Reparar : HabilidadCombustible
 
         //codigo que busca entre todos los combustibles del objeto y guarda el combustible de reparar.  
         //Así se pueden acceder a las variables del combustible de reparar
-            Component[] combustibles;
-            combustibles = GetComponentsInParent(typeof(Combustible));
-            if (combustibles != null)
-            {
-                foreach (Combustible combustible in combustibles)
-                    if (combustible.tipoCombustible == TipoCombustible.Reparar)
-                    {
-                        combustibleReparar = combustible;
-                    }
-            }
-            else
-            {
-                return;
-            }
-
-            repairing = true;
-            StartCoroutine(Repairs(combustibleReparar.duration));
+        Component[] combustibles;
+        combustibles = GetComponents(typeof(Combustible));
+        if (combustibles != null)
+        {
+            foreach (Combustible combustible in combustibles)
+                if (combustible.tipoCombustible == TipoCombustible.Reparar)
+                {
+                    combustibleReparar = combustible;
+                }
         }
+        else
+        {
+            return;
+        }
+
+        if (combustibleReparar == null) return;
+
+        if (combustibleReparar.currentAmmount < combustibleReparar.activeConsumption) return;
+
+        combustibleReparar.currentAmmount -= combustibleReparar.activeConsumption;
+
+        isRepairing = true;
+        canRepair = false;
+        healingParticles.SetActive(true);
+        StartCoroutine(Cooldown(combustibleReparar.duration));
+
     }
 
-    private IEnumerator Repairs(float waitTime)
+    private void Repair()
     {
-        /*
-         * piezas = GetComponentsInParent(typeof(Pieza));
-         * foreach(Pieza pieza in piezas)                   // Se reparara cada pieza en funcion de la vida resante que le quede. una pieza al 10% se regenerara hasta un 33% por ejemplo
-         *                                                  // Mientras que una al 85% subira hasta el 90%
-         * {pieza.currenHealth += 100 - pieza.currenHealth * (Estat de reparar que la nave tenga) * Time.deltaTime }
-         * 
-         * 
-         */
+        if (!isRepairing) return;
+        foreach(Pieza pieza in piezas)
+        {
+            if(!pieza.isBroken)
+            {
+                pieza.currentHealth += repairAmmount * Time.deltaTime;
+                pieza.CheckState();
+            }
+        }
 
+
+    }
+
+    private IEnumerator Cooldown(float waitTime)
+    {
         yield return new WaitForSeconds(waitTime);
 
         //desactivar variables de control de estado escudo
-        repairing = false;
+        isRepairing = false;
+        healingParticles.SetActive(false);
         //GetComponentInParent<Animator>().SetBool("inShield",false);
+        yield return new WaitForSeconds(cooldown);
+        canRepair = true;
     }
 }

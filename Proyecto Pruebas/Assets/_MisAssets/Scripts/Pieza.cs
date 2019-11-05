@@ -18,6 +18,8 @@ public class Pieza : MonoBehaviour {
     public float currentHealth;
     [Tooltip("Esta variable hay que dejarla activada únicamente en la pieza nucleo de la nave")]
     public bool nucleo;
+    [Tooltip("Variable que controla cuando esta rota la pieza")]
+    public bool isBroken = false;
 
     public float maxHealth;
     private GameObject piezaOk;
@@ -46,6 +48,7 @@ public class Pieza : MonoBehaviour {
 
     private void onPieceDestroyed()
     {
+        isBroken = true;
         if(nucleo)
         {
             GetComponentInParent<NaveManager>().OnShipDestroyed();
@@ -64,7 +67,7 @@ public class Pieza : MonoBehaviour {
         }
     }
 
-    private void CheckState()
+    public void CheckState()
     {
         if(currentHealth<=0)
         {

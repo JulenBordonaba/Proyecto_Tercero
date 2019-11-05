@@ -13,8 +13,8 @@ public class Salto : HabilidadCombustible
     public override void Use()
     {
         if (GetComponent<NaveManager>().isPlanning || inJump) return;
-        Combustible combustibleSalto=null; //variable para guardar el componente combustible del escudo del objeto padre        
-        
+        Combustible combustibleSalto = null; //variable para guardar el componente combustible del escudo del objeto padre        
+
 
         //codigo que busca entre todos los combustibles del objeto y guarda el combustible del escudo. 
         //Así se pueden acceder a las variables del combustible del escudo
@@ -34,7 +34,7 @@ public class Salto : HabilidadCombustible
         }
         if (combustibleSalto == null) return;
 
-            if (combustibleSalto.currentAmmount < combustibleSalto.activeConsumption) return;
+        if (combustibleSalto.currentAmmount < combustibleSalto.activeConsumption) return;
 
         combustibleSalto.currentAmmount -= combustibleSalto.activeConsumption;
 
@@ -45,10 +45,10 @@ public class Salto : HabilidadCombustible
 
         //activar animacion Salto
         //GetComponentInParent<Animator>().SetBool("jump",true);
-        
+
         //activar sonido salto
         //GetComponentInParent<AudioSource>().Play();
-          
+
     }
 
     private IEnumerator Cooldown()
@@ -56,6 +56,6 @@ public class Salto : HabilidadCombustible
         yield return new WaitForSeconds(cooldown);
         inJump = false;
     }
-    
+
 
 }
