@@ -87,7 +87,7 @@ Material:
     - _RimMin: 0.919
     - _Shininess: 2
     - _SketchHalftoneMax: 1
-    - _SketchHalftoneMin: 0.625
+    - _SketchHalftoneMin: 0.629
     - _SketchSpeed: 1
     - _SketchStrength: 1
     - _Smoothness: 0.1
@@ -107,5 +107,5 @@ Material:
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0, g: 0, b: 0, a: 1}
     - _SColor: {r: 0.46108648, g: 0.06003024, b: 0.6698113, a: 1}
-    - _SketchColor: {r: 0.5377358, g: 0.5377358, b: 0.5377358, a: 1}
+    - _SketchColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.42352942, g: 0.30224678, b: 0.20784312, a: 1}
