@@ -52,7 +52,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 187512736}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -314,7 +314,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 724454759}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -824,7 +824,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5045542138147048858}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.5, z: -9.6}
+  m_LocalPosition: {x: 0, y: 5.49, z: -11.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5045542139072879989}
@@ -959,7 +959,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5045542138918888393}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.5, z: -20}
+  m_LocalPosition: {x: 0, y: 4.6500015, z: -20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5045542138297779450}
@@ -1020,7 +1020,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5045542139441149938}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.5, z: 20}
+  m_LocalPosition: {x: 0, y: 4.65, z: 20}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5045542138297779450}
@@ -6939,6 +6939,7 @@ MonoBehaviour:
   damagedLimit: 50
   currentHealth: 0
   nucleo: 0
+  maxHealth: 0
 --- !u!64 &5396538680631640348
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7024,6 +7025,7 @@ MonoBehaviour:
   damagedLimit: 50
   currentHealth: 0
   nucleo: 1
+  maxHealth: 0
 --- !u!114 &717046103
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7053,6 +7055,7 @@ MonoBehaviour:
   damagedLimit: 50
   currentHealth: 0
   nucleo: 0
+  maxHealth: 0
 --- !u!114 &432973983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7082,6 +7085,7 @@ MonoBehaviour:
   damagedLimit: 50
   currentHealth: 0
   nucleo: 0
+  maxHealth: 0
 --- !u!114 &793060862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7111,6 +7115,7 @@ MonoBehaviour:
   damagedLimit: 50
   currentHealth: 0
   nucleo: 0
+  maxHealth: 0
 --- !u!64 &2039470426282456508
 MeshCollider:
   m_ObjectHideFlags: 0
