@@ -41,7 +41,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 599385f68ed31634f990c4c827d4a594, type: 3}
-        m_Scale: {x: 2, y: 2}
+        m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -61,7 +61,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _SketchTex:
         m_Texture: {fileID: 2800000, guid: f1ea04fb4ec98b64ebe859386b64e7f7, type: 3}
-        m_Scale: {x: 0.03, y: 0.03}
+        m_Scale: {x: 0.01, y: 0.01}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
@@ -87,7 +87,7 @@ Material:
     - _RimMin: 0.919
     - _Shininess: 2
     - _SketchHalftoneMax: 1
-    - _SketchHalftoneMin: 0.629
+    - _SketchHalftoneMin: 0.348
     - _SketchSpeed: 1
     - _SketchStrength: 1
     - _Smoothness: 0.1
@@ -107,5 +107,5 @@ Material:
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _RimColor: {r: 0, g: 0, b: 0, a: 1}
     - _SColor: {r: 0.46108648, g: 0.06003024, b: 0.6698113, a: 1}
-    - _SketchColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SketchColor: {r: 0.4245283, g: 0.4245283, b: 0.4245283, a: 1}
     - _SpecColor: {r: 0.42352942, g: 0.30224678, b: 0.20784312, a: 1}

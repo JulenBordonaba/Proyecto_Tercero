@@ -5,7 +5,8 @@ Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: MatCheckpoint2 1
   m_Shader: {fileID: 4800000, guid: e6e2dc5b4e4813e41ab7c2639f6d071e, type: 3}
   m_ShaderKeywords: 
