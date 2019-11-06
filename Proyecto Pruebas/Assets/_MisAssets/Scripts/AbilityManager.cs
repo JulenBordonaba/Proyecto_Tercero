@@ -9,7 +9,7 @@ public class AbilityManager : MonoBehaviour
     [Tooltip("Pon la habilidad pasiva de la nave")]
     public PasiveAbility pasive;
     [Tooltip("Pon la habilidad del jugador")]
-    public HabilidadPersonaje _playerAbility;
+    public HabilidadPersonaje playerAbilityType;
 
     private PlayerAbility playerAbility;
     private ShipAbility shipAbility;    //habilidad de la nave
@@ -31,6 +31,17 @@ public class AbilityManager : MonoBehaviour
         if(InputManager.PlayerAbility())
         {
             playerAbility.Use();
+        }
+    }
+
+    private void SetPlayerAbility()
+    {
+        foreach(PlayerAbility pa in GetComponents<PlayerAbility>())
+        {
+            if(pa.clase==playerAbilityType)
+            {
+                playerAbility = pa;
+            }
         }
     }
 }

@@ -163,11 +163,11 @@ public class NaveController : MonoBehaviour
 
             //rotación al girar
 
-            if (InputManager.Accelerate() >= 0)
+            if (locVel.z >= 0)
             {
                 modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y + (InputManager.MainHorizontal() * GetComponent<Maneuverability>().maneuver * Time.deltaTime), modelTransform.localRotation.eulerAngles.z);
             }
-            else if (InputManager.Accelerate() < 0)
+            else if (locVel.z < 0)
             {
                 modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y - (InputManager.MainHorizontal() * GetComponent<Maneuverability>().maneuver * Time.deltaTime), modelTransform.localRotation.eulerAngles.z);
             }
