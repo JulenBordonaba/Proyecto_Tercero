@@ -10,6 +10,8 @@ public class ShootRay : ShootWeapon
     public LayerMask layers;
     [Tooltip("Pon el prefab de las partículas que aparecen donde impacta el disparo")]
     public GameObject impactPrefab;
+    [Tooltip("Pon la layer del otro escudo")]
+    public LayerMask otherShield;
 
     public override void CastShot()
     {
@@ -34,7 +36,7 @@ public class ShootRay : ShootWeapon
 
     private void DamageObjective(GameObject other)
     {
-        if (other.layer == LayerMask.NameToLayer("OtherShield")) return;
+        if (other.layer == otherShield) return;
         if(other.GetComponent<DamageManager>())
         {
             other.GetComponent<DamageManager>().TakeDamage(GetComponentInParent<Stats>().currentShotDamage);

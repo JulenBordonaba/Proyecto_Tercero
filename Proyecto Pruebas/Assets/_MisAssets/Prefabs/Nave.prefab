@@ -233,6 +233,9 @@ MonoBehaviour:
     m_Bits: 11063
   impactPrefab: {fileID: 6388758033152772843, guid: 53bdbd08063fabb4fa11b1ca7754736a,
     type: 3}
+  otherShield:
+    serializedVersion: 2
+    m_Bits: 8192
 --- !u!1 &467021886
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,7 +624,7 @@ GameObject:
   - component: {fileID: 3660316064006158059}
   - component: {fileID: 6545241449738370401}
   - component: {fileID: 5638318081725901358}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Healing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
