@@ -1,0 +1,36 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AbilityManager : MonoBehaviour
+{
+    [Tooltip("Pon los módulos de la nave")]
+    public List<AbilityModule> modules = new List<AbilityModule>();
+    [Tooltip("Pon la habilidad pasiva de la nave")]
+    public PasiveAbility pasive;
+    [Tooltip("Pon la habilidad del jugador")]
+    public HabilidadPersonaje _playerAbility;
+
+    private PlayerAbility playerAbility;
+    private ShipAbility shipAbility;    //habilidad de la nave
+
+
+    private void Start()
+    {
+        shipAbility = GetComponent<ShipAbility>();
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        if(InputManager.ShipAbility())
+        {
+            shipAbility.Use();            
+        }
+        if(InputManager.PlayerAbility())
+        {
+            playerAbility.Use();
+        }
+    }
+}

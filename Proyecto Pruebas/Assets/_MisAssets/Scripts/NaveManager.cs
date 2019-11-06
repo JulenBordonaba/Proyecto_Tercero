@@ -34,7 +34,7 @@ public class NaveManager : MonoBehaviour
 
     private void Update()
     {
-        CombustibleManager();
+        FuelManager();
     }
 
     private void AsignarCombustibleInicial()
@@ -51,7 +51,10 @@ public class NaveManager : MonoBehaviour
             throw new Exception("Fallo al cargar habilidad de combustible");
         }
     }
-    private void CombustibleManager()
+    
+
+
+    private void FuelManager()
     {
         //cambiar entre los distintos combustibles
         if (InputManager.ChangeFuelLeft())

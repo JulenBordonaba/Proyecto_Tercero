@@ -32,7 +32,7 @@ public class Maneuverability : MonoBehaviour
     public float currentBoost { get; set; }          //bonus de velocidad del turbo actual
 
 
-    private void Start()
+    private void Awake()
     {
         //al inicializarse el objeto los valores actuales son iguales al doble de los totales
         currentVelocity = velocity;
@@ -71,12 +71,12 @@ public class Maneuverability : MonoBehaviour
 
     public float VelocityWithWeight //devuelve la velocidad base de la nave afectada por el peso
     {
-        get { return currentVelocity - (GetComponent<Stats>().currentWeight * velocityWeightInfluence); }
+        get { return Mathf.Clamp(currentVelocity - (GetComponent<Stats>().currentWeight * velocityWeightInfluence),0,Mathf.Infinity); }
     }
 
     public float AcelerationWithWeight  //devuelve la aceleración de la nave afectada por el peso
     {
-        get { return currentAcceleration - (accelerationWeightInfluence * GetComponent<Stats>().currentWeight); }
+        get { return Mathf.Clamp(currentAcceleration - (accelerationWeightInfluence * GetComponent<Stats>().currentWeight),0,Mathf.Infinity); }
     }
 
 }

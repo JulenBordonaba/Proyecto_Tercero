@@ -19,7 +19,7 @@ public class Stats : MonoBehaviour
     public float currentShotDamage { get; set; }       //daño por disparo
     public float currentWeight { get; set; }        //pero del objeto. Influye en su daño y velocidad
 
-    private void Start()
+    private void Awake()
     {
         //al inicializarse el objeto los valores actuales son iguales al doble de los totales
         currentLife = life*2;
