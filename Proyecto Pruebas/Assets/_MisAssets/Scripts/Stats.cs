@@ -22,10 +22,15 @@ public class Stats : MonoBehaviour
     private void Awake()
     {
         //al inicializarse el objeto los valores actuales son iguales al doble de los totales
-        currentLife = life*2;
-        currentCollisionDamage = collisionDamage*2;
-        currentShotDamage = shotDamage*2;
-        currentWeight = weight*2;
+        currentLife = life;
+        currentCollisionDamage = collisionDamage;
+        currentShotDamage = shotDamage;
+        currentWeight = weight;
+    }
+
+    private void Update()
+    {
+        print(currentWeight + " " + gameObject.name);
     }
 
     public void AddPieceValues(float importance)
