@@ -165,11 +165,11 @@ public class NaveController : MonoBehaviour
 
             if (locVel.z >= 0)
             {
-                modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y + (InputManager.MainHorizontal() * GetComponent<Maneuverability>().maneuver * Time.deltaTime), modelTransform.localRotation.eulerAngles.z);
+                modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y + (InputManager.MainHorizontal() * GetComponent<Maneuverability>().currentManeuver * Time.deltaTime), modelTransform.localRotation.eulerAngles.z);
             }
             else if (locVel.z < 0)
             {
-                modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y - (InputManager.MainHorizontal() * GetComponent<Maneuverability>().maneuver * Time.deltaTime), modelTransform.localRotation.eulerAngles.z);
+                modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y - (InputManager.MainHorizontal() * GetComponent<Maneuverability>().currentManeuver * Time.deltaTime), modelTransform.localRotation.eulerAngles.z);
             }
 
 
