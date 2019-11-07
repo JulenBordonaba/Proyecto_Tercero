@@ -18,6 +18,7 @@ public class AbilityManager : MonoBehaviour
     private void Start()
     {
         shipAbility = GetComponent<ShipAbility>();
+        SetPlayerAbility();
     }
 
 

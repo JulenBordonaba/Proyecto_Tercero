@@ -104,6 +104,27 @@ public class PlanningManager : MonoBehaviour
 
         }
     }
+
+    private void RegulateVelocity()
+    {
+        Vector3 locVel = GetComponent<NaveController>().modelTransform.InverseTransformDirection(rb.velocity);
+
+        //controlamos la velocidad no vertical para ponerle un tope
+        Vector2 notVerticalVel = new Vector2(locVel.x, locVel.z);
+
+        if (notVerticalVel.magnitude > GetComponent<NaveController>().VelocityFormula)
+        {
+            Vector2 correctedVel = notVerticalVel.normalized * GetComponent<NaveController>().VelocityFormula;
+
+            //locVel = Vector3.Lerp( locVel,new Vector3(correctedVel.x, locVel.y, correctedVel.y),Time.deltaTime*1000);
+            locVel = new Vector3(correctedVel.x, locVel.y, correctedVel.y);
+        }
+
+
+        //convertimos la velocidad local en la velocidad global y la aplicamos
+        rb.velocity = GetComponent<NaveController>().modelTransform.TransformDirection(locVel);
+    }
+
     //función que limita la velocidad vertical negativa
     private void LimitateFallVelocity()
     {
