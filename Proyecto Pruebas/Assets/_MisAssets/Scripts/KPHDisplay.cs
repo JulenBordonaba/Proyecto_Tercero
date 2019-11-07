@@ -5,9 +5,11 @@ public class KPHDisplay : MonoBehaviour
 {
     public Rigidbody rb;
     public Text display_Text;
+    public Transform modelTransform;
 
     public void Update()
     {
-        display_Text.text = (int)rb.velocity.magnitude + " KPH";
+        Vector3 locVel = modelTransform.InverseTransformDirection(rb.velocity);
+        display_Text.text = (int)new Vector3(locVel.x, 0, locVel.z).magnitude + " KPH";
     }
 }
