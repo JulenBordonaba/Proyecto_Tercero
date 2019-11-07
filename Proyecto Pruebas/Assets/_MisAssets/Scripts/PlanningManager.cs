@@ -102,6 +102,7 @@ public class PlanningManager : MonoBehaviour
             //girar
             GetComponent<NaveController>().modelTransform.localRotation = Quaternion.Euler(GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.x, GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * GetComponent<Maneuverability>().maneuver * maneuverLimitator * Time.deltaTime), GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.z);
 
+            RegulateVelocity();
         }
     }
 
