@@ -69,7 +69,7 @@ public class NaveController : MonoBehaviour
 
     public void Controller()
     {
-        
+
         Camera.SetupCurrent(myCamera);
 
         //convertimos la velocidad de global a local
@@ -77,7 +77,7 @@ public class NaveController : MonoBehaviour
 
         //depende de la velocidad la camara esta mas o menos cerca del coche
         //myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (GetComponent<Maneuverability>().currentVelocity / 15), minCameraOffset, maxCameraOffset));
-        myCamera.fieldOfView = Mathf.Lerp(myCamera.fieldOfView, 60f + Mathf.Clamp(locVel.z * (inBoost? 2 : 1) / 15f, 0f, 80f), Time.deltaTime);
+        myCamera.fieldOfView = Mathf.Lerp(myCamera.fieldOfView, 60f + Mathf.Clamp(locVel.z * (inBoost ? 2 : 1) / 15f, 0f, 80f), Time.deltaTime);
 
 
 
@@ -121,7 +121,10 @@ public class NaveController : MonoBehaviour
                         //impulso hacia delante, más pequeño que cuando no esta derrapando
                         rb.AddForce(modelTransform.forward * 0.2f * InputManager.Accelerate() * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                         //impulso lateral hacia el lado contrario que se esta girando
+                        Quaternion rot = modelTransform.rotation;
+                        modelTransform.rotation = Quaternion.Euler(modelTransform.eulerAngles.x, modelTransform.eulerAngles.y, 0);
                         rb.AddForce(-modelTransform.right * driftVelocity * InputManager.Accelerate() * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        modelTransform.rotation = rot;
                     }
                     else if (InputManager.MainHorizontal() < 0)   //si esta girando hacia la izquierda
                     {
@@ -132,7 +135,10 @@ public class NaveController : MonoBehaviour
                         //impulso hacia delante, más pequeño que cuando no esta derrapando
                         rb.AddForce(modelTransform.forward * 0.2f * InputManager.Accelerate() * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
                         //impulso lateral hacia el lado contrario que se esta girando
+                        Quaternion rot = modelTransform.rotation;
+                        modelTransform.rotation = Quaternion.Euler(modelTransform.eulerAngles.x, modelTransform.eulerAngles.y, 0);
                         rb.AddForce(modelTransform.right * driftVelocity * InputManager.Accelerate() * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+                        modelTransform.rotation = rot;
                     }
                     else
                     {
@@ -163,18 +169,18 @@ public class NaveController : MonoBehaviour
 
             //rotación al girar
 
-            if (locVel.z >= 0)
+            if (locVel.z >= -0.2f)
             {
                 modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y + (InputManager.MainHorizontal() * GetComponent<Maneuverability>().currentManeuver * Time.deltaTime), modelTransform.localRotation.eulerAngles.z);
             }
-            else if (locVel.z < 0)
+            else if (locVel.z < -0.2f)
             {
                 modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y - (InputManager.MainHorizontal() * GetComponent<Maneuverability>().currentManeuver * Time.deltaTime), modelTransform.localRotation.eulerAngles.z);
             }
 
 
             //derrape
-            if (Input.GetKey(KeyCode.Joystick1Button0) || Input.GetKey(KeyCode.LeftShift))
+            if (InputManager.Drift())
             {
                 if (locVel.z > 0)
                 {
@@ -197,8 +203,9 @@ public class NaveController : MonoBehaviour
             //si no se estan pulsando las teclas que hacen moverse al vehiculo
             if (!AnyMovementKeys)
             {
-                //locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction))); //se ralentiza el vehiculo
-                locVel = new Vector3(locVel.x, locVel.y, locVel.z - locVel.z * 0.02f);
+                print("reduce velocidad");
+                locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction))); //se ralentiza el vehiculo
+                //locVel = new Vector3(locVel.x, locVel.y, locVel.z - locVel.z * 0.02f);
                 if (Mathf.Abs(locVel.z) < 2f)
                 {
                     locVel = new Vector3(locVel.x, locVel.y, 0f);
@@ -250,7 +257,7 @@ public class NaveController : MonoBehaviour
 
         //convertimos la velocidad local en la velocidad global y la aplicamos
         rb.velocity = modelTransform.TransformDirection(locVel);
-        
+
 
     }
 
@@ -261,12 +268,12 @@ public class NaveController : MonoBehaviour
 
     public bool AnyMovementKeys
     {
-        get { return (Input.GetKey(KeyCode.Joystick1Button1) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.Joystick1Button2) || InputManager.Accelerate() != 0)/* || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D)*/; }
+        get { return (InputManager.Accelerate() != 0); }
     }
 
     public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
     {
-        get { return Mathf.Clamp(GetComponent<Maneuverability>().MaxVelocity + HealthFormula + PositionFormula +  RecoilFormula +  BoostFormula,0,Mathf.Infinity); }
+        get { return Mathf.Clamp(GetComponent<Maneuverability>().MaxVelocity + HealthFormula + PositionFormula + RecoilFormula + BoostFormula, 0, Mathf.Infinity); }
     }
 
     public float BoostFormula
@@ -276,7 +283,7 @@ public class NaveController : MonoBehaviour
 
     public float RecoilFormula
     {
-        get { return ((recoilConst * (inRecoil==true ? 1 : 0) * GetComponent<Maneuverability>().currentRecoil)); }
+        get { return ((recoilConst * (inRecoil == true ? 1 : 0) * GetComponent<Maneuverability>().currentRecoil)); }
     }
 
     public float PositionFormula

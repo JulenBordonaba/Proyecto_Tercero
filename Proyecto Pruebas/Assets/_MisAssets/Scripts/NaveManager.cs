@@ -13,7 +13,6 @@ public class NaveManager : MonoBehaviour
     [Tooltip("Variable que controla si la nave está planeando o no")]
     public bool isPlanning = false;//variable de control. Si es true la nave está planeando
     [Tooltip("Pon la reducción de daño por colisión")]
-    [Range(0, 1)]
     public float collisionDamageReduction = 0.8f;
     [Tooltip("Pon el prefab de la explosión")]
     public GameObject explosionPrefab;
@@ -108,11 +107,15 @@ public class NaveManager : MonoBehaviour
             impactForce = Mathf.Clamp(impactForce, 0, float.MaxValue);
             if(collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>())
             {
-                collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * GetComponent<Stats>().currentCollisionDamage * (1 - collisionDamageReduction));
+                collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * GetComponent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction));
             }
             if (collision.gameObject.GetComponent<DamageManager>())
             {
-                collision.gameObject.GetComponent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 - collisionDamageReduction));
+                collision.gameObject.GetComponent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction));
+            }
+            else if (collision.gameObject.GetComponentInParent<DamageManager>())
+            {
+                collision.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction));
             }
         }
         

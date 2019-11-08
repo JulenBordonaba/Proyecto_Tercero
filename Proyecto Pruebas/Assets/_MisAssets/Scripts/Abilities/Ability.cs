@@ -12,9 +12,7 @@ public class Ability : MonoBehaviour
     //Función que usa la habilidad
     public virtual void Use()
     {
-        if (inCooldown) return;
-        inCooldown = true;
-        StartCoroutine(Cooldown());
+        
     }
 
     public IEnumerator Cooldown()

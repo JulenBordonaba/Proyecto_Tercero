@@ -27,11 +27,7 @@ public class Stats : MonoBehaviour
         currentShotDamage = shotDamage;
         currentWeight = weight;
     }
-
-    private void Update()
-    {
-        print(currentWeight + " " + gameObject.name);
-    }
+    
 
     public void AddPieceValues(float importance)
     {
