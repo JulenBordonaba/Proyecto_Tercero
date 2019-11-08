@@ -19,7 +19,7 @@ public class NaveManager : MonoBehaviour
     public GameObject explosionPrefab;
 
 
-    private int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
+    public int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
     private Stats stats;    //variable con las stats de la nave
     private NaveController controller;  //script con el controlador de la nave
     private Maneuverability maneuverability;
