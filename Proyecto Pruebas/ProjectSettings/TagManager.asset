@@ -8,6 +8,7 @@ TagManager:
   - Obstacle
   - Floor
   - Nave
+  - NaveCentre
   layers:
   - Default
   - TransparentFX

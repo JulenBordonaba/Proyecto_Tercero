@@ -203,7 +203,6 @@ public class NaveController : MonoBehaviour
             //si no se estan pulsando las teclas que hacen moverse al vehiculo
             if (!AnyMovementKeys)
             {
-                print("reduce velocidad");
                 locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction))); //se ralentiza el vehiculo
                 //locVel = new Vector3(locVel.x, locVel.y, locVel.z - locVel.z * 0.02f);
                 if (Mathf.Abs(locVel.z) < 2f)
