@@ -6,10 +6,11 @@ public class SummonerBotCollision : MonoBehaviour
 {
     [Tooltip("Pon el daño que causa el bot al colisionar")]
     public float damage;
+    public bool inShot = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Floor")) return;
+        if (!inShot) return;
         if(other.gameObject.layer!=gameObject.layer)
         {
             if(other.gameObject.GetComponentInParent<DamageManager>())

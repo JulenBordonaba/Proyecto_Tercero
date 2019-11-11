@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class SummonerBot : MonoBehaviour
 {
-
+    [Tooltip("Pon la velocidad a la que saldrá el dron disparado")]
     public float velocity;
+    [Tooltip("Pon las layers de los objetos que el dron debe tomar como objetivo")]
+    public LayerMask hitLayers;
 
     private Animator animator;  //animator del bot
     private Vector3 direction;
@@ -29,16 +31,30 @@ public class SummonerBot : MonoBehaviour
         transform.parent.Translate(direction * velocity * Time.deltaTime);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
+        if (inShot) return;
         if(other.gameObject.tag=="NaveCentre")
         {
             if(other.gameObject.layer!=gameObject.layer)
             {
-                animator.enabled = false;
                 direction = (other.transform.position - transform.position).normalized;
-                inShot = true;
-                transform.parent.parent.SetParent(null);
+                Ray ray = new Ray();
+                ray.origin = transform.position;
+                ray.direction = direction;
+                RaycastHit hit;
+
+
+                if (Physics.Raycast(ray,out hit))
+                {
+                    if (((1 << hit.transform.gameObject.layer) & hitLayers) != 0)
+                    {
+                        animator.enabled = false;
+                        inShot = true;
+                        transform.parent.parent.SetParent(null);
+                        GetComponentInParent<SummonerBotCollision>().inShot = true;
+                    }
+                }
             }
         }
     }
