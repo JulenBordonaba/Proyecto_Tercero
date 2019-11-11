@@ -121,16 +121,15 @@ public class InputManager : MonoBehaviour
         return r;
     }
 
-    public static bool ChangeFuelRight()
+    public static float ChangeFuel()
     {
-        return (Input.GetButtonDown("PCChangeFuel" + numPlayer.ToString()) && Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString()) > 0) || (Input.GetButtonDown("PS4ChangeFuel" + numPlayer.ToString()) && Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString()) > 0);
+        float r = 0;
+        r += Input.GetAxis("PCChangeFuel" + numPlayer.ToString());
+        r += Input.GetAxis("PS4ChangeFuel" + numPlayer.ToString());
+        return r;
         
     }
-
-    public static bool ChangeFuelLeft()
-    {
-        return (Input.GetButtonDown("PCChangeFuel" + numPlayer.ToString()) && Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString()) < 0) || (Input.GetButtonDown("PS4ChangeFuel" + numPlayer.ToString()) && Input.GetAxisRaw("PCChangeFuel" + numPlayer.ToString()) < 0);
-    }
+    
     
 
 

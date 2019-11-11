@@ -23,6 +23,9 @@ public class NaveManager : MonoBehaviour
     private NaveController controller;  //script con el controlador de la nave
     private Maneuverability maneuverability;
 
+    private bool fuelInLeft = false;
+    private bool fuelInRight = false;
+
     private void Start()
     {
         stats = GetComponent<Stats>();
@@ -33,6 +36,7 @@ public class NaveManager : MonoBehaviour
 
     private void Update()
     {
+        print(InputManager.ChangeFuel() + "es el axis de cambiar el combustible");
         FuelManager();
     }
 
@@ -43,20 +47,21 @@ public class NaveManager : MonoBehaviour
         {
             //habrá que cambiarlo para poner el combustible que elija el jugador
             habilidadCombustible = GetComponent(combustibles[0].ToString()) as HabilidadCombustible;
-            combustibleActivo = 0;  
+            combustibleActivo = 0;
         }
         catch
         {
             throw new Exception("Fallo al cargar habilidad de combustible");
         }
     }
-    
+
 
 
     private void FuelManager()
     {
+        Side fuelSide = ChangeFuelManager();
         //cambiar entre los distintos combustibles
-        if (InputManager.ChangeFuelLeft())
+        if (fuelSide == Side.Left)
         {
             try
             {
@@ -74,8 +79,9 @@ public class NaveManager : MonoBehaviour
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }
-        else if (InputManager.ChangeFuelRight())
+        if (fuelSide == Side.Right)
         {
+            //print("entra en right");
             try
             {
                 combustibleActivo += 1;
@@ -100,12 +106,12 @@ public class NaveManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag=="Obstacle")
+        if (collision.gameObject.tag == "Obstacle")
         {
             DamageManager dm = collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>();
             float impactForce = Vector3.Dot(collision.contacts[0].normal, collision.relativeVelocity);
             impactForce = Mathf.Clamp(impactForce, 0, float.MaxValue);
-            if(collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>())
+            if (collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>())
             {
                 collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * GetComponent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction));
             }
@@ -118,7 +124,37 @@ public class NaveManager : MonoBehaviour
                 collision.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction));
             }
         }
-        
+
+    }
+
+    private Side ChangeFuelManager()
+    {
+        if (InputManager.ChangeFuel() > 0)
+        {
+            if (!fuelInRight)
+            {
+                fuelInLeft = false;
+                fuelInRight = true;
+                return Side.Right;
+            }
+        }
+        if (InputManager.ChangeFuel() < 0)
+        {
+            if (!fuelInLeft)
+            {
+                fuelInRight = false;
+                fuelInLeft = true;
+                return Side.Left;
+            }
+        }
+        if(InputManager.ChangeFuel() == 0)
+        {
+            fuelInRight = false;
+            fuelInLeft = false;
+            return Side.None;
+        }
+
+        return Side.None;
     }
 
     public void OnShipDestroyed()

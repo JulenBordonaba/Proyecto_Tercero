@@ -16,3 +16,9 @@ public enum TipoDisparo
 {
     Ray,ObjectShot
 }
+
+public enum Side
+{
+    Left,Right,None
+}
+

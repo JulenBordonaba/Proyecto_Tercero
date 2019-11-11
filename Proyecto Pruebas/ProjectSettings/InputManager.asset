@@ -505,17 +505,17 @@ InputManager:
     m_Name: PS4ChangeFuel1
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: joystick button 6
-    positiveButton: joystick button 7
+    negativeButton: 
+    positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
     gravity: 1000
-    dead: 0.1
+    dead: 0.0001
     sensitivity: 1000
     snap: 0
     invert: 0
-    type: 0
-    axis: 5
+    type: 2
+    axis: 6
     joyNum: 1
   - serializedVersion: 3
     m_Name: Fire1
