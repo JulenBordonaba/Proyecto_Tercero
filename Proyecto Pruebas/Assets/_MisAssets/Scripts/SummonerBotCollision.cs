@@ -9,6 +9,7 @@ public class SummonerBotCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Floor")) return;
         if(other.gameObject.layer!=gameObject.layer)
         {
             if(other.gameObject.GetComponentInParent<DamageManager>())
