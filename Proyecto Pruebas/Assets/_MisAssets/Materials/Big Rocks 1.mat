@@ -69,7 +69,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: 599385f68ed31634f990c4c827d4a594, type: 3}
-        m_Scale: {x: 5, y: 5}
+        m_Scale: {x: 4, y: 4}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
         m_Texture: {fileID: 0}
@@ -85,6 +85,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _SketchTex:
+        m_Texture: {fileID: 2800000, guid: e2b38417f28f3714bbef266604e1611e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texturasombraproyectada:
@@ -107,6 +111,7 @@ Material:
     - _Ambientlight: 0.179
     - _BumpScale: 1
     - _CelShadingBands: 4
+    - _CullMode: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _Distanciadegradado: 0.046
@@ -130,7 +135,7 @@ Material:
     - _OcclusionStrength: 1
     - _Offset1: 0
     - _Offset2: 0
-    - _Outline: 94
+    - _Outline: 80
     - _Parallax: 0.005
     - _RampSmooth: 0
     - _RampSmoothAdd: 1
@@ -138,14 +143,18 @@ Material:
     - _RimMax: 2
     - _RimMin: 2
     - _RimStrength: 0.5
+    - _SketchHalftoneMax: 1
+    - _SketchHalftoneMin: 0
+    - _SketchSpeed: 6
+    - _SketchStrength: 1
     - _SmoothnessTextureChannel: 0
     - _SpecBlend: 1
     - _SpecSmooth: 0.836
     - _SpecularHighlights: 0
     - _SrcBlend: 1
     - _TexLod: 5
-    - _ThresholdScale: 15
-    - _ThresholdStrength: 0.817
+    - _ThresholdScale: 10
+    - _ThresholdStrength: 1
     - _UVSec: 0
     - _ValorFranja1: 0.56
     - _ValorFranja2: 0
@@ -168,9 +177,10 @@ Material:
     - _ColorDistanciaCamara: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HColor: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 1}
-    - _OutlineColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _Outlinecolor: {r: 0, g: 0, b: 0, a: 1}
-    - _SColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SColor: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
+    - _SketchColor: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
     - _colorsombra: {r: 0.509434, g: 0.509434, b: 0.509434, a: 1}
     - _rimlightcolor: {r: 1, g: 1, b: 1, a: 1}
     - _rimlightcolor_sombra: {r: 0.103773594, g: 0.103773594, b: 0.103773594, a: 1}

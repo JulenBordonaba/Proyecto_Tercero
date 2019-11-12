@@ -1,4 +1,6 @@
-﻿// Toony Colors Pro+Mobile 2
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Toony Colors Pro+Mobile 2
 // (c) 2014-2019 Jean Moreno
 
 
@@ -44,6 +46,13 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 		_ThresholdStrength ("Strength", Range(0,1)) = 1
 		_ThresholdScale ("Scale", Float) = 4
 
+	[Header(Sketch)]
+		//SKETCH
+		_SketchTex ("Sketch (Alpha)", 2D) = "white" {}
+		_SketchColor ("Sketch Color (RGB)", Color) = (0,0,0,1)
+		_SketchHalftoneMin ("Sketch Halftone Min", Range(0,1)) = 0.2
+		_SketchHalftoneMax ("Sketch Halftone Max", Range(0,1)) = 1.0
+
 	[Header(Stylized Specular)]
 		_SpecSmooth("Specular Smoothing", Range(0,1)) = 1.0
 		_SpecBlend("Specular Blend", Range(0,1)) = 1.0
@@ -77,6 +86,7 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 		//This property will be ignored and will draw the custom normals GUI instead
 		[TCP2OutlineNormalsGUI] __outline_gui_dummy__ ("_unused_", Float) = 0
 
+		[Enum(UnityEngine.Rendering.CullMode)] _CullMode ("Culling", Float) = 2
 		//Avoid compile error if the properties are ending with a drawer
 		[HideInInspector] __dummy__ ("__unused__", Float) = 0
 	}
@@ -215,10 +225,11 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 		//================================================================
 
 		Tags { "RenderType"="Opaque" "PerformanceChecks"="False" }
+		Cull [_CullMode]
 
 		CGPROGRAM
 
-		#pragma surface surf StandardTCP2  keepalpha exclude_path:deferred exclude_path:prepass
+		#pragma surface surf StandardTCP2 vertex:vert keepalpha exclude_path:deferred exclude_path:prepass
 		#pragma target 3.0
 
 		#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
@@ -230,7 +241,38 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 		{
 			float2 uv_MainTex;
 			#define uv_TexturedThreshold uv_MainTex
+			float4 screenCoordsCustom;
 		};
+
+		//================================================================================================================================
+		// VERTEX FUNCTION
+
+		//Vertex input
+		struct appdata_tcp2
+		{
+			float4 vertex : POSITION;
+			float3 normal : NORMAL;
+			float4 texcoord : TEXCOORD0;
+			float4 texcoord1 : TEXCOORD1;
+			float4 texcoord2 : TEXCOORD2;
+			float4 tangent : TANGENT;
+		#if defined(LIGHTMAP_ON) && defined(DIRLIGHTMAP_COMBINED)
+			float4 tangent : TANGENT;
+		#endif
+			UNITY_VERTEX_INPUT_INSTANCE_ID
+		};
+	
+		//Vertex function
+		void vert (inout appdata_tcp2 v, out Input o)
+		{
+			UNITY_INITIALIZE_OUTPUT(Input, o);
+			
+			float4 pos = UnityObjectToClipPos(v.vertex);
+			float4 screenCoords = ComputeScreenPos(pos);
+			o.screenCoordsCustom = screenCoords;
+			
+			//Sketch
+		}
 
 		//================================================================================================================================
 		// LIGHTING FUNCTION
@@ -257,6 +299,7 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 			half4 c = TCP2_BRDF_PBS(s.Albedo, specColor, oneMinusReflectivity, s.Smoothness, s.Normal, viewDir, gi.light, gi.indirect, /* TCP2 */ atten, s
 
 				,s.texThresholdTexcoords
+				,s.screenCoords
 				);
 			c.a = outputAlpha;
 			return c;
@@ -299,6 +342,7 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 
 			//Occlusion
 			o.Occlusion = LerpOneTo(tex2D(_OcclusionMap, IN.uv_MainTex.xy).g, _OcclusionStrength);
+			o.screenCoords = IN.screenCoordsCustom;
 		#ifdef _ALPHABLEND_ON
 			o.Albedo *= o.Alpha;
 		#endif
@@ -357,6 +401,7 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 
 			fixed atten;
 			float2 texThresholdTexcoords;
+			float4 screenCoords;
 		};
 
 		//================================================================================================================================
@@ -388,6 +433,11 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 		sampler2D _ThresholdTex;
 		fixed _ThresholdScale;
 		fixed _ThresholdStrength;
+		sampler2D _SketchTex;
+		float4 _SketchTex_ST;
+		fixed4 _SketchColor;
+		fixed _SketchHalftoneMin;
+		fixed _SketchHalftoneMax;
 
 		//================================================================================================================================
 		// LIGHTING / BRDF
@@ -446,6 +496,7 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 		half4 TCP2_BRDF_PBS(half3 diffColor, half3 specColor, half oneMinusReflectivity, half smoothness, half3 normal, half3 viewDir, UnityLight light, UnityIndirect gi,
 			/* TCP2 */ half atten, SurfaceOutputStandardTCP2 s
 			,half2 texThresholdTexcoords
+			,half4 screenCoords
 			)
 		{
 			half perceptualRoughness = SmoothnessToPerceptualRoughness (smoothness);
@@ -556,6 +607,16 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 
 			//TCP2 Enhanced Rim/Fresnel
 			color += StylizedFresnel(nv, roughness, light, normal, _RimMin, _RimMax, _RimStrength);
+			//Sketch
+			float2 screenUV = screenCoords.xy / screenCoords.w;
+			screenUV = TRANSFORM_TEX(screenUV, _SketchTex);
+			float screenRatio = _ScreenParams.y / _ScreenParams.x;
+			screenUV.y *= screenRatio;
+			float2 sketchUV = screenUV;
+
+			fixed sketch = tex2D(_SketchTex, sketchUV).a;
+			sketch = smoothstep(sketch - 0.2, sketch, clamp(nl * atten, _SketchHalftoneMin, _SketchHalftoneMax));	//Gradient halftone
+			color.rgb *= lerp(_SketchColor.rgb, fixed3(1,1,1), sketch);
 			return half4(color, 1);
 		}
 
