@@ -9,12 +9,12 @@ TerrainLayer:
   m_Name: Medium Rocks 1
   m_DiffuseTexture: {fileID: 2800000, guid: 7273a35c4bc5a364cb1bc738f71b1ce5, type: 3}
   m_NormalMapTexture: {fileID: 2800000, guid: 44bfb2ba0b7996e4e867a208603e7ede, type: 3}
-  m_MaskMapTexture: {fileID: 0}
-  m_TileSize: {x: 20, y: 20}
+  m_MaskMapTexture: {fileID: 2800000, guid: e68a6e1c2f9c4a9408fe589e9ff4d2e9, type: 3}
+  m_TileSize: {x: 40, y: 40}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0.019
-  m_Smoothness: 0.048
+  m_Smoothness: 0.081
   m_NormalScale: 1
   m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
   m_DiffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
