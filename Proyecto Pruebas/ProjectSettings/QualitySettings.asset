@@ -148,11 +148,11 @@ QualitySettings:
     excludedTargetPlatforms: []
   - serializedVersion: 2
     name: Very High
-    pixelLightCount: 1
+    pixelLightCount: 100
     shadows: 1
-    shadowResolution: 0
+    shadowResolution: 2
     shadowProjection: 1
-    shadowCascades: 1
+    shadowCascades: 2
     shadowDistance: 2000
     shadowNearPlaneOffset: 0
     shadowCascade2Split: 0.33333334
