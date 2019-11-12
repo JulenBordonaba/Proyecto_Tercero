@@ -9,6 +9,7 @@ TagManager:
   - Floor
   - Nave
   - NaveCentre
+  - Shield
   layers:
   - Default
   - TransparentFX

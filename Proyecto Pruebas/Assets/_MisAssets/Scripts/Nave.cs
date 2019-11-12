@@ -136,7 +136,7 @@ public class Nave : Photon.PunBehaviour
     // Use this for initialization
     void Awake()
     {
-        if (G.myCam == null && online)
+        if (Global.myCam == null && online)
         {
             myCamera = Instantiate(cameraPrefab, cameraPivot.transform).GetComponent<Camera>();
             myCamera.GetComponent<CameraController>().localPos = new Vector3(0, 3.5f, -9.6f);
@@ -144,7 +144,7 @@ public class Nave : Photon.PunBehaviour
             myCamera.GetComponent<CameraController>().frontLookAt = cameraFront;
             myCamera.GetComponent<CameraController>().backLookAt = cameraBack;
             Camera.SetupCurrent(myCamera);
-            G.myCam = myCamera.gameObject;
+            Global.myCam = myCamera.gameObject;
         }
         //asignar valor a line
         if (!line)

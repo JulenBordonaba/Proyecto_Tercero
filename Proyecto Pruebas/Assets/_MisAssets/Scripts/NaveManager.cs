@@ -16,18 +16,21 @@ public class NaveManager : MonoBehaviour
     public float collisionDamageReduction = 0.8f;
     [Tooltip("Pon el prefab de la explosión")]
     public GameObject explosionPrefab;
+    
 
 
     public int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
     private Stats stats;    //variable con las stats de la nave
     private NaveController controller;  //script con el controlador de la nave
     private Maneuverability maneuverability;
+    private InputManager inputManager;
 
     private bool fuelInLeft = false;
     private bool fuelInRight = false;
 
     private void Start()
     {
+        inputManager = GetComponent<InputManager>();
         stats = GetComponent<Stats>();
         controller = GetComponent<NaveController>();
         maneuverability = GetComponent<Maneuverability>();
@@ -36,7 +39,6 @@ public class NaveManager : MonoBehaviour
 
     private void Update()
     {
-        print(InputManager.ChangeFuel() + "es el axis de cambiar el combustible");
         FuelManager();
     }
 
@@ -98,7 +100,7 @@ public class NaveManager : MonoBehaviour
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }
-        if (InputManager.UseFuel())
+        if (inputManager.UseFuel())
         {
             habilidadCombustible.Use();
         }
@@ -127,9 +129,14 @@ public class NaveManager : MonoBehaviour
 
     }
 
+    public void SetWeaponObjectives(LayerMask layers)
+    {
+
+    }
+
     private Side ChangeFuelManager()
     {
-        if (InputManager.ChangeFuel() > 0)
+        if (inputManager.ChangeFuel() > 0)
         {
             if (!fuelInRight)
             {
@@ -138,7 +145,7 @@ public class NaveManager : MonoBehaviour
                 return Side.Right;
             }
         }
-        if (InputManager.ChangeFuel() < 0)
+        if (inputManager.ChangeFuel() < 0)
         {
             if (!fuelInLeft)
             {
@@ -147,7 +154,7 @@ public class NaveManager : MonoBehaviour
                 return Side.Left;
             }
         }
-        if(InputManager.ChangeFuel() == 0)
+        if(inputManager.ChangeFuel() == 0)
         {
             fuelInRight = false;
             fuelInLeft = false;

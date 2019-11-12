@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/_MisAssets/Scenes/F&SMainMenu.unity
+    guid: 6aa3aaff278559247bc53721c9646770
+  - enabled: 1
     path: Assets/_MisAssets/Scenes/Blocking Nivel F&S.unity
     guid: 53b32fe9468b41c468782a1d1fb70230
   - enabled: 1

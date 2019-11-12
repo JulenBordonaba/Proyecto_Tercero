@@ -27,6 +27,7 @@ public class PlanningManager : MonoBehaviour
 
 
     private Rigidbody rb;   //rigidbody de la nave
+    private InputManager inputManager;
 
 
 
@@ -34,6 +35,7 @@ public class PlanningManager : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        inputManager = GetComponent<InputManager>();
     }
 
     // Update is called once per frame
@@ -56,12 +58,12 @@ public class PlanningManager : MonoBehaviour
             //si el ángulo esta dentro del límite establecido y se tocan las teclas la nave se rota
             if ((xRotation <= maxXAngle + 0.1f && xRotation >= 0) || (xRotation <= 360 && xRotation >= 360 - 0.1f + minXAngle))
             {
-                xRotation += InputManager.MainVertical() * Time.deltaTime * xSensivility * (verticalInverted ? -1 : 1);
+                xRotation += inputManager.MainVertical() * Time.deltaTime * xSensivility * (verticalInverted ? -1 : 1);
                 xRotation = ClampAngle(xRotation, minXAngle, maxXAngle);
             }
             if ((zRotation <= maxZAngle + 0.1f && zRotation >= 0) || (zRotation <= 360 && zRotation >= 360 - 0.1f + minZAngle))
             {
-                zRotation -= InputManager.MainHorizontal() * Time.deltaTime * zSensivility;
+                zRotation -= inputManager.MainHorizontal() * Time.deltaTime * zSensivility;
                 zRotation = ClampAngle(zRotation, minZAngle, maxZAngle);
             }
         }
@@ -69,7 +71,7 @@ public class PlanningManager : MonoBehaviour
 
 
         //si no se estan tocando las teclas la rotación vuelve a 0
-        if (InputManager.MainHorizontal() == 0 || !GetComponent<NaveManager>().isPlanning)
+        if (inputManager.MainHorizontal() == 0 || !GetComponent<NaveManager>().isPlanning)
         {
             zRotation = Mathf.LerpAngle(zRotation, 0, Time.deltaTime);
         }
@@ -77,7 +79,7 @@ public class PlanningManager : MonoBehaviour
 
         if (GetComponent<NaveManager>().isPlanning)
         {
-            if (InputManager.MainVertical() == 0)
+            if (inputManager.MainVertical() == 0)
             {
                 xRotation = Mathf.LerpAngle(xRotation, defaultXRotation, Time.deltaTime);
             }
@@ -94,7 +96,7 @@ public class PlanningManager : MonoBehaviour
         if (GetComponent<NaveManager>().isPlanning)
         {
             //añadimos la fuerza hacia delante
-            rb.AddForce(GetComponent<NaveController>().modelTransform.forward * GetComponent<Maneuverability>().AcelerationWithWeight * Mathf.Clamp01( InputManager.Accelerate()) * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(GetComponent<NaveController>().modelTransform.forward * GetComponent<Maneuverability>().AcelerationWithWeight * Mathf.Clamp01(inputManager.Accelerate()) * Time.deltaTime, ForceMode.VelocityChange);
 
         
             //movimiento lateral

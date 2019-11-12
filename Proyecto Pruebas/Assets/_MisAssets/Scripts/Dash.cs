@@ -15,13 +15,18 @@ public class Dash : MonoBehaviour
     public float stopForce = 0.2f;
 
     private bool canDash = true;    //variable que controla cuando puede dashear la nave
+    private InputManager inputManager;
 
+    private void Start()
+    {
+        inputManager = GetComponent<InputManager>();
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (InputManager.LeftDash()) UseDash(-1);
-        if (InputManager.RightDash()) UseDash(1);
+        if (inputManager.LeftDash()) UseDash(-1);
+        if (inputManager.RightDash()) UseDash(1);
     }
 
     private void UseDash(int direction)

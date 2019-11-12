@@ -12,17 +12,19 @@ public abstract class ShootWeapon : MonoBehaviour
     public AudioClip[] shotSounds;
 
     private AudioSource audioSource;
+    private InputManager inputManager;
     private bool canShoot = true;   //variable que controla si se puede disparar
 
     private void Start()
     {
         audioSource = GetComponent<AudioSource>();
+        inputManager = GetComponentInParent<InputManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (InputManager.Shot())
+        if (inputManager.Shot())
         {
             Shoot();
         }

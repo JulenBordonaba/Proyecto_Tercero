@@ -13,23 +13,25 @@ public class AbilityManager : MonoBehaviour
 
     private PlayerAbility playerAbility;
     private ShipAbility shipAbility;    //habilidad de la nave
+    private InputManager inputManager;
 
 
     private void Start()
     {
         shipAbility = GetComponent<ShipAbility>();
         SetPlayerAbility();
+        inputManager = GetComponent<InputManager>();
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if(InputManager.ShipAbility())
+        if(inputManager.ShipAbility())
         {
             shipAbility.Use();            
         }
-        if(InputManager.PlayerAbility())
+        if(inputManager.PlayerAbility())
         {
             playerAbility.Use();
         }

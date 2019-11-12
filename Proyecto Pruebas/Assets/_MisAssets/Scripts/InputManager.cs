@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public static int numPlayer = 1;
-
-    private static bool leftFuel = false;
-    private static bool rightFuel = false;
+    public int numPlayer = 1;
+    
 
     //eje horizontal del joystick principal
-    public static float MainHorizontal()
+    public float MainHorizontal()
     {
         float r = 0;
         r += Input.GetAxis("PCMainHorizontal" + numPlayer.ToString());
@@ -19,7 +17,7 @@ public class InputManager : MonoBehaviour
     }
 
     //eje vertical del joystick principal
-    public static float MainVertical()
+    public float MainVertical()
     {
         float r = 0;
         r += Input.GetAxis("PCMainVertical" + numPlayer.ToString());
@@ -28,13 +26,13 @@ public class InputManager : MonoBehaviour
     }
 
     //joystick principal, usa x e y 
-    public static Vector3 MainJoystick()
+    public Vector3 MainJoystick()
     {
         return new Vector3(MainHorizontal(), MainVertical());
     }
 
     //eje horizontal del joystick de la cámara
-    public static float CameraHorizontal()
+    public float CameraHorizontal()
     {
         float r = 0;
         r += Input.GetAxis("PCCameraHorizontal" + numPlayer.ToString());
@@ -43,7 +41,7 @@ public class InputManager : MonoBehaviour
     }
 
     //eje vertical del joystick de la cámara
-    public static float CameraVertical()
+    public float CameraVertical()
     {
         float r = 0;
         r += Input.GetAxis("PCCameraVertical" + numPlayer.ToString());
@@ -52,68 +50,68 @@ public class InputManager : MonoBehaviour
     }
 
     //joystick que maneja la cámara
-    public static Vector3 CameraJoystick()
+    public Vector3 CameraJoystick()
     {
         return new Vector3(CameraHorizontal(), CameraVertical());
     }
 
     //botón de derrape
-    public static bool Drift()
+    public bool Drift()
     {
         return Input.GetButton("PCDrift" + numPlayer.ToString()) || Input.GetButton("PS4Drift" + numPlayer.ToString());
     }
 
     //botón que activa el dash derecho
-    public static bool RightDash()
+    public bool RightDash()
     {
         return Input.GetButtonDown("PCRightDash" + numPlayer.ToString()) || Input.GetButtonDown("PS4RightDash" + numPlayer.ToString());
     }
 
     //botón que activa el dash izquierdo
-    public static bool LeftDash()
+    public bool LeftDash()
     {
         return Input.GetButtonDown("PCLeftDash" + numPlayer.ToString()) || Input.GetButtonDown("PS4LeftDash" + numPlayer.ToString());
     }
 
     //botón para cambiar de cámara
-    public static bool ChangeCamera()
+    public bool ChangeCamera()
     {
         return Input.GetButtonDown("PCChangeCamera" + numPlayer.ToString()) || Input.GetButtonDown("PS4ChangeCamera" + numPlayer.ToString());
     }
 
     //botón para usar el combustible
-    public static bool UseFuel()
+    public bool UseFuel()
     {
         return Input.GetButtonDown("PCUseFuel" + numPlayer.ToString()) || Input.GetButtonDown("PS4UseFuel" + numPlayer.ToString());
     }
 
     //botón para activar/desactivar el mapa
-    public static bool Map()
+    public bool Map()
     {
         return Input.GetButtonDown("PCMap" + numPlayer.ToString()) || Input.GetButtonDown("PS4Map" + numPlayer.ToString());
     }
 
-    public static bool Pause()
+    public bool Pause()
     {
         return Input.GetButtonDown("PCPause" + numPlayer.ToString()) || Input.GetButtonDown("PS4Pause" + numPlayer.ToString());
     }
 
-    public static bool PlayerAbility()
+    public bool PlayerAbility()
     {
         return Input.GetButtonDown("PCPlayerAbility" + numPlayer.ToString()) || Input.GetButtonDown("PS4PlayerAbility" + numPlayer.ToString());
     }
 
-    public static bool ShipAbility()
+    public bool ShipAbility()
     {
         return Input.GetButtonDown("PCShipAbility" + numPlayer.ToString()) || Input.GetButtonDown("PS4ShipAbility" + numPlayer.ToString());
     }
 
-    public static bool Shot()
+    public bool Shot()
     {
         return Input.GetButton("PCShot" + numPlayer.ToString()) || Input.GetButton("PS4Shot" + numPlayer.ToString());
     }
 
-    public static float Accelerate()
+    public float Accelerate()
     {
         float r = 0;
         r += Input.GetAxis("PCAccelerate" + numPlayer.ToString());
@@ -121,7 +119,7 @@ public class InputManager : MonoBehaviour
         return r;
     }
 
-    public static float ChangeFuel()
+    public float ChangeFuel()
     {
         float r = 0;
         r += Input.GetAxis("PCChangeFuel" + numPlayer.ToString());

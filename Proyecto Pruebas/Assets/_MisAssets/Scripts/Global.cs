@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class G 
+public static class Global 
 {
     public static GameObject myCam=null;
+    public static int numPlayers=2;
 }
