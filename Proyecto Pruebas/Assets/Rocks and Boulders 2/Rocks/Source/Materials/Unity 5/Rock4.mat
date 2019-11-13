@@ -93,7 +93,7 @@ Material:
     - _Offset1: 0
     - _Offset2: 0
     - _Opacity: 1
-    - _Outline: 1
+    - _Outline: 5.68
     - _Parallax: 0.05
     - _RampSmooth: 0
     - _RampSmoothAdd: 1
