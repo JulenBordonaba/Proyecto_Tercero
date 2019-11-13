@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 300
+  inShot: 0
 --- !u!1 &2368547432687154875
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,6 +234,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 100
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  trayectoryCorrection: 50
+  velocityIncrease: 0
 --- !u!54 &2368547432987923425
 Rigidbody:
   m_ObjectHideFlags: 0

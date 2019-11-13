@@ -12,6 +12,8 @@ public class SummonerBot : MonoBehaviour
     public float trayectoryCorrection = 1;
     [Tooltip("Pon el aumento de velocidad del bot respecto al tiempo")]
     public float velocityIncrease = 10;
+    //[Tooltip("Pon el aumento de la corrección de trayectoria por segundo")]
+    //public float correctionIncrease = 50;
 
     private Animator animator;  //animator del bot
     private Vector3 direction;
@@ -26,7 +28,8 @@ public class SummonerBot : MonoBehaviour
     private void Update()
     {
         if (!inShot) return;
-        velocity += velocityIncrease * Time.deltaTime;
+        IncreaseVelocity();
+        //IncreaseCorrection();
     }
 
     // Update is called once per frame
@@ -35,17 +38,28 @@ public class SummonerBot : MonoBehaviour
         if (!inShot) return;
         Redirect();
         Move();
+        print(objective.gameObject.name);
+    }
 
+    //private void IncreaseCorrection()
+    //{
+    //    trayectoryCorrection += correctionIncrease * Time.deltaTime;
+    //}
+
+    private void IncreaseVelocity()
+    {
+        velocity += velocityIncrease * Time.deltaTime;
     }
 
     private void Redirect()
     {
         direction = Vector3.Lerp(direction, (objective.position - transform.position).normalized, Time.deltaTime * trayectoryCorrection).normalized;
+        Debug.DrawRay(transform.position, direction * 1000, Color.blue);
     }
 
     private void Move()
     {
-        transform.parent.Translate(direction * velocity * Time.fixedDeltaTime);
+        transform.parent.Translate(direction * velocity * Time.fixedDeltaTime, Space.World);
     }
 
     private void OnTriggerStay(Collider other)
@@ -53,8 +67,10 @@ public class SummonerBot : MonoBehaviour
         if (inShot) return;
         if(other.gameObject.tag=="NaveCentre")
         {
-            if(other.gameObject.layer!=gameObject.layer)
+            print("a");
+            if(other.gameObject.layer!=gameObject.layer && other.gameObject.layer!=GetComponentInParent<NaveController>().gameObject.layer)
             {
+                print("b");
                 direction = (other.transform.position - transform.position).normalized;
                 Ray ray = new Ray();
                 ray.origin = transform.position;
@@ -64,14 +80,18 @@ public class SummonerBot : MonoBehaviour
 
                 if (Physics.Raycast(ray,out hit))
                 {
+                    print("c");
                     if (((1 << hit.transform.gameObject.layer) & hitLayers) != 0)
                     {
+                        print("d");
+                        print(other.gameObject.name);
                         direction = (other.transform.position - transform.position).normalized;
                         animator.enabled = false;
                         inShot = true;
                         objective = other.transform;
                         transform.parent.parent.SetParent(null);
                         GetComponentInParent<SummonerBotCollision>().inShot = true;
+                        //Time.timeScale = 0.1f;
                     }
                 }
             }

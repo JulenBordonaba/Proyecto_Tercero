@@ -7,11 +7,19 @@ public class SummonerBotCollision : MonoBehaviour
     [Tooltip("Pon el daño que causa el bot al colisionar")]
     public float damage;
     public bool inShot = false;
+    public LayerMask ignoreLayers;
+
+    private int shipLayer;
+
+    private void Start()
+    {
+        shipLayer = GetComponentInParent<NaveManager>().gameObject.layer;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (!inShot) return;
-        if(other.gameObject.layer!=gameObject.layer)
+        if(((1 << other.gameObject.layer) & ignoreLayers) != 0)
         {
             if(other.gameObject.GetComponentInParent<DamageManager>())
             {

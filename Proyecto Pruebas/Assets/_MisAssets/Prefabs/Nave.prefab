@@ -5509,7 +5509,7 @@ GameObject:
   - component: {fileID: 9006091411214091422}
   - component: {fileID: 862463426491396261}
   m_Layer: 10
-  m_Name: NaveCentre
+  m_Name: NaveCentre1
   m_TagString: NaveCentre
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14640,6 +14640,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 2368547432687154875, guid: fa093676e9ed2ac47b9eb79776a3dd82,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2368547432687154874, guid: fa093676e9ed2ac47b9eb79776a3dd82,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14705,6 +14710,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 2368547432212309553, guid: fa093676e9ed2ac47b9eb79776a3dd82,
+        type: 3}
+      propertyPath: ignoreLayers.m_Bits
+      value: 10753
+      objectReference: {fileID: 0}
     - target: {fileID: 2368547432212309556, guid: fa093676e9ed2ac47b9eb79776a3dd82,
         type: 3}
       propertyPath: m_Interpolate
@@ -14733,7 +14743,7 @@ PrefabInstance:
     - target: {fileID: 2368547432987923424, guid: fa093676e9ed2ac47b9eb79776a3dd82,
         type: 3}
       propertyPath: trayectoryCorrection
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2368547432987923424, guid: fa093676e9ed2ac47b9eb79776a3dd82,
         type: 3}

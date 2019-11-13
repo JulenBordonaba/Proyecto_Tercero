@@ -9092,7 +9092,7 @@ GameObject:
   - component: {fileID: 1615416377757787999}
   - component: {fileID: 7020857993538048868}
   m_Layer: 11
-  m_Name: NaveCentre
+  m_Name: NaveCentre2
   m_TagString: NaveCentre
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20752,6 +20752,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2368547432212309553, guid: fa093676e9ed2ac47b9eb79776a3dd82,
+        type: 3}
+      propertyPath: ignoreLayers.m_Bits
+      value: 5633
+      objectReference: {fileID: 0}
     - target: {fileID: 2368547432212309556, guid: fa093676e9ed2ac47b9eb79776a3dd82,
         type: 3}
       propertyPath: m_Interpolate
@@ -20780,7 +20785,7 @@ PrefabInstance:
     - target: {fileID: 2368547432987923424, guid: fa093676e9ed2ac47b9eb79776a3dd82,
         type: 3}
       propertyPath: trayectoryCorrection
-      value: 50
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2368547432987923424, guid: fa093676e9ed2ac47b9eb79776a3dd82,
         type: 3}
