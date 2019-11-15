@@ -9,7 +9,8 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Rock6 terciary
   m_Shader: {fileID: 4800000, guid: 4afb2fb87321fe647840db5fb623fc28, type: 3}
-  m_ShaderKeywords: _DETAIL_MULX2 _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP _SPECGLOSSMAP
+  m_ShaderKeywords: TCP2_OUTLINE_TEXTURED _DETAIL_MULX2 _METALLICGLOSSMAP _NORMALMAP
+    _PARALLAXMAP _SPECGLOSSMAP
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -82,7 +83,7 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnableConstSizeOutline: 0
-    - _EnableTexturedOutline: 0
+    - _EnableTexturedOutline: 1
     - _EnableZSmooth: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -120,7 +121,7 @@ Material:
     - _Color: {r: 1, g: 0.83137256, b: 0.5529412, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HColor: {r: 0.9333334, g: 0.9333334, b: 0.9333334, a: 1}
-    - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
+    - _OutlineColor: {r: 0.12941177, g: 0.10196079, b: 0.09411766, a: 1}
     - _SColor: {r: 0.195, g: 0.195, b: 0.195, a: 1}
     - _SketchColor: {r: 0.5176471, g: 0.5176471, b: 0.5176471, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
