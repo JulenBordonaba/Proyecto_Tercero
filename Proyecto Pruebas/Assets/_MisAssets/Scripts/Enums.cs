@@ -22,3 +22,8 @@ public enum Side
     Left,Right,None
 }
 
+public enum ScreenDivision
+{
+    Horizontal,Vertical
+}
+

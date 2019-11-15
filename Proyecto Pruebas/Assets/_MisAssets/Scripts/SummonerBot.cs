@@ -38,7 +38,6 @@ public class SummonerBot : MonoBehaviour
         if (!inShot) return;
         Redirect();
         Move();
-        print(objective.gameObject.name);
     }
 
     //private void IncreaseCorrection()
@@ -67,10 +66,8 @@ public class SummonerBot : MonoBehaviour
         if (inShot) return;
         if(other.gameObject.tag=="NaveCentre")
         {
-            print("a");
             if(other.gameObject.layer!=gameObject.layer && other.gameObject.layer!=GetComponentInParent<NaveController>().gameObject.layer)
             {
-                print("b");
                 direction = (other.transform.position - transform.position).normalized;
                 Ray ray = new Ray();
                 ray.origin = transform.position;
@@ -80,11 +77,8 @@ public class SummonerBot : MonoBehaviour
 
                 if (Physics.Raycast(ray,out hit))
                 {
-                    print("c");
                     if (((1 << hit.transform.gameObject.layer) & hitLayers) != 0)
                     {
-                        print("d");
-                        print(other.gameObject.name);
                         direction = (other.transform.position - transform.position).normalized;
                         animator.enabled = false;
                         inShot = true;
