@@ -1,0 +1,461 @@
+fileFormatVersion: 2
+guid: abd15996110050d41a8f01673d88cf59
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Arma
+    100002: Arma_Base
+    100004: Arma_base
+    100006: Arma_Cuello
+    100008: Arma_cuerpo
+    100010: Arma_Tip
+    100012: Aro_exterior
+    100014: Aro_Giratorio
+    100016: Aro_interior
+    100018: Back
+    100020: Back_Broken
+    100022: Back_Dead
+    100024: Back_motores
+    100026: Back_Ok
+    100028: Core
+    100030: Core_Broken
+    100032: Core_Dead
+    100034: Core_frontal
+    100036: Core_iman_tip
+    100038: Core_Left_hFlap_Pivot
+    100040: Core_Left_hFlap_Tip
+    100042: Core_Left_vFlap_Pivot
+    100044: Core_Left_vFlap_Tip
+    100046: Core_motores
+    100048: Core_Ok
+    100050: Core_Ok_pCube88
+    100052: Core_Ok_pCube88 1
+    100054: Core_Ok_pCylinder5
+    100056: Core_Ok_pCylinder5 1
+    100058: Core_Right_hFlap_Pivot
+    100060: Core_Right_hFlap_Tip
+    100062: Core_Right_vFlap_Pivot
+    100064: Core_Right_vFlap_Tip
+    100066: Core_tubo_derecha
+    100068: Core_tubo_izquierda
+    100070: Flap_left_pivot
+    100072: Flap_left_tip
+    100074: Flap_right_pivot
+    100076: Flap_right_tip
+    100078: Flaps_core
+    100080: Front
+    100082: Front_Broken
+    100084: Front_Dead
+    100086: Front_Dead_Front_Ok_pCylinder100
+    100088: Front_Ok
+    100090: Front_parachoque
+    100092: Left
+    100094: Left 1
+    100096: Left_Broken
+    100098: Left_Dead
+    100100: Left_Ok
+    100102: Left_Ok_pCylinder118
+    100104: //RootNode
+    100106: Nave_Chatarrero_Geo
+    100108: Nave_Chatarrero_Rig
+    100110: pCylinder143
+    100112: pCylinder156
+    100114: pCylinder157
+    100116: polySurface1
+    100118: polySurface1 1
+    100120: polySurface103
+    100122: polySurface108
+    100124: polySurface23
+    100126: polySurface24
+    100128: polySurface25
+    100130: polySurface25 1
+    100132: polySurface25 2
+    100134: polySurface26
+    100136: polySurface26 1
+    100138: polySurface26 2
+    100140: polySurface27
+    100142: polySurface27 1
+    100144: polySurface28
+    100146: polySurface28 1
+    100148: polySurface28 2
+    100150: polySurface30
+    100152: polySurface31
+    100154: polySurface33
+    100156: polySurface37
+    100158: polySurface48
+    100160: polySurface49
+    100162: polySurface51
+    100164: polySurface55
+    100166: polySurface56
+    100168: polySurface62
+    100170: polySurface65
+    100172: polySurface72
+    100174: polySurface73
+    100176: polySurface74
+    100178: polySurface76
+    100180: polySurface77
+    100182: polySurface79
+    100184: polySurface83
+    100186: polySurface84
+    100188: polySurface86
+    100190: polySurface87
+    100192: polySurface88
+    100194: polySurface91
+    100196: polySurface92
+    100198: polySurface95
+    100200: polySurface97
+    100202: polySurface99
+    100204: Right
+    100206: Right 1
+    100208: Right_Broken
+    100210: Right_Dead
+    100212: Right_Ok
+    100214: Right_Ok_pCylinder122
+    100216: Root
+    100218: transform246
+    100220: transform247
+    100222: transform247 1
+    100224: transform247 2
+    100226: transform248
+    400000: Arma
+    400002: Arma_Base
+    400004: Arma_base
+    400006: Arma_Cuello
+    400008: Arma_cuerpo
+    400010: Arma_Tip
+    400012: Aro_exterior
+    400014: Aro_Giratorio
+    400016: Aro_interior
+    400018: Back
+    400020: Back_Broken
+    400022: Back_Dead
+    400024: Back_motores
+    400026: Back_Ok
+    400028: Core
+    400030: Core_Broken
+    400032: Core_Dead
+    400034: Core_frontal
+    400036: Core_iman_tip
+    400038: Core_Left_hFlap_Pivot
+    400040: Core_Left_hFlap_Tip
+    400042: Core_Left_vFlap_Pivot
+    400044: Core_Left_vFlap_Tip
+    400046: Core_motores
+    400048: Core_Ok
+    400050: Core_Ok_pCube88
+    400052: Core_Ok_pCube88 1
+    400054: Core_Ok_pCylinder5
+    400056: Core_Ok_pCylinder5 1
+    400058: Core_Right_hFlap_Pivot
+    400060: Core_Right_hFlap_Tip
+    400062: Core_Right_vFlap_Pivot
+    400064: Core_Right_vFlap_Tip
+    400066: Core_tubo_derecha
+    400068: Core_tubo_izquierda
+    400070: Flap_left_pivot
+    400072: Flap_left_tip
+    400074: Flap_right_pivot
+    400076: Flap_right_tip
+    400078: Flaps_core
+    400080: Front
+    400082: Front_Broken
+    400084: Front_Dead
+    400086: Front_Dead_Front_Ok_pCylinder100
+    400088: Front_Ok
+    400090: Front_parachoque
+    400092: Left
+    400094: Left 1
+    400096: Left_Broken
+    400098: Left_Dead
+    400100: Left_Ok
+    400102: Left_Ok_pCylinder118
+    400104: //RootNode
+    400106: Nave_Chatarrero_Geo
+    400108: Nave_Chatarrero_Rig
+    400110: pCylinder143
+    400112: pCylinder156
+    400114: pCylinder157
+    400116: polySurface1
+    400118: polySurface1 1
+    400120: polySurface103
+    400122: polySurface108
+    400124: polySurface23
+    400126: polySurface24
+    400128: polySurface25
+    400130: polySurface25 1
+    400132: polySurface25 2
+    400134: polySurface26
+    400136: polySurface26 1
+    400138: polySurface26 2
+    400140: polySurface27
+    400142: polySurface27 1
+    400144: polySurface28
+    400146: polySurface28 1
+    400148: polySurface28 2
+    400150: polySurface30
+    400152: polySurface31
+    400154: polySurface33
+    400156: polySurface37
+    400158: polySurface48
+    400160: polySurface49
+    400162: polySurface51
+    400164: polySurface55
+    400166: polySurface56
+    400168: polySurface62
+    400170: polySurface65
+    400172: polySurface72
+    400174: polySurface73
+    400176: polySurface74
+    400178: polySurface76
+    400180: polySurface77
+    400182: polySurface79
+    400184: polySurface83
+    400186: polySurface84
+    400188: polySurface86
+    400190: polySurface87
+    400192: polySurface88
+    400194: polySurface91
+    400196: polySurface92
+    400198: polySurface95
+    400200: polySurface97
+    400202: polySurface99
+    400204: Right
+    400206: Right 1
+    400208: Right_Broken
+    400210: Right_Dead
+    400212: Right_Ok
+    400214: Right_Ok_pCylinder122
+    400216: Root
+    400218: transform246
+    400220: transform247
+    400222: transform247 1
+    400224: transform247 2
+    400226: transform248
+    2100000: Arma1
+    2100002: lambert6
+    2100004: Nave_Broken1
+    2100006: Nave_Dead
+    4300000: Arma_base
+    4300002: Arma_cuerpo
+    4300004: polySurface25
+    4300006: polySurface26
+    4300008: polySurface27
+    4300010: polySurface28
+    4300012: polySurface72
+    4300014: polySurface1
+    4300016: Core_Ok_pCube88
+    4300018: polySurface65
+    4300020: polySurface55
+    4300022: polySurface62
+    4300024: polySurface56
+    4300026: polySurface51
+    4300028: polySurface25
+    4300030: polySurface26
+    4300032: polySurface27
+    4300034: polySurface28
+    4300036: polySurface108
+    4300038: Aro_exterior
+    4300040: Aro_interior
+    4300042: polySurface99
+    4300044: polySurface97
+    4300046: polySurface95
+    4300048: polySurface92
+    4300050: polySurface103
+    4300052: polySurface25
+    4300054: polySurface26
+    4300056: polySurface28
+    4300058: polySurface1
+    4300060: Core_Ok_pCube88
+    4300062: polySurface83
+    4300064: polySurface79
+    4300066: polySurface84
+    4300068: polySurface77
+    4300070: polySurface76
+    4300072: polySurface87
+    4300074: polySurface86
+    4300076: Front_Dead_Front_Ok_pCylinder100
+    4300078: polySurface73
+    4300080: polySurface74
+    4300082: polySurface91
+    4300084: polySurface88
+    4300086: pCylinder156
+    4300088: polySurface23
+    4300090: polySurface24
+    4300092: polySurface48
+    4300094: polySurface49
+    4300096: polySurface33
+    4300098: polySurface30
+    4300100: polySurface31
+    4300102: polySurface37
+    4300104: pCylinder143
+    4300106: pCylinder157
+    7400000: Nave_Chatarrero_DerrapeDerecha
+    9500000: //RootNode
+    13700000: Arma_base
+    13700002: Arma_cuerpo
+    13700004: Aro_exterior
+    13700006: Aro_interior
+    13700008: Core_Ok_pCube88
+    13700010: Core_Ok_pCube88 1
+    13700012: Front_Dead_Front_Ok_pCylinder100
+    13700014: pCylinder143
+    13700016: pCylinder156
+    13700018: pCylinder157
+    13700020: polySurface1
+    13700022: polySurface1 1
+    13700024: polySurface103
+    13700026: polySurface108
+    13700028: polySurface23
+    13700030: polySurface24
+    13700032: polySurface25
+    13700034: polySurface25 1
+    13700036: polySurface25 2
+    13700038: polySurface26
+    13700040: polySurface26 1
+    13700042: polySurface26 2
+    13700044: polySurface27
+    13700046: polySurface27 1
+    13700048: polySurface28
+    13700050: polySurface28 1
+    13700052: polySurface28 2
+    13700054: polySurface30
+    13700056: polySurface31
+    13700058: polySurface33
+    13700060: polySurface37
+    13700062: polySurface48
+    13700064: polySurface49
+    13700066: polySurface51
+    13700068: polySurface55
+    13700070: polySurface56
+    13700072: polySurface62
+    13700074: polySurface65
+    13700076: polySurface72
+    13700078: polySurface73
+    13700080: polySurface74
+    13700082: polySurface76
+    13700084: polySurface77
+    13700086: polySurface79
+    13700088: polySurface83
+    13700090: polySurface84
+    13700092: polySurface86
+    13700094: polySurface87
+    13700096: polySurface88
+    13700098: polySurface91
+    13700100: polySurface92
+    13700102: polySurface95
+    13700104: polySurface97
+    13700106: polySurface99
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Nave_Chatarrero_DerrapeDerecha
+      takeName: DerrapeDerecha
+      firstFrame: 2
+      lastFrame: 5
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: Root
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
