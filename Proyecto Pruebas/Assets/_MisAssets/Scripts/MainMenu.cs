@@ -18,6 +18,7 @@ public class MainMenu : MonoBehaviour
         evt = EventSystem.current;
         evt.SetSelectedGameObject(firstButton.gameObject);
         Cursor.lockState = CursorLockMode.Locked;
+        Time.timeScale = 1;
     }
 
 
