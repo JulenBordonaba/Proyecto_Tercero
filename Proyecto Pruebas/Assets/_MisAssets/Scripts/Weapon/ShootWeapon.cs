@@ -10,14 +10,14 @@ public abstract class ShootWeapon : MonoBehaviour
     public Transform shotSpawn;
     [Tooltip("Pon la lista de los sonidos que pueden sonar cuando se dispara")]
     public AudioClip[] shotSounds;
+    [Tooltip("Pon el audio source del que saldrá el sondo del disparo")]
+    public AudioSource audioSource;
 
-    private AudioSource audioSource;
     private InputManager inputManager;
     private bool canShoot = true;   //variable que controla si se puede disparar
 
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         inputManager = GetComponentInParent<InputManager>();
     }
 
