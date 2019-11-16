@@ -15,6 +15,7 @@ public class ShootRay : ShootWeapon
 
     public override void CastShot()
     {
+        if (PauseManager.inPause) return;
         //declarar cariables para el raycast
         Ray ray = new Ray();
         RaycastHit hit;

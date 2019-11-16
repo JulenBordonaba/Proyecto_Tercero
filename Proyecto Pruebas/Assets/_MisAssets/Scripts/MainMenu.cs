@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    [Tooltip("Pon el botón que aparecerá seleccionado")]
-    public Button firstButton;
 
 
     private EventSystem evt;
@@ -16,7 +14,6 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         evt = EventSystem.current;
-        evt.SetSelectedGameObject(firstButton.gameObject);
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
     }

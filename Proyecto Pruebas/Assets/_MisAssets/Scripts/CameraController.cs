@@ -16,6 +16,7 @@ public class CameraController : Photon.PunBehaviour
     [Range(1f, 10f)]
     public float damping = 4f;
     public float cameraDampingMultiplayer = 1;
+    
 
     [Header("Camera Limits")]
     [Range(0f, 200f)]
@@ -38,6 +39,8 @@ public class CameraController : Photon.PunBehaviour
 
     public Vector3 velocityOffset { get; set; }
 
+    public InputManager inputManager;
+
     // Use this for initialization
     void Start()
     {
@@ -53,7 +56,7 @@ public class CameraController : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (naveDestruida) return;
+        if (naveDestruida || PauseManager.inPause) return;
 
         //hacemos que la posición del padre sea igual a la de la nave
         transform.parent.position = target.position;
@@ -79,13 +82,13 @@ public class CameraController : Photon.PunBehaviour
         //cambiamos el valor de currentx y currenty respecto a el desplazamiento del joystick derecho/ ratón
         if(front)
         {
-            currentX += Input.GetAxis("Camera X") * sensibility.x;
-            currentY += Input.GetAxis("Camera Y") * sensibility.y;
+            currentX += inputManager.CameraHorizontal() * sensibility.x;
+            currentY += Input.GetAxis("Camera Y") * sensibility.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
         }
         else
         {
-            currentX -= Input.GetAxis("Camera X") * sensibility.x;
-            currentY += Input.GetAxis("Camera Y") * sensibility.y;
+            currentX -= inputManager.CameraHorizontal() * sensibility.x;
+            currentY += inputManager.CameraVertical() * sensibility.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
         }
         
 

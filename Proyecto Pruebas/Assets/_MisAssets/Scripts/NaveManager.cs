@@ -61,6 +61,8 @@ public class NaveManager : MonoBehaviour
 
     private void FuelManager()
     {
+        if (PauseManager.inPause) return;
+        print("entra a fuel manager");
         Side fuelSide = ChangeFuelManager();
         //cambiar entre los distintos combustibles
         if (fuelSide == Side.Left)

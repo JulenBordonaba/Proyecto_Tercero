@@ -59,7 +59,8 @@ public class NaveController : MonoBehaviour
 
     private void Update()
     {
-        //print(VelocityFormula + " + " + GetComponent<Maneuverability>().MaxVelocity + " + " + BoostFormula);
+
+        
         if (inBoost)
         {
             ApplyTurbo();
@@ -68,6 +69,7 @@ public class NaveController : MonoBehaviour
         Controller();
 
     }
+    
 
     public void Controller()
     {
@@ -76,7 +78,7 @@ public class NaveController : MonoBehaviour
 
         //convertimos la velocidad de global a local
         Vector3 locVel = modelTransform.InverseTransformDirection(rb.velocity);
-
+        GetComponent<NaveAnimationManager>().move = locVel.z != 0;
         //depende de la velocidad la camara esta mas o menos cerca del coche
         //myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (GetComponent<Maneuverability>().currentVelocity / 15), minCameraOffset, maxCameraOffset));
         myCamera.fieldOfView = Mathf.Lerp(myCamera.fieldOfView, 60f + Mathf.Clamp(locVel.z * (inBoost ? 2 : 1) / 15f, 0f, 80f), Time.deltaTime);

@@ -27,6 +27,7 @@ public class AbilityManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseManager.inPause) return;
         if(inputManager.ShipAbility())
         {
             shipAbility.Use();            

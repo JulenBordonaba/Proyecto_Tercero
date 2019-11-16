@@ -1,0 +1,239 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Nave_Chatarrero_Avatar_Animations
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo
+    m_Weight: 0
+  - m_Path: Nave_Chatarrero_Geo/Arma
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Arma/Arma_base
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Arma/Arma_cuerpo
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Back
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Back/Back_Broken
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Back/Back_Broken/polySurface88
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Back/Back_Broken/polySurface91
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Back/Back_Dead
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Back/Back_Dead/pCylinder156
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Back/Back_Ok
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Back/Back_Ok/polySurface73
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Back/Back_Ok/polySurface74
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/Aro_exterior
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/Aro_interior
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/Flaps_core
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/Flaps_core/polySurface25
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/Flaps_core/polySurface26
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/Flaps_core/polySurface27
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/Flaps_core/polySurface28
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/Flaps_core/transform247
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/polySurface92
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/polySurface95
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/polySurface97
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/polySurface99
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/polySurface103
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Broken/polySurface108
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Dead
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Dead/Core_Ok_pCube88
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Dead/Core_Ok_pCylinder5
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Dead/Core_Ok_pCylinder5/polySurface25 1
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Dead/Core_Ok_pCylinder5/polySurface26 1
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Dead/Core_Ok_pCylinder5/polySurface28 1
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Dead/Core_Ok_pCylinder5/transform247 1
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Dead/polySurface1
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Dead/polySurface79
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Dead/polySurface83
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Dead/polySurface84
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/Core_Ok_pCube88 1
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/Core_Ok_pCylinder5 1
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/Core_Ok_pCylinder5 1/polySurface25 2
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/Core_Ok_pCylinder5 1/polySurface26 2
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/Core_Ok_pCylinder5 1/polySurface27 1
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/Core_Ok_pCylinder5 1/polySurface28 2
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/Core_Ok_pCylinder5 1/transform247 2
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/polySurface1 1
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/polySurface51
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/polySurface55
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/polySurface56
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/polySurface62
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/polySurface65
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Core/Core_Ok/polySurface72
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Front
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Front/Front_Broken
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Front/Front_Broken/polySurface86
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Front/Front_Broken/polySurface87
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Front/Front_Dead
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Front/Front_Dead/Front_Dead_Front_Ok_pCylinder100
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Front/Front_Ok
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Front/Front_Ok/polySurface76
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Front/Front_Ok/polySurface77
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Left
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Left/Left_Broken
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Left/Left_Broken/polySurface48
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Left/Left_Broken/polySurface49
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Left/Left_Dead
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Left/Left_Dead/polySurface33
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Left/Left_Ok
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Left/Left_Ok/Left_Ok_pCylinder118
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Left/Left_Ok/Left_Ok_pCylinder118/polySurface23
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Left/Left_Ok/Left_Ok_pCylinder118/polySurface24
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Left/Left_Ok/Left_Ok_pCylinder118/transform246
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Right
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Right/Right_Broken
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Right/Right_Broken/pCylinder143
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Right/Right_Broken/polySurface37
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Right/Right_Dead
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Right/Right_Dead/pCylinder157
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Right/Right_Ok
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Right/Right_Ok/Right_Ok_pCylinder122
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Right/Right_Ok/Right_Ok_pCylinder122/polySurface30
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Right/Right_Ok/Right_Ok_pCylinder122/polySurface31
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Geo/Right/Right_Ok/Right_Ok_pCylinder122/transform248
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root
+    m_Weight: 0
+  - m_Path: Nave_Chatarrero_Rig/Root/Arma_Base
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Arma_Base/Arma_Cuello
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Arma_Base/Arma_Cuello/Arma_Tip
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Aro_Giratorio
+    m_Weight: 0
+  - m_Path: Nave_Chatarrero_Rig/Root/Back_motores
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_frontal
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_iman_tip
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_Left_hFlap_Pivot
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_Left_hFlap_Pivot/Core_Left_hFlap_Tip
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_Left_vFlap_Pivot
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_Left_vFlap_Pivot/Core_Left_vFlap_Tip
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_motores
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_Right_hFlap_Pivot
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_Right_hFlap_Pivot/Core_Right_hFlap_Tip
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_Right_vFlap_Pivot
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_Right_vFlap_Pivot/Core_Right_vFlap_Tip
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_tubo_derecha
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Core_tubo_izquierda
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Front_parachoque
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Left 1
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Left 1/Flap_left_pivot
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Left 1/Flap_left_pivot/Flap_left_tip
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Right 1
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Right 1/Flap_right_pivot
+    m_Weight: 1
+  - m_Path: Nave_Chatarrero_Rig/Root/Right 1/Flap_right_pivot/Flap_right_tip
+    m_Weight: 1
