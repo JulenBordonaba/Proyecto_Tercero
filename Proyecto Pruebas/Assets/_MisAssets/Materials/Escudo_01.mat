@@ -57,7 +57,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ScanlinesTex:
         m_Texture: {fileID: 2800000, guid: d3a84e60412339a45838ef70b6b87839, type: 3}
-        m_Scale: {x: 1, y: 1}
+        m_Scale: {x: 0.5, y: 0.5}
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
@@ -84,5 +84,5 @@ Material:
     m_Colors:
     - _Color: {r: 0.5424528, g: 0.98682994, b: 1, a: 0}
     - _EmissionColor: {r: 0.18983625, g: 0.9569333, b: 1.490566, a: 1}
-    - _HologramColor: {r: 0, g: 2.670157, b: 0.19548091, a: 1}
+    - _HologramColor: {r: 0, g: 2.6701574, b: 0.9496949, a: 1}
     - _ScanlinesTex_SC: {r: 1, g: 1, b: 0, a: 0}

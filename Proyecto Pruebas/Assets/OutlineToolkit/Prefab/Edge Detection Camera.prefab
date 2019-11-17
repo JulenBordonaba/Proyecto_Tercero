@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 124006928556730352}
   - component: {fileID: 81224155518073360}
   - component: {fileID: 114117033023592744}
+  - component: {fileID: 7732625833104206499}
   m_Layer: 0
   m_Name: Edge Detection Camera
   m_TagString: MainCamera
@@ -101,7 +102,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312849641718884}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -133,7 +134,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -188,9 +189,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db796aa2be3bda4c9b3221b64bfff67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depthSensitivity: 1
-  depthSensitivity2: 1
-  normalsSensitivity: 1
+  depthSensitivity: 0
+  depthSensitivity2: 0.2
+  normalsSensitivity: 0.1
   debugMode: 0
   outlineColor: {r: 0, g: 0, b: 0, a: 1}
   encodedDepthShader: {fileID: 4800000, guid: 37920868d1c5c2742a931c709f018c16, type: 3}
@@ -199,6 +200,30 @@ MonoBehaviour:
   edgeCombineShader: {fileID: 4800000, guid: 511abb2eb6715b24cbed418dfbb4d492, type: 3}
   normalsShader: {fileID: 4800000, guid: d4ffee9bcfa1ea743a6428c9ac30e12f, type: 3}
   normalsCapturingCamera: {fileID: 20960583905349482}
+--- !u!114 &7732625833104206499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312849641718884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af64e8b5479f97145a3f9927d821b263, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sensibility: {x: 3, y: 3}
+  target: {fileID: 0}
+  frontLookAt: {fileID: 0}
+  backLookAt: {fileID: 0}
+  distance: 10
+  damping: 10
+  cameraDampingMultiplayer: 1
+  max_X_Angle: 60
+  min_X_Angle: -60
+  max_Y_Angle: 30
+  min_Y_Angle: -10
+  inputManager: {fileID: 0}
 --- !u!1 &1359139798054902
 GameObject:
   m_ObjectHideFlags: 0
