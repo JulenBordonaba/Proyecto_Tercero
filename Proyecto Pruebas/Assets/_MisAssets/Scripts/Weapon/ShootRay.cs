@@ -8,6 +8,8 @@ public class ShootRay : ShootWeapon
     public float shootDistance;
     [Tooltip("Pon las layers contra las que choca el raycast del disparo")]
     public LayerMask layers;
+    [Tooltip("Pon el efecto de disparo que sale del cañón")]
+    public GameObject shotEffectPrefab;
     [Tooltip("Pon el prefab de las partículas que aparecen donde impacta el disparo")]
     public GameObject impactPrefab;
     [Tooltip("Pon la layer del otro escudo")]
@@ -22,8 +24,13 @@ public class ShootRay : ShootWeapon
         //configurar ray
         ray.origin = shotSpawn.position;
         ray.direction = transform.forward;
+        
+        //Poner efecto
+        //GameObject effect = Instantiate(shotEffectPrefab, shotSpawn);
+        //Destroy(effect, effect.GetComponentInChildren<ParticleSystem>().main.duration);
+
         //lanzar raycast
-        if(Physics.Raycast(ray, out hit, shootDistance,layers))
+        if (Physics.Raycast(ray, out hit, shootDistance,layers))
         {
             //poner partículas de impacto
             GameObject impactGO = Instantiate(impactPrefab, hit.point, Quaternion.identity);
