@@ -37,14 +37,15 @@ public class ShootRay : ShootWeapon
 
     private void DamageObjective(GameObject other)
     {
-        if (other.layer == otherShield) return;
+        if (other.layer == otherShield)  return;
+        print(other.gameObject.name);
         if(other.GetComponent<DamageManager>())
         {
-            other.GetComponent<DamageManager>().TakeDamage(GetComponentInParent<Stats>().currentShotDamage);
+            other.GetComponent<DamageManager>().TakeDamage(GetComponentInParent<Stats>().currentShotDamage,true);
         }
         else if(other.GetComponentInParent<DamageManager>())
         {
-            other.GetComponentInParent<DamageManager>().TakeDamage(GetComponentInParent<Stats>().currentShotDamage);
+            other.GetComponentInParent<DamageManager>().TakeDamage(GetComponentInParent<Stats>().currentShotDamage,true);
         }
     }
 }

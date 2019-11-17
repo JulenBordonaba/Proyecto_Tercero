@@ -23,7 +23,7 @@ public class SummonerBotCollision : MonoBehaviour
         {
             if(other.gameObject.GetComponentInParent<DamageManager>())
             {
-                other.gameObject.GetComponentInParent<DamageManager>().TakeDamage(damage);
+                other.gameObject.GetComponentInParent<DamageManager>().TakeDamage(damage,true);
             }
             Destroy(transform.parent.gameObject);
             //instanciar partículas explosión

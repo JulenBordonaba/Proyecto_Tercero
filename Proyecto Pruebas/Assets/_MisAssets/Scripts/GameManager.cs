@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        print(LayerMask.NameToLayer("Shield" + (1).ToString()));
+
         List<GameObject> naves = new List<GameObject>();
         for (int i = 0; i < Global.numPlayers; i++)
         {
@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour
         {
             Camera cam1 = naves[0].GetComponentInChildren<Camera>();
             Camera cam2 = naves[1].GetComponentInChildren<Camera>();
+
+            naves[1].GetComponentInChildren<AudioListener>().enabled = false;
 
             List<CanvasScaler> scalers = new List<CanvasScaler>();
             for(int i=0;i<Global.numPlayers;i++)
