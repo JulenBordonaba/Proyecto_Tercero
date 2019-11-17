@@ -23,22 +23,25 @@ public class DamageManager : MonoBehaviour
         
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(float damage, bool weapon)
     {
+        print("TakeDamage1");
         if (!canBeDamaged) return;
-        if (damage < minDamage) return;
-        canBeDamaged = false;
-        StartCoroutine(InmunityCooldown());
-
+        if (damage < minDamage && !weapon) return;
+        print("TakeDamage2");
         //recibir daño
         if(GetComponent<Stats>())
         {
+            canBeDamaged = false;
+            StartCoroutine(InmunityCooldown());
             GetComponent<Stats>().currentLife -= damage;
             if (GetComponent<Stats>().currentLife <= 0) Destroy(gameObject);
         }
-        else if(GetComponent<Pieza>())
+        else if(GetComponentInParent<Pieza>())
         {
-            GetComponent<Pieza>().Damage(damage);
+            canBeDamaged = false;
+            StartCoroutine(InmunityCooldown());
+            GetComponentInParent<Pieza>().Damage(damage);
         }
 
         print(damage);

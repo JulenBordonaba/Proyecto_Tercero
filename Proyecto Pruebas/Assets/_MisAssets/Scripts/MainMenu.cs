@@ -37,6 +37,5 @@ public class MainMenu : MonoBehaviour
         Global.numPlayers = numPlayers;
         print(Global.numPlayers);
     }
-
-
+    
 }

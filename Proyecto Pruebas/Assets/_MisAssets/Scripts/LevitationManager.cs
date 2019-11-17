@@ -34,6 +34,7 @@ public class LevitationManager : MonoBehaviour
 
     private void Levitate()
     {
+        if (PauseManager.inPause) return;
         Ray ray = new Ray();
         RaycastHit hit;
 

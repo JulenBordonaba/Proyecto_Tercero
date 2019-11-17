@@ -83,7 +83,7 @@ public class CameraController : Photon.PunBehaviour
         if(front)
         {
             currentX += inputManager.CameraHorizontal() * sensibility.x;
-            currentY += Input.GetAxis("Camera Y") * sensibility.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
+            currentY += inputManager.CameraVertical() * sensibility.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
         }
         else
         {
@@ -94,11 +94,11 @@ public class CameraController : Photon.PunBehaviour
 
         
         //vuelve a apuntar al centro si se suelta el joystick
-        if (Input.GetAxis("Camera X") == 0)         //
+        if (inputManager.CameraHorizontal() == 0)         //
         {                                           //
             currentX *= 0.9f;                       //
         }                                           // para mando solo
-        if (Input.GetAxis("Camera Y") == 0)         //
+        if (inputManager.CameraVertical() == 0)         //
         {                                           //
             currentY *= 0.9f;                       //
         }                                           //

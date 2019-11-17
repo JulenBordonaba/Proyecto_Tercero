@@ -22,11 +22,12 @@ public class PauseManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        inPause = false;
         inputManager = GetComponent<InputManager>();
         evt = EventSystem.current;
-        for(int i=0;i<invertY.Length;i++)
+        for(int i=0;i< invertYToggle.Length;i++)
         {
-            invertY[i] = invertYToggle[i].isOn;
+            invertYToggle[i].isOn = invertY[i];
         }
     }
 
@@ -75,10 +76,16 @@ public class PauseManager : MonoBehaviour
 
     public void Resume()
     {
-        inPause = false;
+        StartCoroutine(ResumeCoroutine());
         Time.timeScale = 1;
         pauseMenuGameObject.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public IEnumerator ResumeCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        inPause = false;
     }
 }

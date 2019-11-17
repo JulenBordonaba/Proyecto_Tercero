@@ -62,7 +62,7 @@ public class NaveManager : MonoBehaviour
     private void FuelManager()
     {
         if (PauseManager.inPause) return;
-        print("entra a fuel manager");
+
         Side fuelSide = ChangeFuelManager();
         //cambiar entre los distintos combustibles
         if (fuelSide == Side.Left)
@@ -117,15 +117,15 @@ public class NaveManager : MonoBehaviour
             impactForce = Mathf.Clamp(impactForce, 0, float.MaxValue);
             if (collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>())
             {
-                collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * GetComponent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction));
+                collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * GetComponent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction),false);
             }
             if (collision.gameObject.GetComponent<DamageManager>())
             {
-                collision.gameObject.GetComponent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction));
+                collision.gameObject.GetComponent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
             }
             else if (collision.gameObject.GetComponentInParent<DamageManager>())
             {
-                collision.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction));
+                collision.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
             }
         }
 
