@@ -11,13 +11,9 @@ public class SkinnedMeshCollider : MonoBehaviour
     {
         myCollider = GetComponent<MeshCollider>();
         meshRenderer = GetComponent<SkinnedMeshRenderer>();
-    }
-
-    private void Update()
-    {
         UpdateCollider();
     }
-
+    
     public void UpdateCollider()
     {
         Mesh colliderMesh = new Mesh();
