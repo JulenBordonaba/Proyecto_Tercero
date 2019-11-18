@@ -68,7 +68,7 @@ public class CameraController : Photon.PunBehaviour
         //transform.rotation = Quaternion.Euler(new Vector3(rot.x, target.rotation.eulerAngles.y, rot.z));
 
         //cambiamos de cámara al pulsar un botón
-        if (Input.GetKeyDown(KeyCode.Joystick1Button11))
+        if (inputManager.ChangeCamera())
         {
             backCamera = !backCamera;
         }

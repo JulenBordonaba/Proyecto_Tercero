@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/_MisAssets/Scenes/ConnectingScene.unity
     guid: 97609a38d76486f4c8eed3a4ad8e1f47
-  - enabled: 1
+  - enabled: 0
     path: Assets/_MisAssets/Scenes/Pruebas.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 0
