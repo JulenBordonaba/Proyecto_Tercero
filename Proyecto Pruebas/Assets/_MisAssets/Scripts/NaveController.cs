@@ -38,6 +38,8 @@ public class NaveController : MonoBehaviour
     public float maxInclination = 30;
     [Tooltip("pon el tiempo que tarda la nave en corregir su rotación al girar cuando está lejos del suelo")]
     public float rotationDamping = 2;
+    [Tooltip("Pon el field of view base de la cámara")]
+    public float fieldOfView = 60f;
     /*[Tooltip("Pon el desfase mínimo de la cámara")]
     public float minCameraOffset = -4;  
     [Tooltip("Pon el desfase máximo de la cámara")]
@@ -81,7 +83,7 @@ public class NaveController : MonoBehaviour
         GetComponent<NaveAnimationManager>().move = locVel.z != 0;
         //depende de la velocidad la camara esta mas o menos cerca del coche
         //myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (GetComponent<Maneuverability>().currentVelocity / 15), minCameraOffset, maxCameraOffset));
-        myCamera.fieldOfView = Mathf.Lerp(myCamera.fieldOfView, 60f + Mathf.Clamp(locVel.z * (inBoost ? 2 : 1) / 15f, 0f, 80f), Time.deltaTime);
+        myCamera.fieldOfView = Mathf.Lerp(myCamera.fieldOfView, fieldOfView + Mathf.Clamp(locVel.z * (inBoost ? 2 : 1) / 15f, 0f, 80f), Time.deltaTime);
 
 
 
