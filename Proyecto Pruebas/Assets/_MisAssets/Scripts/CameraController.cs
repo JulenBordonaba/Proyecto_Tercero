@@ -108,26 +108,27 @@ public class CameraController : Photon.PunBehaviour
         //limitamos la posición de la camara
         currentY = Mathf.Clamp(currentY, min_Y_Angle, max_Y_Angle);
         currentX = Mathf.Clamp(currentX, min_X_Angle, max_X_Angle);
-        
 
-        
+
+
         //igualamos la posicion de la camara a la posición inicial + el desplazamiento de camara + el desplazamiento por velocidad
-        if (front)
+        /*if (front)
         {
-            transform.localPosition = localPos + new Vector3(-currentX, currentY, 0) / 10;/* - velocityOffset;*/
+            transform.localPosition = localPos + new Vector3(-currentX, currentY, 0) / 10;
         }
         else
         {
             transform.localPosition = new Vector3(localPos.x, localPos.y, -localPos.z) + new Vector3(-currentX, currentY, 0) / 10;
-        }
-        
-        
-
-        float z = transform.localEulerAngles.z; //guardamos la rotación local z
-
-        Quaternion oldRot = transform.rotation; //guardamos la rotación antes de apuntar al objetivo
+        }*/
 
 
+
+        /*float z = transform.localEulerAngles.z; //guardamos la rotación local z
+
+        Quaternion oldRot = transform.rotation; //guardamos la rotación antes de apuntar al objetivo*/
+
+        transform.parent.localRotation = Quaternion.Euler(currentY, currentX, 0);
+        transform.parent.rotation = Quaternion.Euler(transform.parent.eulerAngles.x, transform.parent.eulerAngles.y, 0);
 
         if(front)
         {

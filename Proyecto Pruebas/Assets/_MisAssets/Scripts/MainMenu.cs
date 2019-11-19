@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-
+    
 
     private EventSystem evt;
     private GameObject sel;
