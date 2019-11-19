@@ -8,6 +8,10 @@ public abstract class ShootWeapon : MonoBehaviour
     public float cooldown = 0.1f;
     [Tooltip("Pon el objeto donde aparecen los disparos")]
     public Transform shotSpawn;
+    [Tooltip("Pon el objeto donde aparecen las onomatopeyas al disparar")]
+    public Transform onomatopoeiaSpawn;
+    [Tooltip("Arrastra el sistema de particulas de la onomatopeya de disparar para instanciarlo")]
+    public ParticleSystem prefabShotOnomatopoeia;
     [Tooltip("Pon la lista de los sonidos que pueden sonar cuando se dispara")]
     public AudioClip[] shotSounds;
     [Tooltip("Pon el audio source del que saldrá el sondo del disparo")]
@@ -48,7 +52,7 @@ public abstract class ShootWeapon : MonoBehaviour
 
 
         //Onomatopeya
-
+        Instantiate(prefabShotOnomatopoeia, onomatopoeiaSpawn.position, onomatopoeiaSpawn.rotation);
 
 
     }
