@@ -6,10 +6,10 @@ public abstract class ShootWeapon : MonoBehaviour
 {
     [Tooltip("Pon el tiempo que tarda en disparar desde el último disparo")]
     public float cooldown = 0.1f;
+    [Tooltip("Pon el tiempo que quieres que transcurra entre una onomatopeya y otra")]
+    public float onomatopoeiaCooldown = 0.7f;
     [Tooltip("Pon el objeto donde aparecen los disparos")]
     public Transform shotSpawn;
-    [Tooltip("Pon el objeto donde aparecen las onomatopeyas al disparar")]
-    public Transform onomatopoeiaSpawn;
     [Tooltip("Arrastra el sistema de particulas de la onomatopeya de disparar para instanciarlo")]
     public ParticleSystem prefabShotOnomatopoeia;
     [Tooltip("Pon la lista de los sonidos que pueden sonar cuando se dispara")]
@@ -19,6 +19,7 @@ public abstract class ShootWeapon : MonoBehaviour
 
     private InputManager inputManager;
     private bool canShoot = true;   //variable que controla si se puede disparar
+    private bool onomatipoeiaActive = true;   //variable que controla si se reproduce la onomatopeya
 
     private void Start()
     {
@@ -52,7 +53,13 @@ public abstract class ShootWeapon : MonoBehaviour
 
 
         //Onomatopeya
-        Instantiate(prefabShotOnomatopoeia, onomatopoeiaSpawn.position, onomatopoeiaSpawn.rotation);
+        if (onomatipoeiaActive)
+        {
+            ParticleSystem onomatopoeia = Instantiate(prefabShotOnomatopoeia, shotSpawn);
+            Destroy(onomatopoeia, onomatopoeia.main.duration);
+            onomatipoeiaActive = false;
+            StartCoroutine(OnomatopoeiaCooldown());
+        }
 
 
     }
@@ -64,5 +71,11 @@ public abstract class ShootWeapon : MonoBehaviour
     {
         yield return new WaitForSeconds(cooldown);
         canShoot = true;
+    }
+
+    private IEnumerator OnomatopoeiaCooldown()
+    {
+        yield return new WaitForSeconds(onomatopoeiaCooldown);
+        onomatipoeiaActive = true;
     }
 }
