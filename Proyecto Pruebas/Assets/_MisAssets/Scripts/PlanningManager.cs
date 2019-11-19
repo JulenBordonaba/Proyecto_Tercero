@@ -24,6 +24,8 @@ public class PlanningManager : MonoBehaviour
     public float defaultXRotation;
     [Tooltip("Variable que controla si el control vertical al planear esta invertido o no")]
     public bool verticalInverted = false;
+    [Tooltip("Pon la velocidad a la que se mueve la nave lateralmente mientras planea, es un multiplicador")]
+    public float lateralVelocity;
 
 
     private Rigidbody rb;   //rigidbody de la nave
@@ -100,7 +102,7 @@ public class PlanningManager : MonoBehaviour
 
         
             //movimiento lateral
-            rb.AddForce(new Vector3(GetComponent<NaveController>().modelTransform.up.x, 0, GetComponent<NaveController>().modelTransform.up.z) * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(new Vector3(GetComponent<NaveController>().modelTransform.up.x * lateralVelocity, 0, GetComponent<NaveController>().modelTransform.up.z) * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
             //girar
             GetComponent<NaveController>().modelTransform.localRotation = Quaternion.Euler(GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.x, GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.y + (Input.GetAxis("Horizontal") * GetComponent<Maneuverability>().maneuver * maneuverLimitator * Time.deltaTime), GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.z);
 

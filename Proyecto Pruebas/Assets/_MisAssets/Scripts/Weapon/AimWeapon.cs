@@ -47,7 +47,7 @@ public class AimWeapon : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction * shotDistance, Color.red);
         }
 
-        Quaternion finalRotation = Quaternion.Euler(x ? transform.eulerAngles.x : rotation.eulerAngles.x, y ? transform.eulerAngles.y : rotation.eulerAngles.y, rotation.eulerAngles.z);
+        Quaternion finalRotation = Quaternion.Euler(x ? transform.eulerAngles.x : rotation.eulerAngles.x, y ? transform.eulerAngles.y : rotation.eulerAngles.y, 0);
         transform.rotation = finalRotation;
 
     }

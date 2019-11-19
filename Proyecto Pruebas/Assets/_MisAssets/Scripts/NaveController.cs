@@ -160,7 +160,7 @@ public class NaveController : MonoBehaviour
 
 
             }
-            else if (inputManager.Accelerate() < 0)  //mover hacia atras
+            else if (inputManager.Accelerate() < -0.5f)  //mover hacia atras
             {
                 if (locVel.z > 0)// si estas moviendote hacia adelante y quieres ir hacia atras se ayuda a parar el vehiculo
                 {

@@ -7,7 +7,13 @@ using UnityEngine.UI;
 public class ChangeScene : MonoBehaviour
 {
     public Text loadingText;
+
     public void LoadScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+
+    public void LoadSceneAsync(string scene)
     {
         StartCoroutine(LoadYourAsyncScene(scene));
     }
