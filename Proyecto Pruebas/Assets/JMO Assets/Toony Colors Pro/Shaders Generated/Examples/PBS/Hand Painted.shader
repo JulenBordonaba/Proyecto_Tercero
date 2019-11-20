@@ -24,6 +24,9 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 		_OcclusionStrength("Strength", Range(0.0, 1.0)) = 1.0
 		_OcclusionMap("Occlusion", 2D) = "white" {}
 
+		_EmissionColor("Color", Color) = (0,0,0)
+		_EmissionMap("Emission", 2D) = "white" {}
+
 
 		// Blending state
 		[HideInInspector] _Mode("__mode", Float) = 0.0
@@ -82,6 +85,7 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 		#pragma target 3.0
 
 		#pragma shader_feature _ _ALPHATEST_ON _ALPHABLEND_ON _ALPHAPREMULTIPLY_ON
+		#pragma shader_feature _EMISSION
 
 		//================================================================================================================================
 		// STRUCTS
@@ -189,6 +193,11 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 
 			o.texThresholdTexcoords = IN.uv_TexturedThreshold;
 
+			//Emission
+		#if _EMISSION
+			o.Emission += tex2D(_EmissionMap, IN.uv_MainTex.xy) * _EmissionColor.rgb;
+		#endif
+
 			//Occlusion
 			o.Occlusion = LerpOneTo(tex2D(_OcclusionMap, IN.uv_MainTex.xy).g, _OcclusionStrength);
 			o.screenCoords = IN.screenCoordsCustom;
@@ -236,6 +245,8 @@ Shader "Toony Colors Pro 2/Examples/PBS/Hand Painted"
 		half _Glossiness;
 		half _GlossMapScale;
 		half _Metallic;
+		half4 _EmissionColor;
+		sampler2D _EmissionMap;
 		half _OcclusionStrength;
 		sampler2D _OcclusionMap;
 
