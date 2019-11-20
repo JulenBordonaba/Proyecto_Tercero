@@ -31,6 +31,7 @@ public class NaveManager : MonoBehaviour
 
     private void Start()
     {
+        GameManager.navesList.Add(this);
         inputManager = GetComponent<InputManager>();
         stats = GetComponent<Stats>();
         controller = GetComponent<NaveController>();
@@ -169,6 +170,7 @@ public class NaveManager : MonoBehaviour
 
     public void OnShipDestroyed()
     {
+        GameManager.navesList.Remove(this);
         Instantiate(gameOverCamera,new Vector3(0,-500,0),Quaternion.identity);
         GameObject explosion = Instantiate(explosionPrefab, GetComponent<NaveController>().transform.position, Quaternion.identity);
         Destroy(explosion, explosion.GetComponentInChildren<ParticleSystem>().main.duration);

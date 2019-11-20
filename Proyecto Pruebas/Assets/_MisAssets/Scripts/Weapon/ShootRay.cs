@@ -8,26 +8,34 @@ public class ShootRay : ShootWeapon
     public float shootDistance;
     [Tooltip("Pon las layers contra las que choca el raycast del disparo")]
     public LayerMask layers;
-    [Tooltip("Pon el efecto de disparo que sale del cañón")]
-    public GameObject shotEffectPrefab;
     [Tooltip("Pon el prefab de las partículas que aparecen donde impacta el disparo")]
     public GameObject impactPrefab;
     [Tooltip("Pon la layer del otro escudo")]
     public LayerMask otherShield;
+    [Tooltip("Pon el radio de la zona de autoaim, en medidas de pantalla")]
+    public float autoaimRadius;
+
+    private NaveManager myNaveManager;
+    private Camera myCamera;
+
+    private void Awake()
+    {
+        myNaveManager = GetComponentInParent<NaveManager>();
+        myCamera = GetComponent<AimWeapon>().myCamera;
+    }
 
     public override void CastShot()
     {
         if (PauseManager.inPause) return;
+
+
+
+
         //declarar cariables para el raycast
-        Ray ray = new Ray();
+        Ray ray = Autoaim();
         RaycastHit hit;
-        //configurar ray
-        ray.origin = shotSpawn.position;
-        ray.direction = transform.forward;
+
         
-        //Poner efecto
-        //GameObject effect = Instantiate(shotEffectPrefab, shotSpawn);
-        //Destroy(effect, effect.GetComponentInChildren<ParticleSystem>().main.duration);
 
         //lanzar raycast
         if (Physics.Raycast(ray, out hit, shootDistance,layers))
@@ -40,6 +48,44 @@ public class ShootRay : ShootWeapon
             //hacer daño al objetivo
             DamageObjective(hit.collider.gameObject);
         }
+    }
+
+    private Ray Autoaim()
+    {
+        Vector2 screenMiddle = new Vector2(Screen.width * 0.5f, Screen.height * (myCamera.rect.y + 0.25f));
+        Vector3 shipInScreenPoint;
+        Vector3 playerPosition;
+
+        Ray ray = new Ray();
+        foreach (NaveManager nm in GameManager.navesList)
+        {
+            if (nm != myNaveManager)
+            {
+                playerPosition = nm.transform.position;
+                shipInScreenPoint = myCamera.WorldToScreenPoint(nm.transform.position);
+                print(shipInScreenPoint);
+                print("Camera Centre: " + screenMiddle);
+                print(CircleCollision(screenMiddle.x, screenMiddle.y, autoaimRadius, shipInScreenPoint.x, shipInScreenPoint.y));
+                if (CircleCollision(screenMiddle.x, screenMiddle.y, autoaimRadius, shipInScreenPoint.x, shipInScreenPoint.y))
+                {
+                    ray = new Ray();
+                    ray.origin = shotSpawn.position;
+                    ray.direction = (playerPosition - shotSpawn.position).normalized;
+                    return ray;
+                }
+                
+            }
+        }
+
+        ray.origin = shotSpawn.position;
+        ray.direction = transform.forward;
+        return ray;
+        
+    }
+
+    private bool CircleCollision(float x, float y, float r, float x2, float y2)
+    {
+        return Mathf.Sqrt(Mathf.Pow((x2 - x), 2) - Mathf.Pow((y2 - y), 2)) < r;
     }
 
     private void DamageObjective(GameObject other)

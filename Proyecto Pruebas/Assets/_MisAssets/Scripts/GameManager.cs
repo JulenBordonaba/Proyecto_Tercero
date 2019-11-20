@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public static List<NaveManager> navesList = new List<NaveManager>();
+
     [Tooltip("Pon el prefab de la nave")]
     public GameObject navePrefab;
     [Tooltip("Pon el prefab de la nave enemiga")]
@@ -17,7 +19,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-
+        navesList = new List<NaveManager>();
         List<GameObject> naves = new List<GameObject>();
         for (int i = 0; i < Global.numPlayers; i++)
         {
