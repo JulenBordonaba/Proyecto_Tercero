@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static List<NaveManager> navesList = new List<NaveManager>();
+    public static UnityEvent OnRaceFinished;
+    public static NaveManager winner;
 
     [Tooltip("Pon el prefab de la nave")]
     public GameObject navePrefab;
@@ -19,6 +22,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        winner = null;
+        OnRaceFinished = new UnityEvent();
+        OnRaceFinished.AddListener(FinishRace);
         navesList = new List<NaveManager>();
         List<GameObject> naves = new List<GameObject>();
         for (int i = 0; i < Global.numPlayers; i++)
@@ -73,6 +79,12 @@ public class GameManager : MonoBehaviour
 
         }
     }
+
+    private void FinishRace()
+    {
+        print(" ha ganado el jugador " + winner.GetComponent<InputManager>().numPlayer);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
