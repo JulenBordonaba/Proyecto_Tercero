@@ -58,7 +58,9 @@ public class Turbo : HabilidadCombustible
         naveController.inBoost = true;
         inTurbo = true;
         StartCoroutine(Cooldown(combustibleTurbo));
-        
+        NaveManager.combustible = combustibleTurbo;
+
+
     }
 
     

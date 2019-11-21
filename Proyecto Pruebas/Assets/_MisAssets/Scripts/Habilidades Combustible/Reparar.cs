@@ -65,6 +65,7 @@ public class Reparar : HabilidadCombustible
         isRepairing = true;
         canRepair = false;
         healingParticles.SetActive(true);
+        NaveManager.combustible = combustibleReparar;
         StartCoroutine(Cooldown(combustibleReparar.duration));
 
     }

@@ -42,6 +42,7 @@ public class Salto : HabilidadCombustible
         inJump = true;
         StartCoroutine(Cooldown());
         GetComponent<Rigidbody>().AddForce(/*Vector3.up*/GetComponent<NaveController>().modelTransform.up * jumpForce, ForceMode.Impulse);
+        NaveManager.combustible = combustibleSalto;
 
         //activar animacion Salto
         //GetComponentInParent<Animator>().SetBool("jump",true);

@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class NaveManager : MonoBehaviour
 {
+    public static Combustible combustible;
 
     [Tooltip("Pon el numero de combustibles correspondiente en Size. Luego elige una de las 4 opciones para cada uno de ellos")]
     public List<TipoCombustible> combustibles;     //tipo del combustible
@@ -17,6 +18,7 @@ public class NaveManager : MonoBehaviour
     [Tooltip("Pon el prefab de la explosión")]
     public GameObject explosionPrefab;
     public GameObject gameOverCamera;
+    public TrailRenderer trail;
     
 
 
@@ -64,6 +66,9 @@ public class NaveManager : MonoBehaviour
     private void FuelManager()
     {
         if (PauseManager.inPause) return;
+
+        trail.startColor = combustible.color;
+        trail.endColor = combustible.color;
 
         Side fuelSide = ChangeFuelManager();
         //cambiar entre los distintos combustibles
