@@ -19,6 +19,8 @@ public class Reparar : HabilidadCombustible
     {
         piezas= new List<Pieza>( GetComponentsInChildren<Pieza>());
         healingParticles.SetActive(isRepairing);
+        tipoCombustible = TipoCombustible.Reparar;
+        GetFuel();
     }
 
     private void Update()
@@ -38,23 +40,7 @@ public class Reparar : HabilidadCombustible
 
         //activar sonido reparqacion
         //GetComponentInParent<AudioSource>().Play();
-
-        //codigo que busca entre todos los combustibles del objeto y guarda el combustible de reparar.  
-        //Así se pueden acceder a las variables del combustible de reparar
-        Component[] combustibles;
-        combustibles = GetComponents(typeof(Combustible));
-        if (combustibles != null)
-        {
-            foreach (Combustible combustible in combustibles)
-                if (combustible.tipoCombustible == TipoCombustible.Reparar)
-                {
-                    combustibleReparar = combustible;
-                }
-        }
-        else
-        {
-            return;
-        }
+        
 
         if (combustibleReparar == null) return;
 

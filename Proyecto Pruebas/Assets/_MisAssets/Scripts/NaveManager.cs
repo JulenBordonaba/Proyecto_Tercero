@@ -67,8 +67,7 @@ public class NaveManager : MonoBehaviour
     {
         if (PauseManager.inPause) return;
 
-        trail.startColor = combustible.color;
-        trail.endColor = combustible.color;
+        trail.material.color = habilidadCombustible.combustible.color;
 
         Side fuelSide = ChangeFuelManager();
         //cambiar entre los distintos combustibles

@@ -14,6 +14,8 @@ public class Escudo : HabilidadCombustible
     private void Start()
     {
         shield.SetActive(inShield);
+        tipoCombustible = TipoCombustible.Escudo;
+        GetFuel();
     }
 
     public override void Use()
@@ -21,48 +23,28 @@ public class Escudo : HabilidadCombustible
         print("Entra al Use");
         //Activar el escudo siempre y cuando no haya un escudo activo
         if (inShield) return;
-
-        Combustible combustibleEscudo = null; //variable para guardar el componente combustible del escudo del objeto padre
+        
 
         //activar animacion escudo
         //GetComponentInParent<Animator>().SetBool("inShield",true);
 
         //activar sonido escudo
         //GetComponentInParent<AudioSource>().Play();
-
         
 
-        //codigo que busca entre todos los combustibles del objeto y guarda el combustible del escudo. 
-        //Así se pueden acceder a las variables del combustible del escudo
-        Component[] combustibles;
-        combustibles = GetComponents(typeof(Combustible));
-        if (combustibles != null)
-        {
-            foreach (Combustible combustible in combustibles)
-                if (combustible.tipoCombustible == TipoCombustible.Escudo)
-                {
-                    combustibleEscudo = combustible;
-                }
-        }
-        else
-        {
-            return;
-        }
-        if (combustibleEscudo == null) return;
+        if (combustible.currentAmmount < combustible.activeConsumption) return;
 
-        if (combustibleEscudo.currentAmmount < combustibleEscudo.activeConsumption) return;
-
-        combustibleEscudo.currentAmmount -= combustibleEscudo.activeConsumption;
+        combustible.currentAmmount -= combustible.activeConsumption;
 
         //poner a true variable estado en escudo
         inShield = true;
         shield.SetActive(true);
         print("pone el escudo");
 
-        NaveManager.combustible = combustibleEscudo;
+        NaveManager.combustible = combustible;
 
         //Inicar corrutina con la duración del escudo
-        StartCoroutine(DeactivateShield(combustibleEscudo.duration));
+        StartCoroutine(DeactivateShield(combustible.duration));
     }
     private IEnumerator DeactivateShield(float waitTime)
     {

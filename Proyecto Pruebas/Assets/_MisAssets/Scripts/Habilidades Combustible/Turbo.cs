@@ -16,6 +16,9 @@ public class Turbo : HabilidadCombustible
     private void Start()
     {
         naveController = GetComponent<NaveController>();
+
+        tipoCombustible = TipoCombustible.Turbo;
+        GetFuel();
     }
 
     public override void Use()
@@ -32,22 +35,7 @@ public class Turbo : HabilidadCombustible
         //poner a true variable Salto en escudo
         //GetComponentInParent<NaveManager>().Turbo = 1;      // Propongo poner Turbo en la foncion de velocidad de forma: + (Turbo * StatTruboDeLaNave)
 
-        //codigo que busca entre todos los combustibles del objeto y guarda el combustible del escudo. 
-        //Así se pueden acceder a las variables del combustible del escudo
-        Component[] combustibles;
-        combustibles = GetComponents(typeof(Combustible));
-        if (combustibles != null)
-        {
-            foreach (Combustible combustible in combustibles)
-                if (combustible.tipoCombustible == TipoCombustible.Turbo)
-                {
-                    combustibleTurbo = combustible;
-                }
-        }
-        else
-        {
-            return;
-        }
+        
 
         if (combustibleTurbo == null) return;
 

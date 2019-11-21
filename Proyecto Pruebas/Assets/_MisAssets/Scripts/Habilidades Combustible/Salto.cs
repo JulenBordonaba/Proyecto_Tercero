@@ -10,28 +10,21 @@ public class Salto : HabilidadCombustible
     public float cooldown;
 
     private bool inJump = false;
+
+
+    private void Start()
+    {
+
+        tipoCombustible = TipoCombustible.Salto;
+        GetFuel();
+    }
+
     public override void Use()
     {
         if (GetComponent<NaveManager>().isPlanning || inJump) return;
         Combustible combustibleSalto = null; //variable para guardar el componente combustible del escudo del objeto padre        
 
-
-        //codigo que busca entre todos los combustibles del objeto y guarda el combustible del escudo. 
-        //Así se pueden acceder a las variables del combustible del escudo
-        Component[] combustibles;
-        combustibles = GetComponents(typeof(Combustible));
-        if (combustibles != null)
-        {
-            foreach (Combustible combustible in combustibles)
-                if (combustible.tipoCombustible == TipoCombustible.Salto)
-                {
-                    combustibleSalto = combustible;
-                }
-        }
-        else
-        {
-            return;
-        }
+        
         if (combustibleSalto == null) return;
 
         if (combustibleSalto.currentAmmount < combustibleSalto.activeConsumption) return;
