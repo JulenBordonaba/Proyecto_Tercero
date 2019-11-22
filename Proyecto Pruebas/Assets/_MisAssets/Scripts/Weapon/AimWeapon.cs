@@ -35,7 +35,7 @@ public class AimWeapon : MonoBehaviour
         RaycastHit hit;
         ray.origin = myCamera.transform.position;
         ray.direction = myCamera.transform.forward;
-        Quaternion rotation = transform.rotation;
+        Quaternion rotation = transform.localRotation;
         if (Physics.Raycast(ray, out hit, shotDistance,layers))
         {
             transform.LookAt(hit.point);
@@ -47,8 +47,8 @@ public class AimWeapon : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction * shotDistance, Color.red);
         }
 
-        Quaternion finalRotation = Quaternion.Euler(x ? transform.eulerAngles.x : rotation.eulerAngles.x, y ? transform.eulerAngles.y : rotation.eulerAngles.y, 0);
-        transform.rotation = finalRotation;
+        Quaternion finalRotation = Quaternion.Euler(x ? transform.localEulerAngles.x : rotation.eulerAngles.x, y ? transform.localEulerAngles.y : rotation.eulerAngles.y, 0);
+        transform.localRotation = finalRotation;
 
     }
 }
