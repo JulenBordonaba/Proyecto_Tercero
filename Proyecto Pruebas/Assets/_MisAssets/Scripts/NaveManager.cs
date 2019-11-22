@@ -27,12 +27,14 @@ public class NaveManager : MonoBehaviour
     private NaveController controller;  //script con el controlador de la nave
     private Maneuverability maneuverability;
     private InputManager inputManager;
+    private Rigidbody rb;
 
     private bool fuelInLeft = false;
     private bool fuelInRight = false;
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         GameManager.navesList.Add(this);
         inputManager = GetComponent<InputManager>();
         stats = GetComponent<Stats>();
@@ -67,7 +69,21 @@ public class NaveManager : MonoBehaviour
     {
         if (PauseManager.inPause) return;
 
-        trail.material.color = habilidadCombustible.combustible.color;
+        
+        Vector3 locVel = GetComponent<NaveController>().modelTransform.InverseTransformDirection(rb.velocity);
+        if (locVel.z<=2)
+        {
+            trail.enabled = false;
+        }
+        else
+        {
+            trail.enabled = true;
+        }
+
+        if (trail.enabled)
+        {
+            trail.material.color = habilidadCombustible.combustible.color;
+        }
 
         Direction fuelSide = ChangeFuelManager();
         //cambiar entre los distintos combustibles

@@ -5,14 +5,10 @@ using UnityEngine;
 public class CameraController : Photon.PunBehaviour
 {
 
-    private const float Y_ANGLE_MIN = -10.0f;
-    private const float Y_ANGLE_MAX = 30.0f;
-
 
     public Vector2 sensibility;
 
     public Transform target, frontLookAt, backLookAt;
-    public float distance = 10;
     [Range(1f, 10f)]
     public float damping = 4f;
     public float cameraDampingMultiplayer = 1;
@@ -29,8 +25,7 @@ public class CameraController : Photon.PunBehaviour
     public float min_Y_Angle = -10f;
 
     public bool naveDestruida { get; set; }
-
-    private Vector3 diference;
+    
     private float currentX = 0.0f;
     private float currentY = 45.0f;
     public Vector3 localPos { get; set; }
@@ -48,6 +43,8 @@ public class CameraController : Photon.PunBehaviour
         naveDestruida = false;
         //diference = transform.parent.position - transform.position;
 
+        currentX = 0;
+        currentY = 0;
 
         //guardamos la posición inicial 
         localPos = transform.localPosition;
@@ -79,6 +76,15 @@ public class CameraController : Photon.PunBehaviour
 
     private void CameraFocus(bool front)
     {
+        //transform.parent.parent.rotation = target.rotation;
+
+        transform.parent.parent.rotation = Quaternion.Lerp(transform.parent.parent.rotation, target.rotation, Time.deltaTime * damping);
+
+        transform.parent.parent.localRotation = Quaternion.Euler(transform.parent.parent.localEulerAngles.x, transform.parent.parent.localEulerAngles.y, 0);
+
+        //transform.parent.parent.position = Vector3.Lerp(transform.parent.parent.position,target.position, Time.deltaTime * damping);
+
+
         //cambiamos el valor de currentx y currenty respecto a el desplazamiento del joystick derecho/ ratón
         if(front)
         {
