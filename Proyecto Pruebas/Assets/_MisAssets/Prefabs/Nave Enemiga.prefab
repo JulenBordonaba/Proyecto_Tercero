@@ -7442,6 +7442,7 @@ MonoBehaviour:
   maxInclination: 30
   rotationDamping: 2
   fieldOfView: 45
+  maxSubida: 0
 --- !u!114 &8783004174707121701
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7661,7 +7662,7 @@ MonoBehaviour:
   maneuverLimitator: 0.2
   defaultXRotation: 0
   verticalInverted: 1
-  lateralVelocity: 0
+  lateralVelocity: 20
 --- !u!114 &4604405141605493183
 MonoBehaviour:
   m_ObjectHideFlags: 0

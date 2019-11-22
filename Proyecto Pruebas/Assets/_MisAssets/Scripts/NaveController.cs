@@ -40,6 +40,9 @@ public class NaveController : MonoBehaviour
     public float rotationDamping = 2;
     [Tooltip("Pon el field of view base de la cámara")]
     public float fieldOfView = 60f;
+    [Tooltip("Pon la inclinación máxima por la que puede escalar la nave, rango 0-1")]
+    [Range(0f, 1f)]
+    public float maxSubida;
     /*[Tooltip("Pon el desfase mínimo de la cámara")]
     public float minCameraOffset = -4;  
     [Tooltip("Pon el desfase máximo de la cámara")]
@@ -261,6 +264,10 @@ public class NaveController : MonoBehaviour
 
         //convertimos la velocidad local en la velocidad global y la aplicamos
         rb.velocity = modelTransform.TransformDirection(locVel);
+        if(modelTransform.forward.y < maxSubida && modelTransform.forward.y>0)
+        {
+            rb.AddForce(-Physics.gravity * modelTransform.forward.y * GetComponent<Maneuverability>().AcelerationWithWeight, ForceMode.Acceleration);
+        }
 
 
     }
