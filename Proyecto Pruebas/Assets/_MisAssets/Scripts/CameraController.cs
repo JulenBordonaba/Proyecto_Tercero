@@ -56,7 +56,7 @@ public class CameraController : Photon.PunBehaviour
         if (naveDestruida || PauseManager.inPause) return;
 
         //hacemos que la posición del padre sea igual a la de la nave
-        transform.parent.position = target.position;
+        transform.parent.parent.position = target.position;
         //hacemos que la rotacion del pivote sea una interpolación entre su rotación y la de la nave respecto a Time.deltaTime
         transform.parent.rotation = Quaternion.Lerp(transform.parent.rotation, target.rotation, Time.deltaTime * damping * cameraDampingMultiplayer);
 
