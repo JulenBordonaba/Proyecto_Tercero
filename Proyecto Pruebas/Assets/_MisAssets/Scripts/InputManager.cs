@@ -127,6 +127,11 @@ public class InputManager : MonoBehaviour
         return r;
         
     }
+
+    public bool ResetCamera()
+    {
+        return Input.GetAxisRaw("PS4ResetCamera" + numPlayer.ToString())<0;
+    }
     
     
 

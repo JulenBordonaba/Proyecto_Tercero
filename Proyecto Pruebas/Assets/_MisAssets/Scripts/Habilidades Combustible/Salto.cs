@@ -21,21 +21,20 @@ public class Salto : HabilidadCombustible
 
     public override void Use()
     {
-        if (GetComponent<NaveManager>().isPlanning || inJump) return;
-        Combustible combustibleSalto = null; //variable para guardar el componente combustible del escudo del objeto padre        
+        if (GetComponent<NaveManager>().isPlanning || inJump) return;       
 
         
-        if (combustibleSalto == null) return;
+        if (combustible == null) return;
 
-        if (combustibleSalto.currentAmmount < combustibleSalto.activeConsumption) return;
+        if (combustible.currentAmmount < combustible.activeConsumption) return;
 
-        combustibleSalto.currentAmmount -= combustibleSalto.activeConsumption;
+        combustible.currentAmmount -= combustible.activeConsumption;
 
         //Saltar
         inJump = true;
         StartCoroutine(Cooldown());
         GetComponent<Rigidbody>().AddForce(/*Vector3.up*/GetComponent<NaveController>().modelTransform.up * jumpForce, ForceMode.Impulse);
-        NaveManager.combustible = combustibleSalto;
+        NaveManager.combustible = combustible;
 
         //activar animacion Salto
         //GetComponentInParent<Animator>().SetBool("jump",true);

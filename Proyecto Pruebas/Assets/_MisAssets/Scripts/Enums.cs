@@ -17,9 +17,9 @@ public enum TipoDisparo
     Ray,ObjectShot
 }
 
-public enum Side
+public enum Direction
 {
-    Left,Right,None
+    Left,Right,Up,Down,None
 }
 
 public enum ScreenDivision

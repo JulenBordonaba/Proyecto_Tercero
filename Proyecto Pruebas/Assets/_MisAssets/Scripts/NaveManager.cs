@@ -69,9 +69,9 @@ public class NaveManager : MonoBehaviour
 
         trail.material.color = habilidadCombustible.combustible.color;
 
-        Side fuelSide = ChangeFuelManager();
+        Direction fuelSide = ChangeFuelManager();
         //cambiar entre los distintos combustibles
-        if (fuelSide == Side.Left)
+        if (fuelSide == Direction.Left)
         {
             try
             {
@@ -89,7 +89,7 @@ public class NaveManager : MonoBehaviour
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }
-        if (fuelSide == Side.Right)
+        if (fuelSide == Direction.Right)
         {
             //print("entra en right");
             try
@@ -142,7 +142,7 @@ public class NaveManager : MonoBehaviour
 
     }
 
-    private Side ChangeFuelManager()
+    private Direction ChangeFuelManager()
     {
         if (inputManager.ChangeFuel() > 0)
         {
@@ -150,7 +150,7 @@ public class NaveManager : MonoBehaviour
             {
                 fuelInLeft = false;
                 fuelInRight = true;
-                return Side.Right;
+                return Direction.Right;
             }
         }
         if (inputManager.ChangeFuel() < 0)
@@ -159,17 +159,17 @@ public class NaveManager : MonoBehaviour
             {
                 fuelInRight = false;
                 fuelInLeft = true;
-                return Side.Left;
+                return Direction.Left;
             }
         }
         if(inputManager.ChangeFuel() == 0)
         {
             fuelInRight = false;
             fuelInLeft = false;
-            return Side.None;
+            return Direction.None;
         }
 
-        return Side.None;
+        return Direction.None;
     }
 
     public void OnShipDestroyed()

@@ -93,7 +93,15 @@ public class CameraController : Photon.PunBehaviour
         
 
         
-        //vuelve a apuntar al centro si se suelta el joystick
+        //vuelve a apuntar al centro si se pulsa el botón
+        if(inputManager.ResetCamera())
+        {
+            currentX *= 0.9f;
+            currentY *= 0.9f;
+        }
+
+
+        /*
         if (inputManager.CameraHorizontal() == 0)         //
         {                                           //
             currentX *= 0.9f;                       //
@@ -101,7 +109,7 @@ public class CameraController : Photon.PunBehaviour
         if (inputManager.CameraVertical() == 0)         //
         {                                           //
             currentY *= 0.9f;                       //
-        }                                           //
+        }    */                                       //
         
 
         
@@ -153,4 +161,7 @@ public class CameraController : Photon.PunBehaviour
 
         transform.rotation = Quaternion.Lerp(oldRot, newRot, Time.deltaTime * damping * cameraDampingMultiplayer);*/
     }
+
+    
+
 }

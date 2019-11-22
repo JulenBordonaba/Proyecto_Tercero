@@ -27,8 +27,7 @@ public class Turbo : HabilidadCombustible
         if (inTurbo)
         {
             return;
-        }
-        Combustible combustibleTurbo = null; //variable para guardar el componente combustible del escudo del objeto padre        
+        }      
 
         //if (GetComponentInParent<NaveManager>().Turbo == 0)
 
@@ -37,16 +36,16 @@ public class Turbo : HabilidadCombustible
 
         
 
-        if (combustibleTurbo == null) return;
+        if (combustible == null) return;
 
-        if (combustibleTurbo.currentAmmount < combustibleTurbo.activeConsumption) return;
+        if (combustible.currentAmmount < combustible.activeConsumption) return;
 
-        combustibleTurbo.currentAmmount -= combustibleTurbo.activeConsumption;
+        combustible.currentAmmount -= combustible.activeConsumption;
         
         naveController.inBoost = true;
         inTurbo = true;
-        StartCoroutine(Cooldown(combustibleTurbo));
-        NaveManager.combustible = combustibleTurbo;
+        StartCoroutine(Cooldown(combustible));
+        NaveManager.combustible = combustible;
 
 
     }

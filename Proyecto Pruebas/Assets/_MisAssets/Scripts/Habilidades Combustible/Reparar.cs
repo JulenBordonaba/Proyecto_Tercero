@@ -32,8 +32,7 @@ public class Reparar : HabilidadCombustible
     {
         print("entra a Use");
         if (!canRepair) return;
-
-        Combustible combustibleReparar = null; //variable para guardar el componente combustible de reparacion del objeto padre
+        
 
         //activar animacion reparacion
         //GetComponentInParent<Animator>().SetBool("repair",true);
@@ -42,17 +41,17 @@ public class Reparar : HabilidadCombustible
         //GetComponentInParent<AudioSource>().Play();
         
 
-        if (combustibleReparar == null) return;
+        if (combustible == null) return;
 
-        if (combustibleReparar.currentAmmount < combustibleReparar.activeConsumption) return;
+        if (combustible.currentAmmount < combustible.activeConsumption) return;
 
-        combustibleReparar.currentAmmount -= combustibleReparar.activeConsumption;
+        combustible.currentAmmount -= combustible.activeConsumption;
 
         isRepairing = true;
         canRepair = false;
         healingParticles.SetActive(true);
-        NaveManager.combustible = combustibleReparar;
-        StartCoroutine(Cooldown(combustibleReparar.duration));
+        NaveManager.combustible = combustible;
+        StartCoroutine(Cooldown(combustible.duration));
 
     }
 
