@@ -26,11 +26,11 @@ public class UIManager : MonoBehaviour
     {
         print(CheckpointScreenPosition);
         checkpointImage.GetComponent<RectTransform>().localPosition = new Vector3(Mathf.Clamp(CheckpointScreenPosition.x-(Screen.width*0.5f), -Screen.width * 0.5f, Screen.width*0.5f), Mathf.Clamp(CheckpointScreenPosition.y - (Screen.height*((myCamera.rect.height*0.5f)+myCamera.rect.y)), -(Screen.height*myCamera.rect.height*0.5f), (Screen.height * myCamera.rect.height * 0.5f)), 0);
-        if(CheckpointScreenPosition.z<0)
+        /*if(CheckpointScreenPosition.z<0)
         {
             Vector3 pos = checkpointImage.GetComponent<RectTransform>().localPosition;
             checkpointImage.GetComponent<RectTransform>().localPosition = new Vector3(pos.x, -(Screen.height * myCamera.rect.height * 0.5f), 0);
-        }
+        }*/
     }
 
     private Vector3 CheckpointScreenPosition
