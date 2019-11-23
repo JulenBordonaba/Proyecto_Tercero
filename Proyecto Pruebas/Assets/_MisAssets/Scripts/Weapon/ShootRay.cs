@@ -52,7 +52,8 @@ public class ShootRay : ShootWeapon
 
     private Ray Autoaim()
     {
-        Vector2 screenMiddle = new Vector2(Screen.width * 0.5f, Screen.height * (myCamera.rect.y + 0.25f));
+        Vector2 screenMiddle = new Vector2(Screen.width * 0.5f, Screen.height * ((myCamera.rect.height * 0.5f) + myCamera.rect.y));
+        print(screenMiddle.y);
         Vector3 shipInScreenPoint;
         Vector3 playerPosition;
 

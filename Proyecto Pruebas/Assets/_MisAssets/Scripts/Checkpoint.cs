@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    public bool newest = false;
     public bool isFinal = false;
     public GameObject checkpointGO;
 
@@ -12,7 +11,7 @@ public class Checkpoint : MonoBehaviour
 
     public void Unlock()
     {
-        newest = true;
+        CheckpointManager.newest = this;
         checkpointGO.SetActive(true);
     }
 
@@ -43,7 +42,7 @@ public class Checkpoint : MonoBehaviour
             {
                 RechargeFuel(naveManager);
             }
-            if (newest)
+            if (CheckpointManager.newest == this)
             {
                 if(isFinal)
                 {
@@ -52,7 +51,6 @@ public class Checkpoint : MonoBehaviour
                 }
                 else
                 {
-                    newest = false;
                     CheckpointManager.OnCheckpointUnlocked.Invoke();
                 }
             }

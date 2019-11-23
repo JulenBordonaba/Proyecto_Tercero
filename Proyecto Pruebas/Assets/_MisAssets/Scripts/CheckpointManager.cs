@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class CheckpointManager : MonoBehaviour
 {
     public List<Checkpoint> checkpoints = new List<Checkpoint>();
-
+    public static Checkpoint newest;
     public static UnityEvent OnCheckpointUnlocked = new UnityEvent();
     private int currentCheckpoint = 0;
 
