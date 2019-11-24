@@ -43,7 +43,7 @@ public class UIManager : MonoBehaviour
 
             if (pos.x > -(Screen.width * 0.5f) || pos.x < (Screen.width * 0.5f))
             {
-                auxPos = new Vector3(-pos.x, (Screen.height * myCamera.rect.height * 0.5f) - upLimit, 0);
+                auxPos = new Vector3(-pos.x, -(Screen.height * myCamera.rect.height * 0.5f) +downLimit, 0);
             }
             else
             {
