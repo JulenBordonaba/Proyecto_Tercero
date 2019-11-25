@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static List<NaveManager> navesList = new List<NaveManager>();
     public static UnityEvent OnRaceFinished;
     public static NaveManager winner;
+    
 
     [Tooltip("Pon el prefab de la nave")]
     public GameObject navePrefab;

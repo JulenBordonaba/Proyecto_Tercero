@@ -13,6 +13,7 @@ public class Escudo : HabilidadCombustible
 
     private void Start()
     {
+        naveManager = GetComponentInParent<NaveManager>();
         shield.SetActive(inShield);
         tipoCombustible = TipoCombustible.Escudo;
         GetFuel();
@@ -41,7 +42,7 @@ public class Escudo : HabilidadCombustible
         shield.SetActive(true);
         print("pone el escudo");
 
-        NaveManager.combustible = combustible;
+        naveManager.combustible = combustible;
 
         //Inicar corrutina con la duración del escudo
         StartCoroutine(DeactivateShield(combustible.duration));

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NaveManager : MonoBehaviour
 {
-    public static Combustible combustible;
+    //public static Combustible combustible;
 
     [Tooltip("Pon el numero de combustibles correspondiente en Size. Luego elige una de las 4 opciones para cada uno de ellos")]
     public List<TipoCombustible> combustibles;     //tipo del combustible
@@ -19,6 +19,7 @@ public class NaveManager : MonoBehaviour
     public GameObject explosionPrefab;
     public GameObject gameOverCamera;
     public TrailRenderer trail;
+    public Combustible combustible;
     
 
 
@@ -69,7 +70,7 @@ public class NaveManager : MonoBehaviour
     {
         if (PauseManager.inPause) return;
 
-        
+        combustible = habilidadCombustible.combustible;
         Vector3 locVel = GetComponent<NaveController>().modelTransform.InverseTransformDirection(rb.velocity);
         if (locVel.z<=2)
         {

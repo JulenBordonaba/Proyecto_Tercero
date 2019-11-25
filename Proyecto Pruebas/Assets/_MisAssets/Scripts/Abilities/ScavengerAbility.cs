@@ -29,7 +29,7 @@ public class ScavengerAbility : PlayerAbility
         StartCoroutine(Cooldown());
         GameObject nuevo = Instantiate(chatarraPrefab, spawn.position, Quaternion.identity);
         nuevo.GetComponent<Rigidbody>().AddForce(Vector3.up * throwForce, ForceMode.Impulse);
-        nuevo.GetComponent<Rigidbody>().AddForce(-Vector3.forward * throwForce, ForceMode.Impulse);
+        nuevo.GetComponent<Rigidbody>().AddForce(-modelTransform.forward * throwForce, ForceMode.Impulse);
         ActualizarLista(nuevo);
 
     }

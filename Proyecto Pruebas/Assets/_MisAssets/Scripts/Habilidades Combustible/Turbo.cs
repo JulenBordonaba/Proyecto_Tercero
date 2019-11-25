@@ -15,6 +15,7 @@ public class Turbo : HabilidadCombustible
 
     private void Start()
     {
+        naveManager = GetComponentInParent<NaveManager>();
         naveController = GetComponent<NaveController>();
 
         tipoCombustible = TipoCombustible.Turbo;
@@ -45,7 +46,7 @@ public class Turbo : HabilidadCombustible
         naveController.inBoost = true;
         inTurbo = true;
         StartCoroutine(Cooldown(combustible));
-        NaveManager.combustible = combustible;
+        naveManager.combustible = combustible;
 
 
     }

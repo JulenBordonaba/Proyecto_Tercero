@@ -8,6 +8,7 @@ public abstract class HabilidadCombustible : MonoBehaviour
     public Combustible combustible;
     public abstract void Use();
     public TipoCombustible tipoCombustible;
+    public NaveManager naveManager;
 
     public void GetFuel()
     {

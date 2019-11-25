@@ -8,6 +8,12 @@ public class UIManager : MonoBehaviour
     public RectTransform checkpointImage;
     public RectTransform checkpointArrows;
     public float checkpointDamping = 5;
+    [Tooltip("Pon el gradiente de color por el que pasarán las piezas según vayan perdiendo vida")]
+    public Gradient healthGradient;
+    [Tooltip("Pon las piezas de la nave")]
+    public List<Pieza> piezas = new List<Pieza>();
+    [Tooltip("Pon las piezas del HUD de la nave (el objeto que se llama color), en el mismo orden que en la lista de las piezas")]
+    public List<Image> piezasHUD = new List<Image>();
 
     [Header("Checkpoint limits")]
     public float leftLimit = 50f;
@@ -28,13 +34,14 @@ public class UIManager : MonoBehaviour
     {
         ShowNewestCheckpoint();
         OrientateCheckpointArrows();
+        ColorPiezas();
     }
 
     private void ShowNewestCheckpoint()
     {
         //print(CheckpointScreenPosition);
         Vector3 auxPos;
-        auxPos = new Vector3(Mathf.Clamp(CheckpointScreenPosition.x - (Screen.width * 0.5f), (-Screen.width * 0.5f) + leftLimit, (Screen.width * 0.5f) - rightLimit), Mathf.Clamp(CheckpointScreenPosition.y - (Screen.height * ((myCamera.rect.height * 0.5f) + myCamera.rect.y)), -(Screen.height * myCamera.rect.height * 0.5f) + downLimit, (Screen.height * myCamera.rect.height * 0.5f) - upLimit), 0);
+        auxPos = new Vector3(Mathf.Clamp(CheckpointScreenPosition.x - (Screen.width * 0.5f), (-Screen.width * 0.5f) + leftLimit, (Screen.width * 0.5f) - rightLimit), Mathf.Clamp(CheckpointScreenPosition.y - (Screen.height * ((myCamera.rect.height * 0.5f) + myCamera.rect.y)), -(Screen.height * myCamera.rect.height * 0.5f) + (downLimit * myCamera.rect.height), (Screen.height * myCamera.rect.height * 0.5f) - (upLimit * myCamera.rect.height)), 0);
         if (CheckpointScreenPosition.z < 0)
         {
             Vector3 pos = auxPos;
@@ -43,7 +50,7 @@ public class UIManager : MonoBehaviour
 
             if (pos.x > -(Screen.width * 0.5f) || pos.x < (Screen.width * 0.5f))
             {
-                auxPos = new Vector3(-pos.x, -(Screen.height * myCamera.rect.height * 0.5f) +downLimit, 0);
+                auxPos = new Vector3(-pos.x, -(Screen.height * myCamera.rect.height * 0.5f) +(downLimit * myCamera.rect.height), 0);
             }
             else
             {
@@ -54,6 +61,15 @@ public class UIManager : MonoBehaviour
         }
         checkpointImage.localPosition = Vector3.Lerp(checkpointImage.localPosition, auxPos, Time.deltaTime * checkpointDamping);
 
+    }
+
+    public void ColorPiezas()
+    {
+        for(int i=0;i<piezas.Count;i++)
+        {
+            float health = piezas[i].currentHealth / piezas[i].maxHealth;
+            piezasHUD[i].color = healthGradient.Evaluate(health);
+        }
     }
 
     private void OrientateCheckpointArrows()

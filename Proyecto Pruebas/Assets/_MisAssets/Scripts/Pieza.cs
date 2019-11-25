@@ -11,6 +11,8 @@ public class Pieza : MonoBehaviour {
     [Tooltip("Pon el porcentaje de vida a partir del cual la pieza cambia a estado dañado")]
     [Range(0, 100)]
     public float damagedLimit = 50;
+    [Tooltip("Pon el objeto de la pieza del HUD")]
+    public GameObject piezaHUD;
 
 
 
@@ -42,7 +44,10 @@ public class Pieza : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            Damage(0);
+        }
     }
 
 
@@ -57,8 +62,11 @@ public class Pieza : MonoBehaviour {
 
     public void Damage(float ammount)
     {
+        if (currentHealth <= 0) return;
         GetComponentInParent<Stats>().currentLife -= ammount;
         currentHealth -= ammount;
+        piezaHUD.transform.SetAsLastSibling();
+        piezaHUD.GetComponent<Animator>().SetTrigger("damage");
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         CheckState();
         if(currentHealth<=0)

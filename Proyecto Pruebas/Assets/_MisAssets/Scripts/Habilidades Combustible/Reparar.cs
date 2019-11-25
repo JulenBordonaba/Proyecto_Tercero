@@ -17,7 +17,8 @@ public class Reparar : HabilidadCombustible
 
     private void Start()
     {
-        piezas= new List<Pieza>( GetComponentsInChildren<Pieza>());
+        naveManager = GetComponentInParent<NaveManager>();
+        piezas = new List<Pieza>( GetComponentsInChildren<Pieza>());
         healingParticles.SetActive(isRepairing);
         tipoCombustible = TipoCombustible.Reparar;
         GetFuel();
@@ -50,7 +51,7 @@ public class Reparar : HabilidadCombustible
         isRepairing = true;
         canRepair = false;
         healingParticles.SetActive(true);
-        NaveManager.combustible = combustible;
+        naveManager.combustible = combustible;
         StartCoroutine(Cooldown(combustible.duration));
 
     }

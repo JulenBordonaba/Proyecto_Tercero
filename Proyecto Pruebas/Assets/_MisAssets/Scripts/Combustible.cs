@@ -21,6 +21,7 @@ public class Combustible : MonoBehaviour
 
 
     public float currentAmmount;    //cantidad actual de combustible
+    
 
     private void Start()
     {
