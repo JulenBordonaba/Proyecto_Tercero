@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
     public static List<NaveManager> navesList = new List<NaveManager>();
-    public static UnityEvent OnRaceFinished;
+    public static UnityEvent onRaceFinished;
     public static NaveManager winner;
     
 
@@ -24,8 +25,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         winner = null;
-        OnRaceFinished = new UnityEvent();
-        OnRaceFinished.AddListener(FinishRace);
+        onRaceFinished = new UnityEvent();
+        onRaceFinished.AddListener(FinishRace);
         navesList = new List<NaveManager>();
         List<GameObject> naves = new List<GameObject>();
         for (int i = 0; i < Global.numPlayers; i++)
@@ -80,10 +81,21 @@ public class GameManager : MonoBehaviour
 
         }
     }
+    
+    public static void TimeFinished()
+    {
+        if (GameManager.navesList.Count <= 0) return;
+        foreach(NaveManager nm in GameManager.navesList)
+        {
+            nm.OnShipDestroyed();
+        }
+    }
 
     private void FinishRace()
     {
-        print(" ha ganado el jugador " + winner.GetComponent<InputManager>().numPlayer);
+        Global.winner = winner.GetComponent<InputManager>().numPlayer;
+        SceneManager.LoadScene("Winner");
+        //print(" ha ganado el jugador " + winner.GetComponent<InputManager>().numPlayer);
     }
 
     // Start is called before the first frame update

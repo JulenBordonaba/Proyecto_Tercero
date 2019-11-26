@@ -17,7 +17,10 @@ public class NaveManager : MonoBehaviour
     public float collisionDamageReduction = 0.8f;
     [Tooltip("Pon el prefab de la explosión")]
     public GameObject explosionPrefab;
-    public GameObject gameOverCamera;
+    [Tooltip("Pon el tiempo que se queda la cámaras antes de mostrar el game over")]
+    public float deathTime = 5;
+    [Tooltip("Pon la cámara de la nave")]
+    public Camera myCamera;
     public TrailRenderer trail;
     public Combustible combustible;
     
@@ -33,7 +36,7 @@ public class NaveManager : MonoBehaviour
     private bool fuelInLeft = false;
     private bool fuelInRight = false;
 
-    private void Start()
+    public void Start()
     {
         rb = GetComponent<Rigidbody>();
         GameManager.navesList.Add(this);
@@ -191,12 +194,20 @@ public class NaveManager : MonoBehaviour
 
     public void OnShipDestroyed()
     {
+        StartCoroutine(OnShipDestroyedCoroutine());
+    }
+
+    public IEnumerator OnShipDestroyedCoroutine()
+    {
+        yield return new WaitForEndOfFrame();
+        myCamera.GetComponent<CameraController>().naveDestruida = true;
+        myCamera.gameObject.GetComponent<CameraController>().OnShipDestroyed(deathTime);
         GameManager.navesList.Remove(this);
-        Instantiate(gameOverCamera,new Vector3(0,-500,0),Quaternion.identity);
         GameObject explosion = Instantiate(explosionPrefab, GetComponent<NaveController>().transform.position, Quaternion.identity);
         Destroy(explosion, explosion.GetComponentInChildren<ParticleSystem>().main.duration);
         Destroy(transform.parent.gameObject);
     }
+    
 
 
 

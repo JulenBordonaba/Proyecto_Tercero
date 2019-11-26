@@ -7590,8 +7590,8 @@ MonoBehaviour:
   collisionDamageReduction: 1000
   explosionPrefab: {fileID: 1321514804749026, guid: c2d1c44942087a34987434a99e3462b6,
     type: 3}
-  gameOverCamera: {fileID: 5757429154961185145, guid: 54202baa4a9f3c34ea4aae085d695e75,
-    type: 3}
+  deathTime: 5
+  myCamera: {fileID: 6560895592928145858}
   trail: {fileID: 6040533663170329343}
   combustible: {fileID: 0}
   combustibleActivo: 0
@@ -7629,6 +7629,7 @@ MonoBehaviour:
   rotationDamping: 2
   fieldOfView: 45
   maxSubida: 1
+  inDrift: 0
 --- !u!114 &5045542137871149923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16706,7 +16707,7 @@ MonoBehaviour:
   otherShield:
     serializedVersion: 2
     m_Bits: 8192
-  autoaimRadius: 15
+  autoaimRadius: 30
 --- !u!114 &3918162873843400286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27494,6 +27495,12 @@ PrefabInstance:
       propertyPath: damping
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7732625833104206499, guid: 639ac7944bb681a42b4c77d9e38087af,
+        type: 3}
+      propertyPath: gameOverCamera
+      value: 
+      objectReference: {fileID: 5757429154961185145, guid: 54202baa4a9f3c34ea4aae085d695e75,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 639ac7944bb681a42b4c77d9e38087af, type: 3}
 --- !u!4 &6578168465858855720 stripped

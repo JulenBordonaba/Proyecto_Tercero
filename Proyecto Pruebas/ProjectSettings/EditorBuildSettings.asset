@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MisAssets/Scenes/Blocking Nivel Pruebas Terrenos.unity
     guid: 93f197a4f41a88b40b243b4a7c790104
+  - enabled: 1
+    path: Assets/_MisAssets/Scenes/Winner.unity
+    guid: b6117ba4a7567294f95f130ff6781d05
   m_configObjects: {}

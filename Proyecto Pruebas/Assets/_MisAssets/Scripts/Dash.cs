@@ -16,10 +16,12 @@ public class Dash : MonoBehaviour
 
     private bool canDash = true;    //variable que controla cuando puede dashear la nave
     private InputManager inputManager;
+    private Animator animator;
 
     private void Start()
     {
         inputManager = GetComponent<InputManager>();
+        animator= GetComponent<NaveAnimationManager>().animator;
     }
 
     // Update is called once per frame
@@ -38,6 +40,19 @@ public class Dash : MonoBehaviour
         //dar el impulso
         GetComponent<Rigidbody>().AddForce(GetComponent<NaveController>().modelTransform.right * direction * dashForce, ForceMode.VelocityChange);
 
+        //animación
+        switch(direction)
+        {
+            case 1:
+                animator.SetLayerWeight(animator.GetLayerIndex("Dash_Derecha"), 1);
+                break;
+            case -1:
+                animator.SetLayerWeight(animator.GetLayerIndex("Dash_Izquierda"), 1);
+                break;
+            default:
+                break;
+        }
+
         StartCoroutine(EndDash());
 
     }
@@ -45,6 +60,8 @@ public class Dash : MonoBehaviour
     private IEnumerator EndDash()
     {
         yield return new WaitForSeconds(duration);
+        animator.SetLayerWeight(animator.GetLayerIndex("Dash_Derecha"), 0);
+        animator.SetLayerWeight(animator.GetLayerIndex("Dash_Izquierda"), 0);
         for (int i = 0; i < 10; i++)
         {
             Vector3 locVel = GetComponent<NaveController>().modelTransform.InverseTransformDirection(GetComponent<Rigidbody>().velocity);

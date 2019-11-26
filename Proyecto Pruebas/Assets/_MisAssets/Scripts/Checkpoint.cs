@@ -47,7 +47,7 @@ public class Checkpoint : MonoBehaviour
                 if(isFinal)
                 {
                     GameManager.winner = naveManager;
-                    GameManager.OnRaceFinished.Invoke();
+                    GameManager.onRaceFinished.Invoke();
                 }
                 else
                 {

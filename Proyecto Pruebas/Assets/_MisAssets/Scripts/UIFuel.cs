@@ -38,7 +38,6 @@ public class UIFuel : MonoBehaviour
 
     private void FuelBarHeight()
     {
-        print(FuelAmmount);
         RectTransform rect = colorObject.GetComponent<RectTransform>();
         rect.localPosition = new Vector3(rect.localPosition.x, Mathf.Lerp(0, minFuelY, (1-FuelAmmount)), rect.localPosition.z);
     }

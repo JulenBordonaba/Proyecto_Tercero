@@ -50,7 +50,7 @@ public class NaveController : MonoBehaviour
 
     private bool inRecoil = false;  //variable que controla cuando la nave esta cogiendo rebufo
     public bool inBoost { get; set; }   //variable que controla cuando la nave esta en turbo
-    private bool inDrift = false;   //variable que controla cuando esta derrapando la nave
+    public bool inDrift = false;   //variable que controla cuando esta derrapando la nave
 
     private Rigidbody rb;   //rigidbody de la nave
     private float position = 0;     //variable que indica la posición de la nave en la carrera, sirve para hacer cálculos de velocidad

@@ -12,7 +12,9 @@ public class CameraController : Photon.PunBehaviour
     [Range(1f, 10f)]
     public float damping = 4f;
     public float cameraDampingMultiplayer = 1;
-    
+
+    public GameObject gameOverCamera;
+
 
     [Header("Camera Limits")]
     [Range(0f, 200f)]
@@ -72,6 +74,23 @@ public class CameraController : Photon.PunBehaviour
 
         CameraFocus(!backCamera);
         
+    }
+
+    public void OnShipDestroyed(float time)
+    {
+        transform.SetParent(null);
+        StartCoroutine(GameOver(time));
+    }
+    
+    public IEnumerator GameOver(float time)
+    {
+        yield return new WaitForSeconds(time);
+        GameObject gameOverCam=Instantiate(gameOverCamera, new Vector3(0, -500, 0), Quaternion.identity);
+        if(Global.numPlayers==1)
+        {
+            gameOverCam.GetComponent<Camera>().rect = new Rect(new Vector2(0, 0), new Vector2(1, 1));
+        }
+        Destroy(gameObject);
     }
 
     private void CameraFocus(bool front)
