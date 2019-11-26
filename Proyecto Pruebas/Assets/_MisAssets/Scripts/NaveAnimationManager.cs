@@ -30,7 +30,7 @@ public class NaveAnimationManager : MonoBehaviour
         animator.SetBool("inDrift", naveController.inDrift);
         Giro();
         Acceleration();
-        FuelState();
+        //FuelState();
     }
 
     public void FuelState()

@@ -17,6 +17,7 @@ public class Escudo : HabilidadCombustible
         shield.SetActive(inShield);
         tipoCombustible = TipoCombustible.Escudo;
         GetFuel();
+        animator = GetComponent<NaveAnimationManager>().animator;
     }
 
     public override void Use()
@@ -44,6 +45,7 @@ public class Escudo : HabilidadCombustible
 
         naveManager.combustible = combustible;
 
+        StartCoroutine(ActivateFuelAnimation("Escudo"));
         //Inicar corrutina con la duración del escudo
         StartCoroutine(DeactivateShield(combustible.duration));
     }
@@ -51,9 +53,11 @@ public class Escudo : HabilidadCombustible
     {
         yield return new WaitForSeconds(waitTime);
 
+        StartCoroutine(DeactivateFuelAnimation("Turbo"));
         //desactivar escudo
         shield.SetActive(false);
         //GetComponentInParent<Animator>().SetBool("inShield",false);
+
         yield return new WaitForSeconds(cooldown);
         //desactivar variables de control de estado escudo
         inShield = false;

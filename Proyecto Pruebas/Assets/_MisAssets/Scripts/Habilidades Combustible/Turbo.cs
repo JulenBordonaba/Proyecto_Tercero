@@ -20,6 +20,7 @@ public class Turbo : HabilidadCombustible
 
         tipoCombustible = TipoCombustible.Turbo;
         GetFuel();
+        animator = GetComponent<NaveAnimationManager>().animator;
     }
 
     public override void Use()
@@ -46,6 +47,7 @@ public class Turbo : HabilidadCombustible
         naveController.inBoost = true;
         inTurbo = true;
         StartCoroutine(Cooldown(combustible));
+        StartCoroutine(ActivateFuelAnimation("Turbo"));
         naveManager.combustible = combustible;
 
 
@@ -57,6 +59,7 @@ public class Turbo : HabilidadCombustible
     {
         yield return new WaitForSeconds(combustible.duration);
         naveController.inBoost = false;
+        StartCoroutine(DeactivateFuelAnimation("Turbo"));
         yield return new WaitForSeconds(cooldown);
         inTurbo = false;
     }

@@ -113,7 +113,7 @@ public class PlanningManager : MonoBehaviour
             //girar
             GetComponent<NaveController>().modelTransform.localRotation = Quaternion.Euler(GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.x, GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.y + (inputManager.MainHorizontal() * GetComponent<Maneuverability>().maneuver * maneuverLimitator * Time.deltaTime), GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.z);
 
-            //RegulateVelocity();
+            RegulateVelocity();
         }
     }
 
@@ -135,6 +135,10 @@ public class PlanningManager : MonoBehaviour
         if(locVel.z > GetComponent<NaveController>().VelocityFormula)
         {
             locVel = new Vector3(locVel.x, locVel.y, GetComponent<NaveController>().VelocityFormula );
+        }
+        if (locVel.x > GetComponent<NaveController>().VelocityFormula*0.25f)
+        {
+            locVel = new Vector3(GetComponent<NaveController>().VelocityFormula*0.25f, locVel.y, locVel.z);
         }
         //convertimos la velocidad local en la velocidad global y la aplicamos
         rb.velocity = GetComponent<NaveController>().modelTransform.TransformDirection(locVel);

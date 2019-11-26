@@ -6,14 +6,22 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
+    public static int finishMinutes;
+    public static float finishSeconds;
+
     public int minutes = 0;
     public float seconds = 0;
 
     public Text timerText;
 
+    private int startMinutes;
+    private float startSeconds;
+
     // Start is called before the first frame update
     void Start()
     {
+        startMinutes = minutes;
+        startSeconds = seconds;
         ShowTimer();
     }
 
@@ -26,6 +34,14 @@ public class Timer : MonoBehaviour
         }
         Countdown();
         ShowTimer();
+    }
+
+    private void GetTime()
+    {
+        float startTime = (startMinutes * 60) + startSeconds;
+        float leftTime = ((minutes * 60) + seconds) - startTime;
+        finishMinutes = Mathf.FloorToInt(leftTime / 60);
+        finishSeconds = leftTime - (finishMinutes * 60);
     }
 
     private void Countdown()

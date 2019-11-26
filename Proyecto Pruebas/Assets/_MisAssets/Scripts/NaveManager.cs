@@ -136,7 +136,7 @@ public class NaveManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Obstacle")
+        if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag=="Nave")
         {
             DamageManager dm = collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>();
             float impactForce = Vector3.Dot(collision.contacts[0].normal, collision.relativeVelocity);

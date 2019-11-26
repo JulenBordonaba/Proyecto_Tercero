@@ -22,6 +22,7 @@ public class Reparar : HabilidadCombustible
         healingParticles.SetActive(isRepairing);
         tipoCombustible = TipoCombustible.Reparar;
         GetFuel();
+        animator = GetComponent<NaveAnimationManager>().animator;
     }
 
     private void Update()
@@ -52,6 +53,7 @@ public class Reparar : HabilidadCombustible
         canRepair = false;
         healingParticles.SetActive(true);
         naveManager.combustible = combustible;
+        StartCoroutine(ActivateFuelAnimation("Reparar"));
         StartCoroutine(Cooldown(combustible.duration));
 
     }
@@ -78,6 +80,7 @@ public class Reparar : HabilidadCombustible
         //desactivar variables de control de estado escudo
         isRepairing = false;
         healingParticles.SetActive(false);
+        StartCoroutine(DeactivateFuelAnimation("Turbo"));
         //GetComponentInParent<Animator>().SetBool("inShield",false);
         yield return new WaitForSeconds(cooldown);
         canRepair = true;

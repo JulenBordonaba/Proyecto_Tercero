@@ -17,6 +17,7 @@ public class Salto : HabilidadCombustible
         naveManager = GetComponentInParent<NaveManager>();
         tipoCombustible = TipoCombustible.Salto;
         GetFuel();
+        animator = GetComponent<NaveAnimationManager>().animator;
     }
 
     public override void Use()
@@ -32,6 +33,7 @@ public class Salto : HabilidadCombustible
 
         //Saltar
         inJump = true;
+        StartCoroutine(ActivateFuelAnimation("Salto"));
         StartCoroutine(Cooldown());
         GetComponent<Rigidbody>().AddForce(/*Vector3.up*/GetComponent<NaveController>().modelTransform.up * jumpForce, ForceMode.Impulse);
         naveManager.combustible = combustible;
@@ -46,6 +48,9 @@ public class Salto : HabilidadCombustible
 
     private IEnumerator Cooldown()
     {
+        yield return new WaitForSeconds(combustible.duration);
+
+        StartCoroutine(DeactivateFuelAnimation("Salto"));
         yield return new WaitForSeconds(cooldown);
         inJump = false;
     }
