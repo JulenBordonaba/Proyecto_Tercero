@@ -7204,7 +7204,7 @@ MonoBehaviour:
   rayOffset: 8
   damping: 2
   upDamping: 2
-  extraFallImpulse: 2
+  extraFallImpulse: 10
 --- !u!114 &5045542137871149926
 MonoBehaviour:
   m_ObjectHideFlags: 0

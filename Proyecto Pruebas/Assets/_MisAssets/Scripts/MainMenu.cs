@@ -6,18 +6,56 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    
+    public List<Text> recordTexts = new List<Text>();
 
     private EventSystem evt;
     private GameObject sel;
 
+    private void Awake()
+    {
+        LoadScores();
+        
+    }
+
     private void Start()
     {
+        ScoresToTexts();
         evt = EventSystem.current;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
     }
 
+    private void LoadScores()
+    {
+        for(int i=0;i<3;i++)
+        {
+            if (PlayerPrefs.HasKey("record" + (i + 1).ToString()))
+            {
+                GameManager.records[i] = TimeScore.TimeToScore(PlayerPrefs.GetFloat("record" + (i + 1).ToString()));
+            }
+            else
+            {
+                GameManager.records[i] = TimeScore.TimeToScore(-1);
+                PlayerPrefs.SetFloat(("record" + (i + 1).ToString()), TimeScore.ScoreToTime(GameManager.records[i]));
+            }
+        }
+        
+    }
+
+    private void ScoresToTexts()
+    {
+        for(int i=0;i<recordTexts.Count;i++)
+        {
+            if(TimeScore.ScoreToTime(GameManager.records[i])==-1)
+            {
+                recordTexts[i].text = (i + 1).ToString() + "º --' --''";
+            }
+            else
+            {
+                recordTexts[i].text = (i + 1).ToString() + "º " + GameManager.records[i].minutes + "' " + Mathf.FloorToInt(GameManager.records[i].seconds) + "''";
+            }
+        }
+    }
 
     private void Update()
     {

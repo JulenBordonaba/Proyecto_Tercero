@@ -6,8 +6,6 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    public static int finishMinutes;
-    public static float finishSeconds;
 
     public int minutes = 0;
     public float seconds = 0;
@@ -36,13 +34,13 @@ public class Timer : MonoBehaviour
         ShowTimer();
     }
 
-    private void GetTime()
+    public void GetTime()
     {
         float startTime = (startMinutes * 60) + startSeconds;
-        float leftTime = ((minutes * 60) + seconds) - startTime;
-        finishMinutes = Mathf.FloorToInt(leftTime / 60);
-        finishSeconds = leftTime - (finishMinutes * 60);
+        float leftTime = startTime - ((minutes * 60) + seconds);
+        TimeScore.currentScore = TimeScore.TimeToScore(leftTime);
     }
+    
 
     private void Countdown()
     {

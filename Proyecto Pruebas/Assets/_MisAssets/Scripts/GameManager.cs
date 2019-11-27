@@ -10,7 +10,8 @@ public class GameManager : MonoBehaviour
     public static List<NaveManager> navesList = new List<NaveManager>();
     public static UnityEvent onRaceFinished;
     public static NaveManager winner;
-    
+    public static TimeScore[] records = new TimeScore[3];
+
 
     [Tooltip("Pon el prefab de la nave")]
     public GameObject navePrefab;
@@ -81,6 +82,32 @@ public class GameManager : MonoBehaviour
 
         }
     }
+
+    public void UpdateScore()
+    {
+        TimeScore aux = new TimeScore();
+        bool newRecord = false;
+        for (int i = 0; i < 3; i++)
+        {
+            if (PlayerPrefs.HasKey("record" + (i + 1).ToString()))
+            {
+                if(newRecord)
+                {
+                    TimeScore aux2 = records[i];
+                    records[i] = aux;
+                    aux = aux2;
+
+                }
+                else if(TimeScore.ScoreToTime(TimeScore.currentScore)<TimeScore.ScoreToTime(records[i]) || TimeScore.ScoreToTime(records[i])==-1)
+                {
+                    newRecord = true;
+                    aux = records[i];
+                    records[i] = TimeScore.currentScore;
+                }
+            }
+            PlayerPrefs.SetFloat(("record" + (i + 1).ToString()), TimeScore.ScoreToTime(records[i]));
+        }
+    }
     
     public static void TimeFinished()
     {
@@ -93,6 +120,8 @@ public class GameManager : MonoBehaviour
 
     private void FinishRace()
     {
+        GetComponent<Timer>().GetTime();
+        UpdateScore();
         Global.winner = winner.GetComponent<InputManager>().numPlayer;
         SceneManager.LoadScene("Winner");
         //print(" ha ganado el jugador " + winner.GetComponent<InputManager>().numPlayer);
