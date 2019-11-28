@@ -104,6 +104,7 @@ public class GameManager : MonoBehaviour
                     aux = records[i];
                     records[i] = TimeScore.currentScore;
                 }
+                
             }
             PlayerPrefs.SetFloat(("record" + (i + 1).ToString()), TimeScore.ScoreToTime(records[i]));
         }

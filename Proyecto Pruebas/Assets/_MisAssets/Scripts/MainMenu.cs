@@ -48,11 +48,11 @@ public class MainMenu : MonoBehaviour
         {
             if(TimeScore.ScoreToTime(GameManager.records[i])==-1)
             {
-                recordTexts[i].text = (i + 1).ToString() + "º --' --''";
+                recordTexts[i].text = (i + 1).ToString() + "º   --' --''";
             }
             else
             {
-                recordTexts[i].text = (i + 1).ToString() + "º " + GameManager.records[i].minutes + "' " + Mathf.FloorToInt(GameManager.records[i].seconds) + "''";
+                recordTexts[i].text = (i + 1).ToString() + "º   " + GameManager.records[i].minutes + "' " + Mathf.FloorToInt(GameManager.records[i].seconds) + "''";
             }
         }
     }
