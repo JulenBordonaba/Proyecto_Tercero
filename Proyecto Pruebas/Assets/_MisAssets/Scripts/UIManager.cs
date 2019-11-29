@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     public List<Pieza> piezas = new List<Pieza>();
     [Tooltip("Pon las piezas del HUD de la nave (el objeto que se llama color), en el mismo orden que en la lista de las piezas")]
     public List<Image> piezasHUD = new List<Image>();
+    public Text contadorCheckpointsText;
 
     [Header("Checkpoint limits")]
     public float leftLimit = 50f;
@@ -35,6 +36,8 @@ public class UIManager : MonoBehaviour
         ShowNewestCheckpoint();
         OrientateCheckpointArrows();
         ColorPiezas();
+
+        contadorCheckpointsText.text = CheckpointManager.currentCheckpoint.ToString() + " / " + CheckpointManager.numCheckpoints;
     }
 
     private void ShowNewestCheckpoint()

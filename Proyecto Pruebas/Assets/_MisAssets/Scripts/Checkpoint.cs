@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
+    public float fuelRechargeAmmount = 20f;
     public bool isFinal = false;
     public GameObject checkpointGO;
+    public GameObject newestIcon;
+    public GameObject notNewestIcon;
 
     private List<NaveManager> passedShips = new List<NaveManager>();
 
@@ -13,6 +16,7 @@ public class Checkpoint : MonoBehaviour
     {
         CheckpointManager.newest = this;
         checkpointGO.SetActive(true);
+        GetComponentInChildren<RadarTarget>().radarImage = newestIcon;
     }
 
     private bool CheckShips(NaveManager naveManager)
@@ -30,7 +34,8 @@ public class Checkpoint : MonoBehaviour
 
     private void RechargeFuel(NaveManager naveManager)
     {
-
+        naveManager.combustible.currentAmmount += fuelRechargeAmmount;
+        naveManager.combustible.currentAmmount = Mathf.Clamp(naveManager.combustible.currentAmmount, 0, naveManager.combustible.deposit);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,6 +56,7 @@ public class Checkpoint : MonoBehaviour
                 }
                 else
                 {
+                    GetComponentInChildren<RadarTarget>().radarImage = notNewestIcon;
                     CheckpointManager.OnCheckpointUnlocked.Invoke();
                 }
             }

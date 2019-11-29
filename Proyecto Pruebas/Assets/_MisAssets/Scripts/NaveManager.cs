@@ -50,6 +50,7 @@ public class NaveManager : MonoBehaviour
     private void Update()
     {
         FuelManager();
+        combustible.PasiveConsumption();
     }
 
     private void AsignarCombustibleInicial()
@@ -154,8 +155,11 @@ public class NaveManager : MonoBehaviour
                 collision.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
             }
         }
+        
 
     }
+
+    
 
     public void SetWeaponObjectives(LayerMask layers)
     {

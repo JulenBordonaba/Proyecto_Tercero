@@ -27,6 +27,12 @@ public class Combustible : MonoBehaviour
     {
         currentAmmount = deposit;
     }
+    
+
+    public void PasiveConsumption()
+    {
+        currentAmmount -= (pasiveConsumption * Time.deltaTime) / 5;
+    }
 
 
 

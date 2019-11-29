@@ -23,6 +23,7 @@ public class Radar : MonoBehaviour
     {
         areaCollider = GetComponent<SphereCollider>();
         areaCollider.radius = areaRadius;
+        CheckpointManager.OnCheckpointUnlocked.AddListener(ChangeCheckpointColor);
     }
 
     // Update is called once per frame
@@ -41,6 +42,13 @@ public class Radar : MonoBehaviour
 
     private void ShowObjectIcon(GameObject target)
     {
+        if (target == null)
+        {
+            objectsInArea.Remove(target);
+            StartCoroutine(DestroyOnEndOfFrame(target));
+            return;
+        }
+        
         Vector3 objectScreenPosition = myCamera.WorldToScreenPoint(target.transform.position);
         objectScreenPosition = new Vector3(objectScreenPosition.x - (Screen.width * 0.5f), RadarY, 0);
         if(objectScreenPosition.x<RadarLeft || objectScreenPosition.x>RadarRight || myCamera.WorldToScreenPoint(target.transform.position).z<0)
@@ -53,6 +61,17 @@ public class Radar : MonoBehaviour
         }
 
         objectsInAreaIcons[target].GetComponent<RectTransform>().localPosition = objectScreenPosition;
+    }
+
+    public void ChangeCheckpointColor()
+    {
+        foreach(GameObject go in objectsInArea)
+        {
+            if(go.GetComponentInParent<Checkpoint>())
+            {
+                StartCoroutine(ResetCheckpointColor(go));
+            }
+        }
     }
 
 
@@ -74,6 +93,18 @@ public class Radar : MonoBehaviour
             objectsInArea.Remove(other.gameObject);
             StartCoroutine(DestroyOnEndOfFrame(other.gameObject));
         }
+    }
+
+    public IEnumerator ResetCheckpointColor(GameObject key)
+    {
+        GameObject objToDestroy = objectsInAreaIcons[key];
+        yield return new WaitForEndOfFrame();
+
+        objectsInAreaIcons.Remove(key);
+        Destroy(objToDestroy);
+        GameObject nuevo = Instantiate(key.GetComponent<RadarTarget>().radarImage, radar.transform.parent);
+        nuevo.transform.SetSiblingIndex(nuevo.transform.parent.childCount - 2);
+        objectsInAreaIcons.Add(key.gameObject, nuevo);
     }
 
     private IEnumerator DestroyOnEndOfFrame(GameObject key)

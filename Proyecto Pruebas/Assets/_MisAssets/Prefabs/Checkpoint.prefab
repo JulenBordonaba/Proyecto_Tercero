@@ -45,9 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb9e62fc05230549bd63efe281db852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  newest: 0
   isFinal: 0
   checkpointGO: {fileID: 8907737254322808050}
+  newestIcon: {fileID: 4303918581577640033, guid: b3ca7998a415ec241b19aa20c2475d25,
+    type: 3}
+  notNewestIcon: {fileID: 4303918581577640033, guid: 186af2c969b2acd4ea4d29295914cfcf,
+    type: 3}
 --- !u!54 &4050709406000763196
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -76,8 +79,9 @@ GameObject:
   - component: {fileID: 1647155096810692315}
   - component: {fileID: 3747382457591305207}
   - component: {fileID: 6208172077465375045}
+  - component: {fileID: 8358307468312190198}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -155,6 +159,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8358307468312190198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4408343779282310217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feb7f89c98c2b454dbd95ab1c218d7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radarImage: {fileID: 4303918581577640033, guid: 186af2c969b2acd4ea4d29295914cfcf,
+    type: 3}
 --- !u!1001 &2005805294490010336
 PrefabInstance:
   m_ObjectHideFlags: 0
