@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3429233192663672750}
   - component: {fileID: 3429233192660772750}
   - component: {fileID: 3429233192661902670}
+  - component: {fileID: 2724576640854905013}
   m_Layer: 0
   m_Name: 3D_prop_prefab_cliffVeryBig_001
   m_TagString: Untagged
@@ -77,3 +78,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &2724576640854905013
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3429233192663907214}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: f26ba077fc0b44aa98ece4e68647d4e2, type: 3}

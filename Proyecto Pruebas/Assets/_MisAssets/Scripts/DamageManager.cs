@@ -7,7 +7,7 @@ public class DamageManager : MonoBehaviour
     [Tooltip("Pon el tiempo de inmunidad que tiene la nave despues de recibir daño")]
     public float inmunityCooldown;
     [Tooltip("Pon el daño mínimo para que pueda recibir daño")]
-    public float minDamage;
+    public float minDamage=-1;
 
     private bool canBeDamaged = true;
 
@@ -25,10 +25,9 @@ public class DamageManager : MonoBehaviour
 
     public void TakeDamage(float damage, bool weapon)
     {
-        print("TakeDamage1");
+        if (minDamage < 0) return;
         if (!canBeDamaged) return;
         if (damage < minDamage && !weapon) return;
-        print("TakeDamage2");
         //recibir daño
         if(GetComponent<Stats>())
         {
