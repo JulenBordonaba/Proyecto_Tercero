@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   life: 0
-  collisionDamage: 0
+  collisionDamage: 50
   shotDamage: 0
   weight: 0
 --- !u!114 &8847059254764285209
