@@ -43,8 +43,9 @@ public class ShootRay : ShootWeapon
             //poner partículas de impacto
             GameObject impactGO = Instantiate(impactPrefab, hit.point, Quaternion.identity);
             impactGO.transform.up = hit.normal;
+            impactGO.GetComponentInChildren<ParticleSystem>().Play();
             //destruir efecto
-            Destroy(impactGO, impactGO.GetComponent<ParticleSystem>().main.duration);
+            Destroy(impactGO, impactGO.GetComponentInChildren<ParticleSystem>().main.duration);
             //hacer daño al objetivo
             DamageObjective(hit.collider.gameObject);
         }

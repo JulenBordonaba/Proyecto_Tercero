@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1592953445641635582}
   - component: {fileID: 1592953445641635583}
   - component: {fileID: 1592953445641635580}
+  - component: {fileID: 5673119285447227797}
   m_Layer: 0
   m_Name: rock_01 (6)
   m_TagString: Untagged
@@ -87,11 +88,25 @@ MeshCollider:
   m_GameObject: {fileID: 1592953445641635578}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 94fa51122f9c6a5408f4fca9c0c65b11, type: 3}
+--- !u!136 &5673119285447227797
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592953445641635578}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 90.10514
+  m_Height: 263.87463
+  m_Direction: 1
+  m_Center: {x: -1.4451982, y: 117.08489, z: 183.3025}
 --- !u!1 &1592953445716180922
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,6 +119,7 @@ GameObject:
   - component: {fileID: 1592953445716180926}
   - component: {fileID: 1592953445716180927}
   - component: {fileID: 1592953445716180924}
+  - component: {fileID: 3218516299351271023}
   m_Layer: 0
   m_Name: rock_01 (7)
   m_TagString: Untagged
@@ -179,11 +195,25 @@ MeshCollider:
   m_GameObject: {fileID: 1592953445716180922}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 94fa51122f9c6a5408f4fca9c0c65b11, type: 3}
+--- !u!136 &3218516299351271023
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592953445716180922}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 90.10513
+  m_Height: 263.87457
+  m_Direction: 1
+  m_Center: {x: -1.4481256, y: 117.08389, z: 183.3025}
 --- !u!1 &1592953446096067659
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +226,7 @@ GameObject:
   - component: {fileID: 1592953446096067663}
   - component: {fileID: 1592953446096067660}
   - component: {fileID: 1592953446096067661}
+  - component: {fileID: 4024732660467501599}
   m_Layer: 0
   m_Name: rock_01 (2)
   m_TagString: Untagged
@@ -271,11 +302,25 @@ MeshCollider:
   m_GameObject: {fileID: 1592953446096067659}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 94fa51122f9c6a5408f4fca9c0c65b11, type: 3}
+--- !u!136 &4024732660467501599
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592953446096067659}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 90.10514
+  m_Height: 263.8746
+  m_Direction: 1
+  m_Center: {x: -1.4471508, y: 117.0839, z: 183.3025}
 --- !u!1 &1592953446490026655
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,6 +333,7 @@ GameObject:
   - component: {fileID: 1592953446490026627}
   - component: {fileID: 1592953446490026624}
   - component: {fileID: 1592953446490026625}
+  - component: {fileID: 1098797847994848753}
   m_Layer: 0
   m_Name: rock_01 (8)
   m_TagString: Untagged
@@ -363,11 +409,25 @@ MeshCollider:
   m_GameObject: {fileID: 1592953446490026655}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 94fa51122f9c6a5408f4fca9c0c65b11, type: 3}
+--- !u!136 &1098797847994848753
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592953446490026655}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 90.10514
+  m_Height: 263.87463
+  m_Direction: 1
+  m_Center: {x: -1.4471513, y: 117.08489, z: 183.3025}
 --- !u!1 &1592953446559343436
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,6 +440,7 @@ GameObject:
   - component: {fileID: 1592953446559343408}
   - component: {fileID: 1592953446559343409}
   - component: {fileID: 1592953446559343438}
+  - component: {fileID: 2920766951964489480}
   m_Layer: 0
   m_Name: rock_01 (5)
   m_TagString: Untagged
@@ -455,11 +516,25 @@ MeshCollider:
   m_GameObject: {fileID: 1592953446559343436}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 94fa51122f9c6a5408f4fca9c0c65b11, type: 3}
+--- !u!136 &2920766951964489480
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592953446559343436}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 90.10514
+  m_Height: 263.87463
+  m_Direction: 1
+  m_Center: {x: -1.4471486, y: 117.08416, z: 183.3025}
 --- !u!1 &1592953446700412138
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,6 +547,7 @@ GameObject:
   - component: {fileID: 1592953446700412142}
   - component: {fileID: 1592953446700412143}
   - component: {fileID: 1592953446700412140}
+  - component: {fileID: 8871756787702725844}
   m_Layer: 0
   m_Name: rock_01 (3)
   m_TagString: Untagged
@@ -547,11 +623,25 @@ MeshCollider:
   m_GameObject: {fileID: 1592953446700412138}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 94fa51122f9c6a5408f4fca9c0c65b11, type: 3}
+--- !u!136 &8871756787702725844
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592953446700412138}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 90.10515
+  m_Height: 263.87463
+  m_Direction: 1
+  m_Center: {x: -1.4471517, y: 117.084045, z: 183.30055}
 --- !u!1 &1592953447381076789
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,6 +654,7 @@ GameObject:
   - component: {fileID: 1592953447381076793}
   - component: {fileID: 1592953447381076790}
   - component: {fileID: 1592953447381076791}
+  - component: {fileID: 5092515948398303027}
   m_Layer: 0
   m_Name: rock_01 (1)
   m_TagString: Untagged
@@ -639,11 +730,25 @@ MeshCollider:
   m_GameObject: {fileID: 1592953447381076789}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 94fa51122f9c6a5408f4fca9c0c65b11, type: 3}
+--- !u!136 &5092515948398303027
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592953447381076789}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 90.10515
+  m_Height: 263.87457
+  m_Direction: 1
+  m_Center: {x: -1.4481281, y: 117.08414, z: 183.30247}
 --- !u!1 &1592953447482361101
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,6 +761,7 @@ GameObject:
   - component: {fileID: 1592953447482361585}
   - component: {fileID: 1592953447482361102}
   - component: {fileID: 1592953447482361103}
+  - component: {fileID: 6511897505639515617}
   m_Layer: 0
   m_Name: rock_01 (4)
   m_TagString: Untagged
@@ -731,11 +837,25 @@ MeshCollider:
   m_GameObject: {fileID: 1592953447482361101}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 4300000, guid: 94fa51122f9c6a5408f4fca9c0c65b11, type: 3}
+--- !u!136 &6511897505639515617
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1592953447482361101}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 90.10513
+  m_Height: 263.87457
+  m_Direction: 1
+  m_Center: {x: -1.4471496, y: 117.083885, z: 183.30247}
 --- !u!1 &2049731378869953854
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,6 +889,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &4939928531062494917
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3216758674395960391}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 90.10513
+  m_Height: 263.87463
+  m_Direction: 1
+  m_Center: {x: -1.4461792, y: 117.083916, z: 183.30055}
 --- !u!1 &5705841386610928965
 GameObject:
   m_ObjectHideFlags: 0
@@ -901,6 +1035,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (17)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -971,11 +1110,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5245364
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (17)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268937489999 stripped
@@ -991,6 +1125,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (21)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1061,11 +1200,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.6457372
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (21)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268844211776 stripped
@@ -1081,6 +1215,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (8)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1151,11 +1290,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.64574
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (8)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268812527921 stripped
@@ -1171,6 +1305,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 6511415532774402523, guid: a97cf560362a0944b863af3cdbc7fa45,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRockVertical_001
+      objectReference: {fileID: 0}
     - target: {fileID: 6511415532774569467, guid: a97cf560362a0944b863af3cdbc7fa45,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1241,11 +1380,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 7.134823
       objectReference: {fileID: 0}
-    - target: {fileID: 6511415532774402523, guid: a97cf560362a0944b863af3cdbc7fa45,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRockVertical_001
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a97cf560362a0944b863af3cdbc7fa45, type: 3}
 --- !u!4 &5496220400515776789 stripped
@@ -1261,6 +1395,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (20)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1331,11 +1470,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.6457372
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (20)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268729610415 stripped
@@ -1351,6 +1485,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1421,11 +1560,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 9.504982
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (2)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268661416027 stripped
@@ -1441,6 +1575,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (7)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1511,11 +1650,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.64574
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (7)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268650502830 stripped
@@ -1531,6 +1665,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 4280843327504633186, guid: a40f28374784bbd4e8579d35abe34b51,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midBigRock_001
+      objectReference: {fileID: 0}
     - target: {fileID: 4280843327504666946, guid: a40f28374784bbd4e8579d35abe34b51,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1601,11 +1740,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 6.137302
       objectReference: {fileID: 0}
-    - target: {fileID: 4280843327504633186, guid: a40f28374784bbd4e8579d35abe34b51,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midBigRock_001
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a40f28374784bbd4e8579d35abe34b51, type: 3}
 --- !u!4 &3275193262784678668 stripped
@@ -1621,6 +1755,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (19)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1691,11 +1830,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.6457398
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (19)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268406307854 stripped
@@ -1711,6 +1845,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 4280843327504633186, guid: a40f28374784bbd4e8579d35abe34b51,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midBigRock_001 (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 4280843327504666946, guid: a40f28374784bbd4e8579d35abe34b51,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1781,11 +1920,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 6.137302
       objectReference: {fileID: 0}
-    - target: {fileID: 4280843327504633186, guid: a40f28374784bbd4e8579d35abe34b51,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midBigRock_001 (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a40f28374784bbd4e8579d35abe34b51, type: 3}
 --- !u!4 &3275193262919858130 stripped
@@ -1801,6 +1935,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (9)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1871,11 +2010,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.64574
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (9)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268260576360 stripped
@@ -1891,6 +2025,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (4)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1961,11 +2100,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 9.504966
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (4)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268140953269 stripped
@@ -1981,6 +2115,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (6)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2051,11 +2190,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 9.504973
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (6)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268125272927 stripped
@@ -2071,6 +2205,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2141,11 +2280,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 9.504966
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268077717576 stripped
@@ -2161,6 +2295,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (5)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2231,11 +2370,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 9.504966
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (5)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755268036847361 stripped
@@ -2251,6 +2385,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 4405569444200565509, guid: be2e23a78093f2c43a3c7b25453a10d2,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_001
+      objectReference: {fileID: 0}
     - target: {fileID: 4405569444200601381, guid: be2e23a78093f2c43a3c7b25453a10d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2320,11 +2459,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 15.788484
-      objectReference: {fileID: 0}
-    - target: {fileID: 4405569444200565509, guid: be2e23a78093f2c43a3c7b25453a10d2,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_001
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be2e23a78093f2c43a3c7b25453a10d2, type: 3}
@@ -2431,6 +2565,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (13)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2501,11 +2640,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5245404
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (13)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755270005554322 stripped
@@ -2521,6 +2655,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 4280843327504633186, guid: a40f28374784bbd4e8579d35abe34b51,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midBigRock_001 (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 4280843327504666946, guid: a40f28374784bbd4e8579d35abe34b51,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2591,11 +2730,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 6.137298
       objectReference: {fileID: 0}
-    - target: {fileID: 4280843327504633186, guid: a40f28374784bbd4e8579d35abe34b51,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midBigRock_001 (2)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a40f28374784bbd4e8579d35abe34b51, type: 3}
 --- !u!4 &3275193261272434151 stripped
@@ -2611,6 +2745,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (10)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2680,11 +2819,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 3.64574
-      objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (10)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
@@ -2791,6 +2925,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 6511415532774402523, guid: a97cf560362a0944b863af3cdbc7fa45,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRockVertical_001 (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 6511415532774569467, guid: a97cf560362a0944b863af3cdbc7fa45,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2860,11 +2999,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 7.134823
-      objectReference: {fileID: 0}
-    - target: {fileID: 6511415532774402523, guid: a97cf560362a0944b863af3cdbc7fa45,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRockVertical_001 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a97cf560362a0944b863af3cdbc7fa45, type: 3}
@@ -2971,6 +3105,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 4405569444200565509, guid: be2e23a78093f2c43a3c7b25453a10d2,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_001 (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 4405569444200601381, guid: be2e23a78093f2c43a3c7b25453a10d2,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3041,11 +3180,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 15.788484
       objectReference: {fileID: 0}
-    - target: {fileID: 4405569444200565509, guid: be2e23a78093f2c43a3c7b25453a10d2,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_001 (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be2e23a78093f2c43a3c7b25453a10d2, type: 3}
 --- !u!4 &3114508149102236226 stripped
@@ -3061,6 +3195,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (11)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3131,11 +3270,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.64574
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (11)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755269620060182 stripped
@@ -3151,6 +3285,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (12)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3221,11 +3360,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.6457472
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (12)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755269533168385 stripped
@@ -3241,6 +3375,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (3)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3311,11 +3450,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 9.504966
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (3)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755269501567762 stripped
@@ -3331,6 +3465,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (18)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3400,11 +3539,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 3.64574
-      objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (18)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
@@ -3561,11 +3695,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -5.3190002
       objectReference: {fileID: 0}
+    - target: {fileID: 4792324033722643081, guid: b9f0be35012fcc14c80d9d1e621d1243,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b9f0be35012fcc14c80d9d1e621d1243, type: 3}
 --- !u!4 &3216758674395531373 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4233232195404029975, guid: b9f0be35012fcc14c80d9d1e621d1243,
+    type: 3}
+  m_PrefabInstance: {fileID: 1592953447153231994}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3216758674395960391 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4233232195403807805, guid: b9f0be35012fcc14c80d9d1e621d1243,
     type: 3}
   m_PrefabInstance: {fileID: 1592953447153231994}
   m_PrefabAsset: {fileID: 0}
@@ -3756,6 +3901,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (14)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3826,11 +3976,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5245404
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (14)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755269217846601 stripped
@@ -3846,6 +3991,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (15)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3916,11 +4066,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 3.5245404
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (15)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755269114135773 stripped
@@ -3936,6 +4081,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6876011940413793540}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4006,11 +4156,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 9.504966
       objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (1)
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}
 --- !u!4 &6860755269116224131 stripped
@@ -4026,6 +4171,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1909032515827656187}
     m_Modifications:
+    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
+        type: 3}
+      propertyPath: m_Name
+      value: 3D_prop_prefab_midRock_002 (16)
+      objectReference: {fileID: 0}
     - target: {fileID: 5272873114901330256, guid: c7f7cc80910835c409585872b74ca4e9,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4095,11 +4245,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 3.5245364
-      objectReference: {fileID: 0}
-    - target: {fileID: 5272873114900964720, guid: c7f7cc80910835c409585872b74ca4e9,
-        type: 3}
-      propertyPath: m_Name
-      value: 3D_prop_prefab_midRock_002 (16)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7f7cc80910835c409585872b74ca4e9, type: 3}

@@ -110,7 +110,7 @@ public class NaveManager : MonoBehaviour
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }
-        if (fuelSide == Direction.Right)
+        if (fuelSide == Direction.Right || combustible.currentAmmount<=0)
         {
             //print("entra en right");
             try
