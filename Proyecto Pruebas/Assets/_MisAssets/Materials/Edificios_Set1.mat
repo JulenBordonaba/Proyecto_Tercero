@@ -99,18 +99,18 @@ Material:
     - _RampSmoothAdd: 1
     - _RampThreshold: 0.667
     - _RimMax: 1
-    - _RimMin: 1
+    - _RimMin: 0.45
     - _RimStrength: 0.5
-    - _SketchHalftoneMax: 1
-    - _SketchHalftoneMin: 0
+    - _SketchHalftoneMax: 0.95
+    - _SketchHalftoneMin: 0.84
     - _SmoothnessTextureChannel: 0
     - _SpecBlend: 1
     - _SpecSmooth: 0.836
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TexLod: 5
-    - _ThresholdScale: 12
-    - _ThresholdStrength: 1
+    - _ThresholdScale: 15.9
+    - _ThresholdStrength: 0.91
     - _UVSec: 0
     - _ZSmooth: -0.5
     - _ZWrite: 1
