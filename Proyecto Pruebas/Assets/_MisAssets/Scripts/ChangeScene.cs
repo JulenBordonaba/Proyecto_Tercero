@@ -6,7 +6,9 @@ using UnityEngine.UI;
 
 public class ChangeScene : MonoBehaviour
 {
-    public Text loadingText;
+    public Sprite loadingSprite;
+    public Sprite loadedSprite;
+    public Image loadingImage;
 
     public void LoadScene(string scene)
     {
@@ -29,7 +31,7 @@ public class ChangeScene : MonoBehaviour
 
         asyncLoad.allowSceneActivation = false;
 
-        loadingText.text = "Loading";
+        loadingImage.sprite = loadingSprite; ;
 
         // Wait until the asynchronous scene fully loads
         while (!asyncLoad.isDone)
@@ -39,7 +41,7 @@ public class ChangeScene : MonoBehaviour
             if (asyncLoad.progress >= 0.9f)
             {
                 //Change the Text to show the Scene is ready
-                loadingText.text = "Press the X to continue";
+                loadingImage.sprite = loadedSprite;
                 //Wait to you press the space key to activate the Scene
                 if (Input.GetButtonDown("MenuSubmit"))
                     //Activate the Scene
