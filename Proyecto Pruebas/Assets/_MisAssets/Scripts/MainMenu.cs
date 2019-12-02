@@ -52,7 +52,7 @@ public class MainMenu : MonoBehaviour
             }
             else
             {
-                recordTexts[i].text = (i + 1).ToString() + "º   " + GameManager.records[i].minutes + "' " + Mathf.FloorToInt(GameManager.records[i].seconds) + "''";
+                recordTexts[i].text = (i + 1).ToString() + "º   " + (GameManager.records[i].minutes<10 ? "0" + GameManager.records[i].minutes : GameManager.records[i].minutes.ToString()) + "' " + (Mathf.FloorToInt(GameManager.records[i].seconds)<10 ? "0" + Mathf.FloorToInt(GameManager.records[i].seconds) : Mathf.FloorToInt(GameManager.records[i].seconds).ToString()) + "''";
             }
         }
     }
