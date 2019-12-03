@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Nave_Summoner_Avatar_Escudo
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Nave_Summoner_Geo
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Armas
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Armas/Armas_Core_Broken
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Armas/Armas_Core_Destroy
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Armas/Armas_Core_Ok
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Back
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Back/Back_Broken
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Back/Back_Destroy
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Back/Back_Ok
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Core
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Core/Core_Broken
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Core/Core_Destroy
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Core/Core_Ok
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Front
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Front/Front_Broken
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Front/Front_Destroy
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Front/Front_Ok
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Left
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Left/Left_Broken
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Left/Left_Destroy
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Left/Left_Ok
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Right
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Right/Right_Broken
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Right/Right_Destroy
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Geo/Right/Right_Ok
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot
+    m_Weight: 1
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Dash_Left_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Dash_Left_Pivot/Back_Engine_Dash_Left_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Dash_Right_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Dash_Right_Pivot/Back_Engine_Dash_Right_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Left
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Left/Back_Engine_Left_F1_Pivot
+    m_Weight: 1
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Left/Back_Engine_Left_F1_Pivot/Back_Engine_Left_F1_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Left/Back_Engine_Left_F2_Pivot
+    m_Weight: 1
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Left/Back_Engine_Left_F2_Pivot/Back_Engine_Left_F2_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Right
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Right/Back_Engine_Right_F1_Pivot
+    m_Weight: 1
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Right/Back_Engine_Right_F1_Pivot/Back_Engine_Right_F1_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Right/Back_Engine_Right_F2_Pivot
+    m_Weight: 1
+  - m_Path: Nave_Summoner_Rig/Root/Back_Main_Flap_Pivot/Back_Engine_Right/Back_Engine_Right_F2_Pivot/Back_Engine_Right_F2_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Turbo_Door_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Back_Turbo_Door_Pivot/Back_Turbo_Door_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Cabin
+    m_Weight: 1
+  - m_Path: Nave_Summoner_Rig/Root/Core_Left_Weapon_Base
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Core_Left_Weapon_Base/Core_Left_Weapon_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Core_Left_Weapon_Base/Core_Left_Weapon_Pivot/Core_Left_Weapon_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Core_Right_Weapon_Base1
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Core_Right_Weapon_Base1/Core_Right_Weapon_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Core_Right_Weapon_Base1/Core_Right_Weapon_Pivot/Core_Right_Weapon_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Core_Spoiler_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Core_Spoiler_Pivot/Core_Spoiler_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Front 1
+    m_Weight: 1
+  - m_Path: Nave_Summoner_Rig/Root/Left_Wing_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Left_Wing_Pivot/Left_Wing_Flap_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Left_Wing_Pivot/Left_Wing_Flap_Pivot/Left_Wing_Flap_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Left_Wing_Pivot/Left_Wing_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Left_Wing_Pivot/Left_Wing_Weapon_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Left_Wing_Pivot/Left_Wing_Weapon_Pivot/Left_Wing_Weapon_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Right_Wing_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Right_Wing_Pivot/Right_Wing_Flap_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Right_Wing_Pivot/Right_Wing_Flap_Pivot/Right_Wing_Flap_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Right_Wing_Pivot/Right_Wing_Tip
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Right_Wing_Pivot/Right_Wing_Weapon_Pivot
+    m_Weight: 0
+  - m_Path: Nave_Summoner_Rig/Root/Right_Wing_Pivot/Right_Wing_Weapon_Pivot/Right_Wing_Weapon_Tip
+    m_Weight: 0
