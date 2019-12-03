@@ -14,6 +14,15 @@ public class AimWeapon : MonoBehaviour
     public bool y = true;
     [Tooltip("Pon las layers contra las que choca el raycast del disparo")]
     public LayerMask layers;
+    [Header("Weapon Limits")]
+    [Tooltip("Pon el valor mínimo de la rotación en x")]
+    public float minX=-180;
+    [Tooltip("Pon el valor máximo de la rotación en x")]
+    public float maxX=180;
+    [Tooltip("Pon el valor mínimo de la rotación en y")]
+    public float minY=-180;
+    [Tooltip("Pon el valor máximo de la rotación en y")]
+    public float maxY=180;
 
 
     // Start is called before the first frame update
@@ -47,7 +56,7 @@ public class AimWeapon : MonoBehaviour
             Debug.DrawRay(ray.origin, ray.direction * shotDistance, Color.red);
         }
 
-        Quaternion finalRotation = Quaternion.Euler(x ? transform.localEulerAngles.x : rotation.eulerAngles.x, y ? transform.localEulerAngles.y : rotation.eulerAngles.y, 0);
+        Quaternion finalRotation = Quaternion.Euler(x ? transform.localEulerAngles.x : Mathf.Clamp( rotation.eulerAngles.x,minX,maxX), y ? transform.localEulerAngles.y : rotation.eulerAngles.y, 0);
         transform.localRotation = finalRotation;
 
     }

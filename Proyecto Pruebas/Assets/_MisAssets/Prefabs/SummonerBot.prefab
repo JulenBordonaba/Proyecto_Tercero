@@ -142,8 +142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d679e533f49c94091afe10281cee3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 300
+  damage: 30
   inShot: 0
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 10240
 --- !u!1 &2368547432687154875
 GameObject:
   m_ObjectHideFlags: 0
@@ -219,7 +222,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 15.285427
+  m_Radius: 75
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2368547432987923424
 MonoBehaviour:
@@ -236,7 +239,7 @@ MonoBehaviour:
   velocity: 100
   hitLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 10240
   trayectoryCorrection: 50
   velocityIncrease: 0
 --- !u!54 &2368547432987923425

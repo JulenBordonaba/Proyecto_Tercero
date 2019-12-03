@@ -31,15 +31,21 @@ public class DamageManager : MonoBehaviour
         //recibir daño
         if(GetComponent<Stats>())
         {
-            canBeDamaged = false;
-            StartCoroutine(InmunityCooldown());
+            if(inmunityCooldown>0)
+            {
+                canBeDamaged = false;
+                StartCoroutine(InmunityCooldown());
+            }
             GetComponent<Stats>().currentLife -= damage;
             if (GetComponent<Stats>().currentLife <= 0) Destroy(gameObject);
         }
         else if(GetComponentInParent<Pieza>())
         {
-            canBeDamaged = false;
-            StartCoroutine(InmunityCooldown());
+            if(inmunityCooldown>0)
+            {
+                canBeDamaged = false;
+                StartCoroutine(InmunityCooldown());
+            }
             GetComponentInParent<Pieza>().Damage(damage);
         }
 

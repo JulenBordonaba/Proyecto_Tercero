@@ -15,13 +15,14 @@ public class ShootRay : ShootWeapon
     [Tooltip("Pon el radio de la zona de autoaim, en medidas de pantalla")]
     public float autoaimRadius;
 
+    public Camera myCamera;
+
     private NaveManager myNaveManager;
-    private Camera myCamera;
 
     private void Awake()
     {
         myNaveManager = GetComponentInParent<NaveManager>();
-        myCamera = GetComponent<AimWeapon>().myCamera;
+
     }
 
     public override void CastShot()

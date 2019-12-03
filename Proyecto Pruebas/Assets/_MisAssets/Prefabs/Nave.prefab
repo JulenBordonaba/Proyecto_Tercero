@@ -7404,7 +7404,7 @@ GameObject:
   - component: {fileID: 2135317453}
   - component: {fileID: 2135317454}
   - component: {fileID: 2135317455}
-  - component: {fileID: 2135317456}
+  - component: {fileID: 1390455728907216638}
   - component: {fileID: 2066675964}
   - component: {fileID: 7739567357754905122}
   - component: {fileID: 2449192447462433785}
@@ -7483,7 +7483,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCamera: {fileID: 6560895592928145858}
   maneuverHeight: 4000
-  friction: 0.02
+  friction: 0.03
   driftVelocity: 3
   levitationHeight: 4
   backwardVelocity: 0.7
@@ -7796,7 +7796,7 @@ MonoBehaviour:
   spawn: {fileID: 1996910957935558948}
   throwForce: 10
   chatarras: []
---- !u!114 &2135317456
+--- !u!114 &1390455728907216638
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7805,12 +7805,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5045542137871149942}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dce74424df647054090e7254295b8daf, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a29678c9085b3446b8ca22e2a02e0c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0
-  duration: 10
-  magnet: {fileID: 322354129}
+  cooldown: 12
+  botsPrefab: {fileID: 5628009631108252721, guid: 083b6986ca8597e41bf523e89c7c5406,
+    type: 3}
 --- !u!114 &2066675964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8258,6 +8258,10 @@ MonoBehaviour:
   layers:
     serializedVersion: 2
     m_Bits: 11031
+  minX: -180
+  maxX: 180
+  minY: -180
+  maxY: 180
 --- !u!64 &5762435230879470492
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8301,6 +8305,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   autoaimRadius: 30
+  myCamera: {fileID: 6560895592928145858}
 --- !u!114 &3918162873843400286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8320,6 +8325,10 @@ MonoBehaviour:
   layers:
     serializedVersion: 2
     m_Bits: 11031
+  minX: -180
+  maxX: 180
+  minY: -180
+  maxY: 180
 --- !u!64 &5935613746197386967
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8398,7 +8407,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6a91458dab35f4482a1d26be0936c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inmunityCooldown: 0.2
+  inmunityCooldown: 0
   minDamage: 10
 --- !u!114 &4952655608160840177
 MonoBehaviour:
@@ -8431,7 +8440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6a91458dab35f4482a1d26be0936c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inmunityCooldown: 0.2
+  inmunityCooldown: 0
   minDamage: 10
 --- !u!114 &9027090766606570090
 MonoBehaviour:
@@ -8535,7 +8544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6a91458dab35f4482a1d26be0936c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inmunityCooldown: 0.2
+  inmunityCooldown: 0
   minDamage: 10
 --- !u!64 &2491724319931740551
 MeshCollider:
@@ -8575,7 +8584,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6a91458dab35f4482a1d26be0936c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inmunityCooldown: 0.2
+  inmunityCooldown: 0
   minDamage: 10
 --- !u!114 &8099526445801756743
 MonoBehaviour:
@@ -9862,7 +9871,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6a91458dab35f4482a1d26be0936c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inmunityCooldown: 0.2
+  inmunityCooldown: 0
   minDamage: 10
 --- !u!1 &5588794897572594398
 GameObject:

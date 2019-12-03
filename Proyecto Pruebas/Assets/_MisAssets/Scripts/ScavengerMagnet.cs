@@ -20,13 +20,13 @@ public class ScavengerMagnet : MonoBehaviour
     {
         if (inUse)
         {
-            if (other.tag == "Nave")
+            if (other.tag == "NaveCentre")
             {
                 print(other.gameObject.name);
                 if (other.GetComponentInParent<Rigidbody>())
                 {
                     Vector3 direction = GetComponentInParent<NaveController>().modelTransform.position - other.GetComponentInParent<Rigidbody>().transform.position;
-                    other.GetComponent<Rigidbody>().AddForce(direction.normalized * magnetForce * (inverted ? -1 : 1));
+                    other.GetComponentInParent<Rigidbody>().AddForce(direction.normalized * magnetForce * (inverted ? -1 : 1));
                 }
             }
         }

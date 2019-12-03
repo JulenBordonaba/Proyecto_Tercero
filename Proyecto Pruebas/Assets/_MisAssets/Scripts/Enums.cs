@@ -9,7 +9,7 @@ public enum TipoCombustible
 
 public enum HabilidadPersonaje
 {
-    ScavengerAbility
+    ScavengerAbility, SummonerAbility
 }
 
 public enum TipoDisparo

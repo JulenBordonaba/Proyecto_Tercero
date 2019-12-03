@@ -9839,7 +9839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6a91458dab35f4482a1d26be0936c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inmunityCooldown: 0.2
+  inmunityCooldown: 0
   minDamage: 10
 --- !u!114 &8865959410912931491
 MonoBehaviour:
@@ -10723,7 +10723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6a91458dab35f4482a1d26be0936c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inmunityCooldown: 0.2
+  inmunityCooldown: 0
   minDamage: 10
 --- !u!114 &2163117137859394125
 MonoBehaviour:
@@ -10737,7 +10737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6a91458dab35f4482a1d26be0936c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inmunityCooldown: 0.2
+  inmunityCooldown: 0
   minDamage: 10
 --- !u!114 &2685889312869212797
 MonoBehaviour:
@@ -10789,6 +10789,10 @@ MonoBehaviour:
   layers:
     serializedVersion: 2
     m_Bits: 5911
+  minX: -180
+  maxX: 180
+  minY: -180
+  maxY: 180
 --- !u!114 &1768236612339215219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10818,6 +10822,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4096
   autoaimRadius: 30
+  myCamera: {fileID: 7271864050312250500}
 --- !u!64 &8079011722450937562
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10851,6 +10856,10 @@ MonoBehaviour:
   layers:
     serializedVersion: 2
     m_Bits: 5911
+  minX: -180
+  maxX: 180
+  minY: -180
+  maxY: 180
 --- !u!64 &3767250195040933861
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -10903,7 +10912,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6a91458dab35f4482a1d26be0936c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inmunityCooldown: 0.2
+  inmunityCooldown: 0
   minDamage: 10
 --- !u!114 &4024645946555563771
 MonoBehaviour:
@@ -11005,7 +11014,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad6a91458dab35f4482a1d26be0936c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inmunityCooldown: 0.2
+  inmunityCooldown: 0
   minDamage: 10
 --- !u!1 &8577506023423353607
 GameObject:
@@ -11399,7 +11408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCamera: {fileID: 7271864050312250500}
   maneuverHeight: 4000
-  friction: 0.02
+  friction: 0.03
   driftVelocity: 3
   levitationHeight: 4
   backwardVelocity: 0.7
