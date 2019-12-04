@@ -205,6 +205,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3472920024841269806}
+  - component: {fileID: 6681739487277696677}
   m_Layer: 0
   m_Name: 3D_prop_object_holoNeon_directionArrow_003
   m_TagString: Untagged
@@ -229,6 +230,25 @@ Transform:
   m_Father: {fileID: 4551144754500369335}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -0.42100003, z: 0}
+--- !u!95 &6681739487277696677
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8918687820452893178}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 310f3e9cdc8f11b4eb99528538a0dda4, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &6698769158229712036
 PrefabInstance:
   m_ObjectHideFlags: 0
