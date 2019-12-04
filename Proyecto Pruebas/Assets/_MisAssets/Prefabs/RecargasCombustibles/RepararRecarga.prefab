@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4972528200668060853}
   - component: {fileID: 4972528200668060852}
   - component: {fileID: 4972528200668060855}
-  - component: {fileID: 4972528200668060854}
   - component: {fileID: 4972528200668060873}
   - component: {fileID: 4972528200668060872}
+  - component: {fileID: 562692373088975669}
   m_Layer: 16
   m_Name: RepararRecarga
   m_TagString: Untagged
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4972528200668060875}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 5c5915e3b1cd1e9498fc34258639b7e5, type: 3}
 --- !u!23 &4972528200668060855
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0e15dcde112c25e4ca0c1249d34e4199, type: 2}
+  - {fileID: 2100000, guid: 8d3227b0568076b47b3d9544b4e24639, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -80,19 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4972528200668060854
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4972528200668060875}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &4972528200668060873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,3 +108,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radarImage: {fileID: 5108330279656912054, guid: 004e8198f5a0d2c4d8c14470d25d61f4,
     type: 3}
+--- !u!65 &562692373088975669
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4972528200668060875}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.89349604, y: 0.99999994, z: 0.8934962}
+  m_Center: {x: 0, y: 0.5000002, z: 0}

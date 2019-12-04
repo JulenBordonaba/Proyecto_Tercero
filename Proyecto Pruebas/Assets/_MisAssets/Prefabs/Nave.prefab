@@ -7634,7 +7634,7 @@ MonoBehaviour:
   tipoCombustible: 0
   naveManager: {fileID: 0}
   animator: {fileID: 0}
-  jumpForce: 300
+  jumpForce: 500
   cooldown: 2
 --- !u!114 &5045542137871149930
 MonoBehaviour:
