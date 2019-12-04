@@ -23,6 +23,7 @@ public class NaveManager : MonoBehaviour
     public Camera myCamera;
     public TrailRenderer trail;
     public Combustible combustible;
+    public GameObject victoryImage;
     
 
 

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7502069652913715847}
   - component: {fileID: 5235414538469474820}
   - component: {fileID: 9126279293383497946}
-  m_Layer: 10
+  m_Layer: 19
   m_Name: PsTa2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4767,7 +4767,7 @@ GameObject:
   - component: {fileID: 3392458226501438956}
   - component: {fileID: 7101336736196778164}
   - component: {fileID: 2445419141212997341}
-  m_Layer: 10
+  m_Layer: 19
   m_Name: PsRatata
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9468,7 +9468,7 @@ GameObject:
   - component: {fileID: 8329857437167293588}
   - component: {fileID: 8230676275638006180}
   - component: {fileID: 8303880155382916647}
-  m_Layer: 10
+  m_Layer: 19
   m_Name: PsTa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14224,7 +14224,7 @@ GameObject:
   - component: {fileID: 686397381604487187}
   - component: {fileID: 8967435746114148438}
   - component: {fileID: 3898574767491090305}
-  m_Layer: 10
+  m_Layer: 19
   m_Name: PsRa
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraController : Photon.PunBehaviour
 {
@@ -14,6 +15,7 @@ public class CameraController : Photon.PunBehaviour
     public float cameraDampingMultiplayer = 1;
 
     public GameObject gameOverCamera;
+    public Sprite singleplayerGameOverSprite;
 
 
     [Header("Camera Limits")]
@@ -89,6 +91,7 @@ public class CameraController : Photon.PunBehaviour
         if(Global.numPlayers==1)
         {
             gameOverCam.GetComponent<Camera>().rect = new Rect(new Vector2(0, 0), new Vector2(1, 1));
+            gameOverCam.GetComponentInChildren<Image>().sprite = singleplayerGameOverSprite;
         }
         Destroy(gameObject);
     }

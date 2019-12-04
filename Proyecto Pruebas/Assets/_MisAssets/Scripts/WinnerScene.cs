@@ -7,21 +7,13 @@ using UnityEngine.UI;
 public class WinnerScene : MonoBehaviour
 {
 
-    public Text winnerText;
-    public string winnerMessage;
+    public Text timerText;
     
 
     // Start is called before the first frame update
     void Start()
     {
-        if(Global.numPlayers==1)
-        {
-            winnerText.text = winnerMessage;
-        }
-        else
-        {
-            winnerText.text = "Ha ganado el jugador " + Global.winner;
-        }
+        timerText.text = (TimeScore.currentScore.minutes < 10 ? "0" + TimeScore.currentScore.minutes : TimeScore.currentScore.minutes.ToString()) + "' " + (Mathf.FloorToInt(TimeScore.currentScore.seconds) < 10 ? "0" + Mathf.FloorToInt(TimeScore.currentScore.seconds) : Mathf.FloorToInt(TimeScore.currentScore.seconds).ToString()) + "''";
     }
 
     // Update is called once per frame

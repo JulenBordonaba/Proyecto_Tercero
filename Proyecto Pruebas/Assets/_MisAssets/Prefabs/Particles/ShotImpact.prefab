@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6333704752120923938}
   - component: {fileID: 8843817378872813441}
   - component: {fileID: 6271304438811479549}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Bam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4774,7 +4774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7464553876128839070}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: ShotImpact
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -137,6 +137,20 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Global.numPlayers>1 && navesList.Count==1)
+        {
+            navesList[0].victoryImage.SetActive(true);
+            PauseManager.inPause = true;
+            GetComponent<Timer>().GetTime();
+            StartCoroutine(EndByElimination());
+        }
+    }
+
+    IEnumerator EndByElimination()
+    {
+        yield return new WaitForSeconds(5f);
+
+        SceneManager.LoadScene("Winner");
 
     }
 }
