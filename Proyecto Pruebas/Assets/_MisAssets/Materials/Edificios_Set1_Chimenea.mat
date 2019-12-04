@@ -97,7 +97,7 @@ Material:
     - _Parallax: 0.05
     - _RampSmooth: 0
     - _RampSmoothAdd: 1
-    - _RampThreshold: 0.667
+    - _RampThreshold: 0.525
     - _RimMax: 1
     - _RimMin: 1
     - _RimStrength: 0.5
@@ -109,8 +109,8 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TexLod: 5
-    - _ThresholdScale: 12
-    - _ThresholdStrength: 1
+    - _ThresholdScale: 16.8
+    - _ThresholdStrength: 0.848
     - _UVSec: 0
     - _ZSmooth: -0.5
     - _ZWrite: 1

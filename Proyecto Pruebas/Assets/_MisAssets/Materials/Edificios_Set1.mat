@@ -97,20 +97,20 @@ Material:
     - _Parallax: 0.05
     - _RampSmooth: 0
     - _RampSmoothAdd: 1
-    - _RampThreshold: 0.667
+    - _RampThreshold: 0.596
     - _RimMax: 1
     - _RimMin: 0.45
     - _RimStrength: 0.5
     - _SketchHalftoneMax: 0.95
-    - _SketchHalftoneMin: 0.84
+    - _SketchHalftoneMin: 0.716
     - _SmoothnessTextureChannel: 0
     - _SpecBlend: 1
     - _SpecSmooth: 0.836
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TexLod: 5
-    - _ThresholdScale: 15.9
-    - _ThresholdStrength: 0.91
+    - _ThresholdScale: 11.5
+    - _ThresholdStrength: 0.876
     - _UVSec: 0
     - _ZSmooth: -0.5
     - _ZWrite: 1
