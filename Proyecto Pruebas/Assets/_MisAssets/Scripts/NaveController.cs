@@ -64,7 +64,7 @@ public class NaveController : MonoBehaviour
 
     private void Update()
     {
-
+        if (PauseManager.inPause) return;
         
         if (inBoost)
         {

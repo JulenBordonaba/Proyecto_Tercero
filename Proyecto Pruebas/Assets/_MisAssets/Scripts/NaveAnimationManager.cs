@@ -25,6 +25,7 @@ public class NaveAnimationManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseManager.inPause) return;
         animator.SetBool("move", move);
         animator.SetBool("plane", plane);
         animator.SetBool("inDrift", naveController.inDrift);

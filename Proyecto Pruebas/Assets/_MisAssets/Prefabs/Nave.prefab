@@ -10854,7 +10854,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 31ea744574949e24c833ef464b1c1159, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9e09fe3f1c0d89c42a878379377b35f6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13814,7 +13814,7 @@ PrefabInstance:
     - target: {fileID: 20505286486765476, guid: 639ac7944bb681a42b4c77d9e38087af,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 4294967295
+      value: 262144
       objectReference: {fileID: 0}
     - target: {fileID: 7732625833104206499, guid: 639ac7944bb681a42b4c77d9e38087af,
         type: 3}
