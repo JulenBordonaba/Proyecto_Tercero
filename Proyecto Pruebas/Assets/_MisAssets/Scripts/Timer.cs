@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
+    public static Timer i;
 
     public int minutes = 0;
     public float seconds = 0;
@@ -18,9 +19,10 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        i = this;
         startMinutes = minutes;
         startSeconds = seconds;
-        ShowTimer();
+        //ShowTimer();
     }
 
     // Update is called once per frame
@@ -31,7 +33,7 @@ public class Timer : MonoBehaviour
             GameManager.TimeFinished();
         }
         Countdown();
-        ShowTimer();
+        //ShowTimer();
     }
 
     public void GetTime()
