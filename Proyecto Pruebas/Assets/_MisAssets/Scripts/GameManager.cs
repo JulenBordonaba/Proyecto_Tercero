@@ -145,7 +145,7 @@ public class GameManager : MonoBehaviour
             navesList[0].victoryImage.SetActive(true);
             PauseManager.inPause = true;
             GetComponent<Timer>().GetTime();
-            StartCoroutine(EndByElimination());
+            //StartCoroutine(EndByElimination());
         }
     }
 
