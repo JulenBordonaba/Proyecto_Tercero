@@ -8377,7 +8377,7 @@ MonoBehaviour:
   rayOffset: 8
   damping: 2
   upDamping: 2
-  extraFallImpulse: 5
+  extraFallImpulse: 2
 --- !u!114 &5045542137871149926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8487,7 +8487,7 @@ MonoBehaviour:
   tipoCombustible: 0
   naveManager: {fileID: 0}
   animator: {fileID: 0}
-  jumpForce: 500
+  jumpForce: 300
   cooldown: 2
 --- !u!114 &5045542137871149930
 MonoBehaviour:
