@@ -35,10 +35,13 @@ public class GameManager : MonoBehaviour
             if(i==0)
             {
                 naves.Add(Instantiate(navePrefab, spawns[i].position, Quaternion.identity));
+                naves[i].GetComponentInChildren<NaveController>().modelTransform.rotation = Quaternion.Euler(0, spawns[i].eulerAngles.y, 0);
             }
             else
             {
                 naves.Add(Instantiate(naveEnemigaPrefab, spawns[i].position, Quaternion.identity));
+
+                naves[i].GetComponentInChildren<NaveController>().modelTransform.rotation = Quaternion.Euler(0, spawns[i].eulerAngles.y, 0);
             }
         }
 
