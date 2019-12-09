@@ -456,7 +456,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0, g: 1, b: 0.07280898, a: 1}
+      maxColor: {r: 0.990566, g: 0.990566, b: 0.990566, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -4888,7 +4888,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10308, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b18dd64360ba91f4489d76f3189e570d, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -8411,9 +8411,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb85965beaf909409e7ce1b805c3a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 100
+  life: 500
   collisionDamage: 50
-  shotDamage: 15
+  shotDamage: 11
   weight: 50
 --- !u!114 &5045542137871149934
 MonoBehaviour:
@@ -8561,7 +8561,7 @@ MonoBehaviour:
   tipoCombustible: 0
   naveManager: {fileID: 0}
   animator: {fileID: 0}
-  repairAmmount: 10
+  repairAmmount: 50
   cooldown: 1.7
   healingParticles: {fileID: 107643165449075386}
 --- !u!114 &920980669
