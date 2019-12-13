@@ -13086,9 +13086,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ceb85965beaf909409e7ce1b805c3a68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  life: 100
+  life: 500
   collisionDamage: 50
-  shotDamage: 15
+  shotDamage: 11
   weight: 50
 --- !u!114 &8783004174707121704
 MonoBehaviour:
@@ -13236,7 +13236,7 @@ MonoBehaviour:
   tipoCombustible: 0
   naveManager: {fileID: 0}
   animator: {fileID: 0}
-  repairAmmount: 10
+  repairAmmount: 50
   cooldown: 1.7
   healingParticles: {fileID: 4510441852833681404}
 --- !u!114 &4604405140672674299
