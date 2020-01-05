@@ -25,64 +25,78 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        winner = null;
-        onRaceFinished = new UnityEvent();
-        onRaceFinished.AddListener(FinishRace);
-        navesList = new List<NaveManager>();
-        List<GameObject> naves = new List<GameObject>();
-        for (int i = 0; i < Global.numPlayers; i++)
+        if(PhotonNetwork.connected)
         {
-            if(i==0)
-            {
-                naves.Add(Instantiate(navePrefab, spawns[i].position, Quaternion.identity));
-                naves[i].GetComponentInChildren<NaveController>().modelTransform.rotation = Quaternion.Euler(0, spawns[i].eulerAngles.y, 0);
-            }
-            else
-            {
-                naves.Add(Instantiate(naveEnemigaPrefab, spawns[i].position, Quaternion.identity));
 
-                naves[i].GetComponentInChildren<NaveController>().modelTransform.rotation = Quaternion.Euler(0, spawns[i].eulerAngles.y, 0);
-            }
+            winner = null;
+            onRaceFinished = new UnityEvent();
+            onRaceFinished.AddListener(FinishRace);
+            navesList = new List<NaveManager>();
+            List<GameObject> naves = new List<GameObject>();
+            naves.Add(PhotonNetwork.Instantiate("NaveOnline", spawns[0].position, Quaternion.identity, 0, null));
         }
-
-        if (Global.numPlayers > 1)
+        else
         {
-            Camera cam1 = naves[0].GetComponentInChildren<Camera>();
-            Camera cam2 = naves[1].GetComponentInChildren<Camera>();
 
-            naves[1].GetComponentInChildren<AudioListener>().enabled = false;
-
-            List<CanvasScaler> scalers = new List<CanvasScaler>();
-            for(int i=0;i<Global.numPlayers;i++)
+            winner = null;
+            onRaceFinished = new UnityEvent();
+            onRaceFinished.AddListener(FinishRace);
+            navesList = new List<NaveManager>();
+            List<GameObject> naves = new List<GameObject>();
+            for (int i = 0; i < Global.numPlayers; i++)
             {
-                scalers.Add(naves[i].GetComponentInChildren<CanvasScaler>());
-            }
-
-            if (screenDivision==ScreenDivision.Horizontal)
-            {
-                cam1.rect = new Rect(new Vector2(0, 0.5f), new Vector2(1, 0.5f));
-                cam2.rect = new Rect(new Vector2(0, 0), new Vector2(1, 0.5f));
-
-                foreach(CanvasScaler scaler in scalers)
+                if (i == 0)
                 {
-                    scaler.referenceResolution = new Vector2(1920,540);
+                    naves.Add(Instantiate(navePrefab, spawns[i].position, Quaternion.identity));
+                    naves[i].GetComponentInChildren<NaveController>().modelTransform.rotation = Quaternion.Euler(0, spawns[i].eulerAngles.y, 0);
                 }
-            }
-            else if(screenDivision== ScreenDivision.Vertical)
-            {
-                cam1.rect = new Rect(new Vector2(0, 0), new Vector2(0.5f, 1));
-                cam2.rect = new Rect(new Vector2(0.5f, 0), new Vector2(0.5f, 1));
-
-                foreach (CanvasScaler scaler in scalers)
+                else
                 {
-                    scaler.referenceResolution = new Vector2(960, 1080);
+                    naves.Add(Instantiate(naveEnemigaPrefab, spawns[i].position, Quaternion.identity));
+
+                    naves[i].GetComponentInChildren<NaveController>().modelTransform.rotation = Quaternion.Euler(0, spawns[i].eulerAngles.y, 0);
                 }
             }
 
+            if (Global.numPlayers > 1)
+            {
+                Camera cam1 = naves[0].GetComponentInChildren<Camera>();
+                Camera cam2 = naves[1].GetComponentInChildren<Camera>();
+
+                naves[1].GetComponentInChildren<AudioListener>().enabled = false;
+
+                List<CanvasScaler> scalers = new List<CanvasScaler>();
+                for (int i = 0; i < Global.numPlayers; i++)
+                {
+                    scalers.Add(naves[i].GetComponentInChildren<CanvasScaler>());
+                }
+
+                if (screenDivision == ScreenDivision.Horizontal)
+                {
+                    cam1.rect = new Rect(new Vector2(0, 0.5f), new Vector2(1, 0.5f));
+                    cam2.rect = new Rect(new Vector2(0, 0), new Vector2(1, 0.5f));
+
+                    foreach (CanvasScaler scaler in scalers)
+                    {
+                        scaler.referenceResolution = new Vector2(1920, 540);
+                    }
+                }
+                else if (screenDivision == ScreenDivision.Vertical)
+                {
+                    cam1.rect = new Rect(new Vector2(0, 0), new Vector2(0.5f, 1));
+                    cam2.rect = new Rect(new Vector2(0.5f, 0), new Vector2(0.5f, 1));
+
+                    foreach (CanvasScaler scaler in scalers)
+                    {
+                        scaler.referenceResolution = new Vector2(960, 1080);
+                    }
+                }
 
 
 
 
+
+            }
         }
     }
 
@@ -153,7 +167,7 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
 
-        SceneManager.LoadScene("F&SMainMenu");
+        SceneManager.LoadScene("OnlineMenu");
 
     }
 }

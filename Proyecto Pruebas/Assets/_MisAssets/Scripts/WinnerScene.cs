@@ -26,7 +26,7 @@ public class WinnerScene : MonoBehaviour
     {
         if (Input.GetButtonDown("MenuSubmit"))
         {
-            SceneManager.LoadScene("F&SMainMenu");
+            SceneManager.LoadScene("OnlineMenu");
         }
     }
 }
