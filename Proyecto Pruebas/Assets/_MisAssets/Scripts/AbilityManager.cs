@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AbilityManager : MonoBehaviour
+public class AbilityManager : Photon.PunBehaviour
 {
     [Tooltip("Pon los módulos de la nave")]
     public List<AbilityModule> modules = new List<AbilityModule>();
@@ -27,6 +27,7 @@ public class AbilityManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.isMine) return;
         if (PauseManager.inPause) return;
         if(inputManager.ShipAbility())
         {

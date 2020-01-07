@@ -136,6 +136,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void LeaveRoom()
+    {
+        PhotonNetwork.LeaveRoom();
+    }
+
     private void FinishRace()
     {
         GetComponent<Timer>().GetTime();

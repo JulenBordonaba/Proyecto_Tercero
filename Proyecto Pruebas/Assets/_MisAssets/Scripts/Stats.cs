@@ -19,6 +19,9 @@ public class Stats : MonoBehaviour
     public float currentShotDamage { get; set; }       //daño por disparo
     public float currentWeight { get; set; }        //pero del objeto. Influye en su daño y velocidad
 
+
+    public byte classId { get; set; }
+
     private void Awake()
     {
         //al inicializarse el objeto los valores actuales son iguales al doble de los totales
@@ -27,7 +30,20 @@ public class Stats : MonoBehaviour
         currentShotDamage = shotDamage;
         currentWeight = weight;
     }
-    
+
+    public static object Deserialize(byte[] data)
+    {
+        Stats result = new Stats();
+        result.classId = data[0];
+        return result;
+    }
+
+    public static byte[] Serialize(object customType)
+    {
+        Stats c = (Stats)customType;
+        return new byte[] { c.classId };
+    }
+
 
     public void AddPieceValues(float importance)
     {

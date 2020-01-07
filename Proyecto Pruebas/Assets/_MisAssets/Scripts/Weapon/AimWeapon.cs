@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AimWeapon : MonoBehaviour
+public class AimWeapon : Photon.PunBehaviour
 {
     [Tooltip("Pon la cámara de la nave")]
     public Camera myCamera;
@@ -41,14 +41,27 @@ public class AimWeapon : MonoBehaviour
     public void Aim()
     {
         Ray ray = new Ray();
-        RaycastHit hit;
+        RaycastHit[] hits;
         ray.origin = myCamera.transform.position;
         ray.direction = myCamera.transform.forward;
         Quaternion rotation = transform.localRotation;
-        if (Physics.Raycast(ray, out hit, shotDistance,layers))
+        hits = Physics.RaycastAll(ray, shotDistance, layers);
+        if (hits.Length>0)
         {
-            transform.LookAt(hit.point);
-            Debug.DrawRay(ray.origin, ray.direction * (hit.point - ray.origin).magnitude, Color.red);
+            RaycastHit nearestHit = hits[0];
+            foreach(RaycastHit hit in hits)
+            {
+                if(!hit.collider.gameObject.GetComponentInParent<PhotonView>() || (hit.collider.gameObject.GetComponentInParent<PhotonView>() && !hit.collider.gameObject.GetComponentInParent<PhotonView>().isMine))
+                {
+                    if((nearestHit.point - ray.origin).magnitude> (hit.point - ray.origin).magnitude)
+                    {
+                        nearestHit = hit;
+                    }
+                }
+
+                transform.LookAt(nearestHit.point);
+                Debug.DrawRay(ray.origin, ray.direction * (nearestHit.point - ray.origin).magnitude, Color.red);
+            }
         }
         else
         {

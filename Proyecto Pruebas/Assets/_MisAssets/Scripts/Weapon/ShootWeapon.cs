@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ShootWeapon : MonoBehaviour
+public abstract class ShootWeapon : Photon.PunBehaviour
 {
     [Tooltip("Pon el tiempo que tarda en disparar desde el último disparo")]
     public float cooldown = 0.1f;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Pieza : MonoBehaviour {
+public class Pieza : Photon.PunBehaviour {
 
     
     [Tooltip("Importancia que tiene la pieza, el porcentage en el que aumenta los stats de la nave, Rango:0-100, si es el núcleo poner a 0"), Range(0, 100)]
@@ -62,7 +62,9 @@ public class Pieza : MonoBehaviour {
 
     public void Damage(float ammount)
     {
+        print("damage pieza");
         if (currentHealth <= 0) return;
+        print("continua damage pieza");
         GetComponentInParent<Stats>().currentLife -= ammount;
         currentHealth -= ammount;
         piezaHUD.transform.SetAsLastSibling();
@@ -102,5 +104,17 @@ public class Pieza : MonoBehaviour {
         get { return importancia / 100; }
     }
 
-    
+
+    void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(currentHealth);
+        }
+        else
+        {
+            currentHealth = (int)stream.ReceiveNext();
+        }
+    }
+
 }

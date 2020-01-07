@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NaveManager : MonoBehaviour
+public class NaveManager : Photon.PunBehaviour
 {
     //public static Combustible combustible;
 
@@ -24,7 +24,8 @@ public class NaveManager : MonoBehaviour
     public TrailRenderer trail;
     public Combustible combustible;
     public GameObject victoryImage;
-    
+    public GameObject hudCanvas;
+    public AudioListener audioListener;
 
 
     public int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
@@ -33,6 +34,10 @@ public class NaveManager : MonoBehaviour
     private Maneuverability maneuverability;
     private InputManager inputManager;
     private Rigidbody rb;
+    private PlanningManager planningManager;
+    private NaveAnimationManager animationManager;
+    private UIManager uiManager;
+    private Dash dash;
 
     private bool fuelInLeft = false;
     private bool fuelInRight = false;
@@ -45,12 +50,28 @@ public class NaveManager : MonoBehaviour
         stats = GetComponent<Stats>();
         controller = GetComponent<NaveController>();
         maneuverability = GetComponent<Maneuverability>();
+        planningManager = GetComponent<PlanningManager>();
+        dash = GetComponent<Dash>();
+        animationManager = GetComponent<NaveAnimationManager>();
+        uiManager = GetComponent<UIManager>();
         AsignarCombustibleInicial();
+        if (!photonView.isMine)
+        {
+            controller.enabled = false;
+            planningManager.enabled = false;
+            dash.enabled = false;
+            animationManager.enabled = false;
+            uiManager.enabled = false;
+            hudCanvas.SetActive(false);
+            audioListener.enabled = false;
+        }
+        gameObject.name = gameObject.name + " " + photonView.owner.NickName;
     }
 
     private void Update()
     {
         FuelManager();
+        if (!photonView.isMine) return;
         combustible.PasiveConsumption();
     }
 
@@ -77,7 +98,7 @@ public class NaveManager : MonoBehaviour
 
         combustible = habilidadCombustible.combustible;
         Vector3 locVel = GetComponent<NaveController>().modelTransform.InverseTransformDirection(rb.velocity);
-        if (locVel.z<=2)
+        if (locVel.z <= 2)
         {
             trail.enabled = false;
         }
@@ -90,6 +111,7 @@ public class NaveManager : MonoBehaviour
         {
             trail.material.color = habilidadCombustible.combustible.color;
         }
+        if (!photonView.isMine) return;
 
         Direction fuelSide = ChangeFuelManager();
         //cambiar entre los distintos combustibles
@@ -111,7 +133,7 @@ public class NaveManager : MonoBehaviour
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }
-        if (fuelSide == Direction.Right || combustible.currentAmmount<=0)
+        if (fuelSide == Direction.Right || combustible.currentAmmount <= 0)
         {
             //print("entra en right");
             try
@@ -138,14 +160,14 @@ public class NaveManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag=="Nave")
+        if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Nave")
         {
             DamageManager dm = collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>();
             float impactForce = Vector3.Dot(collision.contacts[0].normal, collision.relativeVelocity);
             impactForce = Mathf.Clamp(impactForce, 0, float.MaxValue);
             if (collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>())
             {
-                collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * GetComponent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction),false);
+                collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * GetComponent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
             }
             if (collision.gameObject.GetComponent<DamageManager>())
             {
@@ -156,11 +178,28 @@ public class NaveManager : MonoBehaviour
                 collision.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
             }
         }
-        
+
 
     }
 
-    
+    [PunRPC]
+    public void TakeDamage(float damage, bool weapon, string target, string ownerNickname)
+    {
+        print("Id Recibida: " + ownerNickname);
+        print("Mi Id: " + photonView.owner.NickName + " / " + gameObject.name);
+        if (ownerNickname != photonView.owner.NickName) return;
+        print("target's damaged object: " + target);
+        foreach(DamageManager dm in GetComponentsInChildren<DamageManager>())
+        {
+            print(dm.damagedObject);
+            if(dm.damagedObject.ToString()==target)
+            {
+                print("c");
+                dm.TakeDamage(damage, weapon);
+                return;
+            }
+        }
+    }
 
     public void SetWeaponObjectives(LayerMask layers)
     {
@@ -187,7 +226,7 @@ public class NaveManager : MonoBehaviour
                 return Direction.Left;
             }
         }
-        if(inputManager.ChangeFuel() == 0)
+        if (inputManager.ChangeFuel() == 0)
         {
             fuelInRight = false;
             fuelInLeft = false;
@@ -212,7 +251,7 @@ public class NaveManager : MonoBehaviour
         Destroy(explosion, explosion.GetComponentInChildren<ParticleSystem>().main.duration);
         Destroy(transform.parent.gameObject);
     }
-    
+
 
 
 

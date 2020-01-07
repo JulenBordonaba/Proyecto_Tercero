@@ -2,12 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageManager : MonoBehaviour
+public class DamageManager : Photon.PunBehaviour
 {
     [Tooltip("Pon el tiempo de inmunidad que tiene la nave despues de recibir daño")]
     public float inmunityCooldown;
     [Tooltip("Pon el daño mínimo para que pueda recibir daño")]
     public float minDamage=-1;
+    public DamagedObject damagedObject = DamagedObject.Other;
+
+
+    public byte classId { get; set; }
+
+    public static object Deserialize(byte[] data)
+    {
+        DamageManager result = new DamageManager();
+        result.classId = data[0];
+        return result;
+    }
+
+    public static byte[] Serialize(object customType)
+    {
+        DamageManager c = (DamageManager)customType;
+        return new byte[] { c.classId };
+    }
 
     private bool canBeDamaged = true;
 
@@ -25,9 +42,11 @@ public class DamageManager : MonoBehaviour
 
     public void TakeDamage(float damage, bool weapon)
     {
+        print(gameObject);
         if (minDamage < 0) return;
         if (!canBeDamaged) return;
         if (damage < minDamage && !weapon) return;
+        print("sigue Take Damage");
         //recibir daño
         if(GetComponent<Stats>())
         {
@@ -49,7 +68,7 @@ public class DamageManager : MonoBehaviour
             GetComponentInParent<Pieza>().Damage(damage);
         }
 
-        print(damage);
+        print("recived damage: " + damage);
 
     }
 

@@ -52,6 +52,7 @@ public class CameraController : Photon.PunBehaviour
 
         //guardamos la posición inicial 
         localPos = transform.localPosition;
+        if (!photonView.isMine) GetComponent<Camera>().enabled = false;
     }
 
     // Update is called once per frame

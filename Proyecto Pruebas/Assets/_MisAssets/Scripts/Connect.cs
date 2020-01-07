@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using ExitGames.Client.Photon;
 
 public class Connect : Photon.PunBehaviour
 {
@@ -10,8 +11,15 @@ public class Connect : Photon.PunBehaviour
     private bool joinedLobby = false;
     void Start()
     {
+        RegisterSerializableTypes();
         PhotonNetwork.playerName = CreateRandomUsername();
         PhotonNetwork.ConnectUsingSettings("v1.0");
+    }
+
+    private void RegisterSerializableTypes()
+    {
+        PhotonPeer.RegisterType(typeof(Stats), (byte)1, Stats.Serialize, Stats.Deserialize);
+        PhotonPeer.RegisterType(typeof(DamageManager), (byte)2, DamageManager.Serialize, DamageManager.Deserialize);
     }
 
     public override void OnJoinedRoom()

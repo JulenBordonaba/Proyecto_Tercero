@@ -27,3 +27,8 @@ public enum ScreenDivision
     Horizontal,Vertical
 }
 
+public enum DamagedObject
+{
+    Core,Front,Back,Left,Right,Other
+}
+
