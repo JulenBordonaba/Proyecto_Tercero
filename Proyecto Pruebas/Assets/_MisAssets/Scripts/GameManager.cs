@@ -33,7 +33,15 @@ public class GameManager : MonoBehaviour
             onRaceFinished.AddListener(FinishRace);
             navesList = new List<NaveManager>();
             List<GameObject> naves = new List<GameObject>();
-            naves.Add(PhotonNetwork.Instantiate("NaveOnline", spawns[0].position, Quaternion.identity, 0, null));
+            if(PhotonNetwork.playerList.Length<=spawns.Count)
+            {
+                naves.Add(PhotonNetwork.Instantiate("NaveOnline", spawns[PhotonNetwork.playerList.Length - 1].position, Quaternion.identity, 0, null));
+            }
+            else
+            {
+                naves.Add(PhotonNetwork.Instantiate("NaveOnline", spawns[spawns.Count - 1].position, Quaternion.identity, 0, null));
+            }
+            
         }
         else
         {

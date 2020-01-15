@@ -10,6 +10,7 @@ public abstract class HabilidadCombustible : MonoBehaviour
     public TipoCombustible tipoCombustible;
     public NaveManager naveManager;
     public Animator animator;
+    
 
     public void GetFuel()
     {

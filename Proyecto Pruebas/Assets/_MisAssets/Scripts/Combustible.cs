@@ -21,7 +21,22 @@ public class Combustible : MonoBehaviour
 
 
     public float currentAmmount;    //cantidad actual de combustible
-    
+
+
+    public byte classId { get; set; }
+
+    public static object Deserialize(byte[] data)
+    {
+        Combustible result = new Combustible();
+        result.classId = data[0];
+        return result;
+    }
+
+    public static byte[] Serialize(object customType)
+    {
+        Combustible c = (Combustible)customType;
+        return new byte[] { c.classId };
+    }
 
     private void Start()
     {

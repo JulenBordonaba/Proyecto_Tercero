@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum TipoCombustible
+public enum TipoCombustible : byte
 {
     Turbo,Salto,Escudo,Reparar
 }

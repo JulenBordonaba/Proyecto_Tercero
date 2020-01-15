@@ -31,7 +31,6 @@ public class ShootRay : ShootWeapon
 
 
 
-
         //declarar cariables para el raycast
         Ray ray = Autoaim();
         RaycastHit[] hits;
@@ -54,13 +53,19 @@ public class ShootRay : ShootWeapon
                 }
             }
             //poner partículas de impacto
-            GameObject impactGO = Instantiate(impactPrefab, nearestHit.point, Quaternion.identity);
+
+
+            GameObject impactGO = PhotonNetwork.InstantiateSceneObject("ShotImpact", nearestHit.point, Quaternion.identity,0,null);
             impactGO.transform.up = nearestHit.normal;
             impactGO.GetComponentInChildren<ParticleSystem>().Play();
             //destruir efecto
             Destroy(impactGO, impactGO.GetComponentInChildren<ParticleSystem>().main.duration);
             //hacer daño al objetivo
-            DamageObjective(nearestHit.collider.gameObject);
+            if(photonView.isMine)
+            {
+                DamageObjective(nearestHit.collider.gameObject);
+            }
+            
             
         }
     }
@@ -77,7 +82,7 @@ public class ShootRay : ShootWeapon
         {
             if (nm != myNaveManager)
             {
-                playerPosition = nm.transform.position;
+                playerPosition = nm.shipCentre.transform.position;
                 shipInScreenPoint = myCamera.WorldToScreenPoint(nm.transform.position);
                 //print(shipInScreenPoint);
                 //print("Camera Centre: " + screenMiddle);

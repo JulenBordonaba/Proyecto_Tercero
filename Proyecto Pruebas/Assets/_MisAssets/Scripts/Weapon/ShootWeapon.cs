@@ -30,14 +30,17 @@ public abstract class ShootWeapon : Photon.PunBehaviour
     void Update()
     {
         if (PauseManager.inPause) return;
+        if (!photonView.isMine) return;
         if (inputManager.Shot())
         {
-            Shoot();
+            photonView.RPC("Shoot", PhotonTargets.All);
         }
     }
 
+    [PunRPC]
     public void Shoot()
     {
+        print("entra a Shoot");
         if (!canShoot) return;
         canShoot = false;
         StartCoroutine(Cooldown());

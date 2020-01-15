@@ -34,6 +34,7 @@ public class AimWeapon : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.isMine) return;
         Aim();
     }
 

@@ -26,6 +26,7 @@ public class NaveManager : Photon.PunBehaviour
     public GameObject victoryImage;
     public GameObject hudCanvas;
     public AudioListener audioListener;
+    public GameObject shipCentre;
 
 
     public int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
@@ -38,6 +39,7 @@ public class NaveManager : Photon.PunBehaviour
     private NaveAnimationManager animationManager;
     private UIManager uiManager;
     private Dash dash;
+    private SynchronizableColor trailColor;
 
     private bool fuelInLeft = false;
     private bool fuelInRight = false;
@@ -54,6 +56,7 @@ public class NaveManager : Photon.PunBehaviour
         dash = GetComponent<Dash>();
         animationManager = GetComponent<NaveAnimationManager>();
         uiManager = GetComponent<UIManager>();
+        trailColor = new SynchronizableColor();
         AsignarCombustibleInicial();
         if (!photonView.isMine)
         {
@@ -66,6 +69,7 @@ public class NaveManager : Photon.PunBehaviour
             audioListener.enabled = false;
         }
         gameObject.name = gameObject.name + " " + photonView.owner.NickName;
+        trailColor.ToSynchronizable(trail.material.color);
     }
 
     private void Update()
@@ -109,7 +113,8 @@ public class NaveManager : Photon.PunBehaviour
 
         if (trail.enabled)
         {
-            trail.material.color = habilidadCombustible.combustible.color;
+            trailColor.ToSynchronizable(habilidadCombustible.combustible.color);
+            trail.material.color = trailColor.ToColor();
         }
         if (!photonView.isMine) return;
 
@@ -125,6 +130,7 @@ public class NaveManager : Photon.PunBehaviour
                     combustibleActivo = combustibles.Count - 1;
                 }
                 habilidadCombustible = GetComponent(combustibles[combustibleActivo].ToString()) as HabilidadCombustible;
+                photonView.RPC("ChangeHabilidadCombustible", PhotonTargets.OthersBuffered, (byte)habilidadCombustible.tipoCombustible);
 
 
             }
@@ -145,17 +151,36 @@ public class NaveManager : Photon.PunBehaviour
                 }
                 habilidadCombustible = GetComponent(combustibles[combustibleActivo].ToString()) as HabilidadCombustible;
 
-
+                photonView.RPC("ChangeHabilidadCombustible", PhotonTargets.OthersBuffered, (byte)habilidadCombustible.tipoCombustible);
             }
             catch
             {
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }
+        
         if (inputManager.UseFuel())
         {
             habilidadCombustible.Use();
         }
+    }
+
+    [PunRPC]
+    public void ChangeHabilidadCombustible(byte combustibleType)
+    {
+        habilidadCombustible = FindCombustibleByType((TipoCombustible)combustibleType);
+    }
+
+    private HabilidadCombustible FindCombustibleByType(TipoCombustible type)
+    {
+        foreach(HabilidadCombustible c in GetComponents<HabilidadCombustible>())
+        {
+            if(c.tipoCombustible==type)
+            {
+                return c;
+            }
+        }
+        return null;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -252,12 +277,25 @@ public class NaveManager : Photon.PunBehaviour
         Destroy(transform.parent.gameObject);
     }
 
-
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            //stream.SendNext(habilidadCombustible.combustible);
+        }
+        else
+        {
+            //habilidadCombustible.combustible = (Combustible)stream.ReceiveNext();
+        }
+    }
 
 
     private float CalculateImpactForce(Vector3 collisionNormal, Vector3 collisionVelocity)
     {
         return Vector3.Dot(collisionNormal, collisionVelocity);
     }
+
+
+
 
 }
