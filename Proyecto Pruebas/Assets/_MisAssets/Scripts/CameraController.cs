@@ -16,6 +16,7 @@ public class CameraController : Photon.PunBehaviour
 
     public GameObject gameOverCamera;
     public Sprite singleplayerGameOverSprite;
+    public LayerMask ignoreLayers;
 
 
     [Header("Camera Limits")]
@@ -51,7 +52,7 @@ public class CameraController : Photon.PunBehaviour
         currentY = 0;
 
         //guardamos la posición inicial 
-        localPos = transform.localPosition;
+        localPos = transform.parent.localPosition;
         if (!photonView.isMine) GetComponent<Camera>().enabled = false;
     }
 
@@ -61,9 +62,9 @@ public class CameraController : Photon.PunBehaviour
         if (naveDestruida || PauseManager.inPause) return;
 
         //hacemos que la posición del padre sea igual a la de la nave
-        transform.parent.parent.position = target.position;
+        transform.parent.parent.parent.position = target.position;
         //hacemos que la rotacion del pivote sea una interpolación entre su rotación y la de la nave respecto a Time.deltaTime
-        transform.parent.rotation = Quaternion.Lerp(transform.parent.rotation, target.rotation, Time.deltaTime * damping * cameraDampingMultiplayer);
+        transform.parent.parent.rotation = Quaternion.Lerp(transform.parent.parent.rotation, target.rotation, Time.deltaTime * damping * cameraDampingMultiplayer);
 
         //transform.localPosition = transform.parent.position - diference + velocityOffset;
         //Vector3 rot = transform.rotation.eulerAngles;
@@ -76,7 +77,21 @@ public class CameraController : Photon.PunBehaviour
         }
 
         CameraFocus(!backCamera);
+        PositionCamera();
         
+    }
+
+    private void PositionCamera()
+    {
+        Vector3 camPos = transform.parent.position;
+        Vector3 camCentre = transform.parent.parent.position;
+
+        RaycastHit hit = new RaycastHit();
+
+        if(Physics.Linecast(camCentre,camPos, out hit, ignoreLayers))
+        {
+            transform.position = hit.point;
+        }
     }
 
     public void OnShipDestroyed(float time)
@@ -101,9 +116,9 @@ public class CameraController : Photon.PunBehaviour
     {
         //transform.parent.parent.rotation = target.rotation;
 
-        transform.parent.parent.rotation = Quaternion.Lerp(transform.parent.parent.rotation, target.rotation, Time.deltaTime * damping);
+        transform.parent.parent.parent.rotation = Quaternion.Lerp(transform.parent.parent.parent.rotation, target.rotation, Time.deltaTime * damping);
 
-        transform.parent.parent.localRotation = Quaternion.Euler(transform.parent.parent.localEulerAngles.x, transform.parent.parent.localEulerAngles.y, 0);
+        transform.parent.parent.parent.localRotation = Quaternion.Euler(transform.parent.parent.parent.localEulerAngles.x, transform.parent.parent.parent.localEulerAngles.y, 0);
 
         //transform.parent.parent.position = Vector3.Lerp(transform.parent.parent.position,target.position, Time.deltaTime * damping);
 
@@ -151,11 +166,11 @@ public class CameraController : Photon.PunBehaviour
         //igualamos la posicion de la camara a la posición inicial + el desplazamiento de camara + el desplazamiento por velocidad
         if (front)
         {
-            transform.localPosition = localPos;
+            transform.parent.localPosition = localPos;
         }
         else
         {
-            transform.localPosition = new Vector3(localPos.x, localPos.y, -localPos.z) ;
+            transform.parent.localPosition = new Vector3(localPos.x, localPos.y, -localPos.z) ;
         }
 
 
@@ -164,18 +179,18 @@ public class CameraController : Photon.PunBehaviour
 
         Quaternion oldRot = transform.rotation; //guardamos la rotación antes de apuntar al objetivo*/
 
-        transform.parent.localRotation = Quaternion.Euler(currentY, currentX, 0);
-        transform.parent.rotation = Quaternion.Euler(transform.parent.eulerAngles.x, transform.parent.eulerAngles.y, 0);
+        transform.parent.parent.localRotation = Quaternion.Euler(currentY, currentX, 0);
+        transform.parent.parent.rotation = Quaternion.Euler(transform.parent.parent.eulerAngles.x, transform.parent.parent.eulerAngles.y, 0);
 
         if(front)
         {
             //hacemos que la camara apunte a un objeto que tenemos delante de la nave
-            transform.LookAt(frontLookAt);
+            transform.parent.LookAt(frontLookAt);
         }
         else
         {
             //hacemos que la camara apunte a un objeto que tenemos detras de la nave
-            transform.LookAt(backLookAt);
+            transform.parent.LookAt(backLookAt);
         }
         
 
