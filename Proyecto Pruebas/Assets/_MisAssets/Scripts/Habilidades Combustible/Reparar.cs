@@ -10,15 +10,15 @@ public class Reparar : HabilidadCombustible
     public float cooldown;
     [Tooltip("Pon las partíaculas de la reparación")]
     public GameObject healingParticles;
+    public bool isRepairing = false;
 
-    private bool isRepairing = false;
     private bool canRepair = true;
     private List<Pieza> piezas;
 
     private void Start()
     {
         naveManager = GetComponentInParent<NaveManager>();
-        piezas = new List<Pieza>( GetComponentsInChildren<Pieza>());
+        piezas = new List<Pieza>(GetComponentsInChildren<Pieza>());
         healingParticles.SetActive(isRepairing);
         tipoCombustible = TipoCombustible.Reparar;
         GetFuel();
@@ -28,20 +28,13 @@ public class Reparar : HabilidadCombustible
     private void Update()
     {
         Repair();
+        ActivateParticles();
     }
 
     public override void Use()
     {
         print("entra a Use");
         if (!canRepair) return;
-        
-
-        //activar animacion reparacion
-        //GetComponentInParent<Animator>().SetBool("repair",true);
-
-        //activar sonido reparqacion
-        //GetComponentInParent<AudioSource>().Play();
-        
 
         if (combustible == null) return;
 
@@ -56,14 +49,34 @@ public class Reparar : HabilidadCombustible
         StartCoroutine(ActivateFuelAnimation("Reparar"));
         StartCoroutine(Cooldown(combustible.duration));
 
+
+
+
+
+
+
     }
+
+    public void ActivateParticles()
+    {
+
+        if (!healingParticles.activeInHierarchy && isRepairing)
+        {
+            healingParticles.SetActive(true);
+        }
+        else if(!isRepairing)
+        {
+            healingParticles.SetActive(false);
+        }
+    }
+    
 
     private void Repair()
     {
         if (!isRepairing) return;
-        foreach(Pieza pieza in piezas)
+        foreach (Pieza pieza in piezas)
         {
-            if(!pieza.isBroken)
+            if (!pieza.isBroken)
             {
                 pieza.currentHealth += repairAmmount * Time.deltaTime;
                 pieza.CheckState();
@@ -84,5 +97,18 @@ public class Reparar : HabilidadCombustible
         //GetComponentInParent<Animator>().SetBool("inShield",false);
         yield return new WaitForSeconds(cooldown);
         canRepair = true;
+    }
+
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.isWriting)
+        {
+            stream.SendNext(isRepairing);
+        }
+        else
+        {
+            isRepairing = (bool)stream.ReceiveNext();
+        }
     }
 }

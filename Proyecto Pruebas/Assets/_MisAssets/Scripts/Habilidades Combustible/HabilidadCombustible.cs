@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class HabilidadCombustible : MonoBehaviour
+public abstract class HabilidadCombustible : Photon.PunBehaviour
 {
     //public Color color;
     public Combustible combustible;
