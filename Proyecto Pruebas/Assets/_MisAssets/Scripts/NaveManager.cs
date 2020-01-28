@@ -158,7 +158,7 @@ public class NaveManager : Photon.PunBehaviour
                 throw new Exception("Fallo al cambiar habilidad de combustible");
             }
         }
-        
+
         if (inputManager.UseFuel())
         {
             habilidadCombustible.Use();
@@ -173,9 +173,9 @@ public class NaveManager : Photon.PunBehaviour
 
     private HabilidadCombustible FindCombustibleByType(TipoCombustible type)
     {
-        foreach(HabilidadCombustible c in GetComponents<HabilidadCombustible>())
+        foreach (HabilidadCombustible c in GetComponents<HabilidadCombustible>())
         {
-            if(c.tipoCombustible==type)
+            if (c.tipoCombustible == type)
             {
                 return c;
             }
@@ -214,10 +214,10 @@ public class NaveManager : Photon.PunBehaviour
         print("Mi Id: " + photonView.owner.NickName + " / " + gameObject.name);
         if (ownerNickname != photonView.owner.NickName) return;
         print("target's damaged object: " + target);
-        foreach(DamageManager dm in GetComponentsInChildren<DamageManager>())
+        foreach (DamageManager dm in GetComponentsInChildren<DamageManager>())
         {
             print(dm.damagedObject);
-            if(dm.damagedObject.ToString()==target)
+            if (dm.damagedObject.ToString() == target)
             {
                 print("c");
                 dm.TakeDamage(damage, weapon);
@@ -269,12 +269,17 @@ public class NaveManager : Photon.PunBehaviour
     public IEnumerator OnShipDestroyedCoroutine()
     {
         yield return new WaitForEndOfFrame();
-        myCamera.GetComponent<CameraController>().naveDestruida = true;
-        myCamera.gameObject.GetComponent<CameraController>().OnShipDestroyed(deathTime);
+        if (photonView.isMine)
+        {
+            myCamera.GetComponent<CameraController>().naveDestruida = true;
+            myCamera.gameObject.GetComponent<CameraController>().OnShipDestroyed(deathTime);
+
+        }
+
         GameManager.navesList.Remove(this);
         GameObject explosion = Instantiate(explosionPrefab, GetComponent<NaveController>().transform.position, Quaternion.identity);
         Destroy(explosion, explosion.GetComponentInChildren<ParticleSystem>().main.duration);
-        Destroy(transform.parent.gameObject);
+        PhotonNetwork.Destroy(transform.parent.gameObject);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

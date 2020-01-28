@@ -33,12 +33,13 @@ public class ShootRay : ShootWeapon
 
         //declarar cariables para el raycast
         Ray ray = Autoaim();
+        
         RaycastHit[] hits;
 
         hits = Physics.RaycastAll(ray, shootDistance, layers);
 
         //lanzar raycast
-        if (hits.Length>0)
+        if (hits.Length > 0)
         {
 
             RaycastHit nearestHit = hits[0];
@@ -52,21 +53,24 @@ public class ShootRay : ShootWeapon
                     }
                 }
             }
+
+
             //poner partículas de impacto
-
-
-            GameObject impactGO = PhotonNetwork.InstantiateSceneObject("ShotImpact", nearestHit.point, Quaternion.identity,0,null);
+            GameObject impactGO = Instantiate(impactPrefab, nearestHit.point, Quaternion.identity);
             impactGO.transform.up = nearestHit.normal;
             impactGO.GetComponentInChildren<ParticleSystem>().Play();
+
             //destruir efecto
             Destroy(impactGO, impactGO.GetComponentInChildren<ParticleSystem>().main.duration);
+
             //hacer daño al objetivo
-            if(photonView.isMine)
+            if (photonView.isMine)
             {
                 DamageObjective(nearestHit.collider.gameObject);
             }
-            
-            
+
+
+
         }
     }
 
@@ -82,26 +86,30 @@ public class ShootRay : ShootWeapon
         {
             if (nm != myNaveManager)
             {
-                playerPosition = nm.shipCentre.transform.position;
-                shipInScreenPoint = myCamera.WorldToScreenPoint(nm.transform.position);
-                //print(shipInScreenPoint);
-                //print("Camera Centre: " + screenMiddle);
-                //print(CircleCollision(screenMiddle.x, screenMiddle.y, autoaimRadius, shipInScreenPoint.x, shipInScreenPoint.y));
-                if (CircleCollision(screenMiddle.x, screenMiddle.y, autoaimRadius, shipInScreenPoint.x, shipInScreenPoint.y))
+                if(nm!=null)
                 {
-                    ray = new Ray();
-                    ray.origin = shotSpawn.position;
-                    ray.direction = (playerPosition - shotSpawn.position).normalized;
-                    return ray;
+                    playerPosition = nm.shipCentre.transform.position;
+                    shipInScreenPoint = myCamera.WorldToScreenPoint(nm.transform.position);
+                    //print(shipInScreenPoint);
+                    //print("Camera Centre: " + screenMiddle);
+                    //print(CircleCollision(screenMiddle.x, screenMiddle.y, autoaimRadius, shipInScreenPoint.x, shipInScreenPoint.y));
+                    if (CircleCollision(screenMiddle.x, screenMiddle.y, autoaimRadius, shipInScreenPoint.x, shipInScreenPoint.y))
+                    {
+                        ray = new Ray();
+                        ray.origin = shotSpawn.position;
+                        ray.direction = (playerPosition - shotSpawn.position).normalized;
+                        return ray;
+                    }
                 }
                 
+
             }
         }
 
         ray.origin = shotSpawn.position;
         ray.direction = transform.forward;
         return ray;
-        
+
     }
 
     private bool CircleCollision(float x, float y, float r, float x2, float y2)
@@ -117,7 +125,7 @@ public class ShootRay : ShootWeapon
             //print(other.gameObject.name);
             if (other.GetComponentInParent<DamageManager>())
             {
-                if(other.GetComponentInParent<PhotonView>())
+                if (other.GetComponentInParent<PhotonView>())
                 {
                     print("Id mandada: " + other.GetComponentInParent<DamageManager>().gameObject.GetComponent<PhotonView>().ownerId);
                     other.GetComponentInParent<NaveManager>().gameObject.GetComponent<PhotonView>().RPC("TakeDamage", PhotonTargets.AllBuffered, GetComponentInParent<Stats>().currentShotDamage, true, other.GetComponentInParent<DamageManager>().damagedObject.ToString(), other.GetComponentInParent<DamageManager>().gameObject.GetComponent<PhotonView>().owner.NickName);
@@ -137,6 +145,6 @@ public class ShootRay : ShootWeapon
                 other.GetComponentInParent<DamageManager>().TakeDamage(GetComponentInParent<Stats>().currentShotDamage, true, other.gameObject);
             }*/
         }
-            
+
     }
 }

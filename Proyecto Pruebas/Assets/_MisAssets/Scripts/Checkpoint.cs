@@ -52,6 +52,7 @@ public class Checkpoint : MonoBehaviour
                 if(isFinal)
                 {
                     GameManager.winner = naveManager;
+                    Global.winners.Add(naveManager.GetComponent<PhotonView>().owner.NickName);
                     GameManager.onRaceFinished.Invoke();
                 }
                 else

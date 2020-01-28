@@ -109,6 +109,7 @@ public class CameraController : Photon.PunBehaviour
             gameOverCam.GetComponent<Camera>().rect = new Rect(new Vector2(0, 0), new Vector2(1, 1));
             gameOverCam.GetComponentInChildren<Image>().sprite = singleplayerGameOverSprite;
         }
+        PhotonNetwork.LeaveRoom();
         Destroy(gameObject);
     }
 

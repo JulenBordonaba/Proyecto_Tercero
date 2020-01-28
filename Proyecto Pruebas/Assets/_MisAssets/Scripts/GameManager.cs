@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Photon.PunBehaviour
 {
     public static List<NaveManager> navesList = new List<NaveManager>();
     public static UnityEvent onRaceFinished;
@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        Global.winners = new List<string>();
         if(PhotonNetwork.connected)
         {
 
@@ -35,11 +36,11 @@ public class GameManager : MonoBehaviour
             List<GameObject> naves = new List<GameObject>();
             if(PhotonNetwork.playerList.Length<=spawns.Count)
             {
-                naves.Add(PhotonNetwork.Instantiate("NaveOnline", spawns[PhotonNetwork.playerList.Length - 1].position, Quaternion.identity, 0, null));
+                naves.Add(PhotonNetwork.Instantiate("NaveOnlineScavenger", spawns[PhotonNetwork.playerList.Length - 1].position, Quaternion.identity, 0, null));
             }
             else
             {
-                naves.Add(PhotonNetwork.Instantiate("NaveOnline", spawns[spawns.Count - 1].position, Quaternion.identity, 0, null));
+                naves.Add(PhotonNetwork.Instantiate("NaveOnlineScavenger", spawns[spawns.Count - 1].position, Quaternion.identity, 0, null));
             }
             
         }
@@ -151,11 +152,17 @@ public class GameManager : MonoBehaviour
 
     private void FinishRace()
     {
-        GetComponent<Timer>().GetTime();
-        UpdateScore();
-        Global.winner = winner.GetComponent<InputManager>().numPlayer;
-        SceneManager.LoadScene("Winner");
-        //print(" ha ganado el jugador " + winner.GetComponent<InputManager>().numPlayer);
+        print(Global.winners[Global.winners.Count - 1] + " " + PhotonNetwork.player.NickName);
+        if(PhotonNetwork.player.NickName == Global.winners[Global.winners.Count-1])
+        {
+            GetComponent<Timer>().GetTime();
+            UpdateScore();
+            Global.winner = winner.GetComponent<InputManager>().numPlayer;
+            PhotonNetwork.LeaveRoom();
+            SceneManager.LoadScene("Winner");
+            //print(" ha ganado el jugador " + winner.GetComponent<InputManager>().numPlayer);
+        }
+
     }
 
     // Start is called before the first frame update
@@ -167,13 +174,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Global.numPlayers>1 && navesList.Count==1)
+        if(PhotonNetwork.connected)
         {
-            navesList[0].victoryImage.SetActive(true);
-            PauseManager.inPause = true;
-            GetComponent<Timer>().GetTime();
-            //StartCoroutine(EndByElimination());
+
         }
+        else
+        {
+            if (Global.numPlayers > 1 && navesList.Count == 1)
+            {
+                navesList[0].victoryImage.SetActive(true);
+                PauseManager.inPause = true;
+                GetComponent<Timer>().GetTime();
+                //StartCoroutine(EndByElimination());
+            }
+        }
+        
     }
 
     IEnumerator EndByElimination()

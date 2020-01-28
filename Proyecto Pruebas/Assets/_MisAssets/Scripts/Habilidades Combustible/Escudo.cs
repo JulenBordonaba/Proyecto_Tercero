@@ -20,6 +20,7 @@ public class Escudo : HabilidadCombustible
         animator = GetComponent<NaveAnimationManager>().animator;
     }
 
+    
     public override void Use()
     {
         print("Entra al Use");
@@ -35,7 +36,13 @@ public class Escudo : HabilidadCombustible
         
 
         if (combustible.currentAmmount < combustible.activeConsumption) return;
+        photonView.RPC("ActivateShield", PhotonTargets.All);
+        
+    }
 
+    [PunRPC]
+    public void ActivateShield()
+    {
         combustible.currentAmmount -= combustible.activeConsumption;
 
         //poner a true variable estado en escudo
@@ -49,6 +56,7 @@ public class Escudo : HabilidadCombustible
         //Inicar corrutina con la duración del escudo
         StartCoroutine(DeactivateShield(combustible.duration));
     }
+
     private IEnumerator DeactivateShield(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);

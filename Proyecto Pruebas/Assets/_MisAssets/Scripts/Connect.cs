@@ -3,14 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using ExitGames.Client.Photon;
+using UnityEngine.EventSystems;
 
 public class Connect : Photon.PunBehaviour
 {
     
     // Start is called before the first frame update
     private bool joinedLobby = false;
+    public GameObject conectingScreen;
+    public GameObject mainMenu;
+    public GameObject firstButton;
+
+    private EventSystem evt;
+
+
     void Start()
     {
+        evt = EventSystem.current;
+        if(!PhotonNetwork.connected)
+        {
+            joinedLobby = false;
+            mainMenu.SetActive(false);
+            conectingScreen.SetActive(true);
+        }
+        else
+        {
+            joinedLobby = true;
+            mainMenu.SetActive(true);
+            conectingScreen.SetActive(false);
+            evt.SetSelectedGameObject(firstButton);
+        }
         RegisterSerializableTypes();
         PhotonNetwork.playerName = CreateRandomUsername();
         PhotonNetwork.ConnectUsingSettings("v1.0");
@@ -42,6 +64,9 @@ public class Connect : Photon.PunBehaviour
     public override void OnJoinedLobby()
     {
         joinedLobby = true;
+        mainMenu.SetActive(true);
+        conectingScreen.SetActive(false);
+        evt.SetSelectedGameObject(firstButton);
     }
 
     public void JoinPrivateRoom()

@@ -12,6 +12,8 @@ public abstract class ShootWeapon : Photon.PunBehaviour
     public Transform shotSpawn;
     [Tooltip("Arrastra el sistema de particulas de la onomatopeya de disparar para instanciarlo")]
     public ParticleSystem prefabShotOnomatopoeia;
+    [Tooltip("rrastra el sistema de particulas del laser")]
+    public ParticleSystem laserPrefab;
     [Tooltip("Pon la lista de los sonidos que pueden sonar cuando se dispara")]
     public AudioClip[] shotSounds;
     [Tooltip("Pon el audio source del que saldrá el sondo del disparo")]
@@ -40,13 +42,15 @@ public abstract class ShootWeapon : Photon.PunBehaviour
     [PunRPC]
     public void Shoot()
     {
+
+
         print("entra a Shoot");
         if (!canShoot) return;
         canShoot = false;
         StartCoroutine(Cooldown());
 
         //sonido
-        if(shotSounds.Length>0)
+        if (shotSounds.Length > 0)
         {
             audioSource.PlayOneShot(shotSounds[Random.Range((int)0, (int)shotSounds.Length)]);
         }
@@ -60,6 +64,11 @@ public abstract class ShootWeapon : Photon.PunBehaviour
         {
             ParticleSystem onomatopoeia = Instantiate(prefabShotOnomatopoeia, shotSpawn);
             Destroy(onomatopoeia, onomatopoeia.main.duration);
+
+            ParticleSystem laser = Instantiate(laserPrefab, shotSpawn);
+            //laser.transform.forward = transform.forward;
+            Destroy(laser, laser.main.duration);
+
             onomatipoeiaActive = false;
             StartCoroutine(OnomatopoeiaCooldown());
         }
@@ -68,7 +77,7 @@ public abstract class ShootWeapon : Photon.PunBehaviour
     }
 
     public abstract void CastShot();
-    
+
 
     private IEnumerator Cooldown()
     {

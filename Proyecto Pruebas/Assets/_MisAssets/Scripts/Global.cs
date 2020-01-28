@@ -7,4 +7,5 @@ public static class Global
     public static GameObject myCam=null;
     public static int numPlayers=1;
     public static int winner=0;
+    public static List<string> winners;
 }
