@@ -130,7 +130,28 @@ public class InputManager : MonoBehaviour
 
     public bool ResetCamera()
     {
-        return Input.GetAxisRaw("PS4ResetCamera" + numPlayer.ToString())<0;
+        return Input.GetButtonDown("PS4ResetCamera" + numPlayer.ToString());
+    }
+
+
+    public bool UseJump()
+    {
+        return (Input.GetAxis("PCJumpBoost" + numPlayer.ToString()) > 0) || (Input.GetAxis("PS4JumpBoost" + numPlayer.ToString()) > 0);
+    }
+
+    public bool UseShield()
+    {
+        return (Input.GetAxis("PCRepairShield" + numPlayer.ToString()) < 0) || (Input.GetAxis("PS4RepairShield" + numPlayer.ToString()) < 0);
+    }
+
+    public bool UseBoost()
+    {
+        return (Input.GetAxis("PCJumpBoost" + numPlayer.ToString()) < 0) || (Input.GetAxis("PS4JumpBoost" + numPlayer.ToString()) < 0);
+    }
+
+    public bool UseRepair()
+    {
+        return (Input.GetAxis("PCRepairShield" + numPlayer.ToString()) > 0) || (Input.GetAxis("PS4RepairShield" + numPlayer.ToString()) > 0);
     }
     
     

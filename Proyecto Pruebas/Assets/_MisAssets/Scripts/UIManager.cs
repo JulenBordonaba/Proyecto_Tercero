@@ -39,7 +39,7 @@ public class UIManager : MonoBehaviour
         ColorPiezas();
         ShowTimer();
 
-        contadorCheckpointsText.text = CheckpointManager.currentCheckpoint.ToString() + " / " + CheckpointManager.numCheckpoints;
+        contadorCheckpointsText.text = (CheckpointManager.currentCheckpoint - 1).ToString() + " / " + (CheckpointManager.numCheckpoints - 1).ToString();
     }
 
     private void ShowNewestCheckpoint()

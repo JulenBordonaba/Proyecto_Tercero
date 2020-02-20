@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevitationManager : MonoBehaviour
+public class LevitationManager : Photon.PunBehaviour
 {
     [Tooltip("Pon la altura a la que se mantendrá la nave a flote")]
     public float levitationHeight = 20;
@@ -29,6 +29,7 @@ public class LevitationManager : MonoBehaviour
 
     private void Update()
     {
+        if (!photonView.isMine) return;
         Levitate();
     }
 

@@ -19,7 +19,7 @@ public class FuelPicker : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print(other.name);
+        //print(other.name);
         if (other.gameObject.GetComponent<CombustibleObject>())
         {
             switch (other.gameObject.GetComponent<CombustibleObject>().tipo)
@@ -41,7 +41,13 @@ public class FuelPicker : MonoBehaviour
                     GetComponentInParent<Reparar>().combustible.currentAmmount = Mathf.Clamp(GetComponentInParent<Reparar>().combustible.currentAmmount, 0, GetComponentInParent<Reparar>().combustible.deposit);
                     break;
             }
-            Destroy(other.gameObject.gameObject);
+            StartCoroutine(DestroyFuel(other.gameObject.gameObject));
         }
+    }
+
+    public IEnumerator DestroyFuel(GameObject go)
+    {
+        yield return new WaitForEndOfFrame();
+        Destroy(go);
     }
 }

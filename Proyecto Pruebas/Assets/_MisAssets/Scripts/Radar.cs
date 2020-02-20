@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Radar : MonoBehaviour
+public class Radar : Photon.PunBehaviour
 {
     [Tooltip("Pon el radio del area en el que se detectan cosas")]
     public float areaRadius = 100;
@@ -29,6 +29,7 @@ public class Radar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!photonView.isMine) return;
         ShowObjectsInArea();
     }
 
@@ -67,10 +68,14 @@ public class Radar : MonoBehaviour
     {
         foreach(GameObject go in objectsInArea)
         {
-            if(go.GetComponentInParent<Checkpoint>())
+            if(go)
             {
-                StartCoroutine(ResetCheckpointColor(go));
+                if (go.GetComponentInParent<Checkpoint>())
+                {
+                    StartCoroutine(ResetCheckpointColor(go));
+                }
             }
+            
         }
     }
 

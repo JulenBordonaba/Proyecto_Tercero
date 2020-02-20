@@ -20,6 +20,16 @@ public class Salto : HabilidadCombustible
         animator = GetComponent<NaveAnimationManager>().animator;
     }
 
+    private void Update()
+    {
+        if (!photonView.isMine) return;
+        if (inputmanager.UseJump())
+        {
+            Use();
+        }
+    }
+
+
     public override void Use()
     {
         if (GetComponent<NaveManager>().isPlanning || inJump) return;       

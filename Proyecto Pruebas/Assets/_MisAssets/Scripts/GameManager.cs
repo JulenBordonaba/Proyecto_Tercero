@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,8 +8,10 @@ using UnityEngine.UI;
 
 public class GameManager : Photon.PunBehaviour
 {
+    public static GameManager current;
+
     public static List<NaveManager> navesList = new List<NaveManager>();
-    public static UnityEvent onRaceFinished;
+    public static event Action<NaveManager> OnRaceFinished;
     public static NaveManager winner;
     public static TimeScore[] records = new TimeScore[3];
 
@@ -25,31 +28,19 @@ public class GameManager : Photon.PunBehaviour
 
     private void Awake()
     {
+        current = this;
         Global.winners = new List<string>();
         if(PhotonNetwork.connected)
         {
 
-            winner = null;
-            onRaceFinished = new UnityEvent();
-            onRaceFinished.AddListener(FinishRace);
-            navesList = new List<NaveManager>();
-            List<GameObject> naves = new List<GameObject>();
-            if(PhotonNetwork.playerList.Length<=spawns.Count)
-            {
-                naves.Add(PhotonNetwork.Instantiate("NaveOnlineScavenger", spawns[PhotonNetwork.playerList.Length - 1].position, Quaternion.identity, 0, null));
-            }
-            else
-            {
-                naves.Add(PhotonNetwork.Instantiate("NaveOnlineScavenger", spawns[spawns.Count - 1].position, Quaternion.identity, 0, null));
-            }
+            
             
         }
         else
         {
 
             winner = null;
-            onRaceFinished = new UnityEvent();
-            onRaceFinished.AddListener(FinishRace);
+            OnRaceFinished += FinishRace;
             navesList = new List<NaveManager>();
             List<GameObject> naves = new List<GameObject>();
             for (int i = 0; i < Global.numPlayers; i++)
@@ -109,6 +100,30 @@ public class GameManager : Photon.PunBehaviour
         }
     }
 
+    public static void CallOnRaceFinished(NaveManager nm)
+    {
+        OnRaceFinished.Invoke(nm);
+    }
+
+
+    public void StartGame()
+    {
+        winner = null;
+        OnRaceFinished += FinishRace;
+        navesList = new List<NaveManager>();
+        List<GameObject> naves = new List<GameObject>();
+        if (PhotonNetwork.playerList.Length <= spawns.Count)
+        {
+            naves.Add(PhotonNetwork.Instantiate("NaveOnlineScavenger", spawns[PhotonNetwork.playerList.Length - 1].position, Quaternion.identity, 0, null));
+        }
+        else
+        {
+            naves.Add(PhotonNetwork.Instantiate("NaveOnlineScavenger", spawns[spawns.Count - 1].position, Quaternion.identity, 0, null));
+        }
+    }
+
+    
+
     public void UpdateScore()
     {
         TimeScore aux = new TimeScore();
@@ -150,11 +165,12 @@ public class GameManager : Photon.PunBehaviour
         PhotonNetwork.LeaveRoom();
     }
 
-    private void FinishRace()
+    private void FinishRace(NaveManager nm)
     {
         print(Global.winners[Global.winners.Count - 1] + " " + PhotonNetwork.player.NickName);
         if(PhotonNetwork.player.NickName == Global.winners[Global.winners.Count-1])
         {
+            navesList.Remove(nm);
             GetComponent<Timer>().GetTime();
             UpdateScore();
             Global.winner = winner.GetComponent<InputManager>().numPlayer;
@@ -176,7 +192,7 @@ public class GameManager : Photon.PunBehaviour
     {
         if(PhotonNetwork.connected)
         {
-
+            CheckPositions();
         }
         else
         {
@@ -189,6 +205,28 @@ public class GameManager : Photon.PunBehaviour
             }
         }
         
+    }
+
+    public void CheckPositions()
+    {
+        List<NaveManager> navePositions = navesList;
+        for (int j = 0; j < navePositions.Count; j++)
+        {
+            for (int i = 0; i < navePositions.Count - 1; i++)
+            {
+                if (navePositions[i].DistanceToNextCheckpoint > navePositions[i + 1].DistanceToNextCheckpoint)
+                {
+                    NaveManager aux = navePositions[i + 1];
+                    navePositions[i + 1] = navePositions[i];
+                    navePositions[i] = aux;
+                }
+            }
+        }
+        for (int i = 0; i < navePositions.Count; i++)
+        {
+            navePositions[i].position = i+Global.winners.Count+1;
+        }
+
     }
 
     IEnumerator EndByElimination()

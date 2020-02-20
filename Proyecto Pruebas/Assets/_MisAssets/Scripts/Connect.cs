@@ -43,6 +43,9 @@ public class Connect : Photon.PunBehaviour
         PhotonPeer.RegisterType(typeof(Stats), (byte)1, Stats.Serialize, Stats.Deserialize);
         PhotonPeer.RegisterType(typeof(DamageManager), (byte)2, DamageManager.Serialize, DamageManager.Deserialize);
         PhotonPeer.RegisterType(typeof(Combustible), (byte)3, Combustible.Serialize, Combustible.Deserialize);
+        PhotonPeer.RegisterType(typeof(Checkpoint), (byte)4, Checkpoint.Serialize, Checkpoint.Deserialize);
+        
+
     }
 
     public override void OnJoinedRoom()

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,8 @@ public class Pieza : Photon.PunBehaviour {
     [Tooltip("Pon el objeto de la pieza del HUD")]
     public GameObject piezaHUD;
 
+    public event Action<float> OnPieceDestroyed;
+
 
 
     //[HideInInspector]
@@ -27,11 +30,14 @@ public class Pieza : Photon.PunBehaviour {
     private GameObject piezaOk;
     private GameObject piezaBroken;
     private GameObject piezaDead;
+    public enum PieceState { }
 
     // Use this for initialization
     void Start () {
         maxHealth = GetComponentInParent<Stats>().life;
         currentHealth = maxHealth;
+
+        OnPieceDestroyed += PieceDestroyed;
 
         GetComponentInParent<Stats>().AddPieceValues(importancia);
         GetComponentInParent<Maneuverability>().AddPieceValues(importancia);
@@ -51,7 +57,7 @@ public class Pieza : Photon.PunBehaviour {
     }
 
 
-    private void onPieceDestroyed()
+    private void PieceDestroyed(float _importancia)
     {
         isBroken = true;
         if(nucleo)
@@ -62,9 +68,9 @@ public class Pieza : Photon.PunBehaviour {
 
     public void Damage(float ammount)
     {
-        print("damage pieza");
+        //print("damage pieza");
         if (currentHealth <= 0) return;
-        print("continua damage pieza");
+        //print("continua damage pieza");
         GetComponentInParent<Stats>().currentLife -= ammount;
         currentHealth -= ammount;
         piezaHUD.transform.SetAsLastSibling();
@@ -73,7 +79,7 @@ public class Pieza : Photon.PunBehaviour {
         CheckState();
         if(currentHealth<=0)
         {
-            onPieceDestroyed();
+            OnPieceDestroyed.Invoke(importancia);
         }
     }
 

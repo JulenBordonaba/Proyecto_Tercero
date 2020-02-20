@@ -10,6 +10,7 @@ public class Escudo : HabilidadCombustible
     public float cooldown;
 
     private bool inShield = false;
+    
 
     private void Start()
     {
@@ -20,7 +21,16 @@ public class Escudo : HabilidadCombustible
         animator = GetComponent<NaveAnimationManager>().animator;
     }
 
-    
+
+    private void Update()
+    {
+        if (!photonView.isMine) return;
+        if(inputmanager.UseShield())
+        {
+            Use();
+        }
+    }
+
     public override void Use()
     {
         print("Entra al Use");

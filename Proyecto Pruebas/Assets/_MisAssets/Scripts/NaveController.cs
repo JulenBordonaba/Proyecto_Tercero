@@ -64,17 +64,41 @@ public class NaveController : MonoBehaviour
 
     private void Update()
     {
-        if (PauseManager.inPause) return;
-        
-        if (inBoost)
+        if (!PauseManager.inPause)
         {
-            ApplyTurbo();
+            if (inBoost)
+            {
+                ApplyTurbo();
+            }
         }
+            
         if (GetComponent<NaveManager>().isPlanning) return;
-        Controller();
+        if(!PauseManager.inPause)
+        {
+            Controller();
+        }
+        else
+        {
+            InPauseController();
+        }
+        
 
     }
-    
+
+    public void InPauseController()
+    {
+        Vector3 locVel = modelTransform.InverseTransformDirection(rb.velocity);
+        locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction))); //se ralentiza el vehiculo
+                                                                               //locVel = new Vector3(locVel.x, locVel.y, locVel.z - locVel.z * 0.02f);
+        if (Mathf.Abs(locVel.z) < 2f)
+        {
+            locVel = new Vector3(locVel.x, locVel.y, 0f);
+        }
+        rb.velocity = modelTransform.TransformDirection(locVel);
+
+        rb.angularVelocity = new Vector3(rb.angularVelocity.x, 0, rb.angularVelocity.z);
+    }
+
 
     public void Controller()
     {
@@ -106,7 +130,7 @@ public class NaveController : MonoBehaviour
 
         ray.origin = transform.position;//+ new Vector3(0, 0, Mathf.Clamp(locVel.z / (velocity / 10), -6f, 6f));
         ray.direction = -Vector3.up;
-        
+
         //si el vehiculo esta cerca del suelo 
         if (Physics.Raycast(ray, out hit, maneuverHeight, LayerMask.GetMask("Floor")))
         {
@@ -264,7 +288,7 @@ public class NaveController : MonoBehaviour
 
         //convertimos la velocidad local en la velocidad global y la aplicamos
         rb.velocity = modelTransform.TransformDirection(locVel);
-        if(modelTransform.forward.y < maxSubida && modelTransform.forward.y>0)
+        if (modelTransform.forward.y < maxSubida && modelTransform.forward.y > 0)
         {
             rb.AddForce(-Physics.gravity * modelTransform.forward.y * GetComponent<Maneuverability>().AcelerationWithWeight, ForceMode.Acceleration);
         }

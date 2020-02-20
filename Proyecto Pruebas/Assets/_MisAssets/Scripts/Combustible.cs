@@ -12,8 +12,8 @@ public class Combustible : MonoBehaviour
     public Color color;     //color del combustible
     [Tooltip("Pon la cantidad máxima de combustible")]
     public float deposit;   //cantidad máxima de combustible
-    [Tooltip("Asigna la cantidad de combustible que gasta la nave mientras este combustible esta activo")]
-    public float pasiveConsumption;     //cantidad de combustible que se gasta pasivamente cada 5 segundos
+    //[Tooltip("Asigna la cantidad de combustible que gasta la nave mientras este combustible esta activo")]
+    //public float pasiveConsumption;     //cantidad de combustible que se gasta pasivamente cada 5 segundos
     [Tooltip("Asigna la cantidad de combustible que gasta la nave cada vez que se usa este combustible")]
     public float activeConsumption;     //cantidad de combustoble que se gasta cuando se usa activamente
     [Tooltip("Asigna los segundos que dura la habilidad del combustible")]
@@ -44,10 +44,12 @@ public class Combustible : MonoBehaviour
     }
     
 
-    public void PasiveConsumption()
+    /*public void PasiveConsumption()
     {
         currentAmmount -= (pasiveConsumption * Time.deltaTime) / 5;
-    }
+    }*/
+
+
 
 
 

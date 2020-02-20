@@ -68,7 +68,7 @@ public class PauseManager : MonoBehaviour
     public void Pause()
     {
         inPause = true;
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         pauseMenuGameObject.SetActive(true);
         Cursor.lockState = CursorLockMode.None;
         evt.SetSelectedGameObject(firstButton.gameObject);
@@ -77,7 +77,7 @@ public class PauseManager : MonoBehaviour
     public void Resume()
     {
         StartCoroutine(ResumeCoroutine());
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         pauseMenuGameObject.SetActive(false);
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;

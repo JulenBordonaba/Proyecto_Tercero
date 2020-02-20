@@ -29,6 +29,11 @@ public class Reparar : HabilidadCombustible
     {
         Repair();
         ActivateParticles();
+        if (!photonView.isMine) return;
+        if(inputmanager.UseRepair())
+        {
+            Use();
+        }
     }
 
     public override void Use()

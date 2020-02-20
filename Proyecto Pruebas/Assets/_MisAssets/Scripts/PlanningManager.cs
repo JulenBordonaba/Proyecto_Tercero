@@ -30,6 +30,9 @@ public class PlanningManager : MonoBehaviour
 
     private Rigidbody rb;   //rigidbody de la nave
     private InputManager inputManager;
+    private NaveManager naveManager;
+    private NaveController controller;
+    private Maneuverability maneuverability;
 
 
 
@@ -38,6 +41,9 @@ public class PlanningManager : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         inputManager = GetComponent<InputManager>();
+        naveManager = GetComponent<NaveManager>();
+        controller = GetComponent<NaveController>();
+        maneuverability = GetComponent<Maneuverability>();
     }
 
     // Update is called once per frame
@@ -52,10 +58,10 @@ public class PlanningManager : MonoBehaviour
     private void Controller()
     {
         //se actualiza el valor de las variables de rotación
-        float xRotation = GetComponent<NaveController>().modelTransform.localEulerAngles.x;
-        float zRotation = GetComponent<NaveController>().modelTransform.localEulerAngles.z;
+        float xRotation = controller.modelTransform.localEulerAngles.x;
+        float zRotation = controller.modelTransform.localEulerAngles.z;
 
-        if (GetComponent<NaveManager>().isPlanning)
+        if (naveManager.isPlanning)
         {
             //si el ángulo esta dentro del límite establecido y se tocan las teclas la nave se rota
             if ((xRotation <= maxXAngle + 0.1f && xRotation >= 0) || (xRotation <= 360 && xRotation >= 360 - 0.1f + minXAngle))
@@ -73,13 +79,13 @@ public class PlanningManager : MonoBehaviour
 
 
         //si no se estan tocando las teclas la rotación vuelve a 0
-        if (inputManager.MainHorizontal() == 0 || !GetComponent<NaveManager>().isPlanning)
+        if (inputManager.MainHorizontal() == 0 || !naveManager.isPlanning)
         {
             zRotation = Mathf.LerpAngle(zRotation, 0, Time.deltaTime);
         }
 
 
-        if (GetComponent<NaveManager>().isPlanning)
+        if (naveManager.isPlanning)
         {
             if (inputManager.MainVertical() == 0)
             {
@@ -93,25 +99,25 @@ public class PlanningManager : MonoBehaviour
 
 
         //modificamos la rotación del objeto
-        GetComponent<NaveController>().modelTransform.localRotation = Quaternion.Euler(xRotation, GetComponent<NaveController>().modelTransform.localEulerAngles.y, zRotation);
+        controller.modelTransform.localRotation = Quaternion.Euler(xRotation, controller.modelTransform.localEulerAngles.y, zRotation);
 
         
 
-        if (GetComponent<NaveManager>().isPlanning)
+        if (naveManager.isPlanning)
         {
             //añadimos la fuerza hacia delante
-            rb.AddForce(GetComponent<NaveController>().modelTransform.forward * GetComponent<Maneuverability>().AcelerationWithWeight * Mathf.Clamp01(inputManager.Accelerate()) * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(controller.modelTransform.forward * maneuverability.AcelerationWithWeight * Mathf.Clamp01(inputManager.Accelerate()) * Time.deltaTime, ForceMode.VelocityChange);
 
 
             //movimiento lateral
-            Vector3 lateralForce = GetComponent<NaveController>().modelTransform.right;
+            Vector3 lateralForce = controller.modelTransform.right;
             lateralForce = new Vector3(lateralForce.x, 0, lateralForce.z).normalized;
-            print(lateralForce);
-            rb.AddForce(GetComponent<NaveController>().modelTransform.right * lateralVelocity * inputManager.MainHorizontal());
+            //print(lateralForce);
+            rb.AddForce(controller.modelTransform.right * lateralVelocity * inputManager.MainHorizontal());
 
-            rb.AddForce(lateralForce * inputManager.MainHorizontal() * lateralVelocity * GetComponent<Maneuverability>().AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(lateralForce * inputManager.MainHorizontal() * lateralVelocity * maneuverability.AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
             //girar
-            GetComponent<NaveController>().modelTransform.localRotation = Quaternion.Euler(GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.x, GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.y + (inputManager.MainHorizontal() * GetComponent<Maneuverability>().maneuver * maneuverLimitator * Time.deltaTime), GetComponent<NaveController>().modelTransform.localRotation.eulerAngles.z);
+            controller.modelTransform.localRotation = Quaternion.Euler(controller.modelTransform.localRotation.eulerAngles.x, controller.modelTransform.localRotation.eulerAngles.y + (inputManager.MainHorizontal() * maneuverability.currentManeuver * maneuverLimitator * Time.deltaTime), controller.modelTransform.localRotation.eulerAngles.z);
 
             RegulateVelocity();
         }
@@ -119,7 +125,7 @@ public class PlanningManager : MonoBehaviour
 
     private void RegulateVelocity()
     {
-        Vector3 locVel = GetComponent<NaveController>().modelTransform.InverseTransformDirection(rb.velocity);
+        Vector3 locVel = controller.modelTransform.InverseTransformDirection(rb.velocity);
 
         //controlamos la velocidad no vertical para ponerle un tope
         /*Vector2 notVerticalVel = new Vector2(locVel.x, locVel.z);
@@ -132,16 +138,16 @@ public class PlanningManager : MonoBehaviour
             locVel = new Vector3(correctedVel.x, locVel.y, correctedVel.y);
         }*/
 
-        if(locVel.z > GetComponent<NaveController>().VelocityFormula)
+        if(locVel.z > controller.VelocityFormula)
         {
-            locVel = new Vector3(locVel.x, locVel.y, GetComponent<NaveController>().VelocityFormula );
+            locVel = new Vector3(locVel.x, locVel.y, controller.VelocityFormula );
         }
-        if (locVel.x > GetComponent<NaveController>().VelocityFormula*0.25f)
+        if (locVel.x > controller.VelocityFormula*0.25f)
         {
-            locVel = new Vector3(GetComponent<NaveController>().VelocityFormula*0.25f, locVel.y, locVel.z);
+            locVel = new Vector3(controller.VelocityFormula*0.25f, locVel.y, locVel.z);
         }
         //convertimos la velocidad local en la velocidad global y la aplicamos
-        rb.velocity = GetComponent<NaveController>().modelTransform.TransformDirection(locVel);
+        rb.velocity = controller.modelTransform.TransformDirection(locVel);
     }
 
     //función que limita la velocidad vertical negativa

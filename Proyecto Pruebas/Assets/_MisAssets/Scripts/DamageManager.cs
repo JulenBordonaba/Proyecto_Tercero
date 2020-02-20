@@ -42,11 +42,11 @@ public class DamageManager : Photon.PunBehaviour
 
     public void TakeDamage(float damage, bool weapon)
     {
-        print(gameObject);
+        //print(gameObject);
         if (minDamage < 0) return;
         if (!canBeDamaged) return;
         if (damage < minDamage && !weapon) return;
-        print("sigue Take Damage");
+        //print("sigue Take Damage");
         //recibir daño
         if(GetComponent<Stats>())
         {
@@ -68,7 +68,7 @@ public class DamageManager : Photon.PunBehaviour
             GetComponentInParent<Pieza>().Damage(damage);
         }
 
-        print("recived damage: " + damage);
+        //print("recived damage: " + damage);
 
     }
 

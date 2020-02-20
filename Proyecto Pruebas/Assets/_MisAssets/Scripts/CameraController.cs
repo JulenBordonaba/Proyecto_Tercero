@@ -30,7 +30,7 @@ public class CameraController : Photon.PunBehaviour
     public float min_Y_Angle = -10f;
 
     public bool naveDestruida { get; set; }
-    
+
     private float currentX = 0.0f;
     private float currentY = 45.0f;
     public Vector3 localPos { get; set; }
@@ -59,7 +59,7 @@ public class CameraController : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (naveDestruida || PauseManager.inPause) return;
+        if (naveDestruida) return;
 
         //hacemos que la posición del padre sea igual a la de la nave
         transform.parent.parent.parent.position = target.position;
@@ -78,7 +78,7 @@ public class CameraController : Photon.PunBehaviour
 
         CameraFocus(!backCamera);
         PositionCamera();
-        
+
     }
 
     private void PositionCamera()
@@ -88,7 +88,7 @@ public class CameraController : Photon.PunBehaviour
 
         RaycastHit hit = new RaycastHit();
 
-        if(Physics.Linecast(camCentre,camPos, out hit, ignoreLayers))
+        if (Physics.Linecast(camCentre, camPos, out hit, ignoreLayers))
         {
             transform.position = hit.point;
         }
@@ -99,12 +99,12 @@ public class CameraController : Photon.PunBehaviour
         transform.SetParent(null);
         StartCoroutine(GameOver(time));
     }
-    
+
     public IEnumerator GameOver(float time)
     {
         yield return new WaitForSeconds(time);
-        GameObject gameOverCam=Instantiate(gameOverCamera, new Vector3(0, -500, 0), Quaternion.identity);
-        if(Global.numPlayers==1)
+        GameObject gameOverCam = Instantiate(gameOverCamera, new Vector3(0, -500, 0), Quaternion.identity);
+        if (Global.numPlayers == 1)
         {
             gameOverCam.GetComponent<Camera>().rect = new Rect(new Vector2(0, 0), new Vector2(1, 1));
             gameOverCam.GetComponentInChildren<Image>().sprite = singleplayerGameOverSprite;
@@ -117,6 +117,7 @@ public class CameraController : Photon.PunBehaviour
     {
         //transform.parent.parent.rotation = target.rotation;
 
+
         transform.parent.parent.parent.rotation = Quaternion.Lerp(transform.parent.parent.parent.rotation, target.rotation, Time.deltaTime * damping);
 
         transform.parent.parent.parent.localRotation = Quaternion.Euler(transform.parent.parent.parent.localEulerAngles.x, transform.parent.parent.parent.localEulerAngles.y, 0);
@@ -125,24 +126,25 @@ public class CameraController : Photon.PunBehaviour
 
 
         //cambiamos el valor de currentx y currenty respecto a el desplazamiento del joystick derecho/ ratón
-        if(front)
+        if (!PauseManager.inPause)
         {
-            currentX += inputManager.CameraHorizontal() * sensibility.x;
-            currentY += inputManager.CameraVertical() * sensibility.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
+            if (front)
+            {
+                currentX += inputManager.CameraHorizontal() * sensibility.x;
+                currentY += inputManager.CameraVertical() * sensibility.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
+            }
+            else
+            {
+                currentX += inputManager.CameraHorizontal() * sensibility.x;
+                currentY -= inputManager.CameraVertical() * sensibility.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
+            }
         }
-        else
-        {
-            currentX -= inputManager.CameraHorizontal() * sensibility.x;
-            currentY += inputManager.CameraVertical() * sensibility.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
-        }
-        
 
-        
+
         //vuelve a apuntar al centro si se pulsa el botón
-        if(inputManager.ResetCamera())
+        if (inputManager.ResetCamera())
         {
-            currentX *= 0.9f;
-            currentY *= 0.9f;
+            StartCoroutine(ResetCameraFocus());
         }
 
 
@@ -155,9 +157,9 @@ public class CameraController : Photon.PunBehaviour
         {                                           //
             currentY *= 0.9f;                       //
         }    */                                       //
-        
 
-        
+
+
         //limitamos la posición de la camara
         currentY = Mathf.Clamp(currentY, min_Y_Angle, max_Y_Angle);
         currentX = Mathf.Clamp(currentX, min_X_Angle, max_X_Angle);
@@ -171,7 +173,7 @@ public class CameraController : Photon.PunBehaviour
         }
         else
         {
-            transform.parent.localPosition = new Vector3(localPos.x, localPos.y, -localPos.z) ;
+            transform.parent.localPosition = new Vector3(localPos.x, localPos.y, -localPos.z);
         }
 
 
@@ -183,7 +185,7 @@ public class CameraController : Photon.PunBehaviour
         transform.parent.parent.localRotation = Quaternion.Euler(currentY, currentX, 0);
         transform.parent.parent.rotation = Quaternion.Euler(transform.parent.parent.eulerAngles.x, transform.parent.parent.eulerAngles.y, 0);
 
-        if(front)
+        if (front)
         {
             //hacemos que la camara apunte a un objeto que tenemos delante de la nave
             transform.parent.LookAt(frontLookAt);
@@ -193,20 +195,33 @@ public class CameraController : Photon.PunBehaviour
             //hacemos que la camara apunte a un objeto que tenemos detras de la nave
             transform.parent.LookAt(backLookAt);
         }
-        
 
-/*
-        float newZ = transform.localEulerAngles.z;  //guardamos la nueva rotación local z
 
-        transform.Rotate(new Vector3(0, 0, z - newZ));  //
+        /*
+                float newZ = transform.localEulerAngles.z;  //guardamos la nueva rotación local z
 
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, z);
+                transform.Rotate(new Vector3(0, 0, z - newZ));  //
 
-        Quaternion newRot = transform.rotation;
+                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, z);
 
-        transform.rotation = Quaternion.Lerp(oldRot, newRot, Time.deltaTime * damping * cameraDampingMultiplayer);*/
+                Quaternion newRot = transform.rotation;
+
+                transform.rotation = Quaternion.Lerp(oldRot, newRot, Time.deltaTime * damping * cameraDampingMultiplayer);*/
     }
 
-    
+    public IEnumerator ResetCameraFocus()
+    {
+        float _currentY = currentY;
+        float _currentX = currentX;
+        int loops = 5;
+        float loop = 1f / (float)loops;
+        for (int i = 1; i <= loops; i++)
+        {
+            float t = loop * (float)i;
+            currentX = Mathf.Lerp(_currentX, 0, t);
+            currentY = Mathf.Lerp(_currentY, 0, t);
+            yield return new WaitForEndOfFrame();
+        }
+    }
 
 }

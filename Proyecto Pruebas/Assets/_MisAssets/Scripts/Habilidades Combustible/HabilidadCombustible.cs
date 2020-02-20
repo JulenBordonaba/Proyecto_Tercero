@@ -10,7 +10,7 @@ public abstract class HabilidadCombustible : Photon.PunBehaviour
     public TipoCombustible tipoCombustible;
     public NaveManager naveManager;
     public Animator animator;
-    
+    protected InputManager inputmanager;
 
     public void GetFuel()
     {
@@ -24,6 +24,7 @@ public abstract class HabilidadCombustible : Photon.PunBehaviour
                     combustible = c;
                 }
         }
+        inputmanager = GetComponent<InputManager>();
     }
 
     public IEnumerator ActivateFuelAnimation(string layerName)

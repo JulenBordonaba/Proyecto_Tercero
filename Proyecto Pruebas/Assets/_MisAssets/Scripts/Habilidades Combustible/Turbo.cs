@@ -23,6 +23,16 @@ public class Turbo : HabilidadCombustible
         animator = GetComponent<NaveAnimationManager>().animator;
     }
 
+    private void Update()
+    {
+        if (!photonView.isMine) return;
+        if (inputmanager.UseBoost())
+        {
+            Use();
+        }
+    }
+
+
     public override void Use()
     {
         //sale si ya esta enn turbo  

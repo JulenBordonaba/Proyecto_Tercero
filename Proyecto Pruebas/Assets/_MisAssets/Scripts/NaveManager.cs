@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NaveManager : Photon.PunBehaviour
 {
@@ -27,7 +28,8 @@ public class NaveManager : Photon.PunBehaviour
     public GameObject hudCanvas;
     public AudioListener audioListener;
     public GameObject shipCentre;
-
+    public int position;
+    public Text positionText;
 
     public int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
     private Stats stats;    //variable con las stats de la nave
@@ -57,6 +59,7 @@ public class NaveManager : Photon.PunBehaviour
         animationManager = GetComponent<NaveAnimationManager>();
         uiManager = GetComponent<UIManager>();
         trailColor = new SynchronizableColor();
+        AddPieceStats();
         AsignarCombustibleInicial();
         if (!photonView.isMine)
         {
@@ -71,12 +74,27 @@ public class NaveManager : Photon.PunBehaviour
         gameObject.name = gameObject.name + " " + photonView.owner.NickName;
         trailColor.ToSynchronizable(trail.material.color);
     }
+    
+
+    public void AddPieceStats()
+    {
+        foreach(Pieza p in controller.piezas)
+        {
+            p.OnPieceDestroyed += stats.OnPieceDestroyed;
+            p.OnPieceDestroyed += maneuverability.OnPieceDestroyed;
+            foreach (Combustible c in GetComponents<Combustible>())
+            {
+
+            }
+        }
+    }
 
     private void Update()
     {
         FuelManager();
         if (!photonView.isMine) return;
-        combustible.PasiveConsumption();
+        positionText.text = position.ToString() + "º";
+        //combustible.PasiveConsumption();
     }
 
     private void AsignarCombustibleInicial()
@@ -117,8 +135,7 @@ public class NaveManager : Photon.PunBehaviour
             trail.material.color = trailColor.ToColor();
         }
         if (!photonView.isMine) return;
-
-        Direction fuelSide = ChangeFuelManager();
+        /*Direction fuelSide = ChangeFuelManager();
         //cambiar entre los distintos combustibles
         if (fuelSide == Direction.Left)
         {
@@ -162,7 +179,7 @@ public class NaveManager : Photon.PunBehaviour
         if (inputManager.UseFuel())
         {
             habilidadCombustible.Use();
-        }
+        }*/
     }
 
     [PunRPC]
@@ -301,6 +318,29 @@ public class NaveManager : Photon.PunBehaviour
     }
 
 
+    public float DistanceToNextCheckpoint
+    {
+        get { return (transform.position - CheckpointManager.current.CurrentCheckpoint.transform.position).magnitude; }
+    }
 
+    public float ShieldRepairRecharge
+    {
+        get { return position > (totalJugadores / 2) ? Mathf.CeilToInt(rechargeAmmount / 2) : Mathf.CeilToInt(position > (totalJugadores / 2) ? (((float)(totalJugadores - (position)) / (float)(totalJugadores)) * (float)rechargeAmmount) : (((float)(totalJugadores - (position) + 1) / (float)(totalJugadores)) * (float)rechargeAmmount)); }
+    }
+
+    public float BoostJumpRecharge
+    {
+        get { return position > (totalJugadores / 2) ? Mathf.FloorToInt(rechargeAmmount / 2) : Mathf.FloorToInt((position > (totalJugadores / 2) ? (((float)((position) / (float)totalJugadores) * (float)rechargeAmmount)) : ((float)((position - 1) / (float)totalJugadores) * (float)rechargeAmmount))); }
+    }
+
+    public int totalJugadores
+    {
+        get { return GameManager.navesList.Count; }
+    }
+
+    public int rechargeAmmount
+    {
+        get { return CheckpointManager.current.rechargeAmmount; }
+    }
 
 }
