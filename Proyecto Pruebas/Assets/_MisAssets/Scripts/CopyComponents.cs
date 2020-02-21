@@ -40,7 +40,6 @@ public class CopyComponents : MonoBehaviour
                 Debug.Log("Copied " + component.GetType() + " from " + _sourceGO.name + " to " + _targetGO.name);
             }
         }
-        Destroy(this);
 
     }
 }

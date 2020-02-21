@@ -15,6 +15,8 @@ public class CopyComponentsEditor : Editor
         if(GUILayout.Button("Copy Components"))
         {
             cc.Copy();
+            DestroyImmediate(cc);
+            EditorGUIUtility.ExitGUI();
         }
     }
 }
