@@ -30,6 +30,7 @@ public class NaveManager : Photon.PunBehaviour
     public GameObject shipCentre;
     public int position;
     public Text positionText;
+    public bool isIA = false;
 
     public int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
     private Stats stats;    //variable con las stats de la nave
@@ -61,18 +62,31 @@ public class NaveManager : Photon.PunBehaviour
         trailColor = new SynchronizableColor();
         AddPieceStats();
         AsignarCombustibleInicial();
-        if (!photonView.isMine)
+        if(isIA)
         {
-            controller.enabled = false;
-            planningManager.enabled = false;
-            dash.enabled = false;
-            animationManager.enabled = false;
-            uiManager.enabled = false;
-            hudCanvas.SetActive(false);
-            audioListener.enabled = false;
+
         }
-        gameObject.name = gameObject.name + " " + photonView.owner.NickName;
+        else
+        {
+            if (!photonView.isMine)
+            {
+                DisableComponents();
+            }
+            gameObject.name = gameObject.name + " " + photonView.owner.NickName;
+        }
+        
         trailColor.ToSynchronizable(trail.material.color);
+    }
+
+    public void DisableComponents()
+    {
+        controller.enabled = false;
+        planningManager.enabled = false;
+        dash.enabled = false;
+        animationManager.enabled = false;
+        uiManager.enabled = false;
+        hudCanvas.SetActive(false);
+        audioListener.enabled = false;
     }
     
 
