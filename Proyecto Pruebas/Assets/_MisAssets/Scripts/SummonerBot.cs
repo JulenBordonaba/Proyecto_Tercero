@@ -66,7 +66,8 @@ public class SummonerBot : MonoBehaviour
         if (inShot) return;
         if(other.gameObject.tag=="NaveCentre")
         {
-            if(other.gameObject.layer!=gameObject.layer && other.gameObject.layer!=GetComponentInParent<NaveController>().gameObject.layer)
+
+            if (other.gameObject.GetComponentInParent<PhotonView>().owner.NickName != GetComponentInParent<PhotonView>().owner.NickName)
             {
                 direction = (other.transform.position - transform.position).normalized;
                 //Ray ray = new Ray();
