@@ -44,7 +44,10 @@ public class Connect : Photon.PunBehaviour
         PhotonPeer.RegisterType(typeof(DamageManager), (byte)2, DamageManager.Serialize, DamageManager.Deserialize);
         PhotonPeer.RegisterType(typeof(Combustible), (byte)3, Combustible.Serialize, Combustible.Deserialize);
         PhotonPeer.RegisterType(typeof(Checkpoint), (byte)4, Checkpoint.Serialize, Checkpoint.Deserialize);
+        PhotonPeer.RegisterType(typeof(SynchronizableGameObject), (byte)5, SynchronizableGameObject.Serialize, SynchronizableGameObject.Deserialize);
         
+
+
 
     }
 

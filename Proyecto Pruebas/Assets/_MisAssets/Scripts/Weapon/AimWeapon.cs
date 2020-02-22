@@ -24,6 +24,8 @@ public class AimWeapon : Photon.PunBehaviour
     [Tooltip("Pon el valor máximo de la rotación en y")]
     public float maxY=180;
 
+    public bool clampRotation = true;
+
 
     // Start is called before the first frame update
     void Start()
@@ -61,12 +63,28 @@ public class AimWeapon : Photon.PunBehaviour
                 }
 
                 transform.LookAt(nearestHit.point);
+                if(clampRotation)
+                {
+                    float xrot = transform.localEulerAngles.x;
+                    float yrot = transform.localEulerAngles.y;
+                    xrot = Global.ClampAngle(xrot, minX, maxX);
+                    yrot = Global.ClampAngle(yrot, minY, maxY);
+                    transform.localEulerAngles = new Vector3(xrot, yrot, transform.localEulerAngles.z);
+                }
                 Debug.DrawRay(ray.origin, ray.direction * (nearestHit.point - ray.origin).magnitude, Color.red);
             }
         }
         else
         {
             transform.LookAt(ray.origin + ray.direction * shotDistance);
+            if (clampRotation)
+            {
+                float xrot = transform.localEulerAngles.x;
+                float yrot = transform.localEulerAngles.y;
+                xrot = Global.ClampAngle(xrot, minX, maxX);
+                yrot = Global.ClampAngle(yrot, minY, maxY);
+                transform.localEulerAngles = new Vector3(xrot, yrot, transform.localEulerAngles.z);
+            }
             Debug.DrawRay(ray.origin, ray.direction * shotDistance, Color.red);
         }
 

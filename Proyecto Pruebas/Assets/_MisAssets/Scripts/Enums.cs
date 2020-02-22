@@ -7,6 +7,11 @@ public enum TipoCombustible : byte
     Turbo,Salto,Escudo,Reparar
 }
 
+public enum TipoNave
+{
+    Scavenger,Summoner
+}
+
 public enum HabilidadPersonaje
 {
     ScavengerAbility, SummonerAbility

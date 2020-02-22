@@ -18,6 +18,7 @@ public class CopyComponents : MonoBehaviour
     {
 
     }
+#if UNITY_EDITOR
 
     public void Copy()
     {
@@ -42,4 +43,5 @@ public class CopyComponents : MonoBehaviour
         }
 
     }
+#endif
 }

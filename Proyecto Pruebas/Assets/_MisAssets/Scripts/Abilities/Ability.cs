@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ability : MonoBehaviour
+public class Ability : Photon.PunBehaviour
 {
     [Tooltip("Pon el cooldown de la habilidad")]
     public float cooldown;

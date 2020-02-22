@@ -8,6 +8,9 @@ public class MainMenu : MonoBehaviour
 {
     public List<Text> recordTexts = new List<Text>();
 
+    public Color selectedColor;
+    public Color unselectedColor;
+
     private EventSystem evt;
     private GameObject sel;
 
@@ -75,5 +78,21 @@ public class MainMenu : MonoBehaviour
         Global.numPlayers = numPlayers;
         print(Global.numPlayers);
     }
+
+    public void SetShip(string tn)
+    {
+        Global.myShipType = tn;
+    }
+
+    public void ClassSelected(Image i)
+    {
+        i.color = selectedColor;
+    }
+
+    public void ClassUnselected(Image i)
+    {
+        i.color = unselectedColor;
+    }
+
     
 }

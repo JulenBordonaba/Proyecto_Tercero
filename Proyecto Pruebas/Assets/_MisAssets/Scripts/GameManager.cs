@@ -114,11 +114,11 @@ public class GameManager : Photon.PunBehaviour
         List<GameObject> naves = new List<GameObject>();
         if (PhotonNetwork.playerList.Length <= spawns.Count)
         {
-            naves.Add(PhotonNetwork.Instantiate(UnityEngine.Random.Range(0,2)==1? "NaveOnlineSummoner" : "NaveOnlineSummoner", spawns[PhotonNetwork.playerList.Length - 1].position, Quaternion.identity, 0, null));
+            naves.Add(PhotonNetwork.Instantiate("NaveOnline" + Global.myShipType, spawns[PhotonNetwork.playerList.Length - 1].position, Quaternion.identity, 0, null));
         }
         else
         {
-            naves.Add(PhotonNetwork.Instantiate(UnityEngine.Random.Range(0, 2) == 1 ? "NaveOnlineScavenger" : "NaveOnlineSummoner", spawns[spawns.Count - 1].position, Quaternion.identity, 0, null));
+            naves.Add(PhotonNetwork.Instantiate("NaveOnline" + Global.myShipType, spawns[spawns.Count - 1].position, Quaternion.identity, 0, null));
         }
     }
 
