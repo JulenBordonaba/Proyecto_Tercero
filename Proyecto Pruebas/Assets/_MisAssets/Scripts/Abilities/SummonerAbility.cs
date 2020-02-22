@@ -33,7 +33,7 @@ public class SummonerAbility : PlayerAbility
         if(!inCooldown)
         {
             GameObject dron = PhotonNetwork.Instantiate("BlackHoleDron", dronSpawn.position,Quaternion.identity,0,null);
-            dron.GetComponent<BlackHoleDron>().Move(myCam.transform.forward, rb.velocity.magnitude+dronVelocity);
+            dron.GetComponent<BlackHoleDron>().photonView.RPC("Move", PhotonTargets.All,myCam.transform.forward, rb.velocity.magnitude+dronVelocity);
 
             inCooldown = true;
             StartCoroutine(Cooldown());

@@ -23,7 +23,7 @@ public class BlackHoleDron : Photon.PunBehaviour
     {
 
     }
-
+    [PunRPC]
     public void Move(Vector3 direction, float velocity)
     {
         if (!rb) rb = GetComponent<Rigidbody>();
