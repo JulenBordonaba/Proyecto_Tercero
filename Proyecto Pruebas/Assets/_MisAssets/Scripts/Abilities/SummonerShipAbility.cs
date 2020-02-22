@@ -15,7 +15,7 @@ public class SummonerShipAbility : ShipAbility
         if(!inCooldown)
         {
             Destroy(currentBots);
-            currentBots = PhotonNetwork.Instantiate("botsPrefab", GetComponent<NaveController>().modelTransform.position,Quaternion.identity,0,null);
+            currentBots = PhotonNetwork.Instantiate("SummonerBotsPrefab", GetComponent<NaveController>().modelTransform.position,Quaternion.identity,0,null);
             currentBots.transform.parent = GetComponent<NaveController>().modelTransform;
             currentBots.transform.localPosition = Vector3.zero;
             inCooldown = true;

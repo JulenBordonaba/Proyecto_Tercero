@@ -31,9 +31,10 @@ public class BlackHoleDron : Photon.PunBehaviour
     }
 
     [PunRPC]
-    public void Explosion(SynchronizableGameObject sgo)
+    public void Explosion()
     {
-        foreach (GameObject go in sgo.gos)
+        
+        foreach (GameObject go in objectsInArea)
         {
             if (go.GetComponent<Rigidbody>())
             {
@@ -42,24 +43,31 @@ public class BlackHoleDron : Photon.PunBehaviour
             }
         }
 
+        Destroy(gameObject,2);
     }
 
     IEnumerator ExplosionAtraction(GameObject go)
     {
-        yield return null;
-        Vector3 pos = go.transform.position;
-        for (int i = 1; i <= 5; i++)
+        if (!go) yield break;
+
+
+        if (go.GetComponentInParent<PhotonView>().owner.NickName != GetComponentInParent<PhotonView>().owner.NickName)
         {
-            go.transform.position = Vector3.Lerp(pos, transform.position, i * 0.2f);
-            yield return new WaitForEndOfFrame();
+            Vector3 pos = go.transform.position;
+            for (int i = 1; i <= 5; i++)
+            {
+                go.transform.position = Vector3.Lerp(pos, transform.position, i * 0.2f);
+                yield return new WaitForEndOfFrame();
+            }
         }
-        Destroy(gameObject);
+          
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         rb.velocity = Vector3.zero;
-        photonView.RPC("Explosion", PhotonTargets.AllViaServer, new SynchronizableGameObject(objectsInArea));
+        print("objects in area " + objectsInArea.Count);
+        photonView.RPC("Explosion", PhotonTargets.AllViaServer);
     }
 
     private void OnTriggerEnter(Collider other)
