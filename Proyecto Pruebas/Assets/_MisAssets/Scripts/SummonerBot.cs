@@ -66,20 +66,19 @@ public class SummonerBot : MonoBehaviour
         if (inShot) return;
         if(other.gameObject.tag=="NaveCentre")
         {
-
-            if (other.gameObject.GetComponentInParent<PhotonView>().owner.NickName != GetComponentInParent<PhotonView>().owner.NickName)
+            if(other.gameObject.layer!=gameObject.layer && other.gameObject.layer!=GetComponentInParent<NaveController>().gameObject.layer)
             {
                 direction = (other.transform.position - transform.position).normalized;
-                Ray ray = new Ray();
-                ray.origin = transform.position;
-                ray.direction = direction;
-                RaycastHit hit;
+                //Ray ray = new Ray();
+                //ray.origin = transform.position;
+                //ray.direction = direction;
+                //RaycastHit hit;
 
 
-                if (Physics.Raycast(ray,out hit))
-                {
-                    if (((1 << hit.transform.gameObject.layer) & hitLayers) != 0)
-                    {
+                //if (Physics.Raycast(ray,out hit))
+                //{
+                //    if (((1 << hit.transform.gameObject.layer) & hitLayers) != 0)
+                //    {
                         direction = (other.transform.position - transform.position).normalized;
                         animator.enabled = false;
                         inShot = true;
@@ -87,8 +86,8 @@ public class SummonerBot : MonoBehaviour
                         transform.parent.parent.SetParent(null);
                         GetComponentInParent<SummonerBotCollision>().inShot = true;
                         //Time.timeScale = 0.1f;
-                    }
-                }
+                //    }
+                //}
             }
         }
     }
