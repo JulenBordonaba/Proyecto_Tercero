@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a55aecad1d31914408ac685aa4cb4ddd
+guid: c148f76befabb8147ab5a1600f39585a
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -158,7 +158,7 @@ ModelImporter:
     4300030: Armas_Core_Ok
     4300032: Armas_Core_Broken
     4300034: Armas_Core_Dead
-    7400000: Giro_Derecha_
+    7400000: Giro_Izquierda_
     9500000: //RootNode
     13700000: Armas_Core_Broken
     13700002: Armas_Core_Dead
@@ -207,8 +207,8 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Giro_Derecha_
-      takeName: Giro_Derecha_
+      name: Giro_Izquierda_
+      takeName: Giro_Izquierda_
       firstFrame: 3
       lastFrame: 4
       wrapMode: 0
