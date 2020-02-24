@@ -5,7 +5,10 @@ using UnityEngine;
 public class CyclonZone : MonoBehaviour
 {
 
-    private List<GameObject> objectsInArea = new List<GameObject>();
+    public Vector3 direction;
+    public float windForce = 10;
+
+    private List<Rigidbody> objectsInArea = new List<Rigidbody>();
     private Rigidbody rb;
 
 
@@ -14,20 +17,28 @@ public class CyclonZone : MonoBehaviour
         rb = GetComponent<Rigidbody>();
     }
 
+    private void FixedUpdate()
+    {
+        foreach(Rigidbody rb in objectsInArea)
+        {
+            rb.AddForce(direction.normalized * windForce*0.1f,ForceMode.VelocityChange);
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("NaveCentre"))
         {
-            objectsInArea.Add(other.gameObject);
+            objectsInArea.Add(other.gameObject.GetComponentInParent<Rigidbody>());
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (objectsInArea.Contains(other.gameObject))
+        if (objectsInArea.Contains(other.gameObject.GetComponentInParent<Rigidbody>()))
         {
-            objectsInArea.Remove(other.gameObject);
+            objectsInArea.Remove(other.gameObject.GetComponentInParent<Rigidbody>());
         }
     }
 }
