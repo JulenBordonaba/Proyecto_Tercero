@@ -10,6 +10,8 @@ public class BlackHoleDron : Photon.PunBehaviour
 
     private List<GameObject> objectsInArea = new List<GameObject>();
 
+    private bool inExplosion = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +68,8 @@ public class BlackHoleDron : Photon.PunBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (inExplosion) return;
+        inExplosion = true;
         rb.velocity = Vector3.zero;
         print("objects in area " + objectsInArea.Count);
         photonView.RPC("Explosion", PhotonTargets.AllViaServer);
