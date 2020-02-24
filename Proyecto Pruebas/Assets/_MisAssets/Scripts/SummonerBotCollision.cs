@@ -18,14 +18,19 @@ public class SummonerBotCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        print("colisiona");
         if (!inShot) return;
+        print("está en disparo");
         //if(((1 << other.gameObject.layer) & ignoreLayers) != 0)
         if(other.gameObject.GetComponentInParent<PhotonView>())
         {
+            print("Tiene photonview");
             if (other.gameObject.GetComponentInParent<PhotonView>().owner.NickName != GetComponentInParent<PhotonView>().owner.NickName)
             {
+                print("es otro nickname");
                 if (other.gameObject.GetComponentInParent<DamageManager>())
                 {
+                    print("hace daño");
                     other.gameObject.GetComponentInParent<DamageManager>().TakeDamage(damage, true);
                 }
 
