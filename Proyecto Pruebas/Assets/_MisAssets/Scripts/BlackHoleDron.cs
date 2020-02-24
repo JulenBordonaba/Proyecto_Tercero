@@ -16,7 +16,7 @@ public class BlackHoleDron : Photon.PunBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        GetComponent<SphereCollider>().radius = explosionRadius;
+        GetComponent<SphereCollider>().radius = explosionRadius/transform.localScale.x;
         Global.myShipType = "Scavenger";
     }
 

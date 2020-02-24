@@ -16,6 +16,11 @@ public class SummonerBotCollision : MonoBehaviour
         shipLayer = GetComponentInParent<NaveManager>().gameObject.layer;
     }
 
+    private void Update()
+    {
+        //print(GetComponentInParent<PhotonView>().owner.NickName);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         print("colisiona");
