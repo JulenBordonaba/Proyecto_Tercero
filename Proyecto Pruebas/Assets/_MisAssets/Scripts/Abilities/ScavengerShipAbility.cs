@@ -13,6 +13,15 @@ public class ScavengerShipAbility : ShipAbility
     public override void Use()
     {
         base.Use();
+        photonView.RPC("UseMagnet", PhotonTargets.All);
+        
+
+    }
+
+
+    [PunRPC]
+    public void UseMagnet()
+    {
         if (inCooldown)
         {
             bool aux = !magnet.inverted;
@@ -25,8 +34,6 @@ public class ScavengerShipAbility : ShipAbility
             magnet.inverted = false;
             StartCoroutine(EndAbility());
         }
-        
-
     }
 
     private IEnumerator EndAbility()

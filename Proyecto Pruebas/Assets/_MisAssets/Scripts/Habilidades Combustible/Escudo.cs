@@ -71,7 +71,7 @@ public class Escudo : HabilidadCombustible
     {
         yield return new WaitForSeconds(waitTime);
 
-        StartCoroutine(DeactivateFuelAnimation("Turbo"));
+        StartCoroutine(DeactivateFuelAnimation("Escudo"));
         //desactivar escudo
         shield.SetActive(false);
         //GetComponentInParent<Animator>().SetBool("inShield",false);

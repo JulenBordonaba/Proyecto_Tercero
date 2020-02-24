@@ -36,10 +36,11 @@ public class BlackHoleDron : Photon.PunBehaviour
         
         foreach (GameObject go in objectsInArea)
         {
-            if (go.GetComponent<Rigidbody>())
+            GameObject shipGO = go.GetComponentInParent<NaveManager>().gameObject;
+            if (shipGO.GetComponent<Rigidbody>())
             {
-                go.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                StartCoroutine(ExplosionAtraction(go));
+                shipGO.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                StartCoroutine(ExplosionAtraction(shipGO));
             }
         }
 
@@ -72,12 +73,18 @@ public class BlackHoleDron : Photon.PunBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        objectsInArea.Add(other.gameObject);
+        if(other.gameObject.CompareTag("NaveCentre"))
+        {
+            objectsInArea.Add(other.gameObject);
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        objectsInArea.Remove(other.gameObject);
+        if(objectsInArea.Contains(other.gameObject))
+        {
+            objectsInArea.Remove(other.gameObject);
+        }
     }
 
 }

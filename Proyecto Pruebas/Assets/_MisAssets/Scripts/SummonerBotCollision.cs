@@ -20,17 +20,23 @@ public class SummonerBotCollision : MonoBehaviour
     {
         if (!inShot) return;
         //if(((1 << other.gameObject.layer) & ignoreLayers) != 0)
-        if(other.gameObject.GetComponentInParent<PhotonView>().owner.NickName!= GetComponentInParent<PhotonView>().owner.NickName)
+        if(other.gameObject.GetComponentInParent<PhotonView>())
         {
-            if(other.gameObject.GetComponentInParent<DamageManager>())
+            if (other.gameObject.GetComponentInParent<PhotonView>().owner.NickName != GetComponentInParent<PhotonView>().owner.NickName)
             {
-                other.gameObject.GetComponentInParent<DamageManager>().TakeDamage(damage,true);
+                if (other.gameObject.GetComponentInParent<DamageManager>())
+                {
+                    other.gameObject.GetComponentInParent<DamageManager>().TakeDamage(damage, true);
+                }
+
+                //instanciar partículas explosión
+                //Instantiate(explosionPrefab);
+                //sonido
             }
-            
-            //instanciar partículas explosión
-            //Instantiate(explosionPrefab);
-            //sonido
         }
+        
         Destroy(transform.parent.gameObject);
     }
+
+    
 }

@@ -98,7 +98,7 @@ public class Reparar : HabilidadCombustible
         //desactivar variables de control de estado escudo
         isRepairing = false;
         healingParticles.SetActive(false);
-        StartCoroutine(DeactivateFuelAnimation("Turbo"));
+        StartCoroutine(DeactivateFuelAnimation("Reparar"));
         //GetComponentInParent<Animator>().SetBool("inShield",false);
         yield return new WaitForSeconds(cooldown);
         canRepair = true;
