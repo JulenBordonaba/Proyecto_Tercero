@@ -52,6 +52,8 @@ public class NaveController : MonoBehaviour
     public bool inBoost { get; set; }   //variable que controla cuando la nave esta en turbo
     public bool inDrift = false;   //variable que controla cuando esta derrapando la nave
 
+    public List<CyclonZone> winds = new List<CyclonZone>();
+
     private Rigidbody rb;   //rigidbody de la nave
     private float position = 0;     //variable que indica la posición de la nave en la carrera, sirve para hacer cálculos de velocidad
     private InputManager inputManager;
@@ -64,6 +66,7 @@ public class NaveController : MonoBehaviour
 
     private void Update()
     {
+        print("Velocity: " + VelocityFormula);
         if (!PauseManager.inPause)
         {
             if (inBoost)
@@ -296,6 +299,19 @@ public class NaveController : MonoBehaviour
 
     }
 
+    public Vector3 GetWindForce()
+    {
+        Vector3 v = Vector3.zero;
+        if(winds.Count>0)
+        {
+            foreach(CyclonZone cz in winds)
+            {
+                v += cz.direction * cz.windForce;
+            }
+        }
+        return v;
+    }
+
     private void ApplyTurbo()
     {
         GetComponent<Rigidbody>().AddForce(modelTransform.forward * GetComponent<Turbo>().impulse * GetComponent<Maneuverability>().currentBoost, ForceMode.Acceleration);
@@ -308,7 +324,12 @@ public class NaveController : MonoBehaviour
 
     public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
     {
-        get { return Mathf.Clamp(GetComponent<Maneuverability>().MaxVelocity + HealthFormula + PositionFormula + RecoilFormula + BoostFormula, 0, Mathf.Infinity); }
+        get { return Mathf.Clamp(GetComponent<Maneuverability>().MaxVelocity + HealthFormula + PositionFormula + RecoilFormula + BoostFormula + WindFormula, 0, Mathf.Infinity); }
+    }
+
+    public float WindFormula
+    {
+        get { return (rb.velocity + GetWindForce()).magnitude - rb.velocity.magnitude; }
     }
 
     public float BoostFormula

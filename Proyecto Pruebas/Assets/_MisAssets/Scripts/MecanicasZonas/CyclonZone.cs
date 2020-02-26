@@ -9,19 +9,17 @@ public class CyclonZone : MonoBehaviour
     public float windForce = 10;
 
     private List<Rigidbody> objectsInArea = new List<Rigidbody>();
-    private Rigidbody rb;
 
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
     }
 
     private void FixedUpdate()
     {
         foreach(Rigidbody rb in objectsInArea)
         {
-            rb.AddForce(direction.normalized * windForce*0.1f,ForceMode.VelocityChange);
+            rb.AddForce(direction.normalized * windForce* Time.fixedDeltaTime,ForceMode.VelocityChange);
         }
     }
 
@@ -31,6 +29,7 @@ public class CyclonZone : MonoBehaviour
         if (other.gameObject.CompareTag("NaveCentre"))
         {
             objectsInArea.Add(other.gameObject.GetComponentInParent<Rigidbody>());
+            other.gameObject.GetComponentInParent<NaveController>().winds.Add(this);
         }
     }
 
@@ -39,6 +38,7 @@ public class CyclonZone : MonoBehaviour
         if (objectsInArea.Contains(other.gameObject.GetComponentInParent<Rigidbody>()))
         {
             objectsInArea.Remove(other.gameObject.GetComponentInParent<Rigidbody>());
+            other.gameObject.GetComponentInParent<NaveController>().winds.Remove(this);
         }
     }
 }

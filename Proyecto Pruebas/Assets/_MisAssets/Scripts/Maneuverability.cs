@@ -66,7 +66,7 @@ public class Maneuverability : MonoBehaviour
 
     public float MaxVelocity    //devuelve la velocidad máxima de la nave sin aplicar modificadores por posición, rebufo, turbo y salud
     {
-        get { return VelocityWithWeight * velocityMultiplier; }
+        get { return 100 + (VelocityWithWeight * velocityMultiplier); }
     }
 
     public float VelocityWithWeight //devuelve la velocidad base de la nave afectada por el peso

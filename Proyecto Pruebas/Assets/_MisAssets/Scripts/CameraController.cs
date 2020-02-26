@@ -92,6 +92,10 @@ public class CameraController : Photon.PunBehaviour
         {
             transform.position = hit.point;
         }
+        else
+        {
+            transform.position = camPos;
+        }
     }
 
     public void OnShipDestroyed(float time)
