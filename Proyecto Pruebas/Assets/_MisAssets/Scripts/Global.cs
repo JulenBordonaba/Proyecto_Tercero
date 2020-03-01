@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -83,5 +84,12 @@ public static class Global
             var obj = (T)binForm.Deserialize(memStream);
             return obj;
         }
+    }
+
+    public static T RandomEnumValue<T>()
+    {
+        Array values = Enum.GetValues(typeof(T));
+        int random = UnityEngine.Random.Range(0, values.Length);
+        return (T)values.GetValue(random);
     }
 }

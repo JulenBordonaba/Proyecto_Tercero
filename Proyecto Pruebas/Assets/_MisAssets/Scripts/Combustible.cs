@@ -42,6 +42,12 @@ public class Combustible : MonoBehaviour
     {
         currentAmmount = deposit;
     }
+
+    public void RechargeFuel(float ammount)
+    {
+        currentAmmount += ammount;
+        currentAmmount = Mathf.Clamp(currentAmmount, 0, deposit);
+    }
     
 
     /*public void PasiveConsumption()

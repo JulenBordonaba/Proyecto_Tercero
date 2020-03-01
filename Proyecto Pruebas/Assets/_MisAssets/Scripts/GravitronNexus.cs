@@ -55,7 +55,9 @@ public class GravitronNexus : MonoBehaviour
         if (collision.gameObject.GetComponentInParent<NaveManager>())
         {
             foreach(DamageManager dm in collision.gameObject.GetComponentsInChildren<DamageManager>())
-            dm.TakeDamage(damage, true);
+            {
+                dm.TakeDamage(damage, true);
+            }
             StartCoroutine(DeactivateNexus());
         }
     }
