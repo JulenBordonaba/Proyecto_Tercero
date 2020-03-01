@@ -9,7 +9,7 @@ public class PortalManager : MonoBehaviour
     public List<TipoCombustible> tiposCombustible = new List<TipoCombustible>();
     public List<Material> fuelColors = new List<Material>();
     public float resetTime = 3f;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -31,14 +31,18 @@ public class PortalManager : MonoBehaviour
             return;
         }
         List<Portal> _portals = new List<Portal>(portals);
-        for (int i = 0; i < portals.Length / 2; i++)
+        for (int i = 0; i < (_portals.Count / 2); i++)
         {
-            Portal p1 = _portals[UnityEngine.Random.Range(0, _portals.Count - 1)];
-            Portal p2 = null;
-            do
-            {
-                p2 = _portals[UnityEngine.Random.Range(0, _portals.Count - 1)];
-            } while (p2 == null || p2 == p1);
+            Portal p1 = _portals[UnityEngine.Random.Range(0, _portals.Count)];
+            _portals.Remove(p1);
+            if (_portals.Count <= 0) return;
+            
+            
+            Portal p2 = _portals[UnityEngine.Random.Range(0, _portals.Count)];
+            _portals.Remove(p2);
+
+
+            print("sale");
             p1.pair = p2;
             p2.pair = p1;
             TipoCombustible t = Global.RandomEnumValue<TipoCombustible>();
@@ -47,8 +51,8 @@ public class PortalManager : MonoBehaviour
             Material m = GetMaterial(t);
             p1.SetMaterial(m);
             p2.SetMaterial(m);
-            _portals.Remove(p1);
-            _portals.Remove(p2);
+            p1.naves = new List<NaveManager>();
+            p2.naves = new List<NaveManager>();
         }
 
     }
@@ -64,6 +68,6 @@ public class PortalManager : MonoBehaviour
         }
         return fuelColors[0];
     }
-    
+
 
 }

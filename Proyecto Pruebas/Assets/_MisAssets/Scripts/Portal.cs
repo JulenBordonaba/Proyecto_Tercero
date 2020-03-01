@@ -9,6 +9,7 @@ public class Portal : MonoBehaviour
     public float fuelRechargeAmmount = 1;
 
     public MeshRenderer mesh;
+    public List<NaveManager> naves = new List<NaveManager>();
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +29,10 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if(other.CompareTag("NaveCentre"))
         {
+            if (naves.Contains(other.GetComponentInParent<NaveManager>())) return;
             foreach(Combustible c in other.GetComponentsInParent<Combustible>())
             {
                 if (c.tipoCombustible == tipoCombustible)
@@ -37,7 +40,27 @@ public class Portal : MonoBehaviour
                     c.RechargeFuel(fuelRechargeAmmount);
                 }
             }
-            other.GetComponentInParent<NaveManager>().gameObject.transform.position = pair.transform.position;
+            NaveManager nm = other.GetComponentInParent<NaveManager>();
+            nm.gameObject.transform.position = pair.transform.position;
+            NaveCooldown(nm,1f);
+            pair.NaveCooldown(nm, 1f);
         }
     }
+
+    public void NaveCooldown(NaveManager nm, float t)
+    {
+        naves.Add(nm);
+        StartCoroutine(ResetNave(nm,t));
+    }
+
+    IEnumerator ResetNave(NaveManager nm, float t)
+    {
+        yield return new WaitForSeconds(t);
+        if(naves.Contains(nm))
+        {
+            naves.Remove(nm);
+        }
+    }
+
+
 }
