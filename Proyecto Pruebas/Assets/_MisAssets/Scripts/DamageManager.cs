@@ -9,7 +9,7 @@ public class DamageManager : Photon.PunBehaviour
     [Tooltip("Pon el daño mínimo para que pueda recibir daño")]
     public float minDamage=-1;
     public DamagedObject damagedObject = DamagedObject.Other;
-
+    private Coroutine fireDamage;
 
     public byte classId { get; set; }
 
@@ -38,6 +38,28 @@ public class DamageManager : Photon.PunBehaviour
     void Update()
     {
         
+    }
+
+
+    public void StartFireDamage(float damage,float loopTime, float duration)
+    {
+        fireDamage=StartCoroutine(FireDamage(damage, loopTime));
+        StartCoroutine(StopFireDamage(duration));
+    }
+
+    IEnumerator StopFireDamage(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        StopCoroutine(fireDamage);
+    }
+
+    IEnumerator FireDamage(float damage, float loopTime)
+    {
+        while(true)
+        {
+            TakeDamage(damage, true);
+            yield return new WaitForSeconds(loopTime);
+        }
     }
 
     public void TakeDamage(float damage, bool weapon)

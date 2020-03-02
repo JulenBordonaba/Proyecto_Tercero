@@ -9,12 +9,12 @@ public enum TipoCombustible : byte
 
 public enum TipoNave
 {
-    Scavenger,Summoner
+    Scavenger,Summoner, Trapper
 }
 
 public enum HabilidadPersonaje
 {
-    ScavengerAbility, SummonerAbility
+    ScavengerAbility, SummonerAbility, TrapperAbility
 }
 
 public enum TipoDisparo

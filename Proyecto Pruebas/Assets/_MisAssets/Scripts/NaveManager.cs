@@ -126,7 +126,13 @@ public class NaveManager : Photon.PunBehaviour
         }
     }
 
-
+    public void FireContact(float damage, float loopTime, float duration)
+    {
+        foreach (DamageManager dm in GetComponentsInChildren<DamageManager>())
+        {
+            dm.StartFireDamage(damage, loopTime, duration);
+        }
+    }
 
     private void FuelManager()
     {
