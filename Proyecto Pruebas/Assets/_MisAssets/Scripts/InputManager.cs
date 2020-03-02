@@ -136,22 +136,22 @@ public class InputManager : MonoBehaviour
 
     public bool UseJump()
     {
-        return (Input.GetAxis("PCJumpBoost" + numPlayer.ToString()) > 0.2f) || (Input.GetAxis("PS4JumpBoost" + numPlayer.ToString()) > 0.2f);
+        return (Input.GetAxis("PCJumpBoost" + numPlayer.ToString()) > 0.8f) || (Input.GetAxis("PS4JumpBoost" + numPlayer.ToString()) > 0.8f);
     }
 
     public bool UseShield()
     {
-        return (Input.GetAxis("PCRepairShield" + numPlayer.ToString()) < -0.2f) || (Input.GetAxis("PS4RepairShield" + numPlayer.ToString()) < -0.2f);
+        return (Input.GetAxis("PCRepairShield" + numPlayer.ToString()) < -0.8f) || (Input.GetAxis("PS4RepairShield" + numPlayer.ToString()) < -0.8f);
     }
 
     public bool UseBoost()
     {
-        return (Input.GetAxis("PCJumpBoost" + numPlayer.ToString()) < -0.2f) || (Input.GetAxis("PS4JumpBoost" + numPlayer.ToString()) < -0.2f);
+        return (Input.GetAxis("PCJumpBoost" + numPlayer.ToString()) < -0.8f) || (Input.GetAxis("PS4JumpBoost" + numPlayer.ToString()) < -0.8f);
     }
 
     public bool UseRepair()
     {
-        return (Input.GetAxis("PCRepairShield" + numPlayer.ToString()) > 0.2f) || (Input.GetAxis("PS4RepairShield" + numPlayer.ToString()) > 0.2f);
+        return (Input.GetAxis("PCRepairShield" + numPlayer.ToString()) > 0.8f) || (Input.GetAxis("PS4RepairShield" + numPlayer.ToString()) > 0.8f);
     }
     
     

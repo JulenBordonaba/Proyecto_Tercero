@@ -41,7 +41,9 @@ public class Portal : MonoBehaviour
                 }
             }
             NaveManager nm = other.GetComponentInParent<NaveManager>();
+            nm.trail.enabled = false;
             nm.gameObject.transform.position = pair.transform.position;
+            nm.trail.enabled = true;
             NaveCooldown(nm,1f);
             pair.NaveCooldown(nm, 1f);
         }
