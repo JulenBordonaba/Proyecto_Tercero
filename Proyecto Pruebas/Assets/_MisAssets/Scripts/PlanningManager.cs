@@ -142,9 +142,9 @@ public class PlanningManager : MonoBehaviour
         {
             locVel = new Vector3(locVel.x, locVel.y, controller.VelocityFormula );
         }
-        if (locVel.x > controller.VelocityFormula*0.25f)
+        if (locVel.x > controller.VelocityFormula*0.1f)
         {
-            locVel = new Vector3(controller.VelocityFormula*0.25f, locVel.y, locVel.z);
+            locVel = new Vector3(controller.VelocityFormula*0.1f, locVel.y, locVel.z);
         }
         //convertimos la velocidad local en la velocidad global y la aplicamos
         rb.velocity = controller.modelTransform.TransformDirection(locVel);

@@ -13,6 +13,10 @@ public class DamageManager : Photon.PunBehaviour
 
     public byte classId { get; set; }
 
+
+    private Stats stats;
+    private Pieza pieza;
+
     public static object Deserialize(byte[] data)
     {
         DamageManager result = new DamageManager();
@@ -31,7 +35,18 @@ public class DamageManager : Photon.PunBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        try
+        {
+            stats = GetComponentInParent<Stats>();
+        }
+        catch
+        {
+            Debug.LogError("No tiene el componente de stats");
+        }
+        if(GetComponentInParent<Pieza>())
+        {
+            pieza = GetComponentInParent<Pieza>();
+        }
     }
 
     // Update is called once per frame
@@ -64,33 +79,33 @@ public class DamageManager : Photon.PunBehaviour
 
     public void TakeDamage(float damage, bool weapon)
     {
-        //print(gameObject);
         if (minDamage < 0) return;
         if (!canBeDamaged) return;
         if (damage < minDamage && !weapon) return;
-        //print("sigue Take Damage");
-        //recibir daño
-        if(GetComponent<Stats>())
-        {
-            if(inmunityCooldown>0)
-            {
-                canBeDamaged = false;
-                StartCoroutine(InmunityCooldown());
-            }
-            GetComponent<Stats>().currentLife -= damage;
-            if (GetComponent<Stats>().currentLife <= 0) Destroy(gameObject);
-        }
-        else if(GetComponentInParent<Pieza>())
-        {
-            if(inmunityCooldown>0)
-            {
-                canBeDamaged = false;
-                StartCoroutine(InmunityCooldown());
-            }
-            GetComponentInParent<Pieza>().Damage(damage);
-        }
 
-        //print("recived damage: " + damage);
+        damage *= (100 - stats.damageReduction) / 100;
+
+        //recibir daño
+        if(stats)
+        {
+            if(inmunityCooldown>0)
+            {
+                canBeDamaged = false;
+                StartCoroutine(InmunityCooldown());
+            }
+            stats.currentLife -= damage;
+            if (stats.currentLife <= 0) Destroy(gameObject);
+        }
+        else if(pieza)
+        {
+            if(inmunityCooldown>0)
+            {
+                canBeDamaged = false;
+                StartCoroutine(InmunityCooldown());
+            }
+            pieza.Damage(damage);
+        }
+        
 
     }
 

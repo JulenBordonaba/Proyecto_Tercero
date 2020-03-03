@@ -19,12 +19,20 @@ public class LevitationManager : Photon.PunBehaviour
     [Tooltip("Pon el impulso vertical extra que se le aplica a la nave para que no parezca que cae a cámara lenta")]
     public float extraFallImpulse;  //impulso extra que se le aplica a la nave al caer para que no parezca que cae a cámara lenta
     [Tooltip("Pon las layers con las que puede colisionar el linecast para definir el origen del raycast y que no se quede encallado en otros objetos, pon las layers de los objetos")]
+    [Range(0f, 1f)]
+    public float maxSlope = 0.66f;
 
     private Rigidbody rb;   //rigidbody de la nave
+    private NaveController controller;
+    private NaveManager naveManager;
+    private NaveAnimationManager animationManager;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        controller = GetComponent<NaveController>();
+        naveManager = GetComponent<NaveManager>();
+        animationManager = GetComponent<NaveAnimationManager>();
     }
 
     private void Update()
@@ -44,12 +52,21 @@ public class LevitationManager : Photon.PunBehaviour
 
 
 
-
-        ray.origin = GetComponent<NaveController>().modelTransform.position + Vector3.ClampMagnitude((locVel.z * GetComponent<NaveController>().modelTransform.forward*rayOffset/5), rayOffset);
+        ray.origin = controller.modelTransform.position + Vector3.ClampMagnitude((locVel.z * controller.modelTransform.forward * rayOffset / 5), rayOffset);
         //hacer una linecast desde el centro hasta donde debería estar el origen del raycast, si el linecast colisiona con algo que no sea la nave colocar el origen del raycast en dicha posición
         //Physics.Linecast(GetComponent<NaveController>().modelTransform.position,ray.origin,)
-        
+
         ray.direction = -Vector3.up;
+
+
+        Ray frontRay = new Ray();
+        frontRay.origin = controller.modelTransform.position;
+        frontRay.direction = controller.modelTransform.forward;
+        RaycastHit frontHit;
+        if (Physics.Raycast(frontRay, out frontHit, rayOffset*1.5f, LayerMask.GetMask("Floor")))
+        {
+            ray.origin = controller.modelTransform.position;
+        }
 
         Debug.DrawRay(ray.origin, -Vector3.up * 100, Color.green);  //dibujamos el resultado del raycast
 
@@ -58,9 +75,10 @@ public class LevitationManager : Photon.PunBehaviour
         {
             //print(hit.transform.gameObject.name);
 
+            Debug.DrawRay(hit.point, hit.normal*1000f, Color.cyan);
             Vector3 rayPath = ray.origin - hit.point;
             //float rayDistance = Mathf.Clamp(rayPath.magnitude - rayDifference, 1, Mathf.Infinity); //guardamos la distancia del raycast
-            float rayDistance = Mathf.Clamp(rayPath.magnitude,1,Mathf.Infinity);
+            float rayDistance = Mathf.Clamp(rayPath.magnitude, 1, Mathf.Infinity);
             //print(rayDistance);
 
             float diference = rayDistance - levitationHeight; //diferencia de altura entre la nave y la altura en la que queremos que esté
@@ -79,12 +97,15 @@ public class LevitationManager : Photon.PunBehaviour
             }
             else
             {
-                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance) * 1), ForceMode.Acceleration);
+                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance) * -1), ForceMode.Acceleration);
+            }
+
+            if(hit.normal.y>maxSlope)
+            {
+                rb.AddForce(-Vector3.up * (1 - hit.normal.y)*levitationForce, ForceMode.Acceleration);
             }
 
 
-
-            
             Rotaion(hit, rayDistance);
 
 
@@ -106,21 +127,21 @@ public class LevitationManager : Photon.PunBehaviour
     //Modificamos la rotación de la nave
     private void Rotaion(RaycastHit hit, float rayDistance)
     {
-        
+
         //hay que corregir que no se suba por cualquier superficie
 
         if (rayDistance > startCorrectionHeight)
         {
-            GetComponent<NaveManager>().isPlanning = true;
-            GetComponent<NaveAnimationManager>().plane = true;
+            naveManager.isPlanning = true;
+            animationManager.plane = true;
             Quaternion interpolation;
             interpolation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, transform.localEulerAngles.y, 0), Time.deltaTime * upDamping);
             transform.localRotation = interpolation;
         }
         else
         {
-            GetComponent<NaveManager>().isPlanning = false;
-            GetComponent<NaveAnimationManager>().plane = false;
+            naveManager.isPlanning = false;
+            animationManager.plane = false;
             Quaternion rot = transform.localRotation;
             Quaternion quaternionRot = transform.localRotation; //guardamos la rotación actual en quaternions
 
