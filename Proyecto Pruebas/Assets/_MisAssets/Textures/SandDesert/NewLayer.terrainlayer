@@ -6,11 +6,11 @@ TerrainLayer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: losasHormigon
-  m_DiffuseTexture: {fileID: 2800000, guid: 6c5cf4bcb417cc04b8cb81ea11c0f43a, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: ee46fa37d5ebd4e48851949a15557756, type: 3}
+  m_Name: NewLayer
+  m_DiffuseTexture: {fileID: 2800000, guid: 7974d0e85039308498998e22b36186a0, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 788908f58202a9e449d3278ecf641d1a, type: 3}
   m_MaskMapTexture: {fileID: 0}
-  m_TileSize: {x: 80, y: 80}
+  m_TileSize: {x: 30, y: 30}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0
