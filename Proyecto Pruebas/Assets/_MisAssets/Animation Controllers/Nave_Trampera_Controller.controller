@@ -43,7 +43,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Idles
     m_StateMachine: {fileID: 1107292403787936494}
-    m_Mask: {fileID: 31900000, guid: e62e94adb9668e9458035ffcb5b354cb, type: 2}
+    m_Mask: {fileID: 31900000, guid: 7eaba04b8b943214d9a8af2d26076f00, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -55,7 +55,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Acelerar
     m_StateMachine: {fileID: 1107369083504781656}
-    m_Mask: {fileID: 31900000, guid: cbd3bcfb66e3bff47b0bb2db3e617f1d, type: 2}
+    m_Mask: {fileID: 31900000, guid: 4aadd6672bfb3bc4798ea26d260dfb5f, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -67,7 +67,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Frenar
     m_StateMachine: {fileID: 1107345130740781430}
-    m_Mask: {fileID: 31900000, guid: 74ca39c50b3c98a4dae2c023d507ddc6, type: 2}
+    m_Mask: {fileID: 31900000, guid: 23b13c5cad0757f498a430230d4b6693, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -79,7 +79,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Salto
     m_StateMachine: {fileID: 1107486902318304254}
-    m_Mask: {fileID: 31900000, guid: 340a9fc9e0a748f419efcc12845e5ddd, type: 2}
+    m_Mask: {fileID: 31900000, guid: 6256e60cd183e204a9f9ac454ea6e8f8, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -91,7 +91,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Reparar
     m_StateMachine: {fileID: 1107549660265162064}
-    m_Mask: {fileID: 31900000, guid: a38f24f697bccbb4dbfe74f816833069, type: 2}
+    m_Mask: {fileID: 31900000, guid: c2111bd578cb2d449ba690b520f2cda0, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -103,7 +103,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Escudo
     m_StateMachine: {fileID: 1107050881127833202}
-    m_Mask: {fileID: 31900000, guid: edbe408e84d5fb5478a53e7a38d90305, type: 2}
+    m_Mask: {fileID: 31900000, guid: 0b79c4729cb1efd409c24a0c1c5a0703, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -115,7 +115,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Turbo
     m_StateMachine: {fileID: 1107828817197700150}
-    m_Mask: {fileID: 31900000, guid: cf01a5ab789b148478e8bf1aef7c6a05, type: 2}
+    m_Mask: {fileID: 31900000, guid: 367e397f0f45eaf4d97d413932871916, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -127,7 +127,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Giro_Derecha
     m_StateMachine: {fileID: 1107777020660283184}
-    m_Mask: {fileID: 31900000, guid: 6b63718ed9548e44cb823262fe1a1c10, type: 2}
+    m_Mask: {fileID: 31900000, guid: f60e7b0b52cf7d9499f97d3192e33231, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -139,7 +139,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Giro_Izquierda
     m_StateMachine: {fileID: 1107309499454449352}
-    m_Mask: {fileID: 31900000, guid: 932fb6314b08a7d44a0eb78d2961f456, type: 2}
+    m_Mask: {fileID: 31900000, guid: 5f6ad61eefb1b934f99457a971ef05c5, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -151,7 +151,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Dash_Izquierda
     m_StateMachine: {fileID: 1107070814277081842}
-    m_Mask: {fileID: 31900000, guid: fe9b2c83075d41749998f9f66421d635, type: 2}
+    m_Mask: {fileID: 31900000, guid: eb341d3d2d555304ba7a1d73e9ab841c, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
@@ -163,7 +163,7 @@ AnimatorController:
   - serializedVersion: 5
     m_Name: Dash_Derecha
     m_StateMachine: {fileID: 1107893505199135572}
-    m_Mask: {fileID: 31900000, guid: 21bd6ea5ecf1c08478e8f5c3cb6dd43d, type: 2}
+    m_Mask: {fileID: 31900000, guid: 404f8c54b29e11048a7dda8d2a5adb03, type: 2}
     m_Motions: []
     m_Behaviours: []
     m_BlendingMode: 0
