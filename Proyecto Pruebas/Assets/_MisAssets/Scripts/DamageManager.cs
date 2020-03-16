@@ -10,12 +10,14 @@ public class DamageManager : Photon.PunBehaviour
     public float minDamage=-1;
     public DamagedObject damagedObject = DamagedObject.Other;
     private Coroutine fireDamage;
+    private EffectManager effectManager;
 
     public byte classId { get; set; }
 
 
     private Stats stats;
     private Pieza pieza;
+    
 
     public static object Deserialize(byte[] data)
     {
@@ -47,6 +49,10 @@ public class DamageManager : Photon.PunBehaviour
         {
             pieza = GetComponentInParent<Pieza>();
         }
+        if (GetComponentInParent<EffectManager>())
+        {
+            effectManager = GetComponentInParent<EffectManager>();
+        }
     }
 
     // Update is called once per frame
@@ -55,40 +61,29 @@ public class DamageManager : Photon.PunBehaviour
         
     }
 
-
-    public void StartFireDamage(float damage,float loopTime, float duration)
-    {
-        fireDamage=StartCoroutine(FireDamage(damage, loopTime));
-        StartCoroutine(StopFireDamage(duration));
-    }
-
-    IEnumerator StopFireDamage(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        StopCoroutine(fireDamage);
-    }
-
-    IEnumerator FireDamage(float damage, float loopTime)
-    {
-        while(true)
-        {
-            TakeDamage(damage, true);
-            yield return new WaitForSeconds(loopTime);
-        }
-    }
-
+    
+    [PunRPC]
     public void TakeDamage(float damage, bool weapon)
     {
         if (minDamage < 0) return;
         if (!canBeDamaged) return;
         if (damage < minDamage && !weapon) return;
 
-        damage *= (100 - stats.damageReduction) / 100;
+        damage *= (100 - DamageReduction()) / 100;
 
         //recibir daño
-        if(stats)
+        if (pieza)
         {
-            if(inmunityCooldown>0)
+            if (inmunityCooldown > 0)
+            {
+                canBeDamaged = false;
+                StartCoroutine(InmunityCooldown());
+            }
+            pieza.Damage(damage);
+        }
+        else if (stats)
+        {
+            if (inmunityCooldown > 0)
             {
                 canBeDamaged = false;
                 StartCoroutine(InmunityCooldown());
@@ -96,16 +91,7 @@ public class DamageManager : Photon.PunBehaviour
             stats.currentLife -= damage;
             if (stats.currentLife <= 0) Destroy(gameObject);
         }
-        else if(pieza)
-        {
-            if(inmunityCooldown>0)
-            {
-                canBeDamaged = false;
-                StartCoroutine(InmunityCooldown());
-            }
-            pieza.Damage(damage);
-        }
-        
+
 
     }
 
@@ -115,5 +101,14 @@ public class DamageManager : Photon.PunBehaviour
         canBeDamaged = true;
     }
 
+    public float DamageReduction()
+    {
+        float d = 0;
+        if(effectManager)
+        {
+            d = effectManager.DamageReduction;
+        }
+        return Mathf.Clamp(stats.damageReduction + d,0f,100f);
+    }
     
 }

@@ -13,7 +13,7 @@ public class SummonerBotCollision : MonoBehaviour
 
     private void Start()
     {
-        shipLayer = GetComponentInParent<NaveManager>().gameObject.layer;
+        StartCoroutine(SetLayer());
     }
 
     private void Update()
@@ -23,20 +23,16 @@ public class SummonerBotCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        print("colisiona");
         if (!inShot) return;
-        print("está en disparo");
         //if(((1 << other.gameObject.layer) & ignoreLayers) != 0)
         if(other.gameObject.GetComponentInParent<PhotonView>())
         {
-            print("Tiene photonview");
             if (other.gameObject.GetComponentInParent<PhotonView>().owner.NickName != GetComponentInParent<PhotonView>().owner.NickName)
             {
-                print("es otro nickname");
                 if (other.gameObject.GetComponentInParent<DamageManager>())
                 {
-                    print("hace daño");
-                    other.gameObject.GetComponentInParent<DamageManager>().TakeDamage(damage, true);
+                    PhotonView pv = other.gameObject.GetComponentInParent<DamageManager>().GetComponent<PhotonView>();
+                    pv.RPC("TakeDamage",PhotonTargets.AllBuffered,damage, true);
                 }
 
                 //instanciar partículas explosión
@@ -48,5 +44,9 @@ public class SummonerBotCollision : MonoBehaviour
         Destroy(transform.parent.gameObject);
     }
 
-    
+    IEnumerator SetLayer()
+    {
+        yield return new WaitForEndOfFrame();
+        shipLayer = GetComponentInParent<NaveManager>().gameObject.layer;
+    }
 }

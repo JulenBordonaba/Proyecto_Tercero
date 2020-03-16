@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SummonerBot : MonoBehaviour
+public class SummonerBot : Photon.PunBehaviour
 {
     [Tooltip("Pon la velocidad a la que saldrá el dron disparado")]
     public float velocity;
@@ -60,6 +60,8 @@ public class SummonerBot : MonoBehaviour
     {
         transform.parent.Translate(direction * velocity * Time.fixedDeltaTime, Space.World);
     }
+
+    
 
     private void OnTriggerStay(Collider other)
     {

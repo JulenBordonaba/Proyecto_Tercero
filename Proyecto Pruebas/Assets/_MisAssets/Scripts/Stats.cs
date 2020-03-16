@@ -31,6 +31,10 @@ public class Stats : MonoBehaviour
         currentCollisionDamage = collisionDamage;
         currentShotDamage = shotDamage;
         currentWeight = weight;
+        if(GetComponent<Rigidbody>())
+        {
+            GetComponent<Rigidbody>().mass = currentWeight;
+        }
     }
 
     public static object Deserialize(byte[] data)

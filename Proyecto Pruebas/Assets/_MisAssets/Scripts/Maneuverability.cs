@@ -74,7 +74,7 @@ public class Maneuverability : MonoBehaviour
         get { return Mathf.Clamp(currentVelocity - (GetComponent<Stats>().currentWeight * velocityWeightInfluence),0,Mathf.Infinity); }
     }
 
-    public float AcelerationWithWeight  //devuelve la aceleración de la nave afectada por el peso
+    public float AccelerationWithWeight  //devuelve la aceleración de la nave afectada por el peso
     {
         get { return Mathf.Clamp(currentAcceleration - (accelerationWeightInfluence * GetComponent<Stats>().currentWeight),0,Mathf.Infinity); }
     }

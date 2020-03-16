@@ -14,10 +14,12 @@ public class SummonerShipAbility : ShipAbility
         base.Use();
         if(!inCooldown)
         {
-            Destroy(currentBots);
+            if(currentBots)
+            {
+                PhotonNetwork.Destroy(currentBots);
+            }
             currentBots = PhotonNetwork.Instantiate("SummonerBotsPrefab", GetComponent<NaveController>().modelTransform.position,Quaternion.identity,0,null);
-            currentBots.transform.parent = GetComponent<NaveController>().modelTransform;
-            currentBots.transform.localPosition = Vector3.zero;
+            currentBots.GetComponent<PhotonView>().RPC("SetParent", PhotonTargets.AllBuffered, photonView.owner.NickName);
             inCooldown = true;
             StartCoroutine(Cooldown());
         }
@@ -25,4 +27,6 @@ public class SummonerShipAbility : ShipAbility
 
 
     }
+    
+
 }

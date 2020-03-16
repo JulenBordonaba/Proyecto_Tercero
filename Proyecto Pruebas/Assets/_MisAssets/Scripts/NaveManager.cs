@@ -43,9 +43,11 @@ public class NaveManager : Photon.PunBehaviour
     private UIManager uiManager;
     private Dash dash;
     private SynchronizableColor trailColor;
-
+    private EffectManager effectManager;
+    
     private bool fuelInLeft = false;
     private bool fuelInRight = false;
+    
 
     public void Start()
     {
@@ -60,6 +62,7 @@ public class NaveManager : Photon.PunBehaviour
         animationManager = GetComponent<NaveAnimationManager>();
         uiManager = GetComponent<UIManager>();
         trailColor = new SynchronizableColor();
+        effectManager = GetComponent<EffectManager>();
         AddPieceStats();
         AsignarCombustibleInicial();
         if(isIA)
@@ -125,14 +128,7 @@ public class NaveManager : Photon.PunBehaviour
             throw new Exception("Fallo al cargar habilidad de combustible");
         }
     }
-
-    public void FireContact(float damage, float loopTime, float duration)
-    {
-        foreach (DamageManager dm in GetComponentsInChildren<DamageManager>())
-        {
-            dm.StartFireDamage(damage, loopTime, duration);
-        }
-    }
+    
 
     private void FuelManager()
     {
@@ -229,35 +225,35 @@ public class NaveManager : Photon.PunBehaviour
             impactForce = Mathf.Clamp(impactForce, 0, float.MaxValue);
             if (collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>())
             {
-                collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * GetComponent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
+                PhotonView pv = collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().GetComponent<PhotonView>();
+                pv.RPC("TakeDamage",PhotonTargets.AllBuffered,impactForce * GetComponent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
             }
             if (collision.gameObject.GetComponent<DamageManager>())
             {
-                collision.gameObject.GetComponent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
+                PhotonView pv = collision.gameObject.GetComponent<DamageManager>().GetComponent<PhotonView>();
+                pv.RPC("TakeDamage", PhotonTargets.AllBuffered,impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
             }
             else if (collision.gameObject.GetComponentInParent<DamageManager>())
             {
-                collision.gameObject.GetComponentInParent<DamageManager>().TakeDamage(impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
+                PhotonView pv = collision.gameObject.GetComponentInParent<DamageManager>().GetComponent<PhotonView>();
+                pv.RPC("TakeDamage",PhotonTargets.AllBuffered,impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
             }
         }
 
 
     }
 
-    [PunRPC]
+    
     public void TakeDamage(float damage, bool weapon, string target, string ownerNickname)
     {
-        print("Id Recibida: " + ownerNickname);
-        print("Mi Id: " + photonView.owner.NickName + " / " + gameObject.name);
         if (ownerNickname != photonView.owner.NickName) return;
-        print("target's damaged object: " + target);
         foreach (DamageManager dm in GetComponentsInChildren<DamageManager>())
         {
             print(dm.damagedObject);
             if (dm.damagedObject.ToString() == target)
             {
-                print("c");
-                dm.TakeDamage(damage, weapon);
+                PhotonView pv = dm.GetComponent<PhotonView>();
+                pv.RPC("TakeDamage", PhotonTargets.AllBuffered,damage, weapon);
                 return;
             }
         }
@@ -336,7 +332,7 @@ public class NaveManager : Photon.PunBehaviour
     {
         return Vector3.Dot(collisionNormal, collisionVelocity);
     }
-
+    
 
     public float DistanceToNextCheckpoint
     {
@@ -362,5 +358,36 @@ public class NaveManager : Photon.PunBehaviour
     {
         get { return CheckpointManager.current.rechargeAmmount; }
     }
+
+    #region Stats
+
+    public float DamageReduction
+    {
+        get { return stats.damageReduction + effectManager.DamageReduction; }
+    }
+
+    public float Acceleration
+    {
+        get { return maneuverability.AccelerationWithWeight + effectManager.Acceleration; }
+    }
+
+    public float Velocity
+    {
+        get { return maneuverability.MaxVelocity + effectManager.Velocity; }
+    }
+
+    public float Maneuver
+    {
+        get { return maneuverability.currentManeuver + effectManager.Maneuver; }
+    }
+
+    public float ShotDamage
+    {
+        get { return stats.shotDamage + effectManager.ShotDamage; }
+    }
+
+
+
+    #endregion
 
 }

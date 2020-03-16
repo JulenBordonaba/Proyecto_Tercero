@@ -1,18 +1,41 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEditor;
 
 public class TrapperAbility : PlayerAbility
 {
-    public string firePrefabName;
+    //public string firePrefabName;
+    public GameObject firePrefab;
     public Transform raySpawn;
     public float maxRayDistance;
     public float instanceRate = 0.1f;
     public float duration = 3f;
     public LayerMask hitLayers;
+    public Transform fireParent;
+    public List<GameObject> fireList = new List<GameObject>();
 
     private Coroutine castFire;
 
+    private void Start()
+    {
+        PrepareFires();
+    }
+
+    void PrepareFires()
+    {
+        foreach(GameObject go in fireList)
+        {
+            go.transform.SetParent(null);
+            go.transform.position = Vector3.zero;
+        }
+    }
+
+    
+
+
+    
 
     IEnumerator CastFire(float loopTime)
     {
@@ -24,12 +47,33 @@ public class TrapperAbility : PlayerAbility
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, maxRayDistance, hitLayers))
             {
-                GameObject fire = PhotonNetwork.Instantiate(firePrefabName, hit.point, Quaternion.identity, 0, null);
-                fire.transform.forward = new Vector3(raySpawn.forward.x, 0, raySpawn.forward.z);
+                photonView.RPC("SetFire", PhotonTargets.All, hit.point);
             }
-            yield return new WaitForEndOfFrame();
+            yield return new WaitForSeconds(instanceRate);
         }
         
+    }
+
+    [PunRPC]
+    void SetFire(Vector3 point)
+    {
+        GameObject fire = GetHiddenFire();
+        if (!fire) return;
+        fire.SetActive(true);
+        fire.transform.position = point;
+        fire.transform.forward = new Vector3(raySpawn.forward.x, 0, raySpawn.forward.z);
+    }
+
+    GameObject GetHiddenFire()
+    {
+        foreach(GameObject go in fireList)
+        {
+            if(!go.activeInHierarchy)
+            {
+                return go;
+            }
+        }
+        return null;
     }
 
     IEnumerator StopFire()

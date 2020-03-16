@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EffectManager))]
 public class TankShipAbility : ShipAbility
 {
-
-    public float damageReduction = 80f;
-    public float duration = 6f;
+    public EffectData damageReduction;
 
     public bool isActive = false;
+    
 
     public override void Use()
     {
@@ -17,14 +17,9 @@ public class TankShipAbility : ShipAbility
         if(!inCooldown)
         {
             StartCoroutine(Cooldown());
-
+            photonView.RPC("StartEffect", PhotonTargets.All, damageReduction);
         }
 
     }
-
-    public IEnumerator StopEffect()
-    {
-        yield return new WaitForSeconds(duration);
-
-    }
+    
 }

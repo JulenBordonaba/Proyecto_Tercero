@@ -25,6 +25,7 @@ public class Pieza : Photon.PunBehaviour {
     public bool nucleo;
     [Tooltip("Variable que controla cuando esta rota la pieza")]
     public bool isBroken = false;
+    public ShootWeapon[] armas;
 
     public float maxHealth;
     private GameObject piezaOk;
@@ -60,6 +61,10 @@ public class Pieza : Photon.PunBehaviour {
     private void PieceDestroyed(float _importancia)
     {
         isBroken = true;
+        foreach(ShootWeapon sw in armas)
+        {
+            sw.enabled = false;
+        }
         if(nucleo)
         {
             GetComponentInParent<NaveManager>().OnShipDestroyed();

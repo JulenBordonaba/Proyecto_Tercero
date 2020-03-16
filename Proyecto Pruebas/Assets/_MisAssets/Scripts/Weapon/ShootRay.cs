@@ -127,8 +127,7 @@ public class ShootRay : ShootWeapon
             {
                 if (other.GetComponentInParent<PhotonView>())
                 {
-                    print("Id mandada: " + other.GetComponentInParent<DamageManager>().gameObject.GetComponent<PhotonView>().ownerId);
-                    other.GetComponentInParent<NaveManager>().gameObject.GetComponent<PhotonView>().RPC("TakeDamage", PhotonTargets.AllBuffered, GetComponentInParent<Stats>().currentShotDamage, true, other.GetComponentInParent<DamageManager>().damagedObject.ToString(), other.GetComponentInParent<DamageManager>().gameObject.GetComponent<PhotonView>().owner.NickName);
+                    other.GetComponentInParent<NaveManager>().TakeDamage( GetComponentInParent<NaveManager>().ShotDamage, true, other.GetComponentInParent<DamageManager>().damagedObject.ToString(), other.GetComponentInParent<DamageManager>().gameObject.GetComponent<PhotonView>().owner.NickName);
                 }
             }
         }

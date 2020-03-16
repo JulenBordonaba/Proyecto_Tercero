@@ -3661,7 +3661,7 @@ internal class NetworkingPeer : LoadBalancingPeer, IPhotonPeerListener
 
         if (PhotonNetwork.logLevel >= PhotonLogLevel.Full)
         {
-            Debug.Log("Registered PhotonView: " + netView.viewID);
+            //Debug.Log("Registered PhotonView: " + netView.viewID);
         }
     }
 

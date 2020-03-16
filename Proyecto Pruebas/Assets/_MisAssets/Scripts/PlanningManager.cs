@@ -106,7 +106,7 @@ public class PlanningManager : MonoBehaviour
         if (naveManager.isPlanning)
         {
             //añadimos la fuerza hacia delante
-            rb.AddForce(controller.modelTransform.forward * maneuverability.AcelerationWithWeight * Mathf.Clamp01(inputManager.Accelerate()) * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(controller.modelTransform.forward * naveManager.Acceleration * Mathf.Clamp01(inputManager.Accelerate()) * Time.deltaTime, ForceMode.VelocityChange);
 
 
             //movimiento lateral
@@ -115,9 +115,9 @@ public class PlanningManager : MonoBehaviour
             //print(lateralForce);
             rb.AddForce(controller.modelTransform.right * lateralVelocity * inputManager.MainHorizontal());
 
-            rb.AddForce(lateralForce * inputManager.MainHorizontal() * lateralVelocity * maneuverability.AcelerationWithWeight * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(lateralForce * inputManager.MainHorizontal() * lateralVelocity * naveManager.Acceleration * Time.deltaTime, ForceMode.VelocityChange);
             //girar
-            controller.modelTransform.localRotation = Quaternion.Euler(controller.modelTransform.localRotation.eulerAngles.x, controller.modelTransform.localRotation.eulerAngles.y + (inputManager.MainHorizontal() * maneuverability.currentManeuver * maneuverLimitator * Time.deltaTime), controller.modelTransform.localRotation.eulerAngles.z);
+            controller.modelTransform.localRotation = Quaternion.Euler(controller.modelTransform.localRotation.eulerAngles.x, controller.modelTransform.localRotation.eulerAngles.y + (inputManager.MainHorizontal() * naveManager.Maneuver * maneuverLimitator * Time.deltaTime), controller.modelTransform.localRotation.eulerAngles.z);
 
             RegulateVelocity();
         }
