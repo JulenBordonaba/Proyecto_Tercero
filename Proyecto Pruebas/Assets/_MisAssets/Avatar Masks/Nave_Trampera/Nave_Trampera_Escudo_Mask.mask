@@ -1,0 +1,127 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Nave_Trampera_Escudo_Mask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Nave_Trampera_Geo
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Core
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Core/Core_Broken
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Core/Core_Destroyed
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Core/Core_Ok
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Left_Back
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Left_Back/Left_Back_Broken
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Left_Back/Left_Back_Destroyed
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Left_Back/Left_Back_Ok
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Left_Front
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Left_Front/Left_Front_Broken
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Left_Front/Left_Front_Destroyed
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Left_Front/Left_Front_Ok
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Right_Back
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Right_Back/Right_Back_Broken
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Right_Back/Right_Back_Destroyed
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Right_Back/Right_Back_Ok
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Right_Front
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Right_Front/Right_Front_Broken
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Right_Front/Right_Front_Destroyed
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Right_Front/Right_Front_Ok
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Weapons
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Weapons/Weapon
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Weapons/Weapon2
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Dash_left
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Dash_right
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Escudo__pivot_left
+    m_Weight: 1
+  - m_Path: Nave_Trampera_Rig/Root/Escudo__pivot_left/Escudo_tip_left
+    m_Weight: 1
+  - m_Path: Nave_Trampera_Rig/Root/Escudo__pivot_right
+    m_Weight: 1
+  - m_Path: Nave_Trampera_Rig/Root/Escudo__pivot_right/Escudo_tip_right
+    m_Weight: 1
+  - m_Path: Nave_Trampera_Rig/Root/Front_acelerar_Frenar_left
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Front_acelerar_Frenar_left/Front_Girar_left
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Front_acelerar_Frenar_left/Front_Girar_left/Derrape_left
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Front_acelerar_Frenar_right
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Front_acelerar_Frenar_right/Front_Girar_right
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Front_acelerar_Frenar_right/Front_Girar_right/Derrape_right
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Harpoon_base
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Harpoon_base/Harpoon_pivot
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Harpoon_base/Harpoon_pivot/Harpoon_tip
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Jump_motor_left
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Jump_motor_left/Turbo_motor_left
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Jump_motor_left/Turbo_motor_left/Turbo1_Left
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Jump_motor_left/Turbo_motor_left/Turbo2_Left
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Jump_motor_right
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Jump_motor_right/Turbo_motor_right
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Jump_motor_right/Turbo_motor_right/Turbo1_right
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Jump_motor_right/Turbo_motor_right/Turbo2_right
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Planeo
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Repair_Base_left
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Repair_Base_left/Repair_Tip_left
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Repair_Base_right
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Repair_Base_right/Repair_Tip_right
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Weapon_base
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Weapon_base/Weapon_pivot
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Rig/Root/Weapon_base/Weapon_pivot/Weapon_tip
+    m_Weight: 0
