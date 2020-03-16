@@ -110,7 +110,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TexLod: 5
-    - _ThresholdScale: 12
+    - _ThresholdScale: 58.5
     - _ThresholdStrength: 1
     - _UVSec: 0
     - _ZSmooth: -0.5
@@ -123,5 +123,5 @@ Material:
     - _HColor: {r: 1, g: 1, b: 1, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
     - _SColor: {r: 0.195, g: 0.195, b: 0.195, a: 1}
-    - _SketchColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+    - _SketchColor: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
