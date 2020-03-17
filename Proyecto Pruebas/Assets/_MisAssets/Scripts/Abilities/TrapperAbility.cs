@@ -87,6 +87,7 @@ public class TrapperAbility : PlayerAbility
         base.Use();
         if(!inCooldown)
         {
+            inCooldown = true;
             castFire = StartCoroutine(CastFire(instanceRate));
             StartCoroutine(StopFire());
             StartCoroutine(Cooldown());
