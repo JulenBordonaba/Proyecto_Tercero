@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EffectData", menuName = "Effects/Create Effect")]
 public class EffectData : ScriptableObject
 {
+    public string id;
     public float duration;
     public float damageReduction;
     public float slow;

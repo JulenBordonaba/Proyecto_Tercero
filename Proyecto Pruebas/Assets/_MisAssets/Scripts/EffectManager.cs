@@ -16,9 +16,34 @@ public class EffectManager : Photon.PunBehaviour
     [PunRPC]
     public void StartEffect(EffectData ed)
     {
+        if (CheckEffect(ed))
+        {
+            StopEffect(GetEffect(ed.id));
+        }
+
         activeEffects.Add(ed);
         ed.dot.dotEffect = StartCoroutine(DOTEffect(ed.dot));
         StartCoroutine(EffectDuration(ed));
+
+
+    }
+
+    EffectData GetEffect(string _id)
+    {
+        foreach (EffectData ed in activeEffects)
+        {
+            if (ed.id == _id) return ed;
+        }
+        return null;
+    }
+
+    bool CheckEffect(EffectData _effectData)
+    {
+        foreach (EffectData ed in activeEffects)
+        {
+            if (ed.id == _effectData.id) return true;
+        }
+        return false;
     }
 
     public void StopEffect(EffectData ed)
