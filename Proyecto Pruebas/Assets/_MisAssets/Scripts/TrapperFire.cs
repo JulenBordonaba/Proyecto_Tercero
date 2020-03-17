@@ -43,7 +43,7 @@ public class TrapperFire : MonoBehaviour
                 {
                     print("pone el efecto");
                     print("---------------------------------------------al aplicar el efecto: " + other.gameObject.name);
-                    //pv.RPC("StartEffect", PhotonTargets.All, fireDamage);
+                    pv.RPC("StartEffect", PhotonTargets.All, fireDamage);
                 }
 
                 //instanciar partículas explosión
