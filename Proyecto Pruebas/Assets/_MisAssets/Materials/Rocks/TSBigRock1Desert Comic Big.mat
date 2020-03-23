@@ -163,7 +163,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendOutline: 5
     - _TexLod: 5
-    - _ThresholdScale: 10
+    - _ThresholdScale: 21.9
     - _ThresholdStrength: 1
     - _UVSec: 0
     - _UVWaveAmplitude: 0.05

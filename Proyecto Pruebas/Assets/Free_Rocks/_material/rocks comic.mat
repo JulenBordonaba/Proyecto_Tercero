@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: rocks comic
   m_Shader: {fileID: 4800000, guid: 4afb2fb87321fe647840db5fb623fc28, type: 3}
-  m_ShaderKeywords: OUTLINES TCP2_SPEC_TOON _NORMALMAP
+  m_ShaderKeywords: OUTLINES TCP2_SPEC_TOON _EMISSION _NORMALMAP
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -97,7 +97,7 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TexLod: 5
-    - _ThresholdScale: 17
+    - _ThresholdScale: 65.2
     - _ThresholdStrength: 1
     - _UVSec: 0
     - _ZSmooth: -0.5
