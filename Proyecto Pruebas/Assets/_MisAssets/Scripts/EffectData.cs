@@ -6,6 +6,7 @@ using UnityEngine;
 public class EffectData : ScriptableObject
 {
     public string id;
+    public Coroutine durationCoroutine;
     public float duration;
     public float damageReduction;
     public float slow;

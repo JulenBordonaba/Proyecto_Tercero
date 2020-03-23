@@ -18,12 +18,18 @@ public class EffectManager : Photon.PunBehaviour
     {
         if (CheckEffect(ed))
         {
-            StopEffect(GetEffect(ed.id));
+            EffectData _ed = GetEffect(ed.id);
+            StopCoroutine( _ed.durationCoroutine);
+            _ed.durationCoroutine = null;
+            _ed.durationCoroutine = StartCoroutine(EffectDuration(_ed));
+        }
+        else
+        {
+            activeEffects.Add(ed);
+            ed.dot.dotEffect = StartCoroutine(DOTEffect(ed.dot));
+            ed.durationCoroutine = StartCoroutine(EffectDuration(ed));
         }
 
-        activeEffects.Add(ed);
-        ed.dot.dotEffect = StartCoroutine(DOTEffect(ed.dot));
-        StartCoroutine(EffectDuration(ed));
 
 
     }
@@ -82,6 +88,7 @@ public class EffectManager : Photon.PunBehaviour
                 {
                     if (dot.damagePerTick > 0)
                     {
+                        print("dot");
                         dm.GetComponent<PhotonView>().RPC("TakeDamage", PhotonTargets.AllBuffered, dot.damagePerTick, true);
                     }
                 }

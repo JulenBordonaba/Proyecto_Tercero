@@ -70,7 +70,7 @@ public class NaveController : MonoBehaviour
 
     private void Update()
     {
-        print("Velocity: " + VelocityFormula);
+        //print("Velocity: " + VelocityFormula);
         if (!PauseManager.inPause)
         {
             if (inBoost)
