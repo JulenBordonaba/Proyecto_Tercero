@@ -82,6 +82,9 @@ public class ShootRay : ShootWeapon
         Vector3 playerPosition;
 
         Ray ray = new Ray();
+
+
+
         foreach (NaveManager nm in GameManager.navesList)
         {
             if (nm != myNaveManager)

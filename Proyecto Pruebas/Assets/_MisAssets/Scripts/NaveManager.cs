@@ -31,6 +31,7 @@ public class NaveManager : Photon.PunBehaviour
     public int position;
     public Text positionText;
     public bool isIA = false;
+    public bool isHologram = false;
 
     public int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
     private Stats stats;    //variable con las stats de la nave
@@ -52,7 +53,6 @@ public class NaveManager : Photon.PunBehaviour
     public void Start()
     {
         rb = GetComponent<Rigidbody>();
-        GameManager.navesList.Add(this);
         inputManager = GetComponent<InputManager>();
         stats = GetComponent<Stats>();
         controller = GetComponent<NaveController>();
@@ -79,6 +79,17 @@ public class NaveManager : Photon.PunBehaviour
         }
         
         trailColor.ToSynchronizable(trail.material.color);
+    }
+
+    private void OnEnable()
+    {
+        GameManager.navesList.Add(this);
+
+    }
+
+    private void OnDisable()
+    {
+        GameManager.navesList.Remove(this);
     }
 
     public void DisableComponents()
@@ -218,6 +229,7 @@ public class NaveManager : Photon.PunBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (isHologram) return;
         if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Nave")
         {
             DamageManager dm = collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>();

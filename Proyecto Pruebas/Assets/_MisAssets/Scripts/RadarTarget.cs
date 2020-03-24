@@ -7,15 +7,14 @@ public class RadarTarget : MonoBehaviour
 {
     public GameObject radarImage;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<Radar> radars = new List<Radar>();
+    
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        foreach(Radar r in radars)
+        {
+            r.RemoveRadarTarget(this);
+        }
     }
 }

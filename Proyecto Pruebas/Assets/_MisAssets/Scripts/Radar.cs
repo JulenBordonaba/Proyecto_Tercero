@@ -84,10 +84,18 @@ public class Radar : Photon.PunBehaviour
     {
         if(other.gameObject.GetComponent<RadarTarget>())
         {
+            if(!other.gameObject.GetComponent<RadarTarget>().radars.Contains(this))
+            {
+                other.gameObject.GetComponent<RadarTarget>().radars.Add(this);
+            }
             objectsInArea.Add(other.gameObject);
             GameObject nuevo = Instantiate(other.GetComponent<RadarTarget>().radarImage,radar.transform.parent);
             nuevo.transform.SetSiblingIndex(nuevo.transform.parent.childCount - 2);
-            objectsInAreaIcons.Add(other.gameObject, nuevo);
+            if(!objectsInAreaIcons.ContainsKey(other.gameObject))
+            {
+                objectsInAreaIcons.Add(other.gameObject, nuevo);
+
+            }
         }
     }
 
@@ -95,9 +103,24 @@ public class Radar : Photon.PunBehaviour
     {
         if (other.gameObject.GetComponent<RadarTarget>())
         {
-            objectsInArea.Remove(other.gameObject);
-            StartCoroutine(DestroyOnEndOfFrame(other.gameObject));
+            RemoveRadarTarget(other.gameObject.GetComponent<RadarTarget>());
         }
+    }
+
+    public void RemoveRadarTarget(RadarTarget rt)
+    {
+        
+        StartCoroutine(DestroyOnEndOfFrame(rt.gameObject));
+        objectsInArea.Remove(rt.gameObject);
+        StartCoroutine(RemoveRadarOnEndOfFrame(rt));
+        print("debería quitarlo");
+    }
+
+
+    IEnumerator RemoveRadarOnEndOfFrame(RadarTarget rt)
+    {
+        yield return new WaitForEndOfFrame();
+        rt.radars.Remove(this);
     }
 
     public IEnumerator ResetCheckpointColor(GameObject key)

@@ -22,6 +22,7 @@ public class EffectManager : Photon.PunBehaviour
             StopCoroutine( _ed.durationCoroutine);
             _ed.durationCoroutine = null;
             _ed.durationCoroutine = StartCoroutine(EffectDuration(_ed));
+            print("resetea tiempo");
         }
         else
         {
@@ -54,10 +55,12 @@ public class EffectManager : Photon.PunBehaviour
 
     public void StopEffect(EffectData ed)
     {
-        if (activeEffects.Contains(ed))
+        print("Para el efecto");
+        if (CheckEffect(ed))
         {
-            activeEffects.Remove(ed);
-            StopCoroutine(ed.dot.dotEffect);
+            EffectData _ed = GetEffect(ed.id);
+            activeEffects.Remove(_ed);
+            StopCoroutine(_ed.dot.dotEffect);
         }
     }
 
@@ -82,13 +85,13 @@ public class EffectManager : Photon.PunBehaviour
         while (true)
         {
 
+            print("dot");
             foreach (DamageManager dm in damageManagers)
             {
                 if (photonView.isMine)
                 {
                     if (dot.damagePerTick > 0)
                     {
-                        print("dot");
                         dm.GetComponent<PhotonView>().RPC("TakeDamage", PhotonTargets.AllBuffered, dot.damagePerTick, true);
                     }
                 }

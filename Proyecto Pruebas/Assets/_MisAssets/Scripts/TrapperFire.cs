@@ -29,20 +29,20 @@ public class TrapperFire : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Radar")) return;
-        print("al entrar: " + other.gameObject.name);
-        print("entra al trigger");
+        //print("al entrar: " + other.gameObject.name);
+        //print("entra al trigger");
         if (other.gameObject.GetComponentInParent<PhotonView>())
         {
-            print("Tiene photonview");
+            //print("Tiene photonview");
             if (other.gameObject.GetComponentInParent<EffectManager>())
             {
-                print("tiene effectManager");
-                print("cuando comprueba si tiene effect manager: " + other.gameObject.name);
+                //print("tiene effectManager");
+                //print("cuando comprueba si tiene effect manager: " + other.gameObject.name);
                 PhotonView pv = other.gameObject.GetComponentInParent<EffectManager>().GetComponent<PhotonView>();
                 //if (pv.owner.NickName !=myPhotonView.owner.NickName)
                 {
-                    print("pone el efecto");
-                    print("---------------------------------------------al aplicar el efecto: " + other.gameObject.name);
+                    //print("pone el efecto");
+                    //print("---------------------------------------------al aplicar el efecto: " + other.gameObject.name);
                     pv.RPC("StartEffect", PhotonTargets.All, fireDamage);
                 }
 
