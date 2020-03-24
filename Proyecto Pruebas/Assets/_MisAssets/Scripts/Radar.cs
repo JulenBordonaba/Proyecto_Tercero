@@ -109,8 +109,10 @@ public class Radar : Photon.PunBehaviour
 
     public void RemoveRadarTarget(RadarTarget rt)
     {
-        
-        StartCoroutine(DestroyOnEndOfFrame(rt.gameObject));
+        if(rt.gameObject)
+        {
+            StartCoroutine(DestroyOnEndOfFrame(rt.gameObject));
+        }
         objectsInArea.Remove(rt.gameObject);
         StartCoroutine(RemoveRadarOnEndOfFrame(rt));
         print("debería quitarlo");
