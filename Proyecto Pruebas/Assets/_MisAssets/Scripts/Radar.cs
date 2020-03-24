@@ -109,7 +109,7 @@ public class Radar : Photon.PunBehaviour
 
     public void RemoveRadarTarget(RadarTarget rt)
     {
-        if(rt.gameObject)
+        if(rt.gameObject && rt.gameObject.activeInHierarchy)
         {
             StartCoroutine(DestroyOnEndOfFrame(rt.gameObject));
         }

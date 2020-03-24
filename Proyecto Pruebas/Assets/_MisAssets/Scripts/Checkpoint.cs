@@ -41,11 +41,15 @@ public class Checkpoint : Photon.PunBehaviour
     {
         foreach(NaveManager nm in passedShips)
         {
-            print(nm.gameObject.name + "    " + naveManager.gameObject.name);
-            if(nm==naveManager)
+            if(nm)
             {
-                return false;
+                print(nm.gameObject.name + "    " + naveManager.gameObject.name);
+                if (nm == naveManager)
+                {
+                    return false;
+                }
             }
+            
         }
         passedShips.Add(naveManager);
         return true;
