@@ -112,10 +112,10 @@ public class Radar : Photon.PunBehaviour
         if(rt.gameObject && rt.gameObject.activeInHierarchy)
         {
             StartCoroutine(DestroyOnEndOfFrame(rt.gameObject));
+            objectsInArea.Remove(rt.gameObject);
+            StartCoroutine(RemoveRadarOnEndOfFrame(rt));
+            print("debería quitarlo");
         }
-        objectsInArea.Remove(rt.gameObject);
-        StartCoroutine(RemoveRadarOnEndOfFrame(rt));
-        print("debería quitarlo");
     }
 
 
