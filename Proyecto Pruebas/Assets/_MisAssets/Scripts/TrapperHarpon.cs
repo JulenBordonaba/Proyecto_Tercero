@@ -30,6 +30,20 @@ public class TrapperHarpon : Photon.PunBehaviour
     private void Start()
     {
         springJoint = GetComponent<SpringJoint>();
+        GetTargetRigidBody();
+    }
+
+    void GetTargetRigidBody()
+    {
+        foreach(NaveManager nm in GameManager.navesList)
+        {
+            if(nm.GetComponent<PhotonView>().owner.NickName==photonView.owner.NickName)
+            {
+                springJoint.connectedBody = nm.GetComponent<TrapperShipAbility>().harponPivot.GetComponent<Rigidbody>();
+                springJoint.connectedBody.isKinematic = true;
+                springJoint.spring = 0;
+            }
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
