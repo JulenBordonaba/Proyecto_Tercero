@@ -42,6 +42,8 @@ public class TrapperHarpon : Photon.PunBehaviour
                 springJoint.connectedBody = nm.GetComponent<TrapperShipAbility>().harponPivot.GetComponent<Rigidbody>();
                 springJoint.connectedBody.isKinematic = true;
                 springJoint.spring = 0;
+                springJoint.anchor = Vector3.zero;
+                springJoint.connectedAnchor = Vector3.zero;
             }
         }
     }
