@@ -35,9 +35,11 @@ public class TrapperHarpon : Photon.PunBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         print("collision");
-        if(collision.gameObject.layer==LayerMask.GetMask("Player1"))
+        string otherLayer = LayerMask.LayerToName(collision.gameObject.layer);
+        print(otherLayer);
+        if (otherLayer=="Player1")
         {
-            
+            print("Layer Player1");
             GameObject nave = collision.gameObject.GetComponentInParent<NaveManager>().gameObject;
             if(nave.GetComponent<PhotonView>().owner.NickName != photonView.owner.NickName)
             {
