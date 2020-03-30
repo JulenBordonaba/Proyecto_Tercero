@@ -14,7 +14,7 @@ public class HackerAbility : PlayerAbility
         base.Use(_forced);
 
         if (inCooldown) return;
-
+        Hack();
         StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
     }
 
@@ -22,11 +22,15 @@ public class HackerAbility : PlayerAbility
     {
         foreach(NaveManager nm in GameManager.navesList)
         {
-            if (Vector3.Distance(transform.position, nm.transform.position) < effectRadius)
+            if(nm!=GetComponent<NaveManager>())
             {
-                nm.photonView.RPC("StartEffect", PhotonTargets.All, hackEffect);
-                nm.photonView.RPC("ForceUse", PhotonTargets.All, nm.photonView.owner.NickName);
+                if (Vector3.Distance(transform.position, nm.transform.position) < effectRadius)
+                {
+                    nm.photonView.RPC("StartEffect", PhotonTargets.All, hackEffect);
+                    nm.photonView.RPC("ForceUse", PhotonTargets.All, nm.photonView.owner.NickName);
+                }
             }
+            
         }
     }
 }

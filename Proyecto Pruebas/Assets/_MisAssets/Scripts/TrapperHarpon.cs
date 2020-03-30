@@ -10,6 +10,23 @@ public class TrapperHarpon : Photon.PunBehaviour
 
     SpringJoint springJoint;
 
+    #region PhotonSerialize
+    public byte classId { get; set; }
+
+    public static object Deserialize(byte[] data)
+    {
+        TrapperHarpon result = new TrapperHarpon();
+        result.classId = data[0];
+        return result;
+    }
+
+    public static byte[] Serialize(object customType)
+    {
+        TrapperHarpon c = (TrapperHarpon)customType;
+        return new byte[] { c.classId };
+    }
+    #endregion
+
     private void Start()
     {
         springJoint = GetComponent<SpringJoint>();
