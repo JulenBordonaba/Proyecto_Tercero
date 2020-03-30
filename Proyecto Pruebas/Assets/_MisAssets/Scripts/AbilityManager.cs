@@ -31,11 +31,11 @@ public class AbilityManager : Photon.PunBehaviour
         if (PauseManager.inPause) return;
         if(inputManager.ShipAbility())
         {
-            shipAbility.Use();            
+            shipAbility.Use(false);            
         }
         if(inputManager.PlayerAbility())
         {
-            playerAbility.Use();
+            playerAbility.Use(false);
         }
     }
 
@@ -48,5 +48,13 @@ public class AbilityManager : Photon.PunBehaviour
                 playerAbility = pa;
             }
         }
+    }
+
+    [PunRPC]
+    public void ForceUse(string _nickname)
+    {
+        if (_nickname != photonView.owner.NickName) return;
+        shipAbility.Use(true);
+        playerAbility.Use(true);
     }
 }

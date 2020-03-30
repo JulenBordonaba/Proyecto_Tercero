@@ -8,6 +8,8 @@ public class EffectManager : Photon.PunBehaviour
 
     public List<EffectData> activeEffects = new List<EffectData>();
 
+    private InputManager inputManager;
+
     private void Update()
     {
         print(DamageReduction);
@@ -102,6 +104,21 @@ public class EffectManager : Photon.PunBehaviour
         }
     }
 
+    #region InvertControls
+    private bool _InvertControls()
+    {
+        foreach (EffectData ed in activeEffects)
+        {
+            if (ed.invertControls) return true;
+        }
+        return false;
+    }
+
+    public bool InvertControls
+    {
+        get { return _InvertControls(); }
+    }
+    #endregion
 
     #region stats
 

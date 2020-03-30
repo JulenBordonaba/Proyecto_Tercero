@@ -21,18 +21,18 @@ public class ScavengerAbility : PlayerAbility
         modelTransform = GetComponent<NaveController>().modelTransform;
     }
 
-    public override void Use()
+    public override void Use(bool _forced)
     {
-        base.Use();
+        base.Use(_forced);
         if (inCooldown) return;
         inCooldown = true;
-        StartCoroutine(Cooldown());
+        StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
         GameObject nuevo = Instantiate(chatarraPrefab, spawn.position, Quaternion.identity);
         nuevo.GetComponent<Rigidbody>().AddForce(Vector3.up * throwForce, ForceMode.Impulse);
         nuevo.GetComponent<Rigidbody>().AddForce(-modelTransform.forward * throwForce, ForceMode.Impulse);
         ActualizarLista(nuevo);
-
     }
+    
 
     private void ActualizarLista(GameObject nuevo)
     {

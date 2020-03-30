@@ -10,13 +10,13 @@ public class TankShipAbility : ShipAbility
     public bool isActive = false;
     
 
-    public override void Use()
+    public override void Use(bool _forced)
     {
-        base.Use();
+        base.Use(_forced);
 
         if(!inCooldown)
         {
-            StartCoroutine(Cooldown());
+            StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
             photonView.RPC("StartEffect", PhotonTargets.All, damageReduction);
         }
 

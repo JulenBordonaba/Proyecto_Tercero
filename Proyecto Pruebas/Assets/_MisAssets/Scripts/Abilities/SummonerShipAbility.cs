@@ -9,9 +9,9 @@ public class SummonerShipAbility : ShipAbility
 
     private GameObject currentBots;
 
-    public override void Use()
+    public override void Use(bool _forced)
     {
-        base.Use();
+        base.Use(_forced);
         if(!inCooldown)
         {
             if(currentBots)
@@ -21,7 +21,7 @@ public class SummonerShipAbility : ShipAbility
             currentBots = PhotonNetwork.Instantiate("SummonerBotsPrefab", GetComponent<NaveController>().modelTransform.position,Quaternion.identity,0,null);
             currentBots.GetComponent<PhotonView>().RPC("SetParent", PhotonTargets.AllBuffered, photonView.owner.NickName);
             inCooldown = true;
-            StartCoroutine(Cooldown());
+            StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
         }
 
 

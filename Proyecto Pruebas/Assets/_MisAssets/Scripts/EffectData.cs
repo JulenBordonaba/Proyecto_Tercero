@@ -14,6 +14,7 @@ public class EffectData : ScriptableObject
     public float maneuverability;
     public float acceleration;
     public float shotDamage;
+    public bool invertControls = false;
     public DOT dot;
 
     #region PhotonSerialize

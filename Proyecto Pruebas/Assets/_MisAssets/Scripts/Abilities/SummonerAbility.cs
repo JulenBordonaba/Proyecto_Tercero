@@ -26,9 +26,9 @@ public class SummonerAbility : PlayerAbility
     
 
 
-    public override void Use()
+    public override void Use(bool _forced)
     {
-        base.Use();
+        base.Use(_forced);
 
         if(!inCooldown)
         {
@@ -36,7 +36,7 @@ public class SummonerAbility : PlayerAbility
             dron.GetComponent<BlackHoleDron>().photonView.RPC("Move", PhotonTargets.All,myCam.transform.forward, rb.velocity.magnitude+dronVelocity);
 
             inCooldown = true;
-            StartCoroutine(Cooldown());
+            StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
         }
 
 

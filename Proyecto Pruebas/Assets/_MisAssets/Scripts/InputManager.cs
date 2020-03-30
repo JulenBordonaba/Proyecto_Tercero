@@ -5,7 +5,13 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     public int numPlayer = 1;
-    
+
+    private EffectManager effectManager;
+
+    private void Start()
+    {
+        effectManager = GetComponent<EffectManager>();
+    }
 
     //eje horizontal del joystick principal
     public float MainHorizontal()
@@ -13,7 +19,7 @@ public class InputManager : MonoBehaviour
         float r = 0;
         r += Input.GetAxis("PCMainHorizontal" + numPlayer.ToString());
         r += Input.GetAxis("PS4MainHorizontal" + numPlayer.ToString());
-        return r;
+        return r * InverseValue;
     }
 
     //eje vertical del joystick principal
@@ -22,7 +28,7 @@ public class InputManager : MonoBehaviour
         float r = 0;
         r += Input.GetAxis("PCMainVertical" + numPlayer.ToString());
         r += Input.GetAxis("PS4MainVertical" + numPlayer.ToString());
-        return r;
+        return r*InverseValue;
     }
 
     //joystick principal, usa x e y 
@@ -37,7 +43,7 @@ public class InputManager : MonoBehaviour
         float r = 0;
         r += Input.GetAxis("PCCameraHorizontal" + numPlayer.ToString());
         r += Input.GetAxis("PS4CameraHorizontal" + numPlayer.ToString());
-        return r;
+        return r*InverseValue;
     }
 
     //eje vertical del joystick de la cámara
@@ -46,7 +52,7 @@ public class InputManager : MonoBehaviour
         float r = 0;
         r += Input.GetAxis("PCCameraVertical" + numPlayer.ToString());
         r += Input.GetAxis("PS4CameraVertical" + numPlayer.ToString());
-        return r;
+        return r*InverseValue;
     }
 
     //joystick que maneja la cámara
@@ -64,13 +70,13 @@ public class InputManager : MonoBehaviour
     //botón que activa el dash derecho
     public bool RightDash()
     {
-        return Input.GetButtonDown("PCRightDash" + numPlayer.ToString()) || Input.GetButtonDown("PS4RightDash" + numPlayer.ToString());
+        return Input.GetButtonDown((effectManager.InvertControls ? "PCLeftDash":"PCRightDash") + numPlayer.ToString()) || Input.GetButtonDown((effectManager.InvertControls ? "PS4LeftDash" : "PS4RightDash") + numPlayer.ToString());
     }
 
     //botón que activa el dash izquierdo
     public bool LeftDash()
     {
-        return Input.GetButtonDown("PCLeftDash" + numPlayer.ToString()) || Input.GetButtonDown("PS4LeftDash" + numPlayer.ToString());
+        return Input.GetButtonDown((effectManager.InvertControls ? "PCRightDash":"PCLeftDash") + numPlayer.ToString()) || Input.GetButtonDown((effectManager.InvertControls ? "PS4RightDash" : "PS4LeftDash") + numPlayer.ToString());
     }
 
     //botón para cambiar de cámara
@@ -154,9 +160,11 @@ public class InputManager : MonoBehaviour
         return (Input.GetAxis("PCRepairShield" + numPlayer.ToString()) > 0.8f) || (Input.GetAxis("PS4RepairShield" + numPlayer.ToString()) > 0.8f);
     }
     
+    public float InverseValue
+    {
+        get { return effectManager.InvertControls ? -1f : 1f; }
+    }
     
-
-
 
 
 
