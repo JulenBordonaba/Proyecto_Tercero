@@ -63,7 +63,7 @@ public class TrapperHarpon : Photon.PunBehaviour
                 transform.SetParent(nave.GetComponent<NaveController>().modelTransform);
                 FixedJoint joint = nave.AddComponent<FixedJoint>();
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
-                joint.connectedBody = nave.GetComponent<Rigidbody>();
+                joint.connectedBody = GetComponent<Rigidbody>();
                 StartCoroutine(Pull());
                 Destroy(joint, pullTime);
                 Destroy(gameObject, pullTime);
