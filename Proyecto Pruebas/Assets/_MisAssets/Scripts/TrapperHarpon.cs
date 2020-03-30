@@ -34,12 +34,14 @@ public class TrapperHarpon : Photon.PunBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        print("collision");
         if(collision.gameObject.layer==LayerMask.GetMask("Player1"))
         {
             
             GameObject nave = collision.gameObject.GetComponentInParent<NaveManager>().gameObject;
             if(nave.GetComponent<PhotonView>().owner.NickName != photonView.owner.NickName)
             {
+                print("pull");
                 transform.SetParent(nave.GetComponent<NaveController>().modelTransform);
                 FixedJoint joint = nave.AddComponent<FixedJoint>();
                 GetComponent<Rigidbody>().velocity = Vector3.zero;
