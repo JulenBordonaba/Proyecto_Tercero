@@ -6,9 +6,11 @@ ModelImporter:
     100000: //RootNode
     400000: //RootNode
     2100000: gravitron_prop_silo
+    2100002: bunker_gravitron_prop_silo1
     2300000: //RootNode
     3300000: //RootNode
     4300000: pCylinder5
+    4300002: bunker:pCylinder5_pCylinder5
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -40,7 +42,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 4000
+    globalScale: 5
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
