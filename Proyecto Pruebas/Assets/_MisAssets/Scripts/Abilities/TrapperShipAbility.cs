@@ -26,10 +26,6 @@ public class TrapperShipAbility : ShipAbility
         {
             //instanciar arpón con photonview
             GameObject harpon=PhotonNetwork.Instantiate(harponPrefabName, harponPivot.position, harponPivot.rotation, 0);
-            //asignar connected body en el joint
-            SpringJoint sj = harpon.GetComponent<SpringJoint>();
-            sj.connectedBody = harponPivot.GetComponent<Rigidbody>();
-            sj.spring = 0;
             //asignar velocidad al rigidbody del arpón
             harpon.GetComponent<Rigidbody>().velocity = harpon.transform.forward * (rb.velocity.magnitude+harponVelocity);
             //asignar maxPull y Pulltime al arpón
@@ -41,9 +37,8 @@ public class TrapperShipAbility : ShipAbility
     }
 
     [PunRPC]
-    public void ConfigureTrapperHarpon(TrapperHarpon _harpon, float _maxPull, float _pullTime)
+    public void ConfigureTrapperHarpon(TrapperHarpon _harpon, float _maxPull)
     {
         _harpon.maxPull = _maxPull;
-        _harpon.pullTime = _pullTime;
     }
 }
