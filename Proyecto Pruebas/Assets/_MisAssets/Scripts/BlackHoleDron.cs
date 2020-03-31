@@ -71,7 +71,7 @@ public class BlackHoleDron : Photon.PunBehaviour
         if (inExplosion) return;
         inExplosion = true;
         rb.velocity = Vector3.zero;
-        print("objects in area " + objectsInArea.Count);
+        //print("objects in area " + objectsInArea.Count);
         photonView.RPC("Explosion", PhotonTargets.AllViaServer);
     }
 

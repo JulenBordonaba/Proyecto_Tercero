@@ -42,7 +42,7 @@ public class PortalManager : MonoBehaviour
             _portals.Remove(p2);
 
 
-            print("sale");
+            //print("sale");
             p1.pair = p2;
             p2.pair = p1;
             TipoCombustible t = Global.RandomEnumValue<TipoCombustible>();

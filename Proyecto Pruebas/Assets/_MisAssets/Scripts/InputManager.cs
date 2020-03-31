@@ -18,7 +18,7 @@ public class InputManager : MonoBehaviour
     {
         if (effectManager)
         {
-            print(effectManager.InvertControls + " " + gameObject.name);
+            print(effectManager.InvertControls + " --------------------------------------------- " + gameObject.name);
         }
         else
         {

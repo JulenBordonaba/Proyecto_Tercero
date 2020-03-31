@@ -28,6 +28,7 @@ public class EffectManager : Photon.PunBehaviour
         }
         else
         {
+            print("new effect");
             activeEffects.Add(ed);
             ed.dot.dotEffect = StartCoroutine(DOTEffect(ed.dot));
             ed.durationCoroutine = StartCoroutine(EffectDuration(ed));
@@ -78,7 +79,7 @@ public class EffectManager : Photon.PunBehaviour
     IEnumerator EffectDuration(EffectData ed)
     {
         yield return new WaitForSeconds(ed.duration);
-        StopEffect(ed);
+        //StopEffect(ed);
     }
 
     IEnumerator DOTEffect(DOT dot)
@@ -87,7 +88,7 @@ public class EffectManager : Photon.PunBehaviour
         while (true)
         {
 
-            print("dot");
+            //print("dot");
             foreach (DamageManager dm in damageManagers)
             {
                 if (photonView.isMine)
