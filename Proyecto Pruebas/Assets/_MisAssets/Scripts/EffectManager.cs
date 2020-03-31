@@ -79,7 +79,7 @@ public class EffectManager : Photon.PunBehaviour
     IEnumerator EffectDuration(EffectData ed)
     {
         yield return new WaitForSeconds(ed.duration);
-        //StopEffect(ed);
+        StopEffect(ed);
     }
 
     IEnumerator DOTEffect(DOT dot)

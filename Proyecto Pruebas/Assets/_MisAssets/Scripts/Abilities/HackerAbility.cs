@@ -33,7 +33,7 @@ public class HackerAbility : PlayerAbility
             {
                 if (Vector3.Distance(transform.position, nm.transform.position) < effectRadius)
                 {
-                    nm.photonView.RPC("StartEffect", PhotonTargets.All, hackEffect);
+                    nm.GetComponent<PhotonView>().RPC("StartEffect", PhotonTargets.All, hackEffect);
                     nm.GetComponent<AbilityManager>().ForceUse();
                 }
             }
