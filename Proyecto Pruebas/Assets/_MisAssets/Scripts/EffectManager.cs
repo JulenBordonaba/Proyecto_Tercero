@@ -10,17 +10,27 @@ public class EffectManager : Photon.PunBehaviour
 
     private InputManager inputManager;
 
+    public EffectData[] effects;
+
+    private void Start()
+    {
+        effects = Resources.LoadAll<EffectData>("Data/Effects");
+    }
+
     private void Update()
     {
         //print(DamageReduction);
     }
+    
 
     [PunRPC]
-    public void StartEffect(EffectData ed)
+    public void StartEffect(string _effect)
     {
+        EffectData ed = GetEffect(_effect);
+
         if (CheckEffect(ed))
         {
-            EffectData _ed = GetEffect(ed.id);
+            EffectData _ed = GetActiveEffect(ed.id);
             StopCoroutine( _ed.durationCoroutine);
             _ed.durationCoroutine = null;
             _ed.durationCoroutine = StartCoroutine(EffectDuration(_ed));
@@ -39,6 +49,15 @@ public class EffectManager : Photon.PunBehaviour
     }
 
     EffectData GetEffect(string _id)
+    {
+        foreach (EffectData ed in effects)
+        {
+            if (ed.id == _id) return ed;
+        }
+        return null;
+    }
+
+    EffectData GetActiveEffect(string _id)
     {
         foreach (EffectData ed in activeEffects)
         {
@@ -61,7 +80,7 @@ public class EffectManager : Photon.PunBehaviour
         print("Para el efecto");
         if (CheckEffect(ed))
         {
-            EffectData _ed = GetEffect(ed.id);
+            EffectData _ed = GetActiveEffect(ed.id);
             activeEffects.Remove(_ed);
             StopCoroutine(_ed.dot.dotEffect);
         }
@@ -79,7 +98,7 @@ public class EffectManager : Photon.PunBehaviour
     IEnumerator EffectDuration(EffectData ed)
     {
         yield return new WaitForSeconds(ed.duration);
-        StopEffect(ed);
+        //StopEffect(ed);
     }
 
     IEnumerator DOTEffect(DOT dot)

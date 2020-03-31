@@ -17,7 +17,7 @@ public class TankShipAbility : ShipAbility
         if(!inCooldown)
         {
             StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
-            photonView.RPC("StartEffect", PhotonTargets.All, damageReduction);
+            photonView.RPC("StartEffect", PhotonTargets.All, damageReduction.id);
         }
 
     }
