@@ -50,10 +50,16 @@ public class AbilityManager : Photon.PunBehaviour
         }
     }
 
-    [PunRPC]
-    public void ForceUse(string _nickname)
+    public void ForceUse()
     {
-        if (_nickname != photonView.owner.NickName) return;
+        photonView.RPC("ForceUseRPC", PhotonTargets.All, photonView.owner.NickName);
+    }
+
+    [PunRPC]
+    public void ForceUseRPC(string _nickname)
+    {
+
+        if (PhotonNetwork.player.NickName != _nickname) return;
         shipAbility.Use(true);
         playerAbility.Use(true);
     }

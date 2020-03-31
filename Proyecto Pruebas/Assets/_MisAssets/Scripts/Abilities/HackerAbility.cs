@@ -7,7 +7,14 @@ public class HackerAbility : PlayerAbility
     public float effectRadius = 100f;
 
     public EffectData hackEffect;
-    
+
+    private NaveManager naveManager;
+
+    private void Start()
+    {
+        naveManager = GetComponent<NaveManager>();
+    }
+
 
     public override void Use(bool _forced)
     {
@@ -22,12 +29,12 @@ public class HackerAbility : PlayerAbility
     {
         foreach(NaveManager nm in GameManager.navesList)
         {
-            if(nm!=GetComponent<NaveManager>())
+            if(nm!= naveManager)
             {
                 if (Vector3.Distance(transform.position, nm.transform.position) < effectRadius)
                 {
                     nm.photonView.RPC("StartEffect", PhotonTargets.All, hackEffect);
-                    nm.photonView.RPC("ForceUse", PhotonTargets.All, nm.photonView.owner.NickName);
+                    nm.GetComponent<AbilityManager>().ForceUse();
                 }
             }
             
