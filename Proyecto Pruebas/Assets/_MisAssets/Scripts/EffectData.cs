@@ -15,7 +15,7 @@ public class EffectData : ScriptableObject
     public float acceleration;
     public float shotDamage;
     public bool invertControls = false;
-    public DOT dot;
+    public DOT dot = new DOT();
 
     #region PhotonSerialize
     public byte classId { get; set; }
@@ -38,6 +38,13 @@ public class EffectData : ScriptableObject
 [System.Serializable]
 public class DOT
 {
+
+    public DOT()
+    {
+        loopTime = 0;
+        damagePerTick = 0;
+        dotEffect = null;
+    }
     public float loopTime;
     public float damagePerTick;
     public Coroutine dotEffect;
