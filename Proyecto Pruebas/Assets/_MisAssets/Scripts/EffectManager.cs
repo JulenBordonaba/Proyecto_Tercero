@@ -12,7 +12,7 @@ public class EffectManager : Photon.PunBehaviour
 
     private void Update()
     {
-        print(DamageReduction);
+        //print(DamageReduction);
     }
 
     [PunRPC]

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(EffectManager))]
 public class InputManager : MonoBehaviour
 {
     public int numPlayer = 1;
@@ -11,6 +12,18 @@ public class InputManager : MonoBehaviour
     private void Start()
     {
         effectManager = GetComponent<EffectManager>();
+    }
+
+    private void Update()
+    {
+        if (effectManager)
+        {
+            print(effectManager.InvertControls + " " + gameObject.name);
+        }
+        else
+        {
+            print("no hay effect manager " + gameObject.name);
+        }
     }
 
     //eje horizontal del joystick principal
