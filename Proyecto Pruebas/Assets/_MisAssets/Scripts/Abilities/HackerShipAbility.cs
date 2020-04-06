@@ -24,10 +24,21 @@ public class HackerShipAbility : ShipAbility
         base.Use(_forced);
         if (!inCooldown)
         {
+            inCooldown = true;
             StartCoroutine(Cooldown(cooldown*(_forced?1.5f:1f)));
             StartCoroutine(HologramDuration());
-            int position = Random.Range(0, hologramPositions.Length - holograms.Length + 1);
-            photonView.RPC("SetHolograms", PhotonTargets.All, position);
+            List<int> positions = new List<int>();
+            for (int i = 0; i < (holograms.Length<hologramPositions.Length? holograms.Length : hologramPositions.Length) ; i++)
+            {
+                int position = 0;
+                do
+                {
+                    position = Random.Range(0,hologramPositions.Length);
+                } while (positions.Contains(position));
+                positions.Add(position);
+            }
+            //int position = Random.Range(0, hologramPositions.Length - holograms.Length + 1);
+            photonView.RPC("SetHolograms", PhotonTargets.All, positions.ToArray());
         }
 
     }
@@ -43,24 +54,25 @@ public class HackerShipAbility : ShipAbility
     {
         foreach (GameObject go in holograms)
         {
+            go.GetComponentInChildren<RadarTarget>().Disable();
             go.SetActive(false);
         }
     }
 
 
     [PunRPC]
-    public void SetHolograms(int position)
+    public void SetHolograms(int[] positions)
     {
-        for (int i = 0; i < holograms.Length; i++)
+        for (int i = 0; i < (holograms.Length < positions.Length ? holograms.Length : positions.Length); i++)
         {
             Ray ray = new Ray();
             ray.direction = -Vector3.up;
-            ray.origin = hologramPositions[i + position].transform.position + Vector3.up * 30;
+            ray.origin = hologramPositions[positions[i]].transform.position + Vector3.up * 30;
             RaycastHit hit;
 
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, LayerMask.GetMask("Floor")))
             {
-                holograms[i].transform.parent = hologramPositions[i + position].transform;
+                holograms[i].transform.parent = hologramPositions[positions[i]].transform;
                 holograms[i].transform.localPosition = Vector3.up * 5;
                 holograms[i].transform.SetParent(null);
                 holograms[i].GetComponent<Rigidbody>().velocity = GetComponent<Rigidbody>().velocity;

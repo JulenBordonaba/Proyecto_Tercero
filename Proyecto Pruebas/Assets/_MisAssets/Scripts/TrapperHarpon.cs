@@ -5,9 +5,11 @@ using UnityEngine;
 public class TrapperHarpon : Photon.PunBehaviour
 {
     public float maxPull = 100000f;
-    
 
-    SpringJoint springJoint;
+
+    //SpringJoint springJoint;
+    Transform parentTransform;
+    Rigidbody rb;
 
     #region PhotonSerialize
     public byte classId { get; set; }
@@ -28,23 +30,25 @@ public class TrapperHarpon : Photon.PunBehaviour
 
     private void Start()
     {
-        springJoint = GetComponent<SpringJoint>();
-        GetTargetRigidBody();
+        //springJoint = GetComponent<SpringJoint>();
+        rb = GetComponent<Rigidbody>();
+        GetParentShip();
     }
 
-    void GetTargetRigidBody()
+    void GetParentShip()
     {
         foreach(NaveManager nm in GameManager.navesList)
         {
             if(nm.GetComponent<PhotonView>().owner.NickName==photonView.owner.NickName)
             {
-                springJoint.connectedBody = nm.GetComponent<TrapperShipAbility>().harponPivot.GetComponent<Rigidbody>();
-                springJoint.connectedBody.isKinematic = true;
-                springJoint.spring = 0;
-                springJoint.anchor = Vector3.zero;
-                springJoint.connectedAnchor = Vector3.zero;
+                parentTransform = nm.transform;
             }
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -52,6 +56,9 @@ public class TrapperHarpon : Photon.PunBehaviour
         print("collision");
         string otherLayer = LayerMask.LayerToName(collision.gameObject.layer);
         print(otherLayer);
+
+
+
         if (otherLayer=="Player1")
         {
             print("Layer Player1");
@@ -59,26 +66,38 @@ public class TrapperHarpon : Photon.PunBehaviour
             if(nave.GetComponent<PhotonView>().owner.NickName != photonView.owner.NickName)
             {
                 print("pull");
-                transform.SetParent(nave.GetComponent<NaveController>().modelTransform);
-                //FixedJoint joint = nave.AddComponent<FixedJoint>();
-                GetComponent<Rigidbody>().velocity = Vector3.zero;
-                //joint.connectedBody = GetComponent<Rigidbody>();
-                //StartCoroutine(Pull());
+
+                //emparentar arpón con el objeto con el que ha colisionado
+                transform.SetParent(collision.gameObject.transform);
+
+                //configurar Rigidbody
+                rb.velocity = Vector3.zero;
+                rb.isKinematic = true;
+
+                //Calcular fuerza
+                Vector3 forceDirection = transform.position - parentTransform.position;
+                Vector3 force = (forceDirection.normalized * maxPull) + (Vector3.up * maxPull*0.1f);
+
+                //aplicar fuerza
+                nave.GetComponent<Rigidbody>().AddForce(force, ForceMode.VelocityChange);
+                
                 Destroy(GetComponent<BoxCollider>());
             }
             
         }
+        else
+        {
+
+            //emparentar arpón con el objeto con el que ha colisionado
+            transform.SetParent(collision.gameObject.transform);
+
+            //configurar Rigidbody
+            rb.velocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
     }
 
 
-
-    //IEnumerator Pull()
-    //{
-    //    for (int i = 0; i <=pullTime*10; i++)
-    //    {
-    //        springJoint.spring = Mathf.Lerp(0, maxPull, Mathf.Pow((float)i / (pullTime * 10),2));
-    //        yield return new WaitForSeconds(0.1f);
-    //    }
-    //}
+    
     
 }

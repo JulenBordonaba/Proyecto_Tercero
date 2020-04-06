@@ -1,18 +1,115 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TankAbility : PlayerAbility
 {
-    // Start is called before the first frame update
-    void Start()
+    public Camera myCamera;
+
+    public float targetRadius = 100f;
+    public Image targetImage;
+    public Transform proyectileSpawn;
+    public float proyectileVelocity = 500;
+
+    private NaveManager currentTarget;
+    private Rigidbody rb;
+
+    private void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Use(bool _forced)
     {
-        
+        base.Use(_forced);
+
+        if(!inCooldown)
+        {
+            //Cooldown
+            StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
+            inCooldown = true;
+            
+            //Crear projectil
+            GameObject proyectile = PhotonNetwork.Instantiate("TankProyectile", proyectileSpawn.position, myCamera.transform.rotation,0);
+            proyectile.GetComponent<PhotonView>().RPC("SetTarget", PhotonTargets.All,(currentTarget? currentTarget.photonView.owner.NickName : ""));
+            proyectile.GetComponent<PhotonView>().RPC("SetVelocity", PhotonTargets.All, rb.velocity.magnitude + proyectileVelocity);
+            proyectile.GetComponent<PhotonView>().RPC("SetDirection", PhotonTargets.All, proyectile.transform.forward);
+
+        }
+
     }
+
+    private void Update()
+    {
+        CalculateTarget();
+    }
+
+    void CalculateTarget()
+    {
+        if (inCooldown) return;
+
+        Vector2 screenMiddle = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+        List<NaveManager> naveTargets = new List<NaveManager>();
+        foreach(NaveManager nm in GameManager.navesList)
+        {
+            Vector3 naveScreenPosition = myCamera.WorldToScreenPoint(nm.transform.position);
+            if(CircleCollision(screenMiddle.x,screenMiddle.y,targetRadius,naveScreenPosition.x,naveScreenPosition.y))
+            {
+                naveTargets.Add(nm);
+            }
+        }
+
+        NaveManager target = MostCenteredShip(naveTargets, screenMiddle);
+        currentTarget = target;
+
+        ShowTarget(target);
+        
+
+    }
+
+    void ShowTarget(NaveManager target)
+    {
+        if (target != null)
+        {
+            if (!targetImage.gameObject.activeInHierarchy)
+            {
+                targetImage.gameObject.SetActive(true);
+            }
+            targetImage.rectTransform.localPosition = myCamera.WorldToScreenPoint(target.transform.position);
+        }
+        else
+        {
+            if (targetImage.gameObject.activeInHierarchy)
+            {
+                targetImage.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    NaveManager MostCenteredShip(List<NaveManager> naveTargets, Vector2 screenMiddle)
+    {
+        if (naveTargets.Count <= 0) return null;
+        NaveManager _mostCentered = null;
+        float currentNearestDistance = Mathf.Infinity;
+
+        foreach(NaveManager nm in naveTargets)
+        {
+            Vector3 naveScreenPosition = myCamera.WorldToScreenPoint(nm.transform.position);
+            float centreDistance = Vector2.Distance(screenMiddle, new Vector2(naveScreenPosition.x, naveScreenPosition.y));
+            if ( centreDistance<currentNearestDistance)
+            {
+                currentNearestDistance = centreDistance;
+                _mostCentered = nm;
+            }
+        }
+
+        return _mostCentered;
+    }
+
+    private bool CircleCollision(float x, float y, float r, float x2, float y2)
+    {
+        return Mathf.Sqrt(Mathf.Pow((x2 - x), 2) - Mathf.Pow((y2 - y), 2)) < r;
+    }
+
 }

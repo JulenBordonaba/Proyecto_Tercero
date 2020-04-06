@@ -12,7 +12,12 @@ public class RadarTarget : MonoBehaviour
 
     private void OnDisable()
     {
-        foreach(Radar r in radars)
+        Disable();
+    }
+
+    public void Disable()
+    {
+        foreach (Radar r in radars)
         {
             r.RemoveRadarTarget(this);
         }

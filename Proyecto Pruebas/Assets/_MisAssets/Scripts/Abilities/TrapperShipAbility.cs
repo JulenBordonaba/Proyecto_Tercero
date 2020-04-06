@@ -24,13 +24,14 @@ public class TrapperShipAbility : ShipAbility
 
         if(!inCooldown)
         {
+            inCooldown = true;
             //instanciar arpón con photonview
             GameObject harpon=PhotonNetwork.Instantiate(harponPrefabName, harponPivot.position, harponPivot.rotation, 0);
             //asignar velocidad al rigidbody del arpón
             harpon.GetComponent<Rigidbody>().velocity = harpon.transform.forward * (rb.velocity.magnitude+harponVelocity);
             //asignar maxPull y Pulltime al arpón
             TrapperHarpon th = harpon.GetComponent<TrapperHarpon>();
-            photonView.RPC("ConfigureTrapperHarpon", PhotonTargets.All, th, maxPull, pullTime);
+            photonView.RPC("ConfigureTrapperHarpon", PhotonTargets.All, th, maxPull);
 
             StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
         }
