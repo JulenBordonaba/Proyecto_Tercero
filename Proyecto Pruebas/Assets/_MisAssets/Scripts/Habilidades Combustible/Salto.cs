@@ -32,6 +32,7 @@ public class Salto : HabilidadCombustible
 
     public override void Use()
     {
+        base.Use();
         if (GetComponent<NaveManager>().isPlanning || inJump) return;       
 
         

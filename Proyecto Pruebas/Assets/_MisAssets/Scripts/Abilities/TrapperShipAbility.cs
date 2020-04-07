@@ -18,9 +18,9 @@ public class TrapperShipAbility : ShipAbility
         rb = GetComponent<Rigidbody>();
     }
 
-    public override void Use(bool _forced)
+    public override void Use(float forcedCooldown)
     {
-        base.Use(_forced);
+        base.Use(forcedCooldown);
 
         if(!inCooldown)
         {
@@ -33,7 +33,7 @@ public class TrapperShipAbility : ShipAbility
             TrapperHarpon th = harpon.GetComponent<TrapperHarpon>();
             photonView.RPC("ConfigureTrapperHarpon", PhotonTargets.All, th, maxPull);
 
-            StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
+            StartCoroutine(Cooldown(cooldown * forcedCooldown));
         }
     }
 

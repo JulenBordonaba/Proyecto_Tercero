@@ -124,6 +124,38 @@ public class EffectManager : Photon.PunBehaviour
         }
     }
 
+    #region SilenceFuels
+    private bool _SilenceFuels()
+    {
+        foreach (EffectData ed in activeEffects)
+        {
+            if (ed.silenceFuels) return true;
+        }
+        return false;
+    }
+
+    public bool SilenceFuels
+    {
+        get { return _SilenceFuels(); }
+    }
+    #endregion
+
+    #region SilenceAbilities
+    private bool _SilenceAbilities()
+    {
+        foreach (EffectData ed in activeEffects)
+        {
+            if (ed.silenceAbilities) return true;
+        }
+        return false;
+    }
+
+    public bool SilenceAbilities
+    {
+        get { return _SilenceAbilities(); }
+    }
+    #endregion
+
     #region InvertControls
     private bool _InvertControls()
     {

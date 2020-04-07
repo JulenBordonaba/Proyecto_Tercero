@@ -14,7 +14,12 @@ public class EffectData : ScriptableObject
     public float maneuverability;
     public float acceleration;
     public float shotDamage;
+    [Tooltip("Invierte los controles de la nave")]
     public bool invertControls = false;
+    [Tooltip("Impide usar las habilidades")]
+    public bool silenceAbilities = false;
+    [Tooltip("Impide usar las combustibles")]
+    public bool silenceFuels = false;
     public DOT dot = new DOT();
 
     #region PhotonSerialize

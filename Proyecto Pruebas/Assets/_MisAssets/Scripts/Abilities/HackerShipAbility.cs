@@ -19,13 +19,13 @@ public class HackerShipAbility : ShipAbility
 
 
 
-    public override void Use(bool _forced)
+    public override void Use(float forcedCooldown)
     {
-        base.Use(_forced);
+        base.Use(forcedCooldown);
         if (!inCooldown)
         {
             inCooldown = true;
-            StartCoroutine(Cooldown(cooldown*(_forced?1.5f:1f)));
+            StartCoroutine(Cooldown(cooldown* forcedCooldown));
             StartCoroutine(HologramDuration());
             List<int> positions = new List<int>();
             for (int i = 0; i < (holograms.Length<hologramPositions.Length? holograms.Length : hologramPositions.Length) ; i++)

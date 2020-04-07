@@ -38,6 +38,7 @@ public class Reparar : HabilidadCombustible
 
     public override void Use()
     {
+        base.Use();
         print("entra a Use");
         if (!canRepair) return;
 

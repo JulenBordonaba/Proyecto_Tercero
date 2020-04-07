@@ -2,16 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class HabilidadCombustible : Photon.PunBehaviour
+public  class HabilidadCombustible : Photon.PunBehaviour
 {
     //public Color color;
     public Combustible combustible;
-    public abstract void Use();
     public TipoCombustible tipoCombustible;
     public NaveManager naveManager;
     public Animator animator;
     protected InputManager inputmanager;
+    protected EffectManager effectManager;
 
+
+    public virtual void Use()
+    {
+        if (!effectManager)
+        {
+            effectManager = GetComponent<EffectManager>();
+        }
+        if (effectManager.SilenceFuels) return;
+    }
     public void GetFuel()
     {
         Component[] combustibles;

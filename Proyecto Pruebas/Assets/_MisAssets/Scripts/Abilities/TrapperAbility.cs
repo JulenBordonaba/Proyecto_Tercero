@@ -82,15 +82,15 @@ public class TrapperAbility : PlayerAbility
         StopCoroutine(castFire);
     }
 
-    public override void Use(bool _forced)
+    public override void Use(float forcedCooldown)
     {
-        base.Use(_forced);
+        base.Use(forcedCooldown);
         if(!inCooldown)
         {
             inCooldown = true;
             castFire = StartCoroutine(CastFire(instanceRate));
             StartCoroutine(StopFire());
-            StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
+            StartCoroutine(Cooldown(cooldown * forcedCooldown));
         }
     }
 

@@ -16,13 +16,13 @@ public class HackerAbility : PlayerAbility
     }
 
 
-    public override void Use(bool _forced)
+    public override void Use(float forcedCooldown)
     {
-        base.Use(_forced);
+        base.Use(forcedCooldown);
 
         if (inCooldown) return;
         Hack();
-        StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
+        StartCoroutine(Cooldown(cooldown * forcedCooldown));
     }
 
     public void Hack()
@@ -34,7 +34,6 @@ public class HackerAbility : PlayerAbility
                 if (Vector3.Distance(transform.position, nm.transform.position) < effectRadius)
                 {
                     nm.GetComponent<PhotonView>().RPC("StartEffect", PhotonTargets.All, hackEffect.id);
-                    nm.GetComponent<AbilityManager>().ForceUse();
                 }
             }
             

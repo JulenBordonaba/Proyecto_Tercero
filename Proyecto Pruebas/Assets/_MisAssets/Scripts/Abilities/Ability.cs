@@ -9,10 +9,16 @@ public class Ability : Photon.PunBehaviour
 
     protected bool inCooldown = false;  //variable que controla cuando esta la habilidad en cooldown
 
+    protected EffectManager effectManager;
+
     //Función que usa la habilidad
-    public virtual void Use(bool _forced)
+    public virtual void Use(float forcedCooldown)
     {
-        
+        if(!effectManager)
+        {
+            effectManager = GetComponent<EffectManager>();
+        }
+        if (effectManager.SilenceAbilities) return;
     }
 
     public IEnumerator Cooldown(float _cooldown)

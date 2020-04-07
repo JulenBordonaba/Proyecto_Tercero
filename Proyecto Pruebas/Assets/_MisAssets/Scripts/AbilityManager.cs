@@ -31,11 +31,11 @@ public class AbilityManager : Photon.PunBehaviour
         if (PauseManager.inPause) return;
         if(inputManager.ShipAbility())
         {
-            shipAbility.Use(false);            
+            shipAbility.Use(1);            
         }
         if(inputManager.PlayerAbility())
         {
-            playerAbility.Use(false);
+            playerAbility.Use(1);
         }
     }
 
@@ -56,11 +56,11 @@ public class AbilityManager : Photon.PunBehaviour
     }
 
     [PunRPC]
-    public void ForceUseRPC(string _nickname)
+    public void ForceUseRPC(string _nickname, float forcedCooldown)
     {
 
         if (PhotonNetwork.player.NickName != _nickname) return;
-        shipAbility.Use(true);
-        playerAbility.Use(true);
+        shipAbility.Use(forcedCooldown);
+        playerAbility.Use(forcedCooldown);
     }
 }

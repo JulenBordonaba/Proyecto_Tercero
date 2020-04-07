@@ -20,14 +20,14 @@ public class TankAbility : PlayerAbility
         rb = GetComponent<Rigidbody>();
     }
 
-    public override void Use(bool _forced)
+    public override void Use(float forcedCooldown)
     {
-        base.Use(_forced);
+        base.Use(forcedCooldown);
 
         if(!inCooldown)
         {
             //Cooldown
-            StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
+            StartCoroutine(Cooldown(cooldown * forcedCooldown));
             inCooldown = true;
             
             //Crear projectil

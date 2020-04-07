@@ -33,6 +33,7 @@ public class Escudo : HabilidadCombustible
 
     public override void Use()
     {
+        base.Use();
         print("Entra al Use");
         //Activar el escudo siempre y cuando no haya un escudo activo
         if (inShield) return;

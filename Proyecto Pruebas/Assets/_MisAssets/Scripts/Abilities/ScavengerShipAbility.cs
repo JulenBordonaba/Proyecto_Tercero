@@ -10,17 +10,17 @@ public class ScavengerShipAbility : ShipAbility
     public ScavengerMagnet magnet;
 
 
-    public override void Use(bool _forced)
+    public override void Use(float forcedCooldown)
     {
-        base.Use(_forced);
-        photonView.RPC("UseMagnet", PhotonTargets.All, _forced);
+        base.Use(forcedCooldown);
+        photonView.RPC("UseMagnet", PhotonTargets.All, forcedCooldown);
         
 
     }
 
 
     [PunRPC]
-    public void UseMagnet(bool _forced)
+    public void UseMagnet(float forcedCooldown)
     {
         if (inCooldown)
         {
@@ -33,7 +33,7 @@ public class ScavengerShipAbility : ShipAbility
             magnet.inUse = true;
             magnet.inverted = false;
             StartCoroutine(EndAbility());
-            StartCoroutine(Cooldown(cooldown * (_forced ? 1.5f : 1f)));
+            StartCoroutine(Cooldown(cooldown * forcedCooldown));
         }
     }
 

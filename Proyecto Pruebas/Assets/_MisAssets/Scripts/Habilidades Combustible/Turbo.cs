@@ -35,6 +35,7 @@ public class Turbo : HabilidadCombustible
 
     public override void Use()
     {
+        base.Use();
         //sale si ya esta enn turbo  
         if (inTurbo)
         {
