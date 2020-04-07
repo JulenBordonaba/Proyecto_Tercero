@@ -81,8 +81,8 @@ public class TrapperHarpon : Photon.PunBehaviour
                 rb.isKinematic = true;
 
                 //Calcular fuerza
-                Vector3 forceDirection = transform.position - parentTransform.position;
-                Vector3 force = (forceDirection.normalized * maxPull) + (Vector3.up * maxPull*0.1f);
+                Vector3 forceDirection = parentTransform.position - transform.position;
+                Vector3 force = (forceDirection.normalized * maxPull) + (Vector3.up * maxPull*0.2f);
 
                 //aplicar fuerza
                 nave.GetComponent<Rigidbody>().AddForce(force, ForceMode.VelocityChange);
