@@ -31,15 +31,10 @@ public class TrapperShipAbility : ShipAbility
             harpon.GetComponent<Rigidbody>().velocity = harpon.transform.forward * (rb.velocity.magnitude+harponVelocity);
             //asignar maxPull y Pulltime al arpón
             TrapperHarpon th = harpon.GetComponent<TrapperHarpon>();
-            photonView.RPC("ConfigureTrapperHarpon", PhotonTargets.All, th, maxPull);
+            th.photonView.RPC("SetForce", PhotonTargets.All, maxPull);
 
             StartCoroutine(Cooldown(cooldown * forcedCooldown));
         }
     }
-
-    [PunRPC]
-    public void ConfigureTrapperHarpon(TrapperHarpon _harpon, float _maxPull)
-    {
-        _harpon.maxPull = _maxPull;
-    }
+    
 }

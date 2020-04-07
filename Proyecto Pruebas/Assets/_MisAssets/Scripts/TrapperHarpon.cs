@@ -51,6 +51,12 @@ public class TrapperHarpon : Photon.PunBehaviour
         
     }
 
+    [PunRPC]
+    public void SetForce(float _maxPull)
+    {
+        maxPull = _maxPull;
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         print("collision");
