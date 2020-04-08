@@ -7,7 +7,7 @@ public class CameraController : Photon.PunBehaviour
 {
 
 
-    public Vector2 sensibility;
+    public Vector2 sensitivity;
 
     public Transform target, frontLookAt, backLookAt;
     [Range(1f, 10f)]
@@ -59,6 +59,11 @@ public class CameraController : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
+        string[] joysticks = Input.GetJoystickNames();
+        for (int i = 0; i < joysticks.Length; i++)
+        {
+            print("joystick [" + i + "] " + joysticks[i]);
+        }
         if (naveDestruida) return;
 
         //hacemos que la posición del padre sea igual a la de la nave
@@ -134,13 +139,13 @@ public class CameraController : Photon.PunBehaviour
         {
             if (front)
             {
-                currentX += inputManager.CameraHorizontal() * sensibility.x;
-                currentY += inputManager.CameraVertical() * sensibility.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
+                currentX += inputManager.CameraHorizontal() * sensitivity.x;
+                currentY += inputManager.CameraVertical() * sensitivity.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
             }
             else
             {
-                currentX += inputManager.CameraHorizontal() * sensibility.x;
-                currentY -= inputManager.CameraVertical() * sensibility.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
+                currentX += inputManager.CameraHorizontal() * sensitivity.x;
+                currentY -= inputManager.CameraVertical() * sensitivity.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
             }
         }
 
@@ -227,5 +232,7 @@ public class CameraController : Photon.PunBehaviour
             yield return new WaitForEndOfFrame();
         }
     }
+
+    
 
 }

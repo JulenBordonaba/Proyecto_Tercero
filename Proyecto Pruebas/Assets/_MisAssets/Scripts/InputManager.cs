@@ -54,7 +54,7 @@ public class InputManager : MonoBehaviour
     public float CameraHorizontal()
     {
         float r = 0;
-        r += Input.GetAxis("PCCameraHorizontal" + numPlayer.ToString());
+        r += Input.GetAxis("PCCameraHorizontal" + numPlayer.ToString()) * MouseSensitivityMultiplier;
         r += Input.GetAxis("PS4CameraHorizontal" + numPlayer.ToString());
         return r*InverseValue;
     }
@@ -63,9 +63,14 @@ public class InputManager : MonoBehaviour
     public float CameraVertical()
     {
         float r = 0;
-        r += Input.GetAxis("PCCameraVertical" + numPlayer.ToString());
+        r += Input.GetAxis("PCCameraVertical" + numPlayer.ToString()) * MouseSensitivityMultiplier;
         r += Input.GetAxis("PS4CameraVertical" + numPlayer.ToString());
         return r*InverseValue;
+    }
+
+    public float MouseSensitivityMultiplier
+    {
+        get { return 0.1f; }
     }
 
     //joystick que maneja la cámara
