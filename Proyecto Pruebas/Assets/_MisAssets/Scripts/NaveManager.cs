@@ -38,7 +38,7 @@ public class NaveManager : Photon.PunBehaviour
     private NaveController controller;  //script con el controlador de la nave
     private Maneuverability maneuverability;
     private InputManager inputManager;
-    private Rigidbody rb;
+    public Rigidbody rb { get; set; }
     private PlanningManager planningManager;
     private NaveAnimationManager animationManager;
     private UIManager uiManager;

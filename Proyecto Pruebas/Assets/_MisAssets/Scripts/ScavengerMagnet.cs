@@ -10,25 +10,37 @@ public class ScavengerMagnet : MonoBehaviour
     public bool inverted = false;
     public bool inUse = false;
 
+    private NaveManager naveManager;
+    public float effectRadius = 100f;
+
+    private void Start()
+    {
+        naveManager = GetComponentInParent<NaveManager>();
+    }
+
     // Update is called once per frame
     void Update()
     {
-
+        if(inUse)
+        {
+            DoEffect();
+        }
     }
 
-    private void OnTriggerStay(Collider other)
+    void DoEffect()
     {
-        if (inUse)
+        foreach(NaveManager nm in GameManager.navesList)
         {
-            if (other.tag == "NaveCentre")
+            if(nm.photonView.owner.NickName==PhotonNetwork.player.NickName && nm.photonView.owner.NickName!=naveManager.photonView.owner.NickName)
             {
-                print(other.gameObject.name);
-                if (other.GetComponentInParent<Rigidbody>())
+                if(Vector3.Distance(naveManager.transform.position, nm.transform.position)<effectRadius)
                 {
-                    Vector3 direction = GetComponentInParent<NaveController>().modelTransform.position - other.GetComponentInParent<Rigidbody>().transform.position;
-                    other.GetComponentInParent<Rigidbody>().AddForce(direction.normalized * magnetForce * (inverted ? -1 : 1));
+                    Vector3 direction = (naveManager.transform.position - nm.transform.position).normalized;
+                    nm.rb.AddForce(direction * magnetForce * (inverted ? -1 : 1));
                 }
             }
         }
     }
+
+   
 }
