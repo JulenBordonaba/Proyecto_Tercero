@@ -8,11 +8,17 @@ public class SummonerShipAbility : ShipAbility
     public GameObject botsPrefab;
 
     private GameObject currentBots;
+    private void Start()
+    {
+
+        effectManager = GetComponent<EffectManager>();
+    }
 
     public override void Use(float forcedCooldown)
     {
         base.Use(forcedCooldown);
-        if(!inCooldown)
+        if (effectManager.SilenceAbilities) return;
+        if (!inCooldown)
         {
             if(currentBots)
             {

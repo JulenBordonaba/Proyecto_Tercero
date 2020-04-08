@@ -9,10 +9,17 @@ public class ScavengerShipAbility : ShipAbility
     public float duration;
     public ScavengerMagnet magnet;
 
+    private void Start()
+    {
+
+        effectManager = GetComponent<EffectManager>();
+    }
+
 
     public override void Use(float forcedCooldown)
     {
         base.Use(forcedCooldown);
+        if (effectManager.SilenceAbilities) return;
         photonView.RPC("UseMagnet", PhotonTargets.All, forcedCooldown);
         
 

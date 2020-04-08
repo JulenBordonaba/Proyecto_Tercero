@@ -19,11 +19,13 @@ public class ScavengerAbility : PlayerAbility
     private void Start()
     {
         modelTransform = GetComponent<NaveController>().modelTransform;
+        effectManager = GetComponent<EffectManager>();
     }
 
     public override void Use(float forcedCooldown)
     {
         base.Use(forcedCooldown);
+        if (effectManager.SilenceAbilities) return;
         if (inCooldown) return;
         inCooldown = true;
         StartCoroutine(Cooldown(cooldown * forcedCooldown));

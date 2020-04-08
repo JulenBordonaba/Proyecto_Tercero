@@ -21,6 +21,7 @@ public class TrapperAbility : PlayerAbility
     private void Start()
     {
         PrepareFires();
+        effectManager = GetComponent<EffectManager>();
     }
 
     void PrepareFires()
@@ -85,7 +86,8 @@ public class TrapperAbility : PlayerAbility
     public override void Use(float forcedCooldown)
     {
         base.Use(forcedCooldown);
-        if(!inCooldown)
+        if (effectManager.SilenceAbilities) return;
+        if (!inCooldown)
         {
             inCooldown = true;
             castFire = StartCoroutine(CastFire(instanceRate));

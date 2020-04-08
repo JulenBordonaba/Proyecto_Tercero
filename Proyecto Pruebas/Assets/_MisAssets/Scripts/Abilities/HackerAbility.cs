@@ -13,12 +13,14 @@ public class HackerAbility : PlayerAbility
     private void Start()
     {
         naveManager = GetComponent<NaveManager>();
+        effectManager = GetComponent<EffectManager>();
     }
 
 
     public override void Use(float forcedCooldown)
     {
         base.Use(forcedCooldown);
+        if (effectManager.SilenceAbilities) return;
 
         if (inCooldown) return;
         Hack();

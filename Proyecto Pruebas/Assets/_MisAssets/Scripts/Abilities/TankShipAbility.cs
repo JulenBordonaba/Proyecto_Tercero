@@ -6,14 +6,19 @@ using UnityEngine;
 public class TankShipAbility : ShipAbility
 {
     public EffectData damageReduction;
-    
-    
+
+    private void Start()
+    {
+
+        effectManager = GetComponent<EffectManager>();
+    }
 
     public override void Use(float forcedCooldown)
     {
         base.Use(forcedCooldown);
+        if (effectManager.SilenceAbilities) return;
 
-        if(!inCooldown)
+        if (!inCooldown)
         {
             inCooldown = true;
             StartCoroutine(Cooldown(cooldown * forcedCooldown));

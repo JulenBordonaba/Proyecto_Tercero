@@ -15,6 +15,7 @@ public class SummonerAbility : PlayerAbility
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        effectManager = GetComponent<EffectManager>();
     }
 
     // Update is called once per frame
@@ -29,8 +30,9 @@ public class SummonerAbility : PlayerAbility
     public override void Use(float forcedCooldown)
     {
         base.Use(forcedCooldown);
+        if (effectManager.SilenceAbilities) return;
 
-        if(!inCooldown)
+        if (!inCooldown)
         {
             GameObject dron = PhotonNetwork.Instantiate("BlackHoleDron", dronSpawn.position,Quaternion.identity,0,null);
             dron.GetComponent<BlackHoleDron>().photonView.RPC("Move", PhotonTargets.All,myCam.transform.forward, rb.velocity.magnitude+dronVelocity);

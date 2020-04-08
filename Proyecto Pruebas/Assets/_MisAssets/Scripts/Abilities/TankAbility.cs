@@ -18,13 +18,15 @@ public class TankAbility : PlayerAbility
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        effectManager = GetComponent<EffectManager>();
     }
 
     public override void Use(float forcedCooldown)
     {
         base.Use(forcedCooldown);
+        if (effectManager.SilenceAbilities) return;
 
-        if(!inCooldown)
+        if (!inCooldown)
         {
             //Cooldown
             StartCoroutine(Cooldown(cooldown * forcedCooldown));

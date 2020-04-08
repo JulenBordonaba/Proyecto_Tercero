@@ -23,6 +23,7 @@ public class Reparar : HabilidadCombustible
         tipoCombustible = TipoCombustible.Reparar;
         GetFuel();
         animator = GetComponent<NaveAnimationManager>().animator;
+        effectManager = GetComponent<EffectManager>();
     }
 
     private void Update()
@@ -39,6 +40,7 @@ public class Reparar : HabilidadCombustible
     public override void Use()
     {
         base.Use();
+        if (effectManager.SilenceFuels) return;
         print("entra a Use");
         if (!canRepair) return;
 

@@ -18,6 +18,7 @@ public class Salto : HabilidadCombustible
         tipoCombustible = TipoCombustible.Salto;
         GetFuel();
         animator = GetComponent<NaveAnimationManager>().animator;
+        effectManager = GetComponent<EffectManager>();
     }
 
     private void Update()
@@ -33,6 +34,7 @@ public class Salto : HabilidadCombustible
     public override void Use()
     {
         base.Use();
+        if (effectManager.SilenceFuels) return;
         if (GetComponent<NaveManager>().isPlanning || inJump) return;       
 
         

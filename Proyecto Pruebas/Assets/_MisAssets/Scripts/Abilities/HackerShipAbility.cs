@@ -15,6 +15,7 @@ public class HackerShipAbility : ShipAbility
     private void Start()
     {
         naveController = GetComponent<NaveController>();
+        effectManager = GetComponent<EffectManager>();
     }
 
 
@@ -22,6 +23,7 @@ public class HackerShipAbility : ShipAbility
     public override void Use(float forcedCooldown)
     {
         base.Use(forcedCooldown);
+        if (effectManager.SilenceAbilities) return;
         if (!inCooldown)
         {
             inCooldown = true;

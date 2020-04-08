@@ -19,6 +19,7 @@ public class Escudo : HabilidadCombustible
         tipoCombustible = TipoCombustible.Escudo;
         GetFuel();
         animator = GetComponent<NaveAnimationManager>().animator;
+        effectManager = GetComponent<EffectManager>();
     }
 
 
@@ -34,6 +35,7 @@ public class Escudo : HabilidadCombustible
     public override void Use()
     {
         base.Use();
+        if (effectManager.SilenceFuels) return;
         print("Entra al Use");
         //Activar el escudo siempre y cuando no haya un escudo activo
         if (inShield) return;

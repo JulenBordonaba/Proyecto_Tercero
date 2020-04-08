@@ -21,6 +21,7 @@ public class Turbo : HabilidadCombustible
         tipoCombustible = TipoCombustible.Turbo;
         GetFuel();
         animator = GetComponent<NaveAnimationManager>().animator;
+        effectManager = GetComponent<EffectManager>();
     }
 
     private void Update()
@@ -36,6 +37,9 @@ public class Turbo : HabilidadCombustible
     public override void Use()
     {
         base.Use();
+
+        if (effectManager.SilenceFuels) return;
+
         //sale si ya esta enn turbo  
         if (inTurbo)
         {

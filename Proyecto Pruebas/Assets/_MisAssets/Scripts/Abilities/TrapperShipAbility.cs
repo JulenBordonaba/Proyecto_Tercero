@@ -16,11 +16,13 @@ public class TrapperShipAbility : ShipAbility
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        effectManager = GetComponent<EffectManager>();
     }
 
     public override void Use(float forcedCooldown)
     {
         base.Use(forcedCooldown);
+        if (effectManager.SilenceAbilities) return;
 
         if(!inCooldown)
         {
