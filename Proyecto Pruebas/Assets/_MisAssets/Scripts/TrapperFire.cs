@@ -39,7 +39,7 @@ public class TrapperFire : MonoBehaviour
                 //print("tiene effectManager");
                 //print("cuando comprueba si tiene effect manager: " + other.gameObject.name);
                 PhotonView pv = other.gameObject.GetComponentInParent<EffectManager>().GetComponent<PhotonView>();
-                //if (pv.owner.NickName !=myPhotonView.owner.NickName)
+                if (pv.owner.NickName !=myPhotonView.owner.NickName)
                 {
                     //print("pone el efecto");
                     //print("---------------------------------------------al aplicar el efecto: " + other.gameObject.name);

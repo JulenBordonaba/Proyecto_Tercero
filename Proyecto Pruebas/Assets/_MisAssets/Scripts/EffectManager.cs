@@ -26,11 +26,11 @@ public class EffectManager : Photon.PunBehaviour
     [PunRPC]
     public void StartEffect(string _effect)
     {
-        EffectData ed = GetEffect(_effect);
+        EffectData ed = GetEffectByID(_effect);
 
-        if (CheckEffect(ed))
+        if (CheckEffect(_effect))
         {
-            EffectData _ed = GetActiveEffect(ed.id);
+            EffectData _ed = GetActiveEffectByID(ed.id);
             StopCoroutine( _ed.durationCoroutine);
             _ed.durationCoroutine = null;
             _ed.durationCoroutine = StartCoroutine(EffectDuration(_ed));
@@ -48,7 +48,7 @@ public class EffectManager : Photon.PunBehaviour
 
     }
 
-    EffectData GetEffect(string _id)
+    EffectData GetEffectByID(string _id)
     {
         foreach (EffectData ed in effects)
         {
@@ -57,7 +57,7 @@ public class EffectManager : Photon.PunBehaviour
         return null;
     }
 
-    EffectData GetActiveEffect(string _id)
+    EffectData GetActiveEffectByID(string _id)
     {
         foreach (EffectData ed in activeEffects)
         {
@@ -66,11 +66,11 @@ public class EffectManager : Photon.PunBehaviour
         return null;
     }
 
-    bool CheckEffect(EffectData _effectData)
+    bool CheckEffect(string _effectDataID)
     {
         foreach (EffectData ed in activeEffects)
         {
-            if (ed.id == _effectData.id) return true;
+            if (ed.id == _effectDataID) return true;
         }
         return false;
     }
@@ -78,9 +78,9 @@ public class EffectManager : Photon.PunBehaviour
     public void StopEffect(EffectData ed)
     {
         print("Para el efecto");
-        if (CheckEffect(ed))
+        if (CheckEffect(ed.id))
         {
-            EffectData _ed = GetActiveEffect(ed.id);
+            EffectData _ed = GetActiveEffectByID(ed.id);
             activeEffects.Remove(_ed);
             StopCoroutine(_ed.dot.dotEffect);
         }
@@ -98,7 +98,7 @@ public class EffectManager : Photon.PunBehaviour
     IEnumerator EffectDuration(EffectData ed)
     {
         yield return new WaitForSeconds(ed.duration);
-        //StopEffect(ed);
+        StopEffect(ed);
     }
 
     IEnumerator DOTEffect(DOT dot)
