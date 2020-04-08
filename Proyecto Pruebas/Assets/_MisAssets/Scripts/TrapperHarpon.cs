@@ -46,6 +46,12 @@ public class TrapperHarpon : Photon.PunBehaviour
         }
     }
 
+    private void Update()
+    {
+
+        if (PhotonNetwork.player.NickName != photonView.owner.NickName) enabled = false;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         
@@ -59,7 +65,9 @@ public class TrapperHarpon : Photon.PunBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        print("collision");
+
+        if (PhotonNetwork.player.NickName != photonView.owner.NickName) return;
+            print("collision");
         string otherLayer = LayerMask.LayerToName(collision.gameObject.layer);
         print(otherLayer);
 
@@ -69,7 +77,8 @@ public class TrapperHarpon : Photon.PunBehaviour
         {
             print("Layer Player1");
             GameObject nave = collision.gameObject.GetComponentInParent<NaveManager>().gameObject;
-            if(nave.GetComponent<PhotonView>().owner.NickName != photonView.owner.NickName)
+            PhotonView pv = nave.GetComponent<PhotonView>();
+            if (pv.owner.NickName != photonView.owner.NickName)
             {
                 print("pull");
 
@@ -86,8 +95,8 @@ public class TrapperHarpon : Photon.PunBehaviour
                 Vector3 force = (forceDirection.normalized * maxPull * (  distance/500f)) + (Vector3.up * maxPull*0.1f);
 
                 //aplicar fuerza
-                nave.GetComponent<Rigidbody>().AddForce(force, ForceMode.VelocityChange);
-                
+                pv.RPC("ApplyForce", PhotonTargets.All, force);
+
                 Destroy(GetComponent<BoxCollider>());
             }
             

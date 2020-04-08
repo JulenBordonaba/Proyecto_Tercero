@@ -255,6 +255,12 @@ public class NaveManager : Photon.PunBehaviour
 
     }
 
+    [PunRPC]
+    public void ApplyForce(Vector3 force)
+    {
+        rb.AddForce(force, ForceMode.VelocityChange);
+    }
+
     
     public void TakeDamage(float damage, bool weapon, string target, string ownerNickname)
     {
