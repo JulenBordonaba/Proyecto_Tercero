@@ -35,8 +35,9 @@ public class ScavengerMagnet : MonoBehaviour
             {
                 if(Vector3.Distance(naveManager.transform.position, nm.transform.position)<effectRadius)
                 {
+                    print("debería imantar la nave");
                     Vector3 direction = (naveManager.transform.position - nm.transform.position).normalized;
-                    nm.rb.AddForce(direction * magnetForce * (inverted ? -1 : 1));
+                    nm.rb.AddForce(direction * magnetForce * (inverted ? -1 : 1), ForceMode.VelocityChange);
                 }
             }
         }
