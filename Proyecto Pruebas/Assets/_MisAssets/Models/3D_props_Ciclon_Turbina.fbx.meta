@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 96cfda7cc3972d3419e39cf18c5fe6f4
+guid: 82bba7594ebea1c4ead71f5c7bb8140b
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lambert5
+    2100000: lambert2
     2300000: //RootNode
     3300000: //RootNode
-    4300000: D_props_gravitron_NaveGrandeRota
+    4300000: D_props_Ciclon_Turbina1
   externalObjects: {}
   materials:
     importMaterials: 1
