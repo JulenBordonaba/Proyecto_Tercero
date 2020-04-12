@@ -85,7 +85,7 @@ public class FollowProyectile : Photon.PunBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        /*if (other.gameObject.GetComponentInParent<PhotonView>())
+        if (other.gameObject.GetComponentInParent<PhotonView>())
         {
 
             if (other.gameObject.GetComponentInParent<PhotonView>().owner.NickName != photonView.owner.NickName)
@@ -105,7 +105,7 @@ public class FollowProyectile : Photon.PunBehaviour
         else
         {
             Destroy(gameObject);
-        }*/
+        }
 
         
     }

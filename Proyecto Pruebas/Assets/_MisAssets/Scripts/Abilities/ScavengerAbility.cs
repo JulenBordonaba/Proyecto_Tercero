@@ -4,14 +4,10 @@ using UnityEngine;
 
 public class ScavengerAbility : PlayerAbility
 {
-    [Tooltip("Pon el prefab de la chatarra")]
-    public GameObject chatarraPrefab;
     [Tooltip("Pon el máximo de chatarras que el jugador puede tener activas a la vez")]
     public int maxChatarras = 3;
     [Tooltip("Pon el tronsform en el que spawneará la chatarra")]
     public Transform spawn;
-    [Tooltip("Pon la fuerza con la que se impulsa la chatarra al ser lanzada")]
-    public float throwForce = 10;
 
     private Transform modelTransform;
     public List<GameObject> chatarras = new List<GameObject>();
@@ -24,15 +20,15 @@ public class ScavengerAbility : PlayerAbility
 
     public override void Use(float forcedCooldown)
     {
-        base.Use(forcedCooldown);
-        if (effectManager.SilenceAbilities) return;
-        if (inCooldown) return;
-        inCooldown = true;
-        StartCoroutine(Cooldown(cooldown * forcedCooldown));
-        GameObject nuevo = Instantiate(chatarraPrefab, spawn.position, Quaternion.identity);
-        nuevo.GetComponent<Rigidbody>().AddForce(Vector3.up * throwForce, ForceMode.Impulse);
-        nuevo.GetComponent<Rigidbody>().AddForce(-modelTransform.forward * throwForce, ForceMode.Impulse);
-        ActualizarLista(nuevo);
+        //base.Use(forcedCooldown);
+        //if (effectManager.SilenceAbilities) return;
+        //if (inCooldown) return;
+        //inCooldown = true;
+        //StartCoroutine(Cooldown(cooldown * forcedCooldown));
+        //GameObject nuevo = Instantiate(chatarraPrefab, spawn.position, Quaternion.identity);
+        //nuevo.GetComponent<Rigidbody>().AddForce(Vector3.up * throwForce, ForceMode.Impulse);
+        //nuevo.GetComponent<Rigidbody>().AddForce(-modelTransform.forward * throwForce, ForceMode.Impulse);
+        //ActualizarLista(nuevo);
     }
     
 

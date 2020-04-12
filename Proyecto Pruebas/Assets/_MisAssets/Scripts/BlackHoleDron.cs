@@ -8,7 +8,7 @@ public class BlackHoleDron : Photon.PunBehaviour
 
     private Rigidbody rb;
 
-    private List<GameObject> objectsInArea = new List<GameObject>();
+    //private List<GameObject> objectsInArea = new List<GameObject>();
 
     private bool inExplosion = false;
 
@@ -36,14 +36,19 @@ public class BlackHoleDron : Photon.PunBehaviour
     public void Explosion()
     {
         
-        foreach (GameObject go in objectsInArea)
+        foreach (NaveManager nm in GameManager.navesList)
         {
-            GameObject shipGO = go.GetComponentInParent<NaveManager>().gameObject;
-            if (shipGO.GetComponent<Rigidbody>())
+            if(Vector3.Distance(nm.transform.position,transform.position)<explosionRadius)
             {
-                shipGO.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                StartCoroutine(ExplosionAtraction(shipGO));
+                if(nm.photonView.owner.NickName==PhotonNetwork.player.NickName)
+                {
+                    nm.rb.velocity = Vector3.zero;
+                    StartCoroutine(ExplosionAtraction(nm.gameObject));
+                }
+                
             }
+                
+            
         }
 
         Destroy(gameObject,2);
@@ -75,20 +80,20 @@ public class BlackHoleDron : Photon.PunBehaviour
         photonView.RPC("Explosion", PhotonTargets.AllViaServer);
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("NaveCentre"))
-        {
-            objectsInArea.Add(other.gameObject);
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if(other.gameObject.CompareTag("NaveCentre"))
+    //    {
+    //        objectsInArea.Add(other.gameObject);
+    //    }
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if(objectsInArea.Contains(other.gameObject))
-        {
-            objectsInArea.Remove(other.gameObject);
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if(objectsInArea.Contains(other.gameObject))
+    //    {
+    //        objectsInArea.Remove(other.gameObject);
+    //    }
+    //}
 
 }

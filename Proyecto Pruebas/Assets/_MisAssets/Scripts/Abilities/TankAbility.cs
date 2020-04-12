@@ -50,19 +50,18 @@ public class TankAbility : PlayerAbility
     void CalculateTarget()
     {
         if (inCooldown) return;
-
-        Vector2 screenMiddle = new Vector2(Screen.width * 0.5f, Screen.height * 0.5f);
+        
         List<NaveManager> naveTargets = new List<NaveManager>();
         foreach(NaveManager nm in GameManager.navesList)
         {
             Vector3 naveScreenPosition = myCamera.WorldToScreenPoint(nm.transform.position);
-            if(CircleCollision(screenMiddle.x,screenMiddle.y,targetRadius,naveScreenPosition.x,naveScreenPosition.y))
+            if(CircleCollision(ScreenMiddle.x, ScreenMiddle.y,targetRadius,naveScreenPosition.x,naveScreenPosition.y))
             {
                 naveTargets.Add(nm);
             }
         }
 
-        NaveManager target = MostCenteredShip(naveTargets, screenMiddle);
+        NaveManager target = MostCenteredShip(naveTargets, ScreenMiddle);
         currentTarget = target;
 
         ShowTarget(target);
@@ -78,7 +77,7 @@ public class TankAbility : PlayerAbility
             {
                 targetImage.gameObject.SetActive(true);
             }
-            targetImage.rectTransform.localPosition = myCamera.WorldToScreenPoint(target.transform.position);
+            targetImage.rectTransform.localPosition = myCamera.WorldToScreenPoint(target.transform.position)- new Vector3(ScreenMiddle.x, ScreenMiddle.y,0);
         }
         else
         {
@@ -112,6 +111,11 @@ public class TankAbility : PlayerAbility
     private bool CircleCollision(float x, float y, float r, float x2, float y2)
     {
         return Mathf.Sqrt(Mathf.Pow((x2 - x), 2) - Mathf.Pow((y2 - y), 2)) < r;
+    }
+
+    Vector2 ScreenMiddle
+    {
+        get { return new Vector2(Screen.width * 0.5f, Screen.height * 0.5f); }
     }
 
 }
