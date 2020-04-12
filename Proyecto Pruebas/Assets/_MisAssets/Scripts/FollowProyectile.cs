@@ -85,6 +85,7 @@ public class FollowProyectile : Photon.PunBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!(other.CompareTag("Floor") || other.CompareTag("Nave") || other.CompareTag("Obstacle"))) return;
         if (other.gameObject.GetComponentInParent<PhotonView>())
         {
 
