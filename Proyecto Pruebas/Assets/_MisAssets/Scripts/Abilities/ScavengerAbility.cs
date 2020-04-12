@@ -8,6 +8,8 @@ public class ScavengerAbility : PlayerAbility
     public int maxChatarras = 3;
     [Tooltip("Pon el tronsform en el que spawneará la chatarra")]
     public Transform spawn;
+    public float maxRayDistance = 50f;
+    public LayerMask hitLayers;
 
     private Transform modelTransform;
     public List<GameObject> chatarras = new List<GameObject>();
@@ -20,15 +22,23 @@ public class ScavengerAbility : PlayerAbility
 
     public override void Use(float forcedCooldown)
     {
-        //base.Use(forcedCooldown);
-        //if (effectManager.SilenceAbilities) return;
-        //if (inCooldown) return;
-        //inCooldown = true;
-        //StartCoroutine(Cooldown(cooldown * forcedCooldown));
-        //GameObject nuevo = Instantiate(chatarraPrefab, spawn.position, Quaternion.identity);
-        //nuevo.GetComponent<Rigidbody>().AddForce(Vector3.up * throwForce, ForceMode.Impulse);
-        //nuevo.GetComponent<Rigidbody>().AddForce(-modelTransform.forward * throwForce, ForceMode.Impulse);
-        //ActualizarLista(nuevo);
+        base.Use(forcedCooldown);
+        if (effectManager.SilenceAbilities) return;
+        if (inCooldown) return;
+        inCooldown = true;
+        StartCoroutine(Cooldown(cooldown * forcedCooldown));
+
+        Ray ray = new Ray();
+        ray.origin = spawn.position;
+        ray.direction = -Vector3.up;
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, maxRayDistance, hitLayers))
+        {
+            GameObject nuevo = PhotonNetwork.Instantiate("Chatarra_Habilidad_Chatarrero", spawn.position, Quaternion.identity, 0);
+            ActualizarLista(nuevo);
+        }
+
+        
     }
     
 
