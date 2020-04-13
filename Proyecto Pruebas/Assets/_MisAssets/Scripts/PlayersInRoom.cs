@@ -17,19 +17,19 @@ public class PlayersInRoom : Photon.PunBehaviour
     // Update is called once per frame
     void Update()
     {
-        playersText.text = PhotonNetwork.room.PlayerCount + "/20";
+        playersText.text = GameManager.navesList.Count + "/20";
     }
 
     public override void OnLeftRoom()
     {
         base.OnLeftRoom();
-        playersText.text = PhotonNetwork.room.PlayerCount + "/20";
+        playersText.text = GameManager.navesList.Count + "/20";
     }
 
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        playersText.text = PhotonNetwork.room.PlayerCount + "/20";
+        playersText.text = GameManager.navesList.Count + "/20";
     }
 
 }

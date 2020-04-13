@@ -28,14 +28,13 @@ public class Connect : Photon.PunBehaviour
         }
         else
         {
-            joinedLobby = true;
-            mainMenu.SetActive(true);
-            conectingScreen.SetActive(false);
-            evt.SetSelectedGameObject(firstButton);
+            EnableMenu();
         }
         RegisterSerializableTypes();
         PhotonNetwork.playerName = CreateRandomUsername();
         PhotonNetwork.ConnectUsingSettings("v1.0");
+
+        
     }
 
     private void RegisterSerializableTypes()
@@ -71,10 +70,7 @@ public class Connect : Photon.PunBehaviour
     }
     public override void OnJoinedLobby()
     {
-        joinedLobby = true;
-        mainMenu.SetActive(true);
-        conectingScreen.SetActive(false);
-        evt.SetSelectedGameObject(firstButton);
+        EnableMenu();
     }
 
     public void JoinPrivateRoom()
@@ -115,6 +111,14 @@ public class Connect : Photon.PunBehaviour
             returnValue += characters[Random.Range((int)0, characters.Length)];
         }
         return returnValue;
+    }
+
+    void EnableMenu()
+    {
+        joinedLobby = true;
+        mainMenu.SetActive(true);
+        conectingScreen.SetActive(false);
+        evt.SetSelectedGameObject(firstButton);
     }
 
 }

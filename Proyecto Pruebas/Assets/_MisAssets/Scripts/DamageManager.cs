@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(PhotonView))]
 public class DamageManager : Photon.PunBehaviour
 {
     [Tooltip("Pon el tiempo de inmunidad que tiene la nave despues de recibir daño")]

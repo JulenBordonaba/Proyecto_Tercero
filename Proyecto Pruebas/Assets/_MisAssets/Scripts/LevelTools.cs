@@ -29,4 +29,10 @@ public class LevelTools : MonoBehaviour
     [Header("SCALE")]
     public float minScale = 0.65f;
     public float maxScale = 0.8f;
+
+    [Header("Make Obstacle parameters")]
+    public float collisionDamage = 50f;
+    public float minDamage=-1f;
+
+    
 }

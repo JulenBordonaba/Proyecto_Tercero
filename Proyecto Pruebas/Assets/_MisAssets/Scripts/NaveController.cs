@@ -78,7 +78,7 @@ public class NaveController : MonoBehaviour
                 ApplyTurbo();
             }
         }
-            
+        rb.angularVelocity = Vector3.zero;
         if (naveManager.isPlanning) return;
         if(!PauseManager.inPause)
         {

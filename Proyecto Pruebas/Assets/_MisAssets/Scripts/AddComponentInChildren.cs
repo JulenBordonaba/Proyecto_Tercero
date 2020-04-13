@@ -7,15 +7,16 @@ public class AddComponentInChildren : MonoBehaviour
     [Header("Make Obstacle parameters")]
     public float collisionDamage = 50f;
     public float minDamage;
-
-    [ContextMenu("Make Obstacle")]
+    
     public void MakeObstacle()
     {
-        foreach(Collider c in GetComponentsInChildren<Collider>())
+
+
+        foreach (Collider c in GetComponentsInChildren<Collider>())
         {
-            if(c.gameObject.tag=="Obstacle")
+            if (c.gameObject.CompareTag("Obstacle"))
             {
-                Stats s =c.gameObject.AddComponent<Stats>();
+                Stats s = c.gameObject.AddComponent<Stats>();
                 s.collisionDamage = collisionDamage;
                 DamageManager dm = c.gameObject.AddComponent<DamageManager>();
                 dm.minDamage = minDamage;

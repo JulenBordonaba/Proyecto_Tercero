@@ -327,7 +327,7 @@ public class NaveManager : Photon.PunBehaviour
 
         }
 
-        GameManager.navesList.Remove(this);
+        
         GameObject explosion = Instantiate(explosionPrefab, GetComponent<NaveController>().transform.position, Quaternion.identity);
         Destroy(explosion, explosion.GetComponentInChildren<ParticleSystem>().main.duration);
         if (photonView.isMine)
@@ -339,6 +339,7 @@ public class NaveManager : Photon.PunBehaviour
     [PunRPC]
     public void DestroyShip()
     {
+        GameManager.navesList.Remove(this);
         Destroy(transform.parent.gameObject);
     }
 

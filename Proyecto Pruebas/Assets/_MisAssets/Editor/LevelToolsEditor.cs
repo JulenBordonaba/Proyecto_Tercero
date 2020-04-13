@@ -34,6 +34,11 @@ public class LevelToolsEditor : Editor
         {
             Scale(tools);
         }
+        GUILayout.Space(10);
+        if (GUILayout.Button("Make Obstacles"))
+        {
+            MakeObstacle(tools);
+        }
 
     }
 
@@ -112,5 +117,27 @@ public class LevelToolsEditor : Editor
             }
         }
         return childsWithTag;
+    }
+
+    public void MakeObstacle(LevelTools lt)
+    {
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Obstacle"))
+        {
+            if (!go.GetComponent<PhotonView>())
+            {
+                PhotonView pv = go.AddComponent<PhotonView>();
+            }
+            if (!go.GetComponent<Stats>())
+            {
+                Stats s = go.AddComponent<Stats>();
+                s.collisionDamage = lt.collisionDamage;
+            }
+            if (!go.GetComponent<DamageManager>())
+            {
+                DamageManager dm = go.AddComponent<DamageManager>();
+                dm.minDamage = lt.minDamage;
+            }
+        }
+
     }
 }
