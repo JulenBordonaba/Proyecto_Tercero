@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 82bba7594ebea1c4ead71f5c7bb8140b
+guid: 1467578c9263c4f45ae6ac2553958cef
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -8,7 +8,7 @@ ModelImporter:
     2100000: lambert2
     2300000: //RootNode
     3300000: //RootNode
-    4300000: D_props_Ciclon_Turbina1
+    4300000: D_props_Ciclon_Turbina3
   externalObjects: {}
   materials:
     importMaterials: 1
