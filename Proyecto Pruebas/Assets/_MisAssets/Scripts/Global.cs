@@ -112,5 +112,36 @@ public static class Global
         }
     }
 
-    
+    #region SaveLoadData
+
+    public static void SaveData<T>(this T _data, string path)
+    {
+        string completePath = Application.persistentDataPath + path;
+
+        string jsonData = JsonUtility.ToJson(_data);
+
+        if(!Directory.Exists(completePath))
+        {
+            Directory.CreateDirectory(path);
+        }
+
+        File.WriteAllText(path, jsonData);
+
+    }
+
+    public static T LoadData<T>(this string path)
+    {
+
+        string completePath = Application.persistentDataPath + path;
+
+        string _jsonData = File.ReadAllText(completePath);
+
+        T _data = JsonUtility.FromJson<T>(_jsonData);
+
+        return _data;
+
+    }
+    #endregion
+
+
 }

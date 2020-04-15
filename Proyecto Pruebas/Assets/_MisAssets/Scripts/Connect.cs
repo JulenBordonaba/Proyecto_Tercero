@@ -17,6 +17,19 @@ public class Connect : Photon.PunBehaviour
     private EventSystem evt;
 
 
+    private void Awake()
+    {
+        string nickname = LoadName();
+
+        PhotonNetwork.playerName = nickname;
+        
+        PhotonNetwork.AuthValues = new AuthenticationValues(nickname);
+
+        print("ID AuthValues: " + PhotonNetwork.AuthValues.UserId);
+        
+        
+    }
+
     void Start()
     {
         evt = EventSystem.current;
@@ -31,7 +44,6 @@ public class Connect : Photon.PunBehaviour
             EnableMenu();
         }
         RegisterSerializableTypes();
-        PhotonNetwork.playerName = CreateRandomUsername();
         PhotonNetwork.ConnectUsingSettings("v1.0");
 
         
@@ -50,6 +62,21 @@ public class Connect : Photon.PunBehaviour
 
 
 
+    }
+
+    string LoadName()
+    {
+        string nickname = "";
+        if(PlayerPrefs.HasKey("Nickname"))
+        {
+            nickname = PlayerPrefs.GetString("Nickname");
+        }
+        else
+        {
+            nickname = CreateRandomNickname();
+            PlayerPrefs.SetString("Nickname", nickname);
+        }
+        return nickname;
     }
 
     public override void OnJoinedRoom()
@@ -102,7 +129,7 @@ public class Connect : Photon.PunBehaviour
         PhotonNetwork.JoinOrCreateRoom("Pruebas", ops, TypedLobby.Default);
     }
 
-    public string CreateRandomUsername()
+    public string CreateRandomNickname()
     {
         string characters = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890";
         string returnValue = "";

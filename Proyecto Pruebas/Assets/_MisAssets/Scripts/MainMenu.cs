@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
-public class MainMenu : MonoBehaviour
+public class MainMenu : Photon.PunBehaviour
 {
     public List<Text> recordTexts = new List<Text>();
+
+    public TMP_InputField nameInput;
 
     public Color selectedColor;
     public Color unselectedColor;
@@ -23,9 +26,18 @@ public class MainMenu : MonoBehaviour
     private void Start()
     {
         ScoresToTexts();
+        nameInput.text = PhotonNetwork.player.NickName;
         evt = EventSystem.current;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;
+    }
+
+    
+
+    public void OnNameChanged()
+    {
+        PhotonNetwork.playerName = nameInput.text;
+        PlayerPrefs.SetString("Nickname", PhotonNetwork.player.NickName);
     }
 
     private void LoadScores()
@@ -63,6 +75,8 @@ public class MainMenu : MonoBehaviour
     private void Update()
     {
         KeepSelected();
+
+        print("ID: " + PhotonNetwork.player.UserId);
     }
 
     private void KeepSelected()

@@ -237,18 +237,28 @@ public class NaveManager : Photon.PunBehaviour
             impactForce = Mathf.Clamp(impactForce, 0, float.MaxValue);
             if (collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>())
             {
-                PhotonView pv = collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().GetComponent<PhotonView>();
-                pv.RPC("TakeDamage",PhotonTargets.AllBuffered,impactForce * GetComponent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
+                if(collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().GetComponent<PhotonView>())
+                {
+                    PhotonView pv = collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>().GetComponent<PhotonView>();
+                    pv.RPC("TakeDamage", PhotonTargets.AllBuffered, impactForce * GetComponent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
+                }
             }
             if (collision.gameObject.GetComponent<DamageManager>())
             {
-                PhotonView pv = collision.gameObject.GetComponent<DamageManager>().GetComponent<PhotonView>();
-                pv.RPC("TakeDamage", PhotonTargets.AllBuffered,impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
+                if(collision.gameObject.GetComponent<DamageManager>().GetComponent<PhotonView>())
+                {
+                    PhotonView pv = collision.gameObject.GetComponent<DamageManager>().GetComponent<PhotonView>();
+                    pv.RPC("TakeDamage", PhotonTargets.AllBuffered, impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
+                }
             }
             else if (collision.gameObject.GetComponentInParent<DamageManager>())
             {
-                PhotonView pv = collision.gameObject.GetComponentInParent<DamageManager>().GetComponent<PhotonView>();
-                pv.RPC("TakeDamage",PhotonTargets.AllBuffered,impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
+                if(collision.gameObject.GetComponentInParent<DamageManager>().GetComponent<PhotonView>())
+                {
+
+                    PhotonView pv = collision.gameObject.GetComponentInParent<DamageManager>().GetComponent<PhotonView>();
+                    pv.RPC("TakeDamage", PhotonTargets.AllBuffered, impactForce * collision.contacts[0].thisCollider.gameObject.GetComponentInParent<Stats>().currentCollisionDamage * (1 / collisionDamageReduction), false);
+                }
             }
         }
 

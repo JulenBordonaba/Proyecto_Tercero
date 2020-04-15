@@ -39,6 +39,12 @@ public class LevelToolsEditor : Editor
         {
             MakeObstacle(tools);
         }
+        GUILayout.Space(10);
+        if (GUILayout.Button("Delete Obstacles PV"))
+        {
+            DeleteObstaclePV();
+        }
+
 
     }
 
@@ -139,5 +145,17 @@ public class LevelToolsEditor : Editor
             }
         }
 
+    }
+
+    public void DeleteObstaclePV()
+    {
+        foreach (GameObject go in GameObject.FindGameObjectsWithTag("Obstacle"))
+        {
+            if(go.GetComponent<PhotonView>())
+            {
+                PhotonView pv = go.GetComponent<PhotonView>();
+                DestroyImmediate(pv);
+            }
+        }
     }
 }
