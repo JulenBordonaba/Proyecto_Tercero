@@ -1,98 +1,16 @@
 fileFormatVersion: 2
-guid: 554d6f5cb20d9324a889b3d69cc27960
+guid: ef6938c34be19f84db152e08e09fa985
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: group12
-    100004: pCube16
-    100006: pCube17
-    100008: pCylinder172
-    100010: pCylinder175
-    100012: pCylinder176
-    100014: pCylinder177
-    100016: pSphere626
-    100018: pSphere627
-    100020: pSphere632
-    100022: pSphere633
-    100024: pSphere634
-    100026: pSphere635
-    100028: pSphere636
-    100030: pTorus2
-    100032: pTorus3
-    100034: pTorus4
-    100036: pTorus5
     400000: //RootNode
-    400002: group12
-    400004: pCube16
-    400006: pCube17
-    400008: pCylinder172
-    400010: pCylinder175
-    400012: pCylinder176
-    400014: pCylinder177
-    400016: pSphere626
-    400018: pSphere627
-    400020: pSphere632
-    400022: pSphere633
-    400024: pSphere634
-    400026: pSphere635
-    400028: pSphere636
-    400030: pTorus2
-    400032: pTorus3
-    400034: pTorus4
-    400036: pTorus5
     2100000: lambert1
-    2300000: pCube16
-    2300002: pCube17
-    2300004: pCylinder172
-    2300006: pCylinder175
-    2300008: pCylinder176
-    2300010: pCylinder177
-    2300012: pSphere626
-    2300014: pSphere627
-    2300016: pSphere632
-    2300018: pSphere633
-    2300020: pSphere634
-    2300022: pSphere635
-    2300024: pSphere636
-    2300026: pTorus2
-    2300028: pTorus3
-    2300030: pTorus4
-    2300032: pTorus5
-    3300000: pCube16
-    3300002: pCube17
-    3300004: pCylinder172
-    3300006: pCylinder175
-    3300008: pCylinder176
-    3300010: pCylinder177
-    3300012: pSphere626
-    3300014: pSphere627
-    3300016: pSphere632
-    3300018: pSphere633
-    3300020: pSphere634
-    3300022: pSphere635
-    3300024: pSphere636
-    3300026: pTorus2
-    3300028: pTorus3
-    3300030: pTorus4
-    3300032: pTorus5
-    4300000: pSphere626
-    4300002: pTorus4
-    4300004: pTorus2
-    4300006: pCylinder176
-    4300008: pSphere632
-    4300010: pTorus3
-    4300012: pSphere633
-    4300014: pCylinder177
-    4300016: pCube16
-    4300018: pCylinder175
-    4300020: pSphere634
-    4300022: pSphere627
-    4300024: pTorus5
-    4300026: pCube17
-    4300028: pCylinder172
-    4300030: pSphere635
-    4300032: pSphere636
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: campo_apertura_edificio001
+    7400000: Take 001
+    9500000: //RootNode
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -145,8 +63,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    previousCalculatedGlobalScale: 0.000001
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -173,7 +91,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
