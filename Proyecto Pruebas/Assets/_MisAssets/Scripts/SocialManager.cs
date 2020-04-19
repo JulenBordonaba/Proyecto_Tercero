@@ -2,13 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using TMPro;
 
-public class SocialManager : MonoBehaviour
+public class SocialManager : Photon.PunBehaviour
 {
     public GameObject socialCanvas;
 
     public GameObject socialFirstUIElement;
     public GameObject mainMenuFirstUIElement;
+
+    public TMP_InputField friendInput;
+
+
 
     private EventSystem evt;
 
@@ -39,6 +45,22 @@ public class SocialManager : MonoBehaviour
                 socialCanvas.SetActive(true);
                 evt.SetSelectedGameObject(socialFirstUIElement);
             }
+        }
+    }
+
+    public void InviteFriend()
+    {
+        PhotonNetwork.FindFriends(new string[1] { friendInput.text });
+    }
+
+
+    public override void OnUpdatedFriendList()
+    {
+        for (int i = 0; i < PhotonNetwork.Friends.Count; i++)
+        {
+            FriendInfo friend = PhotonNetwork.Friends[i];
+            
+            Debug.LogFormat("{0}", friend);
         }
     }
 }
