@@ -111,7 +111,10 @@ public class Connect : Photon.PunBehaviour
         ops.IsVisible = false;
         ops.IsOpen = false;
 
-        PhotonNetwork.JoinOrCreateRoom(PhotonNetwork.playerName, ops, TypedLobby.Default);
+        List<string> teamIDs = new List<string>(SocialManager.friends);
+        teamIDs.Add(PhotonNetwork.player.UserId);
+
+        PhotonNetwork.CreateRoom(null, ops, TypedLobby.Default, teamIDs.ToArray());
     }
 
     public void JoinPublicRoom()

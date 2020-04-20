@@ -14,6 +14,8 @@ public class SocialManager : Photon.PunBehaviour
 
     public TMP_InputField friendInput;
 
+    public static List<string> friends = new List<string>();
+
 
 
     private EventSystem evt;
@@ -56,11 +58,14 @@ public class SocialManager : Photon.PunBehaviour
 
     public override void OnUpdatedFriendList()
     {
+        friends.Clear();
         for (int i = 0; i < PhotonNetwork.Friends.Count; i++)
         {
             FriendInfo friend = PhotonNetwork.Friends[i];
-            
-            Debug.LogFormat("{0}", friend);
+
+            friends.Add(friend.UserId);
+
+            Debug.LogFormat("Id: {0} / is online: {1} / is in room: {2}", friend.UserId, friend.IsOnline, friend.IsInRoom);
         }
     }
 }

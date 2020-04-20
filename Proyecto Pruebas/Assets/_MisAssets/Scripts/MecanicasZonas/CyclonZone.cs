@@ -10,6 +10,9 @@ public class CyclonZone : MonoBehaviour
 
     private List<Rigidbody> objectsInArea = new List<Rigidbody>();
 
+    [Header("Orientación")]
+    public bool inverseForward = false;
+
 
     private void Start()
     {
@@ -40,5 +43,10 @@ public class CyclonZone : MonoBehaviour
             objectsInArea.Remove(other.gameObject.GetComponentInParent<Rigidbody>());
             other.gameObject.GetComponentInParent<NaveController>().winds.Remove(this);
         }
+    }
+
+    public void OrientWindToForward()
+    {
+        direction = transform.forward * (inverseForward? -1 : 1);
     }
 }
