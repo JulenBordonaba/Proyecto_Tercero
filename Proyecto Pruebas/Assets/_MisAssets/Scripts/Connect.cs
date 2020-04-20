@@ -16,6 +16,7 @@ public class Connect : Photon.PunBehaviour
 
     private EventSystem evt;
 
+    RoomOptions roomOptions;
 
     private void Awake()
     {
@@ -121,15 +122,33 @@ public class Connect : Photon.PunBehaviour
     {
         if (!joinedLobby) return;
 
-        RoomOptions ops;
+        
 
-        ops = new RoomOptions();
+        roomOptions = new RoomOptions();
 
-        ops.MaxPlayers = (byte)20;
-        ops.IsVisible = true;
-        ops.IsOpen = true;
+        roomOptions.MaxPlayers = (byte)20;
+        roomOptions.IsVisible = true;
+        roomOptions.IsOpen = true;
 
-        PhotonNetwork.JoinOrCreateRoom("Pruebas", ops, TypedLobby.Default);
+        if(!PhotonNetwork.JoinRandomRoom())
+        {
+            print("crea sala");
+            
+        }
+
+        //PhotonNetwork.JoinOrCreateRoom("Pruebas", ops, TypedLobby.Default);
+    }
+
+    public override void OnPhotonCreateRoomFailed(object[] codeAndMsg)
+    {
+        base.OnPhotonCreateRoomFailed(codeAndMsg);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public override void OnPhotonRandomJoinFailed(object[] codeAndMsg)
+    {
+        base.OnPhotonRandomJoinFailed(codeAndMsg);
+        PhotonNetwork.CreateRoom(null, roomOptions, TypedLobby.Default);
     }
 
     public string CreateRandomNickname()

@@ -117,7 +117,7 @@ public class LevitationManager : Photon.PunBehaviour
 
             if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
             {
-                rb.AddForce(-Vector3.up * extraFallImpulse, ForceMode.VelocityChange);
+                rb.AddForce(-Vector3.up * extraFallImpulse * Time.deltaTime, ForceMode.VelocityChange);
 
             }
         }
