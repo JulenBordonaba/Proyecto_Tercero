@@ -24,12 +24,15 @@ public class GameManager : Photon.PunBehaviour
     public List<Transform> spawns = new List<Transform>();
     [Tooltip("Pon el eje en el que se divide la pantalla cuando hay 2 jugadores")]
     public ScreenDivision screenDivision;
+
+    private Timer timer;
     
 
     private void Awake()
     {
         current = this;
         Global.winners = new List<string>();
+        timer = GetComponent<Timer>();
         if(PhotonNetwork.connected)
         {
 
@@ -171,7 +174,7 @@ public class GameManager : Photon.PunBehaviour
         if(PhotonNetwork.player.NickName == Global.winners[Global.winners.Count-1])
         {
             navesList.Remove(nm);
-            GetComponent<Timer>().GetTime();
+            timer.GetTime();
             UpdateScore();
             Global.winner = winner.GetComponent<InputManager>().numPlayer;
             PhotonNetwork.LeaveRoom();

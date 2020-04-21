@@ -36,6 +36,9 @@ public class CheckpointManager : Photon.PunBehaviour
         if(PhotonNetwork.isMasterClient)
         {
             GenerateCircuit(checkpointNumber);
+
+            print("Circuito pre rpc: " + CircuitToString(circuit));
+
             photonView.RPC("SetCircuit", PhotonTargets.AllBuffered, CircuitToString(circuit));
         }
         
@@ -52,7 +55,14 @@ public class CheckpointManager : Photon.PunBehaviour
             {
                 if(circuit[i]==checkpoints[j])
                 {
-                    s += j.ToString();
+                    if(i>=circuit.Count-1)
+                    {
+                        s += j.ToString();
+                    }
+                    else
+                    {
+                        s += j.ToString() + ",";
+                    }
                     break;
                 }
             }
@@ -62,18 +72,22 @@ public class CheckpointManager : Photon.PunBehaviour
 
     public List<Checkpoint> StringToCircuit(string _circuit)
     {
+        string[] checkpointIndexes = _circuit.Split(new char[] {','});
         List<Checkpoint> newCircuit = new List<Checkpoint>();
-        foreach(char c in _circuit)
+        foreach(string s in checkpointIndexes)
         {
-            newCircuit.Add(checkpoints[int.Parse(c.ToString())]);
+            newCircuit.Add(checkpoints[int.Parse(s)]);
         }
         return newCircuit;
     }
 
 
+    
+
     [PunRPC]
     public void SetCircuit(string _circuit)
     {
+        print("circuito post RPC: " + _circuit);
 
         circuit =StringToCircuit(_circuit);
         foreach (Checkpoint c in circuit)
@@ -93,7 +107,11 @@ public class CheckpointManager : Photon.PunBehaviour
     {
         isCircuit = false;
         circuit = new List<Checkpoint>();
-        circuit.Add(SetStartPoint());
+        Checkpoint first = SetStartPoint();
+
+        if (first == null) return;
+
+        circuit.Add(first);
         bool hasToReset = false;
         for(int i=1;i<_checkpointNumber+1;i++)
         {

@@ -32,6 +32,7 @@ public class Checkpoint : Photon.PunBehaviour
 
     public void Unlock()
     {
+        print("Desbloquea checkpoint" + gameObject.name);
         CheckpointManager.newest = this;
         checkpointGO.SetActive(true);
         GetComponentInChildren<RadarTarget>().radarImage = newestIcon;
