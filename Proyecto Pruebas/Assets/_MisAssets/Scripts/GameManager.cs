@@ -25,6 +25,14 @@ public class GameManager : Photon.PunBehaviour
     [Tooltip("Pon el eje en el que se divide la pantalla cuando hay 2 jugadores")]
     public ScreenDivision screenDivision;
 
+    public EffectData prestartEffect;
+
+
+    public TextPopUp popUp;
+
+    public GameObject hangar;
+
+
     private Timer timer;
     
 
@@ -103,9 +111,32 @@ public class GameManager : Photon.PunBehaviour
         }
     }
 
+    public void MakeRoomPrivate()
+    {
+        PhotonNetwork.room.IsOpen = false;
+    }
+
     public static void CallOnRaceFinished(NaveManager nm)
     {
         OnRaceFinished.Invoke(nm);
+    }
+
+    public void StartRace()
+    {
+        photonView.RPC("StartRaceRPC", PhotonTargets.All);
+    }
+
+    [PunRPC]
+    public void StartRaceRPC()
+    {
+        timer.Activate();
+
+        hangar.SetActive(false);
+
+        foreach(NaveManager nm in navesList)
+        {
+            nm.effectManager.StopEffect(prestartEffect.id);
+        }
     }
 
 
@@ -154,7 +185,7 @@ public class GameManager : Photon.PunBehaviour
         }
     }
     
-    public static void TimeFinished()
+    public void TimeFinished()
     {
         if (GameManager.navesList.Count <= 0) return;
         foreach(NaveManager nm in GameManager.navesList)

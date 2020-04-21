@@ -3,15 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class Timer : MonoBehaviour
 {
-    public static Timer i;
 
-    public int minutes = 0;
-    public float seconds = 0;
+    [System.Serializable]
+    public class TimerTime
+    {
+        public int minutes = 0;
+        public float seconds = 0;
+    }
 
-    public Text timerText;
+    [System.Serializable]
+    public class TimeEvent
+    {
+        [SerializeField]
+        public TimerTime eventTime = new TimerTime();
+        [SerializeField]
+        public UnityEvent onTimeReached = new UnityEvent();
+        public bool called = false;
+    }
+
+    [SerializeField]
+    public TimerTime currentTime;
+    
+    
+    
+
+    public List<TimeEvent> timeEvents = new List<TimeEvent>();
+
+    public UnityEvent OnTimeFinished = new UnityEvent();
+
+    public bool onlyRoomMaster = false;
+
+    public bool freezed = false;
 
     private int startMinutes;
     private float startSeconds;
@@ -19,46 +45,79 @@ public class Timer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        i = this;
-        startMinutes = minutes;
-        startSeconds = seconds;
+        startMinutes = currentTime.minutes;
+        startSeconds = currentTime.seconds;
         //ShowTimer();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (minutes < 0)
+        if(onlyRoomMaster)
         {
-            GameManager.TimeFinished();
+            if(!PhotonNetwork.isMasterClient)
+            {
+                return;
+            }
+        }
+        if (freezed) return;
+
+        if (currentTime.minutes < 0)
+        {
+            OnTimeFinished.Invoke();
+            freezed = true;
+            //GameManager.TimeFinished();
         }
         Countdown();
+        CheckTimeEvents();
         //ShowTimer();
+    }
+
+    public void CheckTimeEvents()
+    {
+        foreach(TimeEvent te in timeEvents)
+        {
+            if(!te.called)
+            {
+                if(currentTime.minutes<=te.eventTime.minutes && currentTime.seconds <= te.eventTime.seconds)
+                {
+                    te.called = true;
+                    print("Llama a el evento");
+                    te.onTimeReached.Invoke();
+                }
+            }
+        }
     }
 
     public void GetTime()
     {
         float startTime = (startMinutes * 60) + startSeconds;
-        float leftTime = startTime - ((minutes * 60) + seconds);
+        float leftTime = startTime - ((currentTime.minutes * 60) + currentTime.seconds);
         TimeScore.currentScore = TimeScore.TimeToScore(leftTime);
     }
     
 
     private void Countdown()
     {
-        seconds -= Time.deltaTime;
-        if(seconds<=0)
+        if (freezed) return;
+        currentTime.seconds -= Time.deltaTime;
+        if(currentTime.seconds <= 0)
         {
-            seconds = 60;
-            minutes -= 1;
+            currentTime.seconds = 60;
+            currentTime.minutes -= 1;
         }
     }
 
-    private void ShowTimer()
+    public void Activate()
     {
-        if (minutes < 0) return;
-            timerText.text = minutes.ToString() + ":" + (seconds < 10 ? "0" + Mathf.FloorToInt(seconds).ToString() : Mathf.FloorToInt(seconds).ToString());
+        freezed = false;
+    }
+
+    public void Stop()
+    {
+        freezed = true;
     }
 
     
 }
+

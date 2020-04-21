@@ -14,14 +14,13 @@ public class UIManager : MonoBehaviour
     public List<Pieza> piezas = new List<Pieza>();
     [Tooltip("Pon las piezas del HUD de la nave (el objeto que se llama color), en el mismo orden que en la lista de las piezas")]
     public List<Image> piezasHUD = new List<Image>();
-    public Text contadorCheckpointsText;
-    public Text timerText;
 
     [Header("Checkpoint limits")]
     public float leftLimit = 50f;
     public float rightLimit = 50f;
     public float upLimit = 50f;
     public float downLimit = 50f;
+
 
     private Camera myCamera;
 
@@ -37,9 +36,7 @@ public class UIManager : MonoBehaviour
         ShowNewestCheckpoint();
         OrientateCheckpointArrows();
         ColorPiezas();
-        ShowTimer();
 
-        contadorCheckpointsText.text = (CheckpointManager.currentCheckpoint - 1).ToString() + " / " + (CheckpointManager.numCheckpoints - 1).ToString();
     }
 
     private void ShowNewestCheckpoint()
@@ -123,10 +120,6 @@ public class UIManager : MonoBehaviour
         return Mathf.Atan2(end.y - start.y, end.x - start.x) * 180 / Mathf.PI;
     }
 
-    private void ShowTimer()
-    {
-        if (Timer.i.minutes < 0) return;
-        timerText.text = Timer.i.minutes.ToString() + "' " + (Timer.i.seconds < 10 ? "0" + Mathf.FloorToInt(Timer.i.seconds).ToString() : Mathf.FloorToInt(Timer.i.seconds).ToString()) + "''";
-    }
+    
 
 }

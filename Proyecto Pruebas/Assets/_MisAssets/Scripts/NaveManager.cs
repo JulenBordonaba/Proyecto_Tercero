@@ -33,6 +33,8 @@ public class NaveManager : Photon.PunBehaviour
     public bool isIA = false;
     public bool isHologram = false;
 
+    public EffectData startEffect;
+
     public int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
     private Stats stats;    //variable con las stats de la nave
     private NaveController controller;  //script con el controlador de la nave
@@ -44,7 +46,7 @@ public class NaveManager : Photon.PunBehaviour
     private UIManager uiManager;
     private Dash dash;
     private SynchronizableColor trailColor;
-    private EffectManager effectManager;
+    public EffectManager effectManager;
     
     private bool fuelInLeft = false;
     private bool fuelInRight = false;
@@ -63,6 +65,8 @@ public class NaveManager : Photon.PunBehaviour
         uiManager = GetComponent<UIManager>();
         trailColor = new SynchronizableColor();
         effectManager = GetComponent<EffectManager>();
+
+
         AddPieceStats();
         AsignarCombustibleInicial();
         if(isIA)
@@ -79,6 +83,9 @@ public class NaveManager : Photon.PunBehaviour
         }
         
         trailColor.ToSynchronizable(trail.material.color);
+
+
+        //effectManager.StartEffect(startEffect.id);
     }
 
     private void OnEnable()

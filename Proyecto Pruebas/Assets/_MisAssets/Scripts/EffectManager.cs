@@ -75,14 +75,17 @@ public class EffectManager : Photon.PunBehaviour
         return false;
     }
 
-    public void StopEffect(EffectData ed)
+    public void StopEffect(string ed)
     {
         print("Para el efecto");
-        if (CheckEffect(ed.id))
+        if (CheckEffect(ed))
         {
-            EffectData _ed = GetActiveEffectByID(ed.id);
+            EffectData _ed = GetActiveEffectByID(ed);
             activeEffects.Remove(_ed);
-            StopCoroutine(_ed.dot.dotEffect);
+            if(_ed.dot.dotEffect!=null)
+            {
+                StopCoroutine(_ed.dot.dotEffect);
+            }
         }
     }
 
@@ -95,10 +98,12 @@ public class EffectManager : Photon.PunBehaviour
         activeEffects.Clear();
     }
 
+    
+
     IEnumerator EffectDuration(EffectData ed)
     {
         yield return new WaitForSeconds(ed.duration);
-        StopEffect(ed);
+        StopEffect(ed.id);
     }
 
     IEnumerator DOTEffect(DOT dot)
