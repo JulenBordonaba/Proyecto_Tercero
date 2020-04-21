@@ -82,7 +82,7 @@ AvatarMask:
   - m_Path: Nave_Tank_Rig/Root/Giro_Right
     m_Weight: 1
   - m_Path: Nave_Tank_Rig/Root/Giro_Right/Derrape_Right
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Nave_Tank_Rig/Root/Reparar
     m_Weight: 0
   - m_Path: Nave_Tank_Rig/Root/Saltar
