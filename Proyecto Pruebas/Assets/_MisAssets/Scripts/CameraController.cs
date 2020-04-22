@@ -53,7 +53,7 @@ public class CameraController : Photon.PunBehaviour
 
         //guardamos la posición inicial 
         localPos = transform.parent.localPosition;
-        if (!photonView.isMine) GetComponent<Camera>().enabled = false;
+        if (!photonView.isMine) transform.parent.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
