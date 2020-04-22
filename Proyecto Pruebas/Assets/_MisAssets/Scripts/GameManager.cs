@@ -27,6 +27,7 @@ public class GameManager : Photon.PunBehaviour
 
     public EffectData prestartEffect;
 
+    public List<string> winners = new List<string>();
 
     public TextPopUp popUp;
 
@@ -113,7 +114,12 @@ public class GameManager : Photon.PunBehaviour
 
     public void MakeRoomPrivate()
     {
+
         PhotonNetwork.room.IsOpen = false;
+        PhotonNetwork.room.IsVisible = false;
+
+        PhotonNetwork.room.open = false;
+        PhotonNetwork.room.visible = false;
     }
 
     public static void CallOnRaceFinished(NaveManager nm)
@@ -208,7 +214,10 @@ public class GameManager : Photon.PunBehaviour
             timer.GetTime();
             UpdateScore();
             Global.winner = winner.GetComponent<InputManager>().numPlayer;
-            PhotonNetwork.LeaveRoom();
+            if (PhotonNetwork.inRoom)
+            {
+                LeaveRoom();
+            }
             SceneManager.LoadScene("Winner");
             //print(" ha ganado el jugador " + winner.GetComponent<InputManager>().numPlayer);
         }
@@ -227,6 +236,8 @@ public class GameManager : Photon.PunBehaviour
         if(PhotonNetwork.connected)
         {
             CheckPositions();
+
+            winners = Global.winners;
         }
         else
         {
@@ -267,6 +278,10 @@ public class GameManager : Photon.PunBehaviour
     {
         yield return new WaitForSeconds(5f);
 
+        if(PhotonNetwork.inRoom)
+        {
+            LeaveRoom();
+        }
         SceneManager.LoadScene("OnlineMenu");
 
     }

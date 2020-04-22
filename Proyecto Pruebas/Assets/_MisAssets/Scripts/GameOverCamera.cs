@@ -23,8 +23,11 @@ public class GameOverCamera : MonoBehaviour
         {
             if(Input.GetButtonDown("MenuSubmit"))
             {
-
-                SceneManager.LoadScene("F&SMainMenu");
+                if (PhotonNetwork.inRoom)
+                {
+                    PhotonNetwork.LeaveRoom();
+                }
+                SceneManager.LoadScene("OnlineMenu");
             }
         }
     }

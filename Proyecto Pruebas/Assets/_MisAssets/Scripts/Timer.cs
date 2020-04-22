@@ -53,14 +53,16 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(onlyRoomMaster)
+        if (freezed) return;
+        if (onlyRoomMaster)
         {
             if(!PhotonNetwork.isMasterClient)
             {
+                freezed = true;
                 return;
             }
         }
-        if (freezed) return;
+        
 
         if (currentTime.minutes < 0)
         {
