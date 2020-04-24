@@ -70,7 +70,8 @@ public class NaveController : MonoBehaviour
 
     private void Update()
     {
-        print("Velocity: " + VelocityFormula);
+        //print("Velocity: " + VelocityFormula);
+        print("Position Velocity: " + PositionFormula);
         if (!PauseManager.inPause)
         {
             if (inBoost)
@@ -119,7 +120,7 @@ public class NaveController : MonoBehaviour
         //myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (GetComponent<Maneuverability>().currentVelocity / 15), minCameraOffset, maxCameraOffset));
         myCamera.fieldOfView = Mathf.Lerp(myCamera.fieldOfView, fieldOfView + Mathf.Clamp(locVel.z * (inBoost ? 2 : 1) / 15f, 0f, 80f), Time.deltaTime);
 
-        print("Velocidad: " + new Vector2(locVel.x, locVel.z).magnitude);
+        //print("Velocidad: " + new Vector2(locVel.x, locVel.z).magnitude);
 
         if (!inDrift)
         {

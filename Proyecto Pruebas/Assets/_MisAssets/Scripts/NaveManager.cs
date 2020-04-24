@@ -382,7 +382,7 @@ public class NaveManager : Photon.PunBehaviour
 
     public float DistanceToNextCheckpoint
     {
-        get { return (transform.position - CheckpointManager.current.CurrentCheckpoint.transform.position).magnitude; }
+        get { return Vector3.Distance(transform.position , CheckpointManager.current.CurrentCheckpoint.transform.position); }
     }
 
     public float ShieldRepairRecharge
