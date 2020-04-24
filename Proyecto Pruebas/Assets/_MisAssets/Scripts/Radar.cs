@@ -7,8 +7,6 @@ public class Radar : Photon.PunBehaviour
 {
     [Tooltip("Pon el radio del area en el que se detectan cosas")]
     public float areaRadius = 100;
-    [Tooltip("Pon el objeto que aparecerá en el radar")]
-    public GameObject radarObject;
     [Tooltip("Pon la cámara de la nave")]
     public Camera myCamera;
     [Tooltip("Pon el objeto del radar")]

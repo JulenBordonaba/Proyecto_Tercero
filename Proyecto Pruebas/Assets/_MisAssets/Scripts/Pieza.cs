@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Pieza : Photon.PunBehaviour {
+public class Pieza : Photon.PunBehaviour
+{
 
-    
+
     [Tooltip("Importancia que tiene la pieza, el porcentage en el que aumenta los stats de la nave, Rango:0-100, si es el núcleo poner a 0"), Range(0, 100)]
     public float importancia = 25;
     [Tooltip("Pon el porcentaje de vida a partir del cual la pieza cambia a estado dañado")]
@@ -17,7 +18,7 @@ public class Pieza : Photon.PunBehaviour {
 
     public event Action<float> OnPieceDestroyed;
 
-
+    public bool isDamaged = false;
 
     //[HideInInspector]
     public float currentHealth;
@@ -33,8 +34,12 @@ public class Pieza : Photon.PunBehaviour {
     private GameObject piezaDead;
     public enum PieceState { }
 
+    private NaveManager naveManager;
+    private NaveController naveController;
+
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         maxHealth = GetComponentInParent<Stats>().life;
         currentHealth = maxHealth;
 
@@ -42,39 +47,77 @@ public class Pieza : Photon.PunBehaviour {
 
         GetComponentInParent<Stats>().AddPieceValues(importancia);
         GetComponentInParent<Maneuverability>().AddPieceValues(importancia);
+        naveManager = GetComponentInParent<NaveManager>();
+        naveController = GetComponentInParent<NaveController>();
 
         piezaOk = transform.Find(gameObject.name + "_Ok").gameObject;
         piezaBroken = transform.Find(gameObject.name + "_Broken").gameObject;
         piezaDead = transform.Find(gameObject.name + "_Dead").gameObject;
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if(Input.GetKeyDown(KeyCode.L))
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
         {
             Damage(0);
         }
+    }
+
+    public void Heal(float ammount)
+    {
+        if (isBroken) return;
+
+        currentHealth += ammount;
+        if (isDamaged)
+        {
+            currentHealth = Mathf.Clamp(currentHealth, -1, (maxHealth / 100f * damagedLimit));
+        }
+        CheckState();
+    }
+
+    public void Heal(float ammount, bool canOvercomeLimit)
+    {
+        if (isBroken) return;
+
+        currentHealth += ammount;
+        if (isDamaged && !canOvercomeLimit)
+        {
+            currentHealth = Mathf.Clamp(currentHealth, -1, (maxHealth / 100f * damagedLimit));
+        }
+
+        if ((currentHealth / maxHealth) > (damagedLimit / 100))
+        {
+            isDamaged = false;
+        }
+
+
+        CheckState();
     }
 
 
     private void PieceDestroyed(float _importancia)
     {
         isBroken = true;
-        foreach(ShootWeapon sw in armas)
+        foreach (ShootWeapon sw in armas)
         {
             sw.enabled = false;
         }
-        if(nucleo)
+        if (nucleo)
         {
-            GetComponentInParent<NaveManager>().OnShipDestroyed();
+            naveManager.OnShipDestroyed();
         }
     }
 
     public void Damage(float ammount)
     {
         //print("damage pieza");
-        if (currentHealth <= 0) return;
+        if (currentHealth <= 0)
+        {
+            naveController.nucleo.Damage(ammount);
+            return;
+        }
         //print("continua damage pieza");
         GetComponentInParent<Stats>().currentLife -= ammount;
         currentHealth -= ammount;
@@ -82,7 +125,13 @@ public class Pieza : Photon.PunBehaviour {
         piezaHUD.GetComponent<Animator>().SetTrigger("damage");
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         CheckState();
-        if(currentHealth<=0)
+
+        if ((currentHealth / maxHealth) <= (damagedLimit / 100))
+        {
+            isDamaged = true;
+        }
+
+        if (currentHealth <= 0)
         {
             OnPieceDestroyed.Invoke(importancia);
         }
@@ -90,13 +139,13 @@ public class Pieza : Photon.PunBehaviour {
 
     public void CheckState()
     {
-        if(currentHealth<=0)
+        if (currentHealth <= 0)
         {
             piezaBroken.SetActive(false);
             piezaOk.SetActive(false);
             piezaDead.SetActive(true);
         }
-        else if((currentHealth/maxHealth) < (damagedLimit/100))
+        else if ((currentHealth / maxHealth) <= (damagedLimit / 100))
         {
             piezaBroken.SetActive(true);
             piezaOk.SetActive(false);
@@ -109,7 +158,7 @@ public class Pieza : Photon.PunBehaviour {
             piezaDead.SetActive(false);
         }
     }
-    
+
     public float Importancia
     {
         get { return importancia / 100; }

@@ -11,6 +11,7 @@ public static class Global
     public static int numPlayers=1;
     public static int winner=0;
     public static List<string> winners;
+    public static bool onePlayer = false;
     public static string myShipType = "Scavenger";
 
     public static float ClampAngle(float angle, float min, float max)

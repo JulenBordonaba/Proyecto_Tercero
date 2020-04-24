@@ -15,6 +15,8 @@ public class ShootRay : ShootWeapon
     [Tooltip("Pon el radio de la zona de autoaim, en medidas de pantalla")]
     public float autoaimRadius;
 
+    public Pieza linkedPieza;
+
     public Camera myCamera;
 
     private NaveManager myNaveManager;
@@ -29,6 +31,10 @@ public class ShootRay : ShootWeapon
     {
         if (PauseManager.inPause) return;
 
+        if(linkedPieza)
+        {
+            if (linkedPieza.isBroken) return;
+        }
 
 
         //declarar cariables para el raycast

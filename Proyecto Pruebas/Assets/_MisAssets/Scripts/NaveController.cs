@@ -21,7 +21,7 @@ public class NaveController : MonoBehaviour
     [Tooltip("Pon la velocidad máxima que se aumenta según la vida, se multiplica con el porcentaje de vida de la nave")]
     public float healthConst;   //constante que se le multiplica a la vida en la fórmula de velocidad
     [Tooltip("Pon la velocidad máxima que se aumenta según la posición, se multiplica con la posición de la nave empezando desde detrás")]
-    public float positionConst; //constante que se le multiplica a la posición en la fórmula de velocidad
+    public float positionConst=0.025f; //constante que se le multiplica a la posición en la fórmula de velocidad
     [Tooltip("Pon la velocidad máxima que se aumenta cuando se está en rebufo")]
     public float recoilConst;   //constante que se le multiplica al rebufo(recoil) en la fórmula de velocidad
     [Tooltip("Pon la velocidad máxima que se aumenta cuando se está en turbo, se multiplica con la stat de turbo actual de la nave")]
@@ -70,7 +70,7 @@ public class NaveController : MonoBehaviour
 
     private void Update()
     {
-        //print("Velocity: " + VelocityFormula);
+        print("Velocity: " + VelocityFormula);
         if (!PauseManager.inPause)
         {
             if (inBoost)
@@ -119,7 +119,7 @@ public class NaveController : MonoBehaviour
         //myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (GetComponent<Maneuverability>().currentVelocity / 15), minCameraOffset, maxCameraOffset));
         myCamera.fieldOfView = Mathf.Lerp(myCamera.fieldOfView, fieldOfView + Mathf.Clamp(locVel.z * (inBoost ? 2 : 1) / 15f, 0f, 80f), Time.deltaTime);
 
-
+        print("Velocidad: " + new Vector2(locVel.x, locVel.z).magnitude);
 
         if (!inDrift)
         {
@@ -198,7 +198,7 @@ public class NaveController : MonoBehaviour
             {
                 if (locVel.z > 0)// si estas moviendote hacia adelante y quieres ir hacia atras se ayuda a parar el vehiculo
                 {
-                    locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
+                    locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction * Time.deltaTime)));
                 }
                 rb.AddForce(modelTransform.forward * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * backwardVelocity * Time.deltaTime, ForceMode.VelocityChange); // fuerza para moverte hacia atras
 
@@ -270,7 +270,16 @@ public class NaveController : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
 
         //rotación lateral al girar
-        modelTransform.localEulerAngles = new Vector3(modelTransform.localEulerAngles.x, modelTransform.localEulerAngles.y, Mathf.LerpAngle(modelTransform.localEulerAngles.z, Mathf.Clamp(maxInclination * -inputManager.MainHorizontal() * (rb.velocity.magnitude / VelocityFormula) * (GetComponent<Maneuverability>().currentManeuver / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping));
+        try
+        {
+            modelTransform.localEulerAngles = new Vector3(modelTransform.localEulerAngles.x, modelTransform.localEulerAngles.y, Mathf.LerpAngle(modelTransform.localEulerAngles.z, Mathf.Clamp(maxInclination * -inputManager.MainHorizontal() * (rb.velocity.magnitude / VelocityFormula) * (GetComponent<Maneuverability>().currentManeuver / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping));
+
+        }
+        catch
+        {
+            print("ángulo que falla: " + new Vector3(modelTransform.localEulerAngles.x, modelTransform.localEulerAngles.y, Mathf.LerpAngle(modelTransform.localEulerAngles.z, Mathf.Clamp(maxInclination * -inputManager.MainHorizontal() * (rb.velocity.magnitude / VelocityFormula) * (GetComponent<Maneuverability>().currentManeuver / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping)));
+
+        }
 
         //si no se esta girando hece que el vehiculo deje de rotar
         if (inputManager.MainHorizontal() == 0)
@@ -344,7 +353,7 @@ public class NaveController : MonoBehaviour
 
     public float PositionFormula
     {
-        get { return (DistanciaPrimero * positionConst); }
+        get { return ((Position-1) * positionConst); }
     }
 
     public float HealthFormula
@@ -357,8 +366,8 @@ public class NaveController : MonoBehaviour
         get { return (nucleo.currentHealth / GetComponent<Stats>().life) * 100; }
     }
 
-    public float DistanciaPrimero   //devuelve la distancia de la nave respecto al primero de la carrera
+    public float Position   //devuelve la distancia de la nave respecto al primero de la carrera
     {
-        get { return 1; }
+        get { return (naveManager.DistanceToNextCheckpoint-GameManager.current.first.DistanceToNextCheckpoint) * positionConst; }
     }
 }

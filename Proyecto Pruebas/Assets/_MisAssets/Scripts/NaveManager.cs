@@ -129,6 +129,7 @@ public class NaveManager : Photon.PunBehaviour
         FuelManager();
         if (!photonView.isMine) return;
         positionText.text = position.ToString() + "º";
+        
         //combustible.PasiveConsumption();
     }
 

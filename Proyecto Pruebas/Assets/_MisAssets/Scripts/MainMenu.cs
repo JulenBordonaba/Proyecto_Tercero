@@ -27,6 +27,8 @@ public class MainMenu : Photon.PunBehaviour
     {
         ScoresToTexts();
         nameInput.text = PhotonNetwork.player.NickName;
+        Global.myShipType = "Scavenger";
+        Global.onePlayer = false;
         evt = EventSystem.current;
         Cursor.lockState = CursorLockMode.Locked;
         Time.timeScale = 1;

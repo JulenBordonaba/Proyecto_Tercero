@@ -86,7 +86,7 @@ public class Reparar : HabilidadCombustible
         {
             if (!pieza.isBroken)
             {
-                pieza.currentHealth += repairAmmount * Time.deltaTime;
+                pieza.Heal(repairAmmount * Time.deltaTime);
                 pieza.CheckState();
             }
         }

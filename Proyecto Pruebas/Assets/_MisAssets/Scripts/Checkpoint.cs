@@ -87,6 +87,8 @@ public class Checkpoint : Photon.PunBehaviour
     [PunRPC]
     public void RegisterPosition(string nm)
     {
+        if (Global.winners.Contains(nm)) return;
+
         Global.winners.Add(nm);
     }
 
@@ -111,6 +113,7 @@ public class Checkpoint : Photon.PunBehaviour
                 }
                 else
                 {
+                    SetOldCheckpointLayer();
                     GetComponentInChildren<RadarTarget>().radarImage = notNewestIcon;
                     CheckpointManager.OnCheckpointUnlocked.Invoke();
                 }
@@ -118,6 +121,16 @@ public class Checkpoint : Photon.PunBehaviour
         }
     }
 
+    void SetOldCheckpointLayer()
+    {
+        int oldCheckpointLayer= LayerMask.NameToLayer("OldCheckpoint");
 
+        gameObject.layer = oldCheckpointLayer;
+
+        foreach(Transform t in GetComponentsInChildren<Transform>())
+        {
+            t.gameObject.layer = oldCheckpointLayer;
+        }
+    }
     
 }

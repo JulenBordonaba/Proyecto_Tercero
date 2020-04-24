@@ -33,8 +33,11 @@ public class GameManager : Photon.PunBehaviour
 
     public GameObject hangar;
 
+    public NaveManager first;
+
 
     private Timer timer;
+    public Timer preRaceTimer;
     
 
     private void Awake()
@@ -130,6 +133,7 @@ public class GameManager : Photon.PunBehaviour
     public void StartRace()
     {
         photonView.RPC("StartRaceRPC", PhotonTargets.All);
+        
     }
 
     [PunRPC]
@@ -146,6 +150,13 @@ public class GameManager : Photon.PunBehaviour
     }
 
 
+    IEnumerator StartRaceOnNextFrame()
+    {
+        yield return new WaitForEndOfFrame();
+        photonView.RPC("StartRaceRPC", PhotonTargets.All);
+    }
+
+
     public void StartGame()
     {
         winner = null;
@@ -159,6 +170,11 @@ public class GameManager : Photon.PunBehaviour
         else
         {
             naves.Add(PhotonNetwork.Instantiate("NaveOnline" + Global.myShipType, spawns[spawns.Count - 1].position, Quaternion.identity, 0, null));
+        }
+
+        if (Global.onePlayer)
+        {
+            StartCoroutine(StartRaceOnNextFrame());
         }
     }
 
@@ -267,6 +283,9 @@ public class GameManager : Photon.PunBehaviour
                 }
             }
         }
+
+        first = navePositions[0];
+
         for (int i = 0; i < navePositions.Count; i++)
         {
             navePositions[i].position = i+Global.winners.Count+1;

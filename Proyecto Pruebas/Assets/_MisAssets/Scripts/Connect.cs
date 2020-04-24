@@ -13,6 +13,7 @@ public class Connect : Photon.PunBehaviour
     public GameObject conectingScreen;
     public GameObject mainMenu;
     public GameObject firstButton;
+    public GameObject loadingCanvas;
 
     private EventSystem evt;
 
@@ -83,6 +84,7 @@ public class Connect : Photon.PunBehaviour
     public override void OnJoinedRoom()
     {
         //SceneManager.LoadScene("Blocking Nivel");
+        loadingCanvas.SetActive(true);
         PhotonNetwork.LoadLevel("Blocking Nivel Pruebas Terrenos");
     }
 
@@ -107,6 +109,8 @@ public class Connect : Photon.PunBehaviour
         RoomOptions ops;
 
         ops = new RoomOptions();
+
+        Global.onePlayer = true;
 
         ops.MaxPlayers = (byte)4;
         ops.IsVisible = false;
