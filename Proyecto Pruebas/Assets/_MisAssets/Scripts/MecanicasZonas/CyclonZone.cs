@@ -16,6 +16,8 @@ public class CyclonZone : MonoBehaviour
 
     private void Start()
     {
+        transform.SetParent(null);
+        OrientWindToForward();
     }
 
     private void FixedUpdate()

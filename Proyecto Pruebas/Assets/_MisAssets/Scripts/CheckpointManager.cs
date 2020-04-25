@@ -186,6 +186,7 @@ public class CheckpointManager : Photon.PunBehaviour
     private void UnlockCheckpoint()
     {
         currentCheckpoint += 1;
+        GameManager.current.popUp.ShowMessage("Nuevo Checkpoint", new Color(0.271f, 0.851f, 0.69f));
         circuit[currentCheckpoint].Unlock();
     }
 
