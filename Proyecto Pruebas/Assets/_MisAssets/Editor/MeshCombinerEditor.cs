@@ -13,9 +13,31 @@ public class MeshCombinerEditor : Editor
         MeshCombiner combiner = (MeshCombiner)target;
 
         GUILayout.Space(10);
-        if (GUILayout.Button("Combine"))
+        if (GUILayout.Button("Combine Children"))
         {
-            combiner.CombineMeshes();
+            combiner.DivideMeshes();
+        }
+
+        GUILayout.Space(10);
+        if (GUILayout.Button("Delete Combined Children"))
+        {
+            combiner.DeleteCombinedMesh();
+
+
+        }
+
+        GUILayout.Space(50);
+        if (GUILayout.Button("Combine Array"))
+        {
+            combiner.CombineMeshesArray();
+        }
+
+        GUILayout.Space(10);
+        if (GUILayout.Button("Delete Combined Array"))
+        {
+            combiner.DeleteCombinedMeshArray();
+
+
         }
 
         //GUILayout.Space(10);
