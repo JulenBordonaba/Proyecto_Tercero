@@ -93,11 +93,11 @@ public class LevitationManager : Photon.PunBehaviour
             //se le añade una fuerza para que flote a la altura que queremos
             if (rayDistance < levitationHeight)
             {
-                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance) * 1), ForceMode.Acceleration);
+                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance) * 1)* Time.deltaTime*30, ForceMode.Acceleration);
             }
             else
             {
-                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance) * -1), ForceMode.Acceleration);
+                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance) * -1) * Time.deltaTime * 30, ForceMode.Acceleration);
             }
 
             if(hit.normal.y>maxSlope)

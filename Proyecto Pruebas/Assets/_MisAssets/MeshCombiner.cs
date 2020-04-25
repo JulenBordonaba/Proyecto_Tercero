@@ -4,9 +4,21 @@ using UnityEngine;
 
 public class MeshCombiner : MonoBehaviour
 {
-    [ContextMenu("Combine Meshes")]
     public void CombineMeshes()
     {
+
+        if(!GetComponent<MeshFilter>())
+        {
+            gameObject.AddComponent<MeshFilter>();
+        }
+
+        if (!GetComponent<MeshRenderer>())
+        {
+            gameObject.AddComponent<MeshRenderer>();
+        }
+
+        
+
         Mesh combineTarget = new Mesh();
         MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
         CombineInstance[] combine = new CombineInstance[meshFilters.Length];
@@ -17,6 +29,7 @@ public class MeshCombiner : MonoBehaviour
             meshFilters[i].gameObject.SetActive(false);
         }
 
+
         combineTarget.CombineMeshes(combine);
         if (GetComponent<MeshFilter>())
         {
@@ -26,6 +39,21 @@ public class MeshCombiner : MonoBehaviour
             transform.localScale = new Vector3(1, 1, 1);
             transform.rotation = Quaternion.identity;
             transform.position = Vector3.zero;
+        }
+
+        
+    }
+
+    public void CopyMaterial()
+    {
+        if(!GetComponentInChildren<MeshRenderer>())
+        {
+            print("no hay mr");
+        }
+        else
+        {
+            print(GetComponentInChildren<MeshRenderer>().sharedMaterial.name);
+            GetComponent<MeshRenderer>().sharedMaterial = GetComponentInChildren<MeshRenderer>().sharedMaterial;
         }
 
     }
