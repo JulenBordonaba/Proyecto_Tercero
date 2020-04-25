@@ -36,6 +36,7 @@ public class Checkpoint : Photon.PunBehaviour
         CheckpointManager.newest = this;
         checkpointGO.SetActive(true);
         GetComponentInChildren<RadarTarget>().radarImage = newestIcon;
+
     }
 
     private bool CheckShips(NaveManager naveManager)
