@@ -414,7 +414,7 @@ public class NaveManager : Photon.PunBehaviour
 
     public float Acceleration
     {
-        get { return maneuverability.AccelerationWithWeight + effectManager.Acceleration; }
+        get { return maneuverability.AccelerationWithWeight + controller.AccelerationFormula + effectManager.Acceleration; }
     }
 
     public float Velocity

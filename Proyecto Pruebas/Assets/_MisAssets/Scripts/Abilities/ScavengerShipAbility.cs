@@ -38,7 +38,7 @@ public class ScavengerShipAbility : ShipAbility
         {
             inCooldown = true;
             magnet.inUse = true;
-            magnet.inverted = false;
+            magnet.inverted = true;
             StartCoroutine(EndAbility());
             StartCoroutine(Cooldown(cooldown * forcedCooldown));
         }

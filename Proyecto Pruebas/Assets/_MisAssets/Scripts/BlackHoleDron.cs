@@ -16,8 +16,11 @@ public class BlackHoleDron : Photon.PunBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        GetComponent<SphereCollider>().radius = explosionRadius/transform.localScale.x;
-        Global.myShipType = "Scavenger";
+        //GetComponent<SphereCollider>().radius = explosionRadius/transform.localScale.x;
+        foreach(Transform child in GetComponentsInChildren<Transform>())
+        {
+            child.SetGlobalScale(new Vector3(explosionRadius, explosionRadius, explosionRadius));
+        }
     }
 
     // Update is called once per frame
@@ -25,6 +28,8 @@ public class BlackHoleDron : Photon.PunBehaviour
     {
 
     }
+
+
     [PunRPC]
     public void Move(Vector3 direction, float velocity)
     {
@@ -50,8 +55,7 @@ public class BlackHoleDron : Photon.PunBehaviour
                 
             
         }
-
-        Destroy(gameObject,2);
+        
     }
 
     IEnumerator ExplosionAtraction(GameObject go)
@@ -68,6 +72,8 @@ public class BlackHoleDron : Photon.PunBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
+
+        Destroy(gameObject);
           
     }
 

@@ -45,6 +45,7 @@ public class NaveController : MonoBehaviour
     public float minCameraOffset = -4;  
     [Tooltip("Pon el desfase máximo de la cámara")]
     public float maxCameraOffset = 5;*/
+    public float maxPositionBonus = 150f;
 
     private bool inRecoil = false;  //variable que controla cuando la nave esta cogiendo rebufo
     public bool inBoost { get; set; }   //variable que controla cuando la nave esta en turbo
@@ -58,6 +59,7 @@ public class NaveController : MonoBehaviour
     private NaveManager naveManager;
     private NaveAnimationManager animationManager;
     private CameraController cameraController;
+    private Maneuverability maneuverability;
 
     private void Start()
     {
@@ -66,6 +68,7 @@ public class NaveController : MonoBehaviour
         naveManager = GetComponent<NaveManager>();
         animationManager = GetComponent<NaveAnimationManager>();
         cameraController = myCamera.GetComponent<CameraController>();
+        maneuverability = GetComponent<Maneuverability>();
     }
 
     private void Update()
@@ -324,7 +327,7 @@ public class NaveController : MonoBehaviour
 
     private void ApplyTurbo()
     {
-        GetComponent<Rigidbody>().AddForce(modelTransform.forward * GetComponent<Turbo>().impulse * GetComponent<Maneuverability>().currentBoost, ForceMode.Acceleration);
+        GetComponent<Rigidbody>().AddForce(modelTransform.forward * GetComponent<Turbo>().impulse * maneuverability.currentBoost, ForceMode.Acceleration);
     }
 
     public bool AnyMovementKeys
@@ -334,7 +337,7 @@ public class NaveController : MonoBehaviour
 
     public float VelocityFormula    //devuelve la velocidad máxima de la nave aplicando todos los modificadores
     {
-        get { return Mathf.Clamp(GetComponent<Maneuverability>().MaxVelocity + HealthFormula + PositionFormula + RecoilFormula + BoostFormula + WindFormula, 0, Mathf.Infinity); }
+        get { return Mathf.Clamp(maneuverability.MaxVelocity + HealthFormula + PositionFormula + RecoilFormula + BoostFormula + WindFormula, 0, Mathf.Infinity); }
     }
 
     public float WindFormula
@@ -344,17 +347,22 @@ public class NaveController : MonoBehaviour
 
     public float BoostFormula
     {
-        get { return ((turboConst * (inBoost == true ? 1 : 0) * GetComponent<Maneuverability>().currentBoost)); }
+        get { return ((turboConst * (inBoost == true ? 1 : 0) * maneuverability.currentBoost)); }
     }
 
     public float RecoilFormula
     {
-        get { return ((recoilConst * (inRecoil == true ? 1 : 0) * GetComponent<Maneuverability>().currentRecoil)); }
+        get { return ((recoilConst * (inRecoil == true ? 1 : 0) * maneuverability.currentRecoil)); }
     }
 
     public float PositionFormula
     {
-        get { return ((Position-1) * positionConst); }
+        get { return Mathf.Clamp((Position) * positionConst,0,maxPositionBonus); }
+    }
+
+    public float AccelerationFormula
+    {
+        get { return Mathf.Clamp(Position * positionConst * 0.5f, 0, 50); }
     }
 
     public float HealthFormula
@@ -369,6 +377,6 @@ public class NaveController : MonoBehaviour
 
     public float Position   //devuelve la distancia de la nave respecto al primero de la carrera
     {
-        get { return (naveManager.DistanceToNextCheckpoint-GameManager.current.first.DistanceToNextCheckpoint) * positionConst; }
+        get { return (naveManager.DistanceToNextCheckpoint-GameManager.current.first.DistanceToNextCheckpoint); }
     }
 }
