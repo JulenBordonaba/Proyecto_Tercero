@@ -55,12 +55,26 @@ public class BlackHoleDron : Photon.PunBehaviour
                 
             
         }
+        StartCoroutine(DestroyObjectOnEndOfAtraction());
         
+    }
+
+    IEnumerator DestroyObjectOnEndOfAtraction()
+    {
+
+        for (int i = 1; i <= 5; i++)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+        Destroy(gameObject);
     }
 
     IEnumerator ExplosionAtraction(GameObject go)
     {
-        if (!go) yield break;
+        if (!go)
+        {
+            yield break;
+        }
 
 
         if (go.GetComponentInParent<PhotonView>().owner.NickName != GetComponentInParent<PhotonView>().owner.NickName)

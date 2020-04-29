@@ -45,6 +45,7 @@ public class NaveController : MonoBehaviour
     public float minCameraOffset = -4;  
     [Tooltip("Pon el desfase máximo de la cámara")]
     public float maxCameraOffset = 5;*/
+    public float minPositionBonus = 30f;
     public float maxPositionBonus = 150f;
 
     private bool inRecoil = false;  //variable que controla cuando la nave esta cogiendo rebufo
@@ -357,7 +358,7 @@ public class NaveController : MonoBehaviour
 
     public float PositionFormula
     {
-        get { return Mathf.Clamp((Position) * positionConst,0,maxPositionBonus); }
+        get { return Mathf.Clamp((Position) * positionConst, minPositionBonus, maxPositionBonus); }
     }
 
     public float AccelerationFormula
