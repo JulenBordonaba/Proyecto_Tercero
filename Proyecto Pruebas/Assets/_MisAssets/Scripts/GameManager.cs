@@ -35,6 +35,8 @@ public class GameManager : Photon.PunBehaviour
 
     public NaveManager first;
 
+    public EffectData efectoChachi;
+
 
     private Timer timer;
     public Timer preRaceTimer;
@@ -252,7 +254,7 @@ public class GameManager : Photon.PunBehaviour
         if(PhotonNetwork.connected)
         {
             CheckPositions();
-
+            EfectoChachi();
             winners = Global.winners;
         }
         else
@@ -266,6 +268,24 @@ public class GameManager : Photon.PunBehaviour
             }
         }
         
+    }
+
+    void EfectoChachi()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            foreach(NaveManager nm in navesList)
+            {
+                nm.effectManager.StartEffect(efectoChachi.id);
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            foreach (NaveManager nm in navesList)
+            {
+                nm.effectManager.StopEffect(efectoChachi.id);
+            }
+        }
     }
 
     public void CheckPositions()

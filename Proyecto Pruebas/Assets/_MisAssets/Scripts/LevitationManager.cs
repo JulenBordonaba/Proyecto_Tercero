@@ -63,7 +63,7 @@ public class LevitationManager : Photon.PunBehaviour
         frontRay.origin = controller.modelTransform.position;
         frontRay.direction = controller.modelTransform.forward;
         RaycastHit frontHit;
-        if (Physics.Raycast(frontRay, out frontHit, rayOffset*1.5f, LayerMask.GetMask("Floor")))
+        if (Physics.Raycast(frontRay, out frontHit, rayOffset * 1.5f, LayerMask.GetMask("Floor")))
         {
             ray.origin = controller.modelTransform.position;
         }
@@ -75,7 +75,7 @@ public class LevitationManager : Photon.PunBehaviour
         {
             //print(hit.transform.gameObject.name);
 
-            Debug.DrawRay(hit.point, hit.normal*1000f, Color.cyan);
+            Debug.DrawRay(hit.point, hit.normal * 1000f, Color.cyan);
             Vector3 rayPath = ray.origin - hit.point;
             //float rayDistance = Mathf.Clamp(rayPath.magnitude - rayDifference, 1, Mathf.Infinity); //guardamos la distancia del raycast
             float rayDistance = Mathf.Clamp(rayPath.magnitude, 1, Mathf.Infinity);
@@ -93,16 +93,16 @@ public class LevitationManager : Photon.PunBehaviour
             //se le añade una fuerza para que flote a la altura que queremos
             if (rayDistance < levitationHeight)
             {
-                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance) * 1)* Time.deltaTime*30, ForceMode.Acceleration);
+                //rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance)) * Time.deltaTime * 30 * 1, ForceMode.Acceleration);
             }
             else
             {
-                rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance) * -1) * Time.deltaTime * 30, ForceMode.Acceleration);
+                //rb.AddForce((Vector3.up * levitationForce + Vector3.up * levitationForce * (levitationHeight / rayDistance) * (levitationHeight - rayDistance)) * Time.deltaTime * 30 * -1, ForceMode.Acceleration);
             }
 
-            if(hit.normal.y>maxSlope)
+            if (hit.normal.y > maxSlope)
             {
-                rb.AddForce(-Vector3.up * (1 - hit.normal.y)*levitationForce, ForceMode.Acceleration);
+                rb.AddForce(-Vector3.up * (1 - hit.normal.y) * levitationForce, ForceMode.Acceleration);
             }
 
 
