@@ -55,9 +55,13 @@ AvatarMask:
     m_Weight: 0
   - m_Path: Nave_Trampera_Geo/Weapons
     m_Weight: 0
-  - m_Path: Nave_Trampera_Geo/Weapons/Weapon
+  - m_Path: "Nave_Trampera_Geo/Weapons/Arp\xF3n_Weapon"
     m_Weight: 0
-  - m_Path: Nave_Trampera_Geo/Weapons/Weapon2
+  - m_Path: "Nave_Trampera_Geo/Weapons/Arp\xF3n_Weapon/Arp\xF3n"
+    m_Weight: 0
+  - m_Path: "Nave_Trampera_Geo/Weapons/Arp\xF3n_Weapon/Base"
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Weapons/Weapon
     m_Weight: 0
   - m_Path: Nave_Trampera_Rig
     m_Weight: 0
@@ -112,11 +116,11 @@ AvatarMask:
   - m_Path: Nave_Trampera_Rig/Root/Planeo
     m_Weight: 0
   - m_Path: Nave_Trampera_Rig/Root/Repair_Base_left
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Nave_Trampera_Rig/Root/Repair_Base_left/Repair_Tip_left
     m_Weight: 1
   - m_Path: Nave_Trampera_Rig/Root/Repair_Base_right
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Nave_Trampera_Rig/Root/Repair_Base_right/Repair_Tip_right
     m_Weight: 1
   - m_Path: Nave_Trampera_Rig/Root/Weapon_base

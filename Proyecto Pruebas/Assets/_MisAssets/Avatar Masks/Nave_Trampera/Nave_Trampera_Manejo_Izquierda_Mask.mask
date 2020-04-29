@@ -55,9 +55,13 @@ AvatarMask:
     m_Weight: 0
   - m_Path: Nave_Trampera_Geo/Weapons
     m_Weight: 0
-  - m_Path: Nave_Trampera_Geo/Weapons/Weapon
+  - m_Path: "Nave_Trampera_Geo/Weapons/Arp\xF3n_Weapon"
     m_Weight: 0
-  - m_Path: Nave_Trampera_Geo/Weapons/Weapon2
+  - m_Path: "Nave_Trampera_Geo/Weapons/Arp\xF3n_Weapon/Arp\xF3n"
+    m_Weight: 0
+  - m_Path: "Nave_Trampera_Geo/Weapons/Arp\xF3n_Weapon/Base"
+    m_Weight: 0
+  - m_Path: Nave_Trampera_Geo/Weapons/Weapon
     m_Weight: 0
   - m_Path: Nave_Trampera_Rig
     m_Weight: 0
@@ -80,7 +84,7 @@ AvatarMask:
   - m_Path: Nave_Trampera_Rig/Root/Front_acelerar_Frenar_left/Front_Girar_left
     m_Weight: 1
   - m_Path: Nave_Trampera_Rig/Root/Front_acelerar_Frenar_left/Front_Girar_left/Derrape_left
-    m_Weight: 0
+    m_Weight: 1
   - m_Path: Nave_Trampera_Rig/Root/Front_acelerar_Frenar_right
     m_Weight: 0
   - m_Path: Nave_Trampera_Rig/Root/Front_acelerar_Frenar_right/Front_Girar_right
