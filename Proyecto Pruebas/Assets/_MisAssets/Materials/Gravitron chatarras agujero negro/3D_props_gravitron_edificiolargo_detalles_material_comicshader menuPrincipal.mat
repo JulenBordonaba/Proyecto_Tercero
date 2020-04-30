@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3D_ship_scavengerWeapon_material_comicShader_001
+  m_Name: 3D_props_gravitron_edificiolargo_detalles_material_comicshader menuPrincipal
   m_Shader: {fileID: 4800000, guid: 4afb2fb87321fe647840db5fb623fc28, type: 3}
   m_ShaderKeywords: _DETAIL_MULX2 _EMISSION _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP
     _SPECGLOSSMAP
@@ -41,11 +41,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 928fc44345217b84d88d9bfa4707ad91, type: 3}
+        m_Texture: {fileID: 2800000, guid: ca19ed4e1aaf8c74d8da7e3b4003f3fa, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 4f50eddef078e134ea1cb8048e2e932a, type: 3}
+        m_Texture: {fileID: 2800000, guid: 2b971f5018b4ffc42a030b22115cad29, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex2:
@@ -86,7 +86,7 @@ Material:
     - _EnableTexturedOutline: 0
     - _EnableZSmooth: 0
     - _GlossMapScale: 1
-    - _Glossiness: 0.5
+    - _Glossiness: 0
     - _GlossyReflections: 1
     - _Metallic: 0
     - _Mode: 0
@@ -96,21 +96,21 @@ Material:
     - _Opacity: 1
     - _Outline: 3.45
     - _Parallax: 0.05
-    - _RampSmooth: 0
+    - _RampSmooth: 0.28
     - _RampSmoothAdd: 1
-    - _RampThreshold: 0.667
+    - _RampThreshold: 0.384
     - _RimMax: 1
     - _RimMin: 1
     - _RimStrength: 0.5
     - _SketchHalftoneMax: 1
-    - _SketchHalftoneMin: 0
+    - _SketchHalftoneMin: 0.887
     - _SmoothnessTextureChannel: 0
     - _SpecBlend: 1
-    - _SpecSmooth: 0.836
+    - _SpecSmooth: 0.245
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _TexLod: 5
-    - _ThresholdScale: 12
+    - _ThresholdScale: 7.12
     - _ThresholdStrength: 1
     - _UVSec: 0
     - _ZSmooth: -0.5
@@ -119,9 +119,9 @@ Material:
     - __outline_gui_dummy__: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1.9663254, g: 1.9766746, b: 1.9663254, a: 1}
-    - _HColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 1.9999998, g: 1.1308899, b: 0, a: 1}
+    - _HColor: {r: 1, g: 0.8862745, b: 0.84313726, a: 1}
     - _OutlineColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SColor: {r: 0.195, g: 0.195, b: 0.195, a: 1}
-    - _SketchColor: {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+    - _SColor: {r: 0.6117647, g: 0.6117647, b: 0.6117647, a: 1}
+    - _SketchColor: {r: 0.6886792, g: 0.6429641, b: 0.5489943, a: 1}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
