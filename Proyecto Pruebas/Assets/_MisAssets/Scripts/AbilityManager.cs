@@ -10,9 +10,10 @@ public class AbilityManager : Photon.PunBehaviour
     public PasiveAbility pasive;
     [Tooltip("Pon la habilidad del jugador")]
     public HabilidadPersonaje playerAbilityType;
-
-    private PlayerAbility playerAbility;
-    private ShipAbility shipAbility;    //habilidad de la nave
+    [HideInInspector]
+    public PlayerAbility playerAbility;
+    [HideInInspector]
+    public ShipAbility shipAbility;    //habilidad de la nave
     private InputManager inputManager;
 
 

@@ -42,6 +42,13 @@ public class CopyComponents : MonoBehaviour
             }
         }
 
+        PhotonView[] photonviews = GetComponents<PhotonView>();
+
+        for (int i = photonviews.Length-1; i >0; i--)
+        {
+            DestroyImmediate(photonviews[i]);
+        }
+
     }
 #endif
 }

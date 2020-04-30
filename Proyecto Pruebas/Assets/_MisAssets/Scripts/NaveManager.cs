@@ -103,6 +103,15 @@ public class NaveManager : Photon.PunBehaviour
     {
         controller.enabled = false;
         planningManager.enabled = false;
+        GetComponent<AbilityManager>().enabled = false;
+        foreach(Ability ab in GetComponents<Ability>())
+        {
+            ab.enabled = false;
+        }
+        foreach (Combustible com in GetComponents<Combustible>())
+        {
+            com.enabled = false;
+        }
         dash.enabled = false;
         animationManager.enabled = false;
         uiManager.enabled = false;

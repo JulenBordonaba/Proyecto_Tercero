@@ -6,6 +6,8 @@ public class BlackHoleDron : Photon.PunBehaviour
 {
     public float explosionRadius = 20;
 
+    public int explosionFrames = 10;
+
     private Rigidbody rb;
 
     //private List<GameObject> objectsInArea = new List<GameObject>();
@@ -47,7 +49,7 @@ public class BlackHoleDron : Photon.PunBehaviour
             {
                 if(nm.photonView.owner.NickName==PhotonNetwork.player.NickName)
                 {
-                    nm.rb.velocity = Vector3.zero;
+                    
                     StartCoroutine(ExplosionAtraction(nm.gameObject));
                 }
                 
@@ -62,7 +64,7 @@ public class BlackHoleDron : Photon.PunBehaviour
     IEnumerator DestroyObjectOnEndOfAtraction()
     {
 
-        for (int i = 1; i <= 5; i++)
+        for (int i = 1; i <= explosionFrames; i++)
         {
             yield return new WaitForEndOfFrame();
         }
@@ -80,9 +82,10 @@ public class BlackHoleDron : Photon.PunBehaviour
         if (go.GetComponentInParent<PhotonView>().owner.NickName != GetComponentInParent<PhotonView>().owner.NickName)
         {
             Vector3 pos = go.transform.position;
-            for (int i = 1; i <= 5; i++)
+            go.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            for (int i = 1; i <= explosionFrames; i++)
             {
-                go.transform.position = Vector3.Lerp(pos, transform.position, i * 0.2f);
+                go.transform.position = Vector3.Lerp(pos, transform.position, i * 1f/(float)explosionFrames);
                 yield return new WaitForEndOfFrame();
             }
         }

@@ -35,7 +35,7 @@ public class LevitationManager : Photon.PunBehaviour
         animationManager = GetComponent<NaveAnimationManager>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!photonView.isMine) return;
         Levitate();
@@ -102,7 +102,7 @@ public class LevitationManager : Photon.PunBehaviour
 
             if (hit.normal.y > maxSlope)
             {
-                rb.AddForce(-Vector3.up * (1 - hit.normal.y) * levitationForce, ForceMode.Acceleration);
+                rb.AddForce(-Vector3.up * (1 - hit.normal.y) * levitationForce * Time.fixedDeltaTime * 30, ForceMode.Acceleration);
             }
 
 
@@ -117,7 +117,7 @@ public class LevitationManager : Photon.PunBehaviour
 
             if (!Physics.Raycast(ray, out hit, levitationHeight * 2, LayerMask.GetMask("Floor")))
             {
-                rb.AddForce(-Vector3.up * extraFallImpulse * Time.deltaTime, ForceMode.VelocityChange);
+                rb.AddForce(-Vector3.up * extraFallImpulse * Time.fixedDeltaTime, ForceMode.VelocityChange);
 
             }
         }
@@ -135,7 +135,7 @@ public class LevitationManager : Photon.PunBehaviour
             naveManager.isPlanning = true;
             animationManager.plane = true;
             Quaternion interpolation;
-            interpolation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, transform.localEulerAngles.y, 0), Time.deltaTime * upDamping);
+            interpolation = Quaternion.Lerp(transform.localRotation, Quaternion.Euler(0, transform.localEulerAngles.y, 0), Time.fixedDeltaTime * upDamping);
             transform.localRotation = interpolation;
         }
         else
@@ -152,7 +152,7 @@ public class LevitationManager : Photon.PunBehaviour
             //hacemos una interpolación entre la rotación inicial y la final en relación a la distancia al suelo
 
             //interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (1 - ((rayDistance - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance));
-            interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (rayDistance - levitationHeight) < levitationHeight * 0.2f ? Time.deltaTime * damping : (1 - ((rayDistance - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance));
+            interpolation = Quaternion.Lerp(quaternionRot, quatNewRot, (rayDistance - levitationHeight) < levitationHeight * 0.2f ? Time.fixedDeltaTime * damping : (1 - ((rayDistance - levitationHeight) / startCorrectionHeight)) * (1 / rayDistance));
 
             //igualamos la rotación a el resultado de la interpolación
             transform.localRotation = interpolation;

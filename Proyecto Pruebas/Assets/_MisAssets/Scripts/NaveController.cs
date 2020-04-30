@@ -72,7 +72,7 @@ public class NaveController : MonoBehaviour
         maneuverability = GetComponent<Maneuverability>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         //print("Velocity: " + VelocityFormula);
         print("Position Velocity: " + PositionFormula);
@@ -122,7 +122,7 @@ public class NaveController : MonoBehaviour
         animationManager.move = locVel.z != 0;
         //depende de la velocidad la camara esta mas o menos cerca del coche
         //myCamera.gameObject.GetComponent<CameraController>().velocityOffset = new Vector3(0, 0, Mathf.Clamp(locVel.z / (GetComponent<Maneuverability>().currentVelocity / 15), minCameraOffset, maxCameraOffset));
-        myCamera.fieldOfView = Mathf.Lerp(myCamera.fieldOfView, fieldOfView + Mathf.Clamp(locVel.z * (inBoost ? 2 : 1) / 15f, 0f, 80f), Time.deltaTime);
+        myCamera.fieldOfView = Mathf.Lerp(myCamera.fieldOfView, fieldOfView + Mathf.Clamp(locVel.z * (inBoost ? 2 : 1) / 15f, 0f, 80f), Time.fixedDeltaTime);
 
         //print("Velocidad: " + new Vector2(locVel.x, locVel.z).magnitude);
 
@@ -152,7 +152,7 @@ public class NaveController : MonoBehaviour
             {
                 if (locVel.z < 0) // si estas moviendote hacia atras y quieres ir hacia adelante se ayuda a parar el vehiculo
                 {
-                    locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction)));
+                    locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction*Time.fixedDeltaTime)));
                 }
                 if (inDrift)    //si la nave esta derrapando
                 {
@@ -163,11 +163,11 @@ public class NaveController : MonoBehaviour
                             locVel.x = 0;
                         }
                         //impulso hacia delante, más pequeño que cuando no esta derrapando
-                        rb.AddForce(modelTransform.forward * 0.2f * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(modelTransform.forward * 0.2f * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * Time.fixedDeltaTime, ForceMode.VelocityChange);
                         //impulso lateral hacia el lado contrario que se esta girando
                         Quaternion rot = modelTransform.rotation;
                         modelTransform.rotation = Quaternion.Euler(modelTransform.eulerAngles.x, modelTransform.eulerAngles.y, 0);
-                        rb.AddForce(-modelTransform.right * driftVelocity * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(-modelTransform.right * driftVelocity * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * Time.fixedDeltaTime, ForceMode.VelocityChange);
                         modelTransform.rotation = rot;
                     }
                     else if (inputManager.MainHorizontal() < 0)   //si esta girando hacia la izquierda
@@ -177,11 +177,11 @@ public class NaveController : MonoBehaviour
                             locVel.x = 0;
                         }
                         //impulso hacia delante, más pequeño que cuando no esta derrapando
-                        rb.AddForce(modelTransform.forward * 0.2f * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(modelTransform.forward * 0.2f * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * Time.fixedDeltaTime, ForceMode.VelocityChange);
                         //impulso lateral hacia el lado contrario que se esta girando
                         Quaternion rot = modelTransform.rotation;
                         modelTransform.rotation = Quaternion.Euler(modelTransform.eulerAngles.x, modelTransform.eulerAngles.y, 0);
-                        rb.AddForce(modelTransform.right * driftVelocity * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * Time.deltaTime, ForceMode.VelocityChange);
+                        rb.AddForce(modelTransform.right * driftVelocity * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * Time.fixedDeltaTime, ForceMode.VelocityChange);
                         modelTransform.rotation = rot;
                     }
                     else
@@ -193,7 +193,7 @@ public class NaveController : MonoBehaviour
                 else
                 {
 
-                    rb.AddForce(modelTransform.forward * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * Time.deltaTime, ForceMode.VelocityChange); //fuerza para moverte hacia adelante
+                    rb.AddForce(modelTransform.forward * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * Time.fixedDeltaTime, ForceMode.VelocityChange); //fuerza para moverte hacia adelante
                 }
 
 
@@ -203,9 +203,9 @@ public class NaveController : MonoBehaviour
             {
                 if (locVel.z > 0)// si estas moviendote hacia adelante y quieres ir hacia atras se ayuda a parar el vehiculo
                 {
-                    locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction * Time.deltaTime)));
+                    locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction * Time.fixedDeltaTime)));
                 }
-                rb.AddForce(modelTransform.forward * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * backwardVelocity * Time.deltaTime, ForceMode.VelocityChange); // fuerza para moverte hacia atras
+                rb.AddForce(modelTransform.forward * inputManager.Accelerate() * hit.normal.y * naveManager.Acceleration * backwardVelocity * Time.fixedDeltaTime, ForceMode.VelocityChange); // fuerza para moverte hacia atras
 
             }
 
@@ -215,11 +215,11 @@ public class NaveController : MonoBehaviour
 
             if (locVel.z >= -0.2f)
             {
-                modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y + (inputManager.MainHorizontal() * naveManager.Maneuver * Time.deltaTime), modelTransform.localRotation.eulerAngles.z);
+                modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y + (inputManager.MainHorizontal() * naveManager.Maneuver * Time.fixedDeltaTime), modelTransform.localRotation.eulerAngles.z);
             }
             else if (locVel.z < -0.2f)
             {
-                modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y - (inputManager.MainHorizontal() * naveManager.Maneuver * Time.deltaTime), modelTransform.localRotation.eulerAngles.z);
+                modelTransform.localRotation = Quaternion.Euler(modelTransform.localRotation.eulerAngles.x, modelTransform.localRotation.eulerAngles.y - (inputManager.MainHorizontal() * naveManager.Maneuver * Time.fixedDeltaTime), modelTransform.localRotation.eulerAngles.z);
             }
 
 
@@ -233,13 +233,13 @@ public class NaveController : MonoBehaviour
                 }
                 else
                 {
-                    cameraController.cameraDampingMultiplayer = Mathf.Lerp(cameraController.cameraDampingMultiplayer, 1f, Time.deltaTime);
+                    cameraController.cameraDampingMultiplayer = Mathf.Lerp(cameraController.cameraDampingMultiplayer, 1f, Time.fixedDeltaTime);
                     inDrift = false;
                 }
             }
             else
             {
-                cameraController.cameraDampingMultiplayer = Mathf.Lerp(cameraController.cameraDampingMultiplayer, 1f, Time.deltaTime);
+                cameraController.cameraDampingMultiplayer = Mathf.Lerp(cameraController.cameraDampingMultiplayer, 1f, Time.fixedDeltaTime);
                 inDrift = false;
             }
 
@@ -247,7 +247,7 @@ public class NaveController : MonoBehaviour
             //si no se estan pulsando las teclas que hacen moverse al vehiculo
             if (!AnyMovementKeys)
             {
-                locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction * Time.deltaTime))); //se ralentiza el vehiculo
+                locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction * Time.fixedDeltaTime))); //se ralentiza el vehiculo
                 //locVel = new Vector3(locVel.x, locVel.y, locVel.z - locVel.z * 0.02f);
                 if (Mathf.Abs(locVel.z) < 2f)
                 {
@@ -277,12 +277,12 @@ public class NaveController : MonoBehaviour
         //rotación lateral al girar
         try
         {
-            modelTransform.localEulerAngles = new Vector3(modelTransform.localEulerAngles.x, modelTransform.localEulerAngles.y, Mathf.LerpAngle(modelTransform.localEulerAngles.z, Mathf.Clamp(maxInclination * -inputManager.MainHorizontal() * (rb.velocity.magnitude / VelocityFormula) * (GetComponent<Maneuverability>().currentManeuver / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping));
+            modelTransform.localEulerAngles = new Vector3(modelTransform.localEulerAngles.x, modelTransform.localEulerAngles.y, Mathf.LerpAngle(modelTransform.localEulerAngles.z, Mathf.Clamp(maxInclination * -inputManager.MainHorizontal() * (rb.velocity.magnitude / VelocityFormula) * (GetComponent<Maneuverability>().currentManeuver / 100), -maxInclination, maxInclination), Time.fixedDeltaTime * rotationDamping));
 
         }
         catch
         {
-            print("ángulo que falla: " + new Vector3(modelTransform.localEulerAngles.x, modelTransform.localEulerAngles.y, Mathf.LerpAngle(modelTransform.localEulerAngles.z, Mathf.Clamp(maxInclination * -inputManager.MainHorizontal() * (rb.velocity.magnitude / VelocityFormula) * (GetComponent<Maneuverability>().currentManeuver / 100), -maxInclination, maxInclination), Time.deltaTime * rotationDamping)));
+            print("ángulo que falla: " + new Vector3(modelTransform.localEulerAngles.x, modelTransform.localEulerAngles.y, Mathf.LerpAngle(modelTransform.localEulerAngles.z, Mathf.Clamp(maxInclination * -inputManager.MainHorizontal() * (rb.velocity.magnitude / VelocityFormula) * (GetComponent<Maneuverability>().currentManeuver / 100), -maxInclination, maxInclination), Time.fixedDeltaTime * rotationDamping)));
 
         }
 
@@ -328,7 +328,7 @@ public class NaveController : MonoBehaviour
 
     private void ApplyTurbo()
     {
-        GetComponent<Rigidbody>().AddForce(modelTransform.forward * GetComponent<Turbo>().impulse * maneuverability.currentBoost, ForceMode.Acceleration);
+        GetComponent<Rigidbody>().AddForce(modelTransform.forward * GetComponent<Turbo>().impulse * maneuverability.currentBoost * Time.fixedDeltaTime * 30, ForceMode.Acceleration);
     }
 
     public bool AnyMovementKeys

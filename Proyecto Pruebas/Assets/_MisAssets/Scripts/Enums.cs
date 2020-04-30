@@ -12,6 +12,11 @@ public enum TipoNave
     Scavenger,Summoner, Trapper, Hacker, Tank
 }
 
+public enum AbilityType
+{
+    Player, Ship
+}
+
 public enum HabilidadPersonaje
 {
     ScavengerAbility, SummonerAbility, TrapperAbility, HackerAbility, TankAbility

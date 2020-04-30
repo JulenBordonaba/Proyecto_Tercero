@@ -47,7 +47,7 @@ public class PlanningManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         LimitateFallVelocity();
@@ -66,12 +66,12 @@ public class PlanningManager : MonoBehaviour
             //si el ángulo esta dentro del límite establecido y se tocan las teclas la nave se rota
             if ((xRotation <= maxXAngle + 0.1f && xRotation >= 0) || (xRotation <= 360 && xRotation >= 360 - 0.1f + minXAngle))
             {
-                xRotation += inputManager.MainVertical() * Time.deltaTime * xSensivility * (verticalInverted ? -1 : 1);
+                xRotation += inputManager.MainVertical() * Time.fixedDeltaTime * xSensivility * (verticalInverted ? -1 : 1);
                 xRotation = Global.ClampAngle(xRotation, minXAngle, maxXAngle);
             }
             if ((zRotation <= maxZAngle + 0.1f && zRotation >= 0) || (zRotation <= 360 && zRotation >= 360 - 0.1f + minZAngle))
             {
-                zRotation -= inputManager.MainHorizontal() * Time.deltaTime * zSensivility;
+                zRotation -= inputManager.MainHorizontal() * Time.fixedDeltaTime * zSensivility;
                 zRotation = Global.ClampAngle(zRotation, minZAngle, maxZAngle);
             }
         }
@@ -81,7 +81,7 @@ public class PlanningManager : MonoBehaviour
         //si no se estan tocando las teclas la rotación vuelve a 0
         if (inputManager.MainHorizontal() == 0 || !naveManager.isPlanning)
         {
-            zRotation = Mathf.LerpAngle(zRotation, 0, Time.deltaTime);
+            zRotation = Mathf.LerpAngle(zRotation, 0, Time.fixedDeltaTime);
         }
 
 
@@ -89,12 +89,12 @@ public class PlanningManager : MonoBehaviour
         {
             if (inputManager.MainVertical() == 0)
             {
-                xRotation = Mathf.LerpAngle(xRotation, defaultXRotation, Time.deltaTime);
+                xRotation = Mathf.LerpAngle(xRotation, defaultXRotation, Time.fixedDeltaTime);
             }
         }
         else
         {
-            xRotation = Mathf.LerpAngle(xRotation, 0, Time.deltaTime);
+            xRotation = Mathf.LerpAngle(xRotation, 0, Time.fixedDeltaTime);
         }
 
 
@@ -106,7 +106,7 @@ public class PlanningManager : MonoBehaviour
         if (naveManager.isPlanning)
         {
             //añadimos la fuerza hacia delante
-            rb.AddForce(controller.modelTransform.forward * naveManager.Acceleration * Mathf.Clamp01(inputManager.Accelerate()) * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(controller.modelTransform.forward * naveManager.Acceleration * Mathf.Clamp01(inputManager.Accelerate()) * Time.fixedDeltaTime, ForceMode.VelocityChange);
 
 
             //movimiento lateral
@@ -115,9 +115,9 @@ public class PlanningManager : MonoBehaviour
             //print(lateralForce);
             rb.AddForce(controller.modelTransform.right * lateralVelocity * inputManager.MainHorizontal());
 
-            rb.AddForce(lateralForce * inputManager.MainHorizontal() * lateralVelocity * naveManager.Acceleration * Time.deltaTime, ForceMode.VelocityChange);
+            rb.AddForce(lateralForce * inputManager.MainHorizontal() * lateralVelocity * naveManager.Acceleration * Time.fixedDeltaTime, ForceMode.VelocityChange);
             //girar
-            controller.modelTransform.localRotation = Quaternion.Euler(controller.modelTransform.localRotation.eulerAngles.x, controller.modelTransform.localRotation.eulerAngles.y + (inputManager.MainHorizontal() * naveManager.Maneuver * maneuverLimitator * Time.deltaTime), controller.modelTransform.localRotation.eulerAngles.z);
+            controller.modelTransform.localRotation = Quaternion.Euler(controller.modelTransform.localRotation.eulerAngles.x, controller.modelTransform.localRotation.eulerAngles.y + (inputManager.MainHorizontal() * naveManager.Maneuver * maneuverLimitator * Time.fixedDeltaTime), controller.modelTransform.localRotation.eulerAngles.z);
 
             RegulateVelocity();
         }

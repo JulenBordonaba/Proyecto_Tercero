@@ -7,8 +7,10 @@ public class Ability : Photon.PunBehaviour
 {
     [Tooltip("Pon el cooldown de la habilidad")]
     public float cooldown;
+    [HideInInspector]
+    public float currentCooldown=0f;
 
-    protected bool inCooldown = false;  //variable que controla cuando esta la habilidad en cooldown
+    public bool inCooldown = false;  //variable que controla cuando esta la habilidad en cooldown
 
     public EffectManager effectManager;
 
@@ -20,7 +22,13 @@ public class Ability : Photon.PunBehaviour
 
     public IEnumerator Cooldown(float _cooldown)
     {
-        yield return new WaitForSeconds(_cooldown);
+        currentCooldown = _cooldown;
+        while(currentCooldown>0)
+        {
+            currentCooldown -= Time.deltaTime;
+            yield return null;
+        }
+        //yield return new WaitForSeconds(_cooldown);
         inCooldown = false;
     }
 
