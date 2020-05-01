@@ -180,7 +180,7 @@ public class InputManager : MonoBehaviour
     
     public float InverseValue
     {
-        get { return effectManager.InvertControls ? -1f : 1f; }
+        get { return effectManager==null? 1 :(effectManager.InvertControls ? -1f : 1f); }
     }
     
 

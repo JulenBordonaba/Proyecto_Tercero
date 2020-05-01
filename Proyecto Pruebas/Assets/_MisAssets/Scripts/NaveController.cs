@@ -358,12 +358,12 @@ public class NaveController : MonoBehaviour
 
     public float PositionFormula
     {
-        get { return Mathf.Clamp((Position) * positionConst, minPositionBonus, maxPositionBonus); }
+        get { return Mathf.Clamp((Position()) * positionConst, minPositionBonus, maxPositionBonus); }
     }
 
     public float AccelerationFormula
     {
-        get { return Mathf.Clamp(Position * positionConst * 0.5f, 0, 50); }
+        get { return Mathf.Clamp(Position() * positionConst * 0.5f, 0, 50); }
     }
 
     public float HealthFormula
@@ -376,8 +376,13 @@ public class NaveController : MonoBehaviour
         get { return (nucleo.currentHealth / GetComponent<Stats>().life) * 100; }
     }
 
-    public float Position   //devuelve la distancia de la nave respecto al primero de la carrera
+    public float Position()   //devuelve la distancia de la nave respecto al primero de la carrera
     {
-        get { return (naveManager.DistanceToNextCheckpoint-GameManager.current.first.DistanceToNextCheckpoint); }
+        if(!GameManager.current.first)
+        {
+            return 0f;
+        }
+
+        return (naveManager.DistanceToNextCheckpoint-GameManager.current.first.DistanceToNextCheckpoint); 
     }
 }

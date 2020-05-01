@@ -50,9 +50,9 @@ public class NaveManager : Photon.PunBehaviour
     
     private bool fuelInLeft = false;
     private bool fuelInRight = false;
-    
 
-    public void Start()
+
+    private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         inputManager = GetComponent<InputManager>();
@@ -63,8 +63,13 @@ public class NaveManager : Photon.PunBehaviour
         dash = GetComponent<Dash>();
         animationManager = GetComponent<NaveAnimationManager>();
         uiManager = GetComponent<UIManager>();
-        trailColor = new SynchronizableColor();
         effectManager = GetComponent<EffectManager>();
+    }
+
+    public void Start()
+    {
+        
+        trailColor = new SynchronizableColor();
 
 
         AddPieceStats();
@@ -418,27 +423,27 @@ public class NaveManager : Photon.PunBehaviour
 
     public float DamageReduction
     {
-        get { return stats.damageReduction + effectManager.DamageReduction; }
+        get { return stats.damageReduction + (effectManager ? effectManager.DamageReduction : 0); }
     }
 
     public float Acceleration
     {
-        get { return maneuverability.AccelerationWithWeight + controller.AccelerationFormula + effectManager.Acceleration; }
+        get { return maneuverability.AccelerationWithWeight + controller.AccelerationFormula + (effectManager ? effectManager.Acceleration : 0); }
     }
 
     public float Velocity
     {
-        get { return maneuverability.MaxVelocity + effectManager.Velocity; }
+        get { return maneuverability.MaxVelocity + (effectManager ? effectManager.Velocity : 0); }
     }
 
     public float Maneuver
     {
-        get { return maneuverability.currentManeuver + effectManager.Maneuver; }
+        get { return maneuverability.currentManeuver + (effectManager?effectManager.Maneuver:0); }
     }
 
     public float ShotDamage
     {
-        get { return stats.shotDamage + effectManager.ShotDamage; }
+        get { return stats.shotDamage + (effectManager ? effectManager.ShotDamage : 0); }
     }
 
 

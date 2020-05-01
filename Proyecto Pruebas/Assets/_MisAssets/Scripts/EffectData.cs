@@ -6,8 +6,14 @@ using UnityEngine;
 public class EffectData : ScriptableObject
 {
     public string id;
+    [HideInInspector]
     public Coroutine durationCoroutine;
     public float duration;
+    public Sprite icon;
+    [HideInInspector]
+    public EffectIcon effectIcon;
+    [HideInInspector]
+    public float currentDuration = 0;
     public float damageReduction;
     public float slow;
     public float velocity;
@@ -20,6 +26,8 @@ public class EffectData : ScriptableObject
     public bool silenceAbilities = false;
     [Tooltip("Impide usar las combustibles")]
     public bool silenceFuels = false;
+    [Tooltip("Activar si el efecto no es permanente")]
+    public bool permanent = false;
     public DOT dot = new DOT();
 
     #region PhotonSerialize

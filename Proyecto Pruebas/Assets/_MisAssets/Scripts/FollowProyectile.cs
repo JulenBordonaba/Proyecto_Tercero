@@ -68,7 +68,7 @@ public class FollowProyectile : Photon.PunBehaviour
 
     private void Redirect()
     {
-        direction = Vector3.Lerp(direction, (target.position - transform.position).normalized, Time.deltaTime * trayectoryCorrection).normalized;
+        direction = Vector3.Lerp(direction, (target.position - transform.position).normalized, TargetDistance<20? 1 : Time.deltaTime * trayectoryCorrection).normalized;
         Debug.DrawRay(transform.position, direction * 1000, Color.blue);
     }
 
@@ -77,6 +77,10 @@ public class FollowProyectile : Photon.PunBehaviour
         transform.Translate(direction * velocity * Time.deltaTime, Space.World);
     }
 
+    float TargetDistance
+    {
+        get { return Vector3.Distance(transform.position, target.position); }
+    }
 
     private void IncreaseVelocity()
     {

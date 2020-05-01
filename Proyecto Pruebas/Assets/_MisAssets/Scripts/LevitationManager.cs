@@ -21,6 +21,7 @@ public class LevitationManager : Photon.PunBehaviour
     [Tooltip("Pon las layers con las que puede colisionar el linecast para definir el origen del raycast y que no se quede encallado en otros objetos, pon las layers de los objetos")]
     [Range(0f, 1f)]
     public float maxSlope = 0.66f;
+    public float slopePenalization = 50f;
 
     private Rigidbody rb;   //rigidbody de la nave
     private NaveController controller;
@@ -102,7 +103,7 @@ public class LevitationManager : Photon.PunBehaviour
 
             if (hit.normal.y > maxSlope)
             {
-                rb.AddForce(-Vector3.up * (1 - hit.normal.y) * levitationForce * Time.fixedDeltaTime * 30, ForceMode.Acceleration);
+                rb.AddForce(-Vector3.up * (1 - hit.normal.y) * slopePenalization * Time.fixedDeltaTime * 30, ForceMode.Acceleration);
             }
 
 

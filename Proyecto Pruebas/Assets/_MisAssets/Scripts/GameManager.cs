@@ -276,14 +276,14 @@ public class GameManager : Photon.PunBehaviour
         {
             foreach(NaveManager nm in navesList)
             {
-                nm.effectManager.StartEffect(efectoChachi.id);
+                nm.photonView.RPC("StartEffect", PhotonTargets.All, efectoChachi.id);
             }
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
             foreach (NaveManager nm in navesList)
             {
-                nm.effectManager.StopEffect(efectoChachi.id);
+                nm.photonView.RPC("StopPermanentEffect", PhotonTargets.All, efectoChachi.id);
             }
         }
     }

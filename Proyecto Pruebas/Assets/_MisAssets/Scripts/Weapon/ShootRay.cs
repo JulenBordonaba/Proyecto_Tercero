@@ -136,7 +136,14 @@ public class ShootRay : ShootWeapon
             {
                 if (other.GetComponentInParent<PhotonView>())
                 {
-                    other.GetComponentInParent<NaveManager>().TakeDamage( GetComponentInParent<NaveManager>().ShotDamage, true, other.GetComponentInParent<DamageManager>().damagedObject.ToString(), other.GetComponentInParent<DamageManager>().gameObject.GetComponent<PhotonView>().owner.NickName);
+                    if(other.GetComponentInParent<NaveManager>())
+                    {
+                        other.GetComponentInParent<NaveManager>().TakeDamage(GetComponentInParent<NaveManager>().ShotDamage, true, other.GetComponentInParent<DamageManager>().damagedObject.ToString(), other.GetComponentInParent<DamageManager>().gameObject.GetComponent<PhotonView>().owner.NickName);
+                    }
+                    else
+                    {
+                        other.GetComponent<PhotonView>().RPC("TakeDamage", PhotonTargets.All, GetComponentInParent<NaveManager>().ShotDamage, true);
+                    }
                 }
             }
         }

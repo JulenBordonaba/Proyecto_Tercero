@@ -1,12 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EffectManager : Photon.PunBehaviour
 {
     public List<DamageManager> damageManagers = new List<DamageManager>();
 
+    public GameObject iconPrefab;
+
+    public GameObject iconContainer;
+
     public List<EffectData> activeEffects = new List<EffectData>();
+
+    
 
     private InputManager inputManager;
 
@@ -19,9 +26,26 @@ public class EffectManager : Photon.PunBehaviour
 
     private void Update()
     {
-        //print(DamageReduction);
+        foreach(EffectData ed in activeEffects)
+        {
+            ShowEffectTime(ed);
+        }
     }
     
+    void ShowEffectTime(EffectData ed)
+    {
+        if (!ed.effectIcon) return;
+        if(ed.permanent)
+        {
+            ed.effectIcon.durationText.text = "";
+            return;
+        }
+        if(!ed.effectIcon.durationText)
+        {
+            ed.effectIcon.durationText = ed.effectIcon.gameObject.GetComponentInChildren<TextMeshProUGUI>();
+        }
+        ed.effectIcon.durationText.text = Mathf.FloorToInt(ed.currentDuration).ToString();
+    }
 
     [PunRPC]
     public void StartEffect(string _effect)
@@ -34,6 +58,10 @@ public class EffectManager : Photon.PunBehaviour
             StopCoroutine( _ed.durationCoroutine);
             _ed.durationCoroutine = null;
             _ed.durationCoroutine = StartCoroutine(EffectDuration(_ed));
+            if(!_ed.effectIcon)
+            {
+                CreateIcon(_ed);
+            }
             print("resetea tiempo");
         }
         else
@@ -42,10 +70,18 @@ public class EffectManager : Photon.PunBehaviour
             activeEffects.Add(ed);
             ed.dot.dotEffect = StartCoroutine(DOTEffect(ed.dot));
             ed.durationCoroutine = StartCoroutine(EffectDuration(ed));
+            CreateIcon(ed);
         }
 
 
 
+    }
+
+    void CreateIcon(EffectData ed)
+    {
+        EffectIcon newIcon = Instantiate(iconPrefab, iconContainer.transform).GetComponent<EffectIcon>();
+        newIcon.icon.sprite = ed.icon;
+        ed.effectIcon = newIcon;
     }
 
     EffectData GetEffectByID(string _id)
@@ -75,14 +111,55 @@ public class EffectManager : Photon.PunBehaviour
         return false;
     }
 
+    [PunRPC]
     public void StopEffect(string ed)
     {
         print("Para el efecto");
         if (CheckEffect(ed))
         {
             EffectData _ed = GetActiveEffectByID(ed);
+
+            //si es permanente no se puede borrar
+            if (_ed.permanent) return;
+
+            //se quita el efecto de los efectos activos
             activeEffects.Remove(_ed);
+
+            //borar icono
+            if(_ed.effectIcon)
+            {
+                Destroy(_ed.effectIcon.gameObject);
+                _ed.effectIcon = null;
+            }
+
+            //se para el dot en caso de que lo haya
             if(_ed.dot.dotEffect!=null)
+            {
+                StopCoroutine(_ed.dot.dotEffect);
+            }
+        }
+    }
+
+    [PunRPC]
+    public void StopPermanentEffect(string ed)
+    {
+        print("Para el efecto");
+        if (CheckEffect(ed))
+        {
+            EffectData _ed = GetActiveEffectByID(ed);
+            
+            //se quita el efecto de los efectos activos
+            activeEffects.Remove(_ed);
+
+            //borar icono
+            if (_ed.effectIcon)
+            {
+                Destroy(_ed.effectIcon.gameObject);
+                _ed.effectIcon = null;
+            }
+
+            //se para el dot en caso de que lo haya
+            if (_ed.dot.dotEffect != null)
             {
                 StopCoroutine(_ed.dot.dotEffect);
             }
@@ -102,8 +179,23 @@ public class EffectManager : Photon.PunBehaviour
 
     IEnumerator EffectDuration(EffectData ed)
     {
-        yield return new WaitForSeconds(ed.duration);
-        StopEffect(ed.id);
+        if(!ed.permanent)
+        {
+            ed.currentDuration = ed.duration;
+            while(ed.currentDuration>0)
+            {
+                ed.currentDuration -= Time.deltaTime;
+                yield return null;
+            }
+            StopEffect(ed.id);
+        }
+        else
+        {
+            while(true)
+            {
+                yield return null;
+            }
+        }
     }
 
     IEnumerator DOTEffect(DOT dot)
