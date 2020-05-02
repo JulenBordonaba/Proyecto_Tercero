@@ -192,10 +192,13 @@ public class EffectManager : Photon.PunBehaviour
         }
         else
         {
-            while(true)
+            ed.currentDuration = Mathf.Infinity;
+            while (ed.currentDuration > 0)
             {
+                ed.currentDuration -= Time.deltaTime;
                 yield return null;
             }
+            StopEffect(ed.id);
         }
     }
 
