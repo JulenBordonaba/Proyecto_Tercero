@@ -16,12 +16,13 @@ public class FollowProyectile : Photon.PunBehaviour
 
     private Vector3 direction;
     private Transform target;
+    private Rigidbody rb;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -74,7 +75,7 @@ public class FollowProyectile : Photon.PunBehaviour
 
     private void Move()
     {
-        transform.Translate(direction * velocity * Time.deltaTime, Space.World);
+        rb.MovePosition(rb.position + (direction * velocity * Time.deltaTime));
     }
 
     float TargetDistance

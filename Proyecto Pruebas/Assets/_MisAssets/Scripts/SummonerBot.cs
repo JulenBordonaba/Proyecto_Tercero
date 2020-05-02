@@ -61,12 +61,12 @@ public class SummonerBot : Photon.PunBehaviour
         transform.parent.Translate(direction * velocity * Time.fixedDeltaTime, Space.World);
     }
 
-    
+
 
     private void OnTriggerStay(Collider other)
     {
         if (inShot) return;
-        if(other.gameObject.tag=="NaveCentre")
+        if (other.gameObject.tag == "NaveCentre")
         {
 
             if (other.gameObject.GetComponentInParent<PhotonView>().owner.NickName != GetComponentInParent<PhotonView>().owner.NickName)
@@ -82,17 +82,18 @@ public class SummonerBot : Photon.PunBehaviour
                 //{
                 //    if (((1 << hit.transform.gameObject.layer) & hitLayers) != 0)
                 //    {
-                        direction = (other.transform.position - transform.position).normalized;
-                        animator.enabled = false;
-                        inShot = true;
-                        objective = other.transform;
-                        transform.parent.parent.SetParent(null);
-                        GetComponentInParent<SummonerBotCollision>().inShot = true;
-                        //Time.timeScale = 0.1f;
+                direction = (other.transform.position - transform.position).normalized;
+                animator.enabled = false;
+                inShot = true;
+                objective = other.transform;
+                transform.parent.parent.SetParent(null);
+                GetComponentInParent<SummonerBotCollision>().inShot = true;
+                transform.parent.parent.GetComponent<Collider>().enabled = false;
+                //Time.timeScale = 0.1f;
                 //    }
                 //}
             }
         }
     }
-    
+
 }

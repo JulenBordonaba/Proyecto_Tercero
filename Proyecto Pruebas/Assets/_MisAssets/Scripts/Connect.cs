@@ -16,6 +16,7 @@ public class Connect : Photon.PunBehaviour
     public GameObject loadingCanvas;
 
     private EventSystem evt;
+    private string nextScene = "";
 
     RoomOptions roomOptions;
 
@@ -85,7 +86,7 @@ public class Connect : Photon.PunBehaviour
     {
         //SceneManager.LoadScene("Blocking Nivel");
         loadingCanvas.SetActive(true);
-        PhotonNetwork.LoadLevel("Blocking Nivel Pruebas Terrenos");
+        PhotonNetwork.LoadLevel(nextScene);
     }
 
     public override void OnConnectedToPhoton()
@@ -103,10 +104,12 @@ public class Connect : Photon.PunBehaviour
         EnableMenu();
     }
 
-    public void JoinPrivateRoom()
+    public void JoinPrivateRoom(string _nextScene)
     {
         if (!joinedLobby) return;
         RoomOptions ops;
+
+        nextScene = _nextScene;
 
         ops = new RoomOptions();
 
@@ -122,11 +125,11 @@ public class Connect : Photon.PunBehaviour
         PhotonNetwork.CreateRoom(null, ops, TypedLobby.Default, teamIDs.ToArray());
     }
 
-    public void JoinPublicRoom()
+    public void JoinPublicRoom(string _nextScene)
     {
         if (!joinedLobby) return;
 
-        
+        nextScene = _nextScene;
 
         roomOptions = new RoomOptions();
 
@@ -142,6 +145,32 @@ public class Connect : Photon.PunBehaviour
 
         //PhotonNetwork.JoinOrCreateRoom("Pruebas", ops, TypedLobby.Default);
     }
+
+    public void JoinPruebasRoom(string _nextScene)
+    {
+        if (!joinedLobby) return;
+
+        nextScene = _nextScene;
+
+        Global.onePlayer = true;
+
+        roomOptions = new RoomOptions();
+
+        roomOptions.MaxPlayers = (byte)20;
+        roomOptions.IsVisible = true;
+        roomOptions.IsOpen = true;
+
+        if (!PhotonNetwork.JoinRandomRoom())
+        {
+            print("crea sala");
+
+        }
+
+        //PhotonNetwork.JoinOrCreateRoom("Pruebas", ops, TypedLobby.Default);
+    }
+
+
+
 
     public override void OnPhotonCreateRoomFailed(object[] codeAndMsg)
     {

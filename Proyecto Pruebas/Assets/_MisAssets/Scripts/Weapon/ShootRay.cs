@@ -142,7 +142,7 @@ public class ShootRay : ShootWeapon
                     }
                     else
                     {
-                        other.GetComponent<PhotonView>().RPC("TakeDamage", PhotonTargets.All, GetComponentInParent<NaveManager>().ShotDamage, true);
+                        other.GetComponentInParent<PhotonView>().RPC("TakeDamage", PhotonTargets.All, GetComponentInParent<NaveManager>().ShotDamage, true);
                     }
                 }
             }

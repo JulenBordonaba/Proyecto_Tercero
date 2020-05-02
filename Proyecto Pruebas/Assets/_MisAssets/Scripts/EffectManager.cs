@@ -126,7 +126,7 @@ public class EffectManager : Photon.PunBehaviour
             activeEffects.Remove(_ed);
 
             //borar icono
-            if(_ed.effectIcon)
+            if(_ed.effectIcon!=null)
             {
                 Destroy(_ed.effectIcon.gameObject);
                 _ed.effectIcon = null;
@@ -154,6 +154,7 @@ public class EffectManager : Photon.PunBehaviour
             //borar icono
             if (_ed.effectIcon)
             {
+                print("Destruye icono");
                 Destroy(_ed.effectIcon.gameObject);
                 _ed.effectIcon = null;
             }
