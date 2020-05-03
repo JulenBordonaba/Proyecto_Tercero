@@ -9,7 +9,6 @@ public class UISelect : EventTrigger
     {
         base.OnSelect(eventData);
         // Call methods when the UI element is selected
-        //GetComponent<Animator>().SetTrigger("Selected");
         GetComponent<Animator>().SetBool("Selected",true);
     }
 
@@ -17,7 +16,6 @@ public class UISelect : EventTrigger
     {
         base.OnDeselect(eventData);
         // Call methods when the UI element is deselected
-        //GetComponent<Animator>().ResetTrigger("Selected");
         GetComponent<Animator>().SetBool("Selected",false);
     }
 }
