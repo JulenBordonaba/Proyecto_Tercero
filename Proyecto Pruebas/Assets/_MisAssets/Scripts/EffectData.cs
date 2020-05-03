@@ -6,14 +6,8 @@ using UnityEngine;
 public class EffectData : ScriptableObject
 {
     public string id;
-    [HideInInspector]
-    public Coroutine durationCoroutine;
     public float duration;
     public Sprite icon;
-    [HideInInspector]
-    public EffectIcon effectIcon;
-    [HideInInspector]
-    public float currentDuration = 0;
     public float damageReduction;
     public float slow;
     public float velocity;

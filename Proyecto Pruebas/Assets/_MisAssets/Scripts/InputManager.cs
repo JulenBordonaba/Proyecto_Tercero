@@ -94,7 +94,7 @@ public class InputManager : MonoBehaviour
     //botón que activa el dash izquierdo
     public bool LeftDash()
     {
-        return Input.GetButtonDown((effectManager.InvertControls ? "PCRightDash":"PCLeftDash") + numPlayer.ToString()) || Input.GetButtonDown((effectManager.InvertControls ? "PS4RightDash" : "PS4LeftDash") + numPlayer.ToString());
+        return Input.GetButtonDown((effectManager? "PCLeftDash" : (effectManager.InvertControls ? "PCRightDash":"PCLeftDash")) + numPlayer.ToString()) || Input.GetButtonDown((effectManager? "PS4LeftDash" : (effectManager.InvertControls ? "PS4RightDash" : "PS4LeftDash")) + numPlayer.ToString());
     }
 
     //botón para cambiar de cámara

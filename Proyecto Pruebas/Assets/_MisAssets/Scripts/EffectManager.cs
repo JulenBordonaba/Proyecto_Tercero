@@ -13,7 +13,7 @@ public class EffectManager : Photon.PunBehaviour
 
     public List<EffectData> activeEffects = new List<EffectData>();
 
-    
+    public List<EffectIcon> activeIcons = new List<EffectIcon>();
 
     private InputManager inputManager;
 
@@ -23,29 +23,8 @@ public class EffectManager : Photon.PunBehaviour
     {
         effects = Resources.LoadAll<EffectData>("Data/Effects");
     }
-
-    private void Update()
-    {
-        foreach(EffectData ed in activeEffects)
-        {
-            ShowEffectTime(ed);
-        }
-    }
     
-    void ShowEffectTime(EffectData ed)
-    {
-        if (!ed.effectIcon) return;
-        if(ed.permanent)
-        {
-            ed.effectIcon.durationText.text = "";
-            return;
-        }
-        if(!ed.effectIcon.durationText)
-        {
-            ed.effectIcon.durationText = ed.effectIcon.gameObject.GetComponentInChildren<TextMeshProUGUI>();
-        }
-        ed.effectIcon.durationText.text = Mathf.FloorToInt(ed.currentDuration).ToString();
-    }
+    
 
     [PunRPC]
     public void StartEffect(string _effect)
@@ -55,13 +34,21 @@ public class EffectManager : Photon.PunBehaviour
         if (CheckEffect(_effect))
         {
             EffectData _ed = GetActiveEffectByID(ed.id);
-            StopCoroutine( _ed.durationCoroutine);
-            _ed.durationCoroutine = null;
-            _ed.durationCoroutine = StartCoroutine(EffectDuration(_ed));
-            if(!_ed.effectIcon)
+
+            EffectIcon icon = GetActiveIconByID(_ed.id);
+
+            if (!icon)
             {
-                CreateIcon(_ed);
+                icon=CreateIcon(_ed);
             }
+            else
+            {
+                StopCoroutine(icon.durationCoroutine);
+                icon.durationCoroutine = null;
+            }
+
+            icon.durationCoroutine = StartCoroutine(EffectDuration(icon));
+            
             print("resetea tiempo");
         }
         else
@@ -69,19 +56,30 @@ public class EffectManager : Photon.PunBehaviour
             print("new effect");
             activeEffects.Add(ed);
             ed.dot.dotEffect = StartCoroutine(DOTEffect(ed.dot));
-            ed.durationCoroutine = StartCoroutine(EffectDuration(ed));
-            CreateIcon(ed);
+            EffectIcon icon = CreateIcon(ed);
+            icon.durationCoroutine = StartCoroutine(EffectDuration(icon));
         }
 
 
 
     }
 
-    void CreateIcon(EffectData ed)
+    EffectIcon CreateIcon(EffectData ed)
     {
         EffectIcon newIcon = Instantiate(iconPrefab, iconContainer.transform).GetComponent<EffectIcon>();
         newIcon.icon.sprite = ed.icon;
-        ed.effectIcon = newIcon;
+        newIcon.effect = ed;
+        activeIcons.Add(newIcon);
+        return newIcon;
+    }
+
+    EffectIcon GetActiveIconByID(string _id)
+    {
+        foreach (EffectIcon ei in activeIcons)
+        {
+            if (ei.effect.id == _id) return ei;
+        }
+        return null;
     }
 
     EffectData GetEffectByID(string _id)
@@ -125,11 +123,13 @@ public class EffectManager : Photon.PunBehaviour
             //se quita el efecto de los efectos activos
             activeEffects.Remove(_ed);
 
+            EffectIcon icon = GetActiveIconByID(_ed.id);
+
             //borar icono
-            if(_ed.effectIcon!=null)
+            if (icon)
             {
-                Destroy(_ed.effectIcon.gameObject);
-                _ed.effectIcon = null;
+                activeIcons.Remove(icon);
+                Destroy(icon.gameObject);
             }
 
             //se para el dot en caso de que lo haya
@@ -150,13 +150,14 @@ public class EffectManager : Photon.PunBehaviour
             
             //se quita el efecto de los efectos activos
             activeEffects.Remove(_ed);
+            
+            EffectIcon icon = GetActiveIconByID(_ed.id);
 
             //borar icono
-            if (_ed.effectIcon)
+            if (icon)
             {
-                print("Destruye icono");
-                Destroy(_ed.effectIcon.gameObject);
-                _ed.effectIcon = null;
+                activeIcons.Remove(icon);
+                Destroy(icon.gameObject);
             }
 
             //se para el dot en caso de que lo haya
@@ -178,27 +179,27 @@ public class EffectManager : Photon.PunBehaviour
 
     
 
-    IEnumerator EffectDuration(EffectData ed)
+    IEnumerator EffectDuration(EffectIcon icon)
     {
-        if(!ed.permanent)
+        if(!icon.effect.permanent)
         {
-            ed.currentDuration = ed.duration;
-            while(ed.currentDuration>0)
+            icon.currentDuration = icon.effect.duration;
+            while(icon.currentDuration>0)
             {
-                ed.currentDuration -= Time.deltaTime;
+                icon.currentDuration -= Time.deltaTime;
                 yield return null;
             }
-            StopEffect(ed.id);
+            StopEffect(icon.effect.id);
         }
         else
         {
-            ed.currentDuration = Mathf.Infinity;
-            while (ed.currentDuration > 0)
+            icon.currentDuration = Mathf.Infinity;
+            while (icon.currentDuration > 0)
             {
-                ed.currentDuration -= Time.deltaTime;
+                icon.currentDuration -= Time.deltaTime;
                 yield return null;
             }
-            StopEffect(ed.id);
+            StopEffect(icon.effect.id);
         }
     }
 

@@ -6,8 +6,11 @@ using UnityEngine.UI;
 
 public class EffectIcon : MonoBehaviour
 {
+    public EffectData effect;
     public Image icon;
     public TextMeshProUGUI durationText;
+    public Coroutine durationCoroutine;
+    public float currentDuration;
 
     private void Awake()
     {
@@ -19,6 +22,19 @@ public class EffectIcon : MonoBehaviour
         {
             durationText = GetComponent<TextMeshProUGUI>();
         }
+    }
+
+    private void Update()
+    {
+        if(effect.permanent)
+        {
+            durationText.text = "";
+        }
+        else
+        {
+            durationText.text = Mathf.FloorToInt(currentDuration).ToString();
+        }
+        
     }
 
 
