@@ -97,6 +97,7 @@ public class MainMenu : Photon.PunBehaviour
 
     public void SetShip(string tn)
     {
+        Debug.Log("LLAMA A LA NAVE");
         Global.myShipType = tn;
     }
 
