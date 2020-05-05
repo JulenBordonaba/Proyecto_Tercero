@@ -294,7 +294,7 @@ public class NaveManager : Photon.PunBehaviour
     }
 
     
-    public void TakeDamage(float damage, bool weapon, string target, string ownerNickname)
+    public void TakeDamageByWeapon(float damage, bool weapon, string target, string ownerNickname)
     {
         if (ownerNickname != photonView.owner.NickName) return;
         foreach (DamageManager dm in GetComponentsInChildren<DamageManager>())

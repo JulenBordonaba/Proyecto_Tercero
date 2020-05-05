@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : Photon.PunBehaviour
 {
+    public static int currentMainMenu;
+
     public List<Text> recordTexts = new List<Text>();
 
     public TMP_InputField nameInput;
@@ -25,6 +28,8 @@ public class MainMenu : Photon.PunBehaviour
 
     private void Start()
     {
+        
+
         ScoresToTexts();
         nameInput.text = PhotonNetwork.player.NickName;
         Global.myShipType = "Scavenger";

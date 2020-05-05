@@ -321,7 +321,7 @@ public class GameManager : Photon.PunBehaviour
         {
             LeaveRoom();
         }
-        SceneManager.LoadScene("OnlineMenu");
+        SceneManager.LoadScene(MainMenu.currentMainMenu);
 
     }
 }

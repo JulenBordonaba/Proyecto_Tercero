@@ -15,6 +15,11 @@ public class ChangeScene : MonoBehaviour
         SceneManager.LoadScene(scene);
     }
 
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(MainMenu.currentMainMenu);
+    }
+
     public void LoadSceneAsync(string scene)
     {
         StartCoroutine(LoadYourAsyncScene(scene));

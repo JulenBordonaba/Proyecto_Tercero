@@ -33,7 +33,7 @@ public class WinnerScene : MonoBehaviour
     {
         if (Input.GetButtonDown("MenuSubmit"))
         {
-            SceneManager.LoadScene("OnlineMenu");
+            SceneManager.LoadScene(MainMenu.currentMainMenu);
         }
     }
 }
