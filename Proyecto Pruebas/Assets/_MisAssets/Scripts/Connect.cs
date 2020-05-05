@@ -9,7 +9,7 @@ public class Connect : Photon.PunBehaviour
 {
     
     // Start is called before the first frame update
-    private bool joinedLobby = false;
+    private static bool joinedLobby = false;
     public GameObject conectingScreen;
     public GameObject mainMenu;
     public GameObject firstButton;

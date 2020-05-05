@@ -358,7 +358,7 @@ public class NaveController : MonoBehaviour
 
     public float PositionFormula
     {
-        get { return Mathf.Clamp((Position()) * positionConst, minPositionBonus, maxPositionBonus); }
+        get { return Mathf.Clamp((Position()) * positionConst, GameManager.current.first==naveManager?0: minPositionBonus, maxPositionBonus); }
     }
 
     public float AccelerationFormula
