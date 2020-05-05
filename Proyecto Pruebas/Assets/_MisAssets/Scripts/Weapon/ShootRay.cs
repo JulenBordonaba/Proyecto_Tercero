@@ -138,7 +138,7 @@ public class ShootRay : ShootWeapon
                 {
                     if(other.GetComponentInParent<NaveManager>())
                     {
-                        other.GetComponentInParent<NaveManager>().TakeDamage(GetComponentInParent<NaveManager>().ShotDamage, true, other.GetComponentInParent<DamageManager>().damagedObject.ToString(), other.GetComponentInParent<DamageManager>().gameObject.GetComponent<PhotonView>().owner.NickName);
+                        other.GetComponentInParent<NaveManager>().TakeDamageByWeapon(GetComponentInParent<NaveManager>().ShotDamage, true, other.GetComponentInParent<DamageManager>().damagedObject.ToString(), other.GetComponentInParent<DamageManager>().gameObject.GetComponent<PhotonView>().owner.NickName);
                     }
                     else
                     {

@@ -27,7 +27,7 @@ public class GameOverCamera : MonoBehaviour
                 {
                     PhotonNetwork.LeaveRoom();
                 }
-                SceneManager.LoadScene("OnlineMenu");
+                SceneManager.LoadScene(MainMenu.currentMainMenu);
             }
         }
     }

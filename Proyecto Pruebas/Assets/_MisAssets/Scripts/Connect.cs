@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 
 public class Connect : Photon.PunBehaviour
 {
+
     
     // Start is called before the first frame update
     private static bool joinedLobby = false;
@@ -22,6 +23,8 @@ public class Connect : Photon.PunBehaviour
 
     private void Awake()
     {
+        
+
         string nickname = LoadName();
 
         PhotonNetwork.playerName = nickname;
