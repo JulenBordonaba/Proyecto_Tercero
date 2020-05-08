@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayersInRoom : Photon.PunBehaviour
 {
 
-    private Text playersText;
+    private TextMeshProUGUI playersText;
 
     // Start is called before the first frame update
     void Start()
     {
-        playersText = GetComponent<Text>();
+        playersText = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame

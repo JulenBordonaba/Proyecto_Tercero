@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManagerUI : MonoBehaviour
 {
 
-    public Text contadorCheckpointsText;
-    public Text timerText;
+    public TextMeshProUGUI contadorCheckpointsText;
+    public TextMeshProUGUI timerText;
     public Timer gameTimer;
 
 
