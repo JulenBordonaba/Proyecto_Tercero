@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class NaveManager : Photon.PunBehaviour
 {
@@ -29,7 +30,7 @@ public class NaveManager : Photon.PunBehaviour
     public AudioListener audioListener;
     public GameObject shipCentre;
     public int position;
-    public Text positionText;
+    public TextMeshProUGUI positionText;
     public bool isIA = false;
     public bool isHologram = false;
 
