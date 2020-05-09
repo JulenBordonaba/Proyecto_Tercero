@@ -12,7 +12,7 @@ public class UIFuel : MonoBehaviour
     [Tooltip("Pon el objeto del color")]
     public Image colorObject;
     [Tooltip("Pon la altura mínima a la que puede bajar el combustible sin que se salga de la barra")]
-    public float minFuelX = -80;
+    public float minFuelX = -235;
 
 
     private Combustible combustible;
