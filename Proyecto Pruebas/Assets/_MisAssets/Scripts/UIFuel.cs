@@ -12,7 +12,7 @@ public class UIFuel : MonoBehaviour
     [Tooltip("Pon el objeto del color")]
     public Image colorObject;
     [Tooltip("Pon la altura mínima a la que puede bajar el combustible sin que se salga de la barra")]
-    public float minFuelY = -80;
+    public float minFuelX = -80;
 
 
     private Combustible combustible;
@@ -39,7 +39,7 @@ public class UIFuel : MonoBehaviour
     private void FuelBarHeight()
     {
         RectTransform rect = colorObject.GetComponent<RectTransform>();
-        rect.localPosition = new Vector3(rect.localPosition.x, Mathf.Lerp(0, minFuelY, (1-FuelAmmount)), rect.localPosition.z);
+        rect.localPosition = new Vector3(Mathf.Lerp(0, minFuelX, (1 - FuelAmmount)), rect.localPosition.y, rect.localPosition.z);
     }
 
     public void SelectFuelBar()
