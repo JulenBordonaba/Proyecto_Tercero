@@ -31,6 +31,7 @@ public class NaveManager : Photon.PunBehaviour
     public GameObject shipCentre;
     public int position;
     public TextMeshProUGUI positionText;
+    public TextMeshProUGUI positionTextTh;
     public bool isIA = false;
     public bool isHologram = false;
 
@@ -143,8 +144,26 @@ public class NaveManager : Photon.PunBehaviour
     {
         FuelManager();
         if (!photonView.isMine) return;
-        positionText.text = position.ToString() + "º";
-        
+
+        positionText.text = position.ToString();
+
+        if (String.Equals (positionText.text, "1") || String.Equals(positionText.text, "21") || String.Equals(positionText.text, "31") || String.Equals(positionText.text, "41") || String.Equals(positionText.text, "51") || String.Equals(positionText.text, "61") || String.Equals(positionText.text, "71") || String.Equals(positionText.text, "81") || String.Equals(positionText.text, "91"))
+        {
+            positionTextTh.text = "st";
+        }
+        else if (String.Equals(positionText.text, "2") || String.Equals(positionText.text, "22") || String.Equals(positionText.text, "32") || String.Equals(positionText.text, "42") || String.Equals(positionText.text, "52") || String.Equals(positionText.text, "62") || String.Equals(positionText.text, "72") || String.Equals(positionText.text, "82") || String.Equals(positionText.text, "92"))
+        {
+            positionTextTh.text = "nd";
+        }
+        else if (String.Equals(positionText.text, "3") || String.Equals(positionText.text, "23") || String.Equals(positionText.text, "33") || String.Equals(positionText.text, "43") || String.Equals(positionText.text, "53") || String.Equals(positionText.text, "63") || String.Equals(positionText.text, "73") || String.Equals(positionText.text, "83") || String.Equals(positionText.text, "93"))
+        {
+            positionTextTh.text = "rd";
+        }
+        else 
+        {
+            positionTextTh.text = "th";
+        }
+
         //combustible.PasiveConsumption();
     }
 

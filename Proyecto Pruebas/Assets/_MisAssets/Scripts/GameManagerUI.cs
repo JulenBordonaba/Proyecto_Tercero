@@ -22,14 +22,14 @@ public class GameManagerUI : MonoBehaviour
     void Update()
     {
 
-        contadorCheckpointsText.text = (CheckpointManager.currentCheckpoint - 1).ToString() + " / " + (CheckpointManager.numCheckpoints - 1).ToString();
+        contadorCheckpointsText.text = (CheckpointManager.currentCheckpoint - 1).ToString() + "/" + (CheckpointManager.numCheckpoints - 1).ToString();
         ShowTimer();
     }
 
     private void ShowTimer()
     {
         if (gameTimer.currentTime.minutes < 0) return;
-        timerText.text = gameTimer.currentTime.minutes.ToString() + "' " + (gameTimer.currentTime.seconds < 10 ? "0" + Mathf.FloorToInt(gameTimer.currentTime.seconds).ToString() : Mathf.FloorToInt(gameTimer.currentTime.seconds).ToString()) + "''";
+        timerText.text = gameTimer.currentTime.minutes.ToString() + "'" + (gameTimer.currentTime.seconds < 10 ? "0" + Mathf.FloorToInt(gameTimer.currentTime.seconds).ToString() : Mathf.FloorToInt(gameTimer.currentTime.seconds).ToString() + "''");
     }
 
 }
