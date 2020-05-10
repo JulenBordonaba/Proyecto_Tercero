@@ -303,7 +303,7 @@ public class GameManager : Photon.PunBehaviour
                 }
             }
         }
-
+        if (navePositions.Count <= 0) return;
         first = navePositions[0];
 
         for (int i = 0; i < navePositions.Count; i++)

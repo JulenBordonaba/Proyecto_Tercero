@@ -108,7 +108,12 @@ public class DamageManager : Photon.PunBehaviour
         {
             d = effectManager.DamageReduction;
         }
-        return Mathf.Clamp(stats.damageReduction + d,0f,100f);
+        if(stats)
+        {
+            return Mathf.Clamp(stats.damageReduction + d, 0f, 100f);
+        }
+        return 0f;
+        
     }
     
 }

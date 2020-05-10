@@ -29,7 +29,7 @@ public class Portal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (!pair) return;
         if(other.CompareTag("NaveCentre"))
         {
             if (naves.Contains(other.GetComponentInParent<NaveManager>())) return;

@@ -6,8 +6,6 @@ public class Salto : HabilidadCombustible
 {
     [Tooltip("Pon la fuerza del salto")]
     public float jumpForce; //variable que controla cuánta fuerza se impulsa la nave hacia arriba para saltar
-    [Tooltip("pon el cooldown del salto")]
-    public float cooldown;
 
     private bool inJump = false;
 
@@ -35,9 +33,12 @@ public class Salto : HabilidadCombustible
     {
         base.Use();
         if (effectManager.SilenceFuels) return;
-        if (GetComponent<NaveManager>().isPlanning || inJump) return;       
+        if (GetComponent<NaveManager>().isPlanning || inJump) return;
 
-        
+        if (inCooldown) return;
+        StartCoroutine(Cooldown(cooldown));
+
+
         if (combustible == null) return;
 
         if (combustible.currentAmmount < combustible.activeConsumption) return;

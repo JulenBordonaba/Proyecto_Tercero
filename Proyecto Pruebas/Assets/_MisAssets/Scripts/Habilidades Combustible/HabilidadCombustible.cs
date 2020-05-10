@@ -11,6 +11,10 @@ public  class HabilidadCombustible : Photon.PunBehaviour
     public Animator animator;
     protected InputManager inputmanager;
     protected EffectManager effectManager;
+    public bool inCooldown = false;
+    public float currentCooldown;
+    [Tooltip("Pon el cooldown de la habilidad, cuenta a partir de cuando se acaba")]
+    public float cooldown;
 
 
     public virtual void Use()
@@ -52,6 +56,19 @@ public  class HabilidadCombustible : Photon.PunBehaviour
             animator.SetLayerWeight(animator.GetLayerIndex(layerName), Mathf.Lerp(1, 0, i * 0.1f));
             yield return new WaitForEndOfFrame();
         }
+    }
+
+    public IEnumerator Cooldown(float _cooldown)
+    {
+        currentCooldown = _cooldown;
+        inCooldown = true;
+        while(currentCooldown>0)
+        {
+            currentCooldown -= Time.deltaTime;
+            yield return null;
+        }
+        inCooldown = false;
+
     }
 
 }

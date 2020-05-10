@@ -115,8 +115,12 @@ public class Pieza : Photon.PunBehaviour
         //print("damage pieza");
         if (currentHealth <= 0)
         {
-            naveController.nucleo.Damage(ammount);
-            return;
+            if(this != naveController.nucleo)
+            {
+
+                naveController.nucleo.Damage(ammount);
+                return;
+            }
         }
         //print("continua damage pieza");
         GetComponentInParent<Stats>().currentLife -= ammount;

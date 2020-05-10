@@ -6,8 +6,6 @@ public class Reparar : HabilidadCombustible
 {
     [Tooltip("Pon la cantidad de vida que repara la nave por segundo")]
     public float repairAmmount;
-    [Tooltip("Pon el cooldown de la habilidad, cuenta a partir de cuando se acaba")]
-    public float cooldown;
     [Tooltip("Pon las partíaculas de la reparación")]
     public GameObject healingParticles;
     public bool isRepairing = false;
@@ -41,12 +39,17 @@ public class Reparar : HabilidadCombustible
     {
         base.Use();
         if (effectManager.SilenceFuels) return;
+
+
         print("entra a Use");
         if (!canRepair) return;
 
         if (combustible == null) return;
 
         if (combustible.currentAmmount < combustible.activeConsumption) return;
+
+        if (inCooldown) return;
+        StartCoroutine(Cooldown(cooldown));
 
         combustible.currentAmmount -= combustible.activeConsumption;
 
@@ -55,7 +58,7 @@ public class Reparar : HabilidadCombustible
         healingParticles.SetActive(true);
         naveManager.combustible = combustible;
         StartCoroutine(ActivateFuelAnimation("Reparar"));
-        StartCoroutine(Cooldown(combustible.duration));
+        StartCoroutine(myCooldown(combustible.duration));
 
 
 
@@ -94,7 +97,7 @@ public class Reparar : HabilidadCombustible
 
     }
 
-    private IEnumerator Cooldown(float waitTime)
+    private IEnumerator myCooldown(float waitTime)
     {
         yield return new WaitForSeconds(waitTime);
 

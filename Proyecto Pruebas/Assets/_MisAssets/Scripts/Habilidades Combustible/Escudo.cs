@@ -6,8 +6,6 @@ public class Escudo : HabilidadCombustible
 {
     [Tooltip("Pon el gameObject del escudo")]
     public GameObject shield;
-    [Tooltip("Pon el cooldown de la habilidad, cuenta a partir de cuando se acaba")]
-    public float cooldown;
 
     private bool inShield = false;
     
@@ -39,6 +37,8 @@ public class Escudo : HabilidadCombustible
         print("Entra al Use");
         //Activar el escudo siempre y cuando no haya un escudo activo
         if (inShield) return;
+        if (inCooldown) return;
+        StartCoroutine(Cooldown(cooldown));
         
 
         //activar animacion escudo

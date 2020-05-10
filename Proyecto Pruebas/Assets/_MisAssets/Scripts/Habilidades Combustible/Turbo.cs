@@ -6,8 +6,6 @@ public class Turbo : HabilidadCombustible
 {
     [Tooltip("pon el impulso que se le aplica a la nave al usar el turbo")]
     public float impulse;   //variable que contiene la fuerza del turbo
-    [Tooltip("pon el tiempo que pasa despues de que acabe el turbo para poder volver  usarlo")]
-    public float cooldown;  //tiempo que pasa despues de que acabe el turbo para poder volver  usarlo
 
     private bool inTurbo = false;
 
@@ -44,14 +42,17 @@ public class Turbo : HabilidadCombustible
         if (inTurbo)
         {
             return;
-        }      
+        }
+
+        if (inCooldown) return;
+        StartCoroutine(Cooldown(cooldown));
 
         //if (GetComponentInParent<NaveManager>().Turbo == 0)
 
         //poner a true variable Salto en escudo
         //GetComponentInParent<NaveManager>().Turbo = 1;      // Propongo poner Turbo en la foncion de velocidad de forma: + (Turbo * StatTruboDeLaNave)
 
-        
+
 
         if (combustible == null) return;
 
