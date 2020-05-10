@@ -36,7 +36,7 @@ public class Salto : HabilidadCombustible
         if (GetComponent<NaveManager>().isPlanning || inJump) return;
 
         if (inCooldown) return;
-        StartCoroutine(Cooldown(cooldown));
+        StartCoroutine(Cooldown(cooldown + combustible.duration));
 
 
         if (combustible == null) return;

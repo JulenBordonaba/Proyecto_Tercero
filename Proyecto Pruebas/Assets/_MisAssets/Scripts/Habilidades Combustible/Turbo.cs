@@ -45,7 +45,7 @@ public class Turbo : HabilidadCombustible
         }
 
         if (inCooldown) return;
-        StartCoroutine(Cooldown(cooldown));
+        StartCoroutine(Cooldown(cooldown + combustible.duration));
 
         //if (GetComponentInParent<NaveManager>().Turbo == 0)
 

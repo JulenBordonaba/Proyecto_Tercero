@@ -49,7 +49,7 @@ public class Reparar : HabilidadCombustible
         if (combustible.currentAmmount < combustible.activeConsumption) return;
 
         if (inCooldown) return;
-        StartCoroutine(Cooldown(cooldown));
+        StartCoroutine(Cooldown(cooldown + combustible.duration));
 
         combustible.currentAmmount -= combustible.activeConsumption;
 

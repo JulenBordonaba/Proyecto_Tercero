@@ -38,7 +38,7 @@ public class Escudo : HabilidadCombustible
         //Activar el escudo siempre y cuando no haya un escudo activo
         if (inShield) return;
         if (inCooldown) return;
-        StartCoroutine(Cooldown(cooldown));
+        StartCoroutine(Cooldown(cooldown+combustible.duration));
         
 
         //activar animacion escudo
