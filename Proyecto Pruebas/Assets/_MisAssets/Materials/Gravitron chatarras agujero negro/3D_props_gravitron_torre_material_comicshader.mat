@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 3D_props_gravitron_edificiolargo_sindetalles_material_comicshader
+  m_Name: 3D_props_gravitron_torre_material_comicshader
   m_Shader: {fileID: 4800000, guid: 4afb2fb87321fe647840db5fb623fc28, type: 3}
   m_ShaderKeywords: _DETAIL_MULX2 _METALLICGLOSSMAP _NORMALMAP _PARALLAXMAP _SPECGLOSSMAP
   m_LightmapFlags: 4
@@ -44,7 +44,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 4c3cd549c3a7ddf4799909a45cf55146, type: 3}
+        m_Texture: {fileID: 2800000, guid: c77d039ab5d17c9418250e1ed2d367c7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex2:
@@ -95,9 +95,9 @@ Material:
     - _Opacity: 1
     - _Outline: 3.45
     - _Parallax: 0.05
-    - _RampSmooth: 0.28
+    - _RampSmooth: 0.135
     - _RampSmoothAdd: 1
-    - _RampThreshold: 0.384
+    - _RampThreshold: 0.441
     - _RimMax: 1
     - _RimMin: 1
     - _RimStrength: 0.5
