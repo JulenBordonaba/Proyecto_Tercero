@@ -37,6 +37,9 @@ public class Escudo : HabilidadCombustible
         print("Entra al Use");
         //Activar el escudo siempre y cuando no haya un escudo activo
         if (inShield) return;
+
+        if (combustible.currentAmmount < combustible.activeConsumption) return;
+
         if (inCooldown) return;
         StartCoroutine(Cooldown(cooldown+combustible.duration));
         
@@ -47,8 +50,6 @@ public class Escudo : HabilidadCombustible
         //activar sonido escudo
         //GetComponentInParent<AudioSource>().Play();
         
-
-        if (combustible.currentAmmount < combustible.activeConsumption) return;
         photonView.RPC("ActivateShield", PhotonTargets.All);
         
     }

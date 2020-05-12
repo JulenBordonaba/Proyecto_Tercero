@@ -35,13 +35,15 @@ public class Salto : HabilidadCombustible
         if (effectManager.SilenceFuels) return;
         if (GetComponent<NaveManager>().isPlanning || inJump) return;
 
-        if (inCooldown) return;
-        StartCoroutine(Cooldown(cooldown + combustible.duration));
 
 
         if (combustible == null) return;
 
         if (combustible.currentAmmount < combustible.activeConsumption) return;
+
+
+        if (inCooldown) return;
+        StartCoroutine(Cooldown(cooldown + combustible.duration));
 
         combustible.currentAmmount -= combustible.activeConsumption;
 
