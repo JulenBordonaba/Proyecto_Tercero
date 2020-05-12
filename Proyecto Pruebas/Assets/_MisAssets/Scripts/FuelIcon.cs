@@ -46,7 +46,7 @@ public class FuelIcon : MonoBehaviour
     {
         if (fuel.inCooldown)
         {
-            maskImage.fillAmount = fuel.currentCooldown / fuel.cooldown+fuel.maxCooldown;
+            maskImage.fillAmount = fuel.currentCooldown / fuel.maxCooldown;
         }
         else
         {
