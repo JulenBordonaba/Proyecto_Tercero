@@ -182,32 +182,32 @@ public class GameManager : Photon.PunBehaviour
 
     
 
-    public void UpdateScore()
-    {
-        TimeScore aux = new TimeScore();
-        bool newRecord = false;
-        for (int i = 0; i < 3; i++)
-        {
-            if (PlayerPrefs.HasKey("record" + (i + 1).ToString()))
-            {
-                if(newRecord)
-                {
-                    TimeScore aux2 = records[i];
-                    records[i] = aux;
-                    aux = aux2;
+    //public void UpdateScore()
+    //{
+    //    TimeScore aux = new TimeScore();
+    //    bool newRecord = false;
+    //    for (int i = 0; i < 3; i++)
+    //    {
+    //        if (PlayerPrefs.HasKey("record" + (i + 1).ToString()))
+    //        {
+    //            if(newRecord)
+    //            {
+    //                TimeScore aux2 = records[i];
+    //                records[i] = aux;
+    //                aux = aux2;
 
-                }
-                else if(TimeScore.ScoreToTime(TimeScore.currentScore)<TimeScore.ScoreToTime(records[i]) || TimeScore.ScoreToTime(records[i])==-1)
-                {
-                    newRecord = true;
-                    aux = records[i];
-                    records[i] = TimeScore.currentScore;
-                }
+    //            }
+    //            else if(TimeScore.ScoreToTime(TimeScore.currentScore)<TimeScore.ScoreToTime(records[i]) || TimeScore.ScoreToTime(records[i])==-1)
+    //            {
+    //                newRecord = true;
+    //                aux = records[i];
+    //                records[i] = TimeScore.currentScore;
+    //            }
                 
-            }
-            PlayerPrefs.SetFloat(("record" + (i + 1).ToString()), TimeScore.ScoreToTime(records[i]));
-        }
-    }
+    //        }
+    //        PlayerPrefs.SetFloat(("record" + (i + 1).ToString()), TimeScore.ScoreToTime(records[i]));
+    //    }
+    //}
     
     public void TimeFinished()
     {
@@ -230,7 +230,7 @@ public class GameManager : Photon.PunBehaviour
         {
             navesList.Remove(nm);
             timer.GetTime();
-            UpdateScore();
+            //UpdateScore();
             Global.winner = winner.GetComponent<InputManager>().numPlayer;
             if (PhotonNetwork.inRoom)
             {

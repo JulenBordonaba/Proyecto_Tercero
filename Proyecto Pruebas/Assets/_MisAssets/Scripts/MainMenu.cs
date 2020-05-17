@@ -22,7 +22,7 @@ public class MainMenu : Photon.PunBehaviour
 
     private void Awake()
     {
-        LoadScores();
+        //LoadScores();
         
     }
 
@@ -30,7 +30,7 @@ public class MainMenu : Photon.PunBehaviour
     {
         
 
-        ScoresToTexts();
+        //ScoresToTexts();
         nameInput.text = PhotonNetwork.player.NickName;
         Global.myShipType = "Scavenger";
         Global.onePlayer = false;
@@ -47,37 +47,37 @@ public class MainMenu : Photon.PunBehaviour
         PlayerPrefs.SetString("Nickname", PhotonNetwork.player.NickName);
     }
 
-    private void LoadScores()
-    {
-        for(int i=0;i<3;i++)
-        {
-            if (PlayerPrefs.HasKey("record" + (i + 1).ToString()))
-            {
-                GameManager.records[i] = TimeScore.TimeToScore(PlayerPrefs.GetFloat("record" + (i + 1).ToString()));
-            }
-            else
-            {
-                GameManager.records[i] = TimeScore.TimeToScore(-1);
-                PlayerPrefs.SetFloat(("record" + (i + 1).ToString()), TimeScore.ScoreToTime(GameManager.records[i]));
-            }
-        }
+    //private void LoadScores()
+    //{
+    //    for(int i=0;i<3;i++)
+    //    {
+    //        if (PlayerPrefs.HasKey("record" + (i + 1).ToString()))
+    //        {
+    //            GameManager.records[i] = TimeScore.TimeToScore(PlayerPrefs.GetFloat("record" + (i + 1).ToString()));
+    //        }
+    //        else
+    //        {
+    //            GameManager.records[i] = TimeScore.TimeToScore(-1);
+    //            PlayerPrefs.SetFloat(("record" + (i + 1).ToString()), TimeScore.ScoreToTime(GameManager.records[i]));
+    //        }
+    //    }
         
-    }
+    //}
 
-    private void ScoresToTexts()
-    {
-        for(int i=0;i<recordTexts.Count;i++)
-        {
-            if(TimeScore.ScoreToTime(GameManager.records[i])==-1)
-            {
-                recordTexts[i].text = (i + 1).ToString() + "º   --' --''";
-            }
-            else
-            {
-                recordTexts[i].text = (i + 1).ToString() + "º   " + (GameManager.records[i].minutes<10 ? "0" + GameManager.records[i].minutes : GameManager.records[i].minutes.ToString()) + "' " + (Mathf.FloorToInt(GameManager.records[i].seconds)<10 ? "0" + Mathf.FloorToInt(GameManager.records[i].seconds) : Mathf.FloorToInt(GameManager.records[i].seconds).ToString()) + "''";
-            }
-        }
-    }
+    //private void ScoresToTexts()
+    //{
+    //    for(int i=0;i<recordTexts.Count;i++)
+    //    {
+    //        if(TimeScore.ScoreToTime(GameManager.records[i])==-1)
+    //        {
+    //            recordTexts[i].text = (i + 1).ToString() + "º   --' --''";
+    //        }
+    //        else
+    //        {
+    //            recordTexts[i].text = (i + 1).ToString() + "º   " + (GameManager.records[i].minutes<10 ? "0" + GameManager.records[i].minutes : GameManager.records[i].minutes.ToString()) + "' " + (Mathf.FloorToInt(GameManager.records[i].seconds)<10 ? "0" + Mathf.FloorToInt(GameManager.records[i].seconds) : Mathf.FloorToInt(GameManager.records[i].seconds).ToString()) + "''";
+    //        }
+    //    }
+    //}
 
     private void Update()
     {

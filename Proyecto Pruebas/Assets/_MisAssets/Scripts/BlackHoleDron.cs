@@ -8,6 +8,8 @@ public class BlackHoleDron : Photon.PunBehaviour
 
     public int explosionFrames = 10;
 
+    public float fallForce=50f;
+
     private Rigidbody rb;
 
     //private List<GameObject> objectsInArea = new List<GameObject>();
@@ -29,6 +31,14 @@ public class BlackHoleDron : Photon.PunBehaviour
     void Update()
     {
 
+    }
+
+    private void FixedUpdate()
+    {
+        if(!inExplosion)
+        {
+            rb.AddForce(-Vector3.up * fallForce, ForceMode.Acceleration);
+        }
     }
 
 
