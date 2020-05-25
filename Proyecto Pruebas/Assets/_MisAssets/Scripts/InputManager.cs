@@ -88,12 +88,14 @@ public class InputManager : MonoBehaviour
     //botón que activa el dash derecho
     public bool RightDash()
     {
+        if (effectManager == null) return false;
         return Input.GetButtonDown((effectManager.InvertControls ? "PCLeftDash":"PCRightDash") + numPlayer.ToString()) || Input.GetButtonDown((effectManager.InvertControls ? "PS4LeftDash" : "PS4RightDash") + numPlayer.ToString());
     }
 
     //botón que activa el dash izquierdo
     public bool LeftDash()
     {
+        if (effectManager == null) return false;
         return Input.GetButtonDown((effectManager? "PCLeftDash" : (effectManager.InvertControls ? "PCRightDash":"PCLeftDash")) + numPlayer.ToString()) || Input.GetButtonDown((effectManager? "PS4LeftDash" : (effectManager.InvertControls ? "PS4RightDash" : "PS4LeftDash")) + numPlayer.ToString());
     }
 
