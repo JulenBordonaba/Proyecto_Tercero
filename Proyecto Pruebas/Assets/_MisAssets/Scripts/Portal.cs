@@ -7,6 +7,8 @@ public class Portal : MonoBehaviour
     public Portal pair;
     public TipoCombustible tipoCombustible;
     public float fuelRechargeAmmount = 1;
+    public Animator animator;
+    public AnimationClip activationClip;
 
     public MeshRenderer mesh;
     public List<NaveManager> naves = new List<NaveManager>();

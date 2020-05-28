@@ -369,6 +369,21 @@ public class NaveManager : Photon.PunBehaviour
         StartCoroutine(OnShipDestroyedCoroutine());
     }
 
+    public IEnumerator OnRaceFinished(int place)
+    {
+        yield return new WaitForEndOfFrame();
+
+        if (photonView.isMine)
+        {
+            myCamera.GetComponent<CameraController>().naveDestruida = true;
+            myCamera.gameObject.GetComponent<CameraController>().OnRaceFinished(place);
+
+            transform.parent.gameObject.SetActive(false);   //si falla destruir en vez de ocultar
+
+        }
+
+    }
+
     public IEnumerator OnShipDestroyedCoroutine()
     {
         yield return new WaitForEndOfFrame();

@@ -44,7 +44,7 @@ public class LevitationManager : Photon.PunBehaviour
 
     private void Levitate()
     {
-        if (PauseManager.inPause) return;
+        //if (PauseManager.inPause) return;
         Ray ray = new Ray();
         RaycastHit hit;
 

@@ -37,8 +37,10 @@ public class GameManager : Photon.PunBehaviour
 
     public EffectData efectoChachi;
 
+    public float deactivateStartEffectDelay = 10f;
 
-    private Timer timer;
+
+    public Timer timer;
     public Timer preRaceTimer;
     
 
@@ -46,7 +48,7 @@ public class GameManager : Photon.PunBehaviour
     {
         current = this;
         Global.winners = new List<string>();
-        timer = GetComponent<Timer>();
+
         if(PhotonNetwork.connected)
         {
 
@@ -149,6 +151,14 @@ public class GameManager : Photon.PunBehaviour
         {
             nm.effectManager.StopEffect(prestartEffect.id);
         }
+
+        preRaceTimer.freezed = true;
+    }
+
+    IEnumerator StopStartEffect(NaveManager nm)
+    {
+        yield return new WaitForSeconds(deactivateStartEffectDelay);
+        nm.effectManager.StopEffect(prestartEffect.id);
     }
 
 
@@ -230,13 +240,15 @@ public class GameManager : Photon.PunBehaviour
         {
             navesList.Remove(nm);
             timer.GetTime();
+            timer.freezed = true;
             //UpdateScore();
             Global.winner = winner.GetComponent<InputManager>().numPlayer;
-            if (PhotonNetwork.inRoom)
-            {
-                LeaveRoom();
-            }
-            SceneManager.LoadScene("Winner");
+            StartCoroutine(nm.OnRaceFinished(Global.winners.Count));
+            //if (PhotonNetwork.inRoom)
+            //{
+            //    LeaveRoom();
+            //}
+            //SceneManager.LoadScene("Winner");
             //print(" ha ganado el jugador " + winner.GetComponent<InputManager>().numPlayer);
         }
 

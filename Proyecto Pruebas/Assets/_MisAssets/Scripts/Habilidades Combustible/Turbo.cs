@@ -24,6 +24,7 @@ public class Turbo : HabilidadCombustible
 
     private void Update()
     {
+        if (PauseManager.inPause) return;
         if (!photonView.isMine) return;
         if (inputmanager.UseBoost())
         {

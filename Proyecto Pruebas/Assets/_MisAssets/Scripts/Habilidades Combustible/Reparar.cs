@@ -28,6 +28,7 @@ public class Reparar : HabilidadCombustible
     {
         Repair();
         ActivateParticles();
+        if (PauseManager.inPause) return;
         if (!photonView.isMine) return;
         if(inputmanager.UseRepair())
         {

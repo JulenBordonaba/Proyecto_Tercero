@@ -31,13 +31,31 @@ public class PortalManager : MonoBehaviour
             return;
         }
         List<Portal> _portals = new List<Portal>(portals);
-        for (int i = 0; i < (_portals.Count / 2); i++)
+
+         foreach(Portal p in _portals)
         {
+            if(p.animator!=null)
+            {
+                p.animator.SetTrigger("Deactivate");
+            }
+            
+        }
+        StartCoroutine(ChangePortalPairs(_portals));
+
+    }
+
+    IEnumerator ChangePortalPairs(List<Portal> _portals)
+    {
+        if (_portals.Count <= 0) yield break;
+        yield return new WaitForSeconds(_portals[0].activationClip.averageDuration);
+        for (int i = 0; i < (_portals.Count); i++)
+        {
+            if (_portals.Count <= 0) yield break;
             Portal p1 = _portals[UnityEngine.Random.Range(0, _portals.Count)];
             _portals.Remove(p1);
-            if (_portals.Count <= 0) return;
-            
-            
+            if (_portals.Count <= 0) yield break ;
+
+
             Portal p2 = _portals[UnityEngine.Random.Range(0, _portals.Count)];
             _portals.Remove(p2);
 
@@ -53,8 +71,9 @@ public class PortalManager : MonoBehaviour
             p2.SetMaterial(m);
             p1.naves = new List<NaveManager>();
             p2.naves = new List<NaveManager>();
-        }
 
+
+        }
     }
 
     public Material GetMaterial(TipoCombustible t)

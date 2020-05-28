@@ -23,6 +23,7 @@ public class Escudo : HabilidadCombustible
 
     private void Update()
     {
+        if (PauseManager.inPause) return;
         if (!photonView.isMine) return;
         if(inputmanager.UseShield())
         {

@@ -102,6 +102,23 @@ public class NaveController : MonoBehaviour
         Vector3 locVel = modelTransform.InverseTransformDirection(rb.velocity);
         locVel = new Vector3(locVel.x, locVel.y, locVel.z * (1 - (friction))); //se ralentiza el vehiculo
                                                                                //locVel = new Vector3(locVel.x, locVel.y, locVel.z - locVel.z * 0.02f);
+
+        if (inputManager.MainHorizontal() > 0)    //si esta girando hacia la derecha
+        {
+            if (locVel.x > 0)   //si la velocidad lateral hacia la derecha es positiva se pone a 0
+            {
+                locVel.x = 0;
+            }
+            
+        }
+        else if (inputManager.MainHorizontal() < 0)   //si esta girando hacia la izquierda
+        {
+            if (locVel.x < 0)
+            {
+                locVel.x = 0;
+            }
+            
+        }
         if (Mathf.Abs(locVel.z) < 2f)
         {
             locVel = new Vector3(locVel.x, locVel.y, 0f);

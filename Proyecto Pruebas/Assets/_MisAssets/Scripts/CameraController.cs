@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,6 +16,8 @@ public class CameraController : Photon.PunBehaviour
     public float cameraDampingMultiplayer = 1;
 
     public GameObject gameOverCamera;
+    public GameObject winnerCamera;
+    public GameObject finishCamera;
     public Sprite singleplayerGameOverSprite;
     public LayerMask ignoreLayers;
 
@@ -109,15 +112,46 @@ public class CameraController : Photon.PunBehaviour
         StartCoroutine(GameOver(time));
     }
 
+    public void OnRaceFinished(int place)
+    {
+        print("Place: " + place);
+        transform.SetParent(null);
+        GameObject finishCam = Instantiate(place==1? winnerCamera : finishCamera, new Vector3(0, -500, 0), Quaternion.identity);
+        FinishCamera fc =finishCam.GetComponent<FinishCamera>();
+
+        fc.placeText.text = place.ToString();
+
+        if (String.Equals(fc.placeText.text, "1") || String.Equals(fc.placeText.text, "21") || String.Equals(fc.placeText.text, "31") || String.Equals(fc.placeText.text, "41") || String.Equals(fc.placeText.text, "51") || String.Equals(fc.placeText.text, "61") || String.Equals(fc.placeText.text, "71") || String.Equals(fc.placeText.text, "81") || String.Equals(fc.placeText.text, "91"))
+        {
+            fc.placeSufijoText.text = "st";
+        }
+        else if (String.Equals(fc.placeText.text, "2") || String.Equals(fc.placeText.text, "22") || String.Equals(fc.placeText.text, "32") || String.Equals(fc.placeText.text, "42") || String.Equals(fc.placeText.text, "52") || String.Equals(fc.placeText.text, "62") || String.Equals(fc.placeText.text, "72") || String.Equals(fc.placeText.text, "82") || String.Equals(fc.placeText.text, "92"))
+        {
+            fc.placeSufijoText.text = "nd";
+        }
+        else if (String.Equals(fc.placeText.text, "3") || String.Equals(fc.placeText.text, "23") || String.Equals(fc.placeText.text, "33") || String.Equals(fc.placeText.text, "43") || String.Equals(fc.placeText.text, "53") || String.Equals(fc.placeText.text, "63") || String.Equals(fc.placeText.text, "73") || String.Equals(fc.placeText.text, "83") || String.Equals(fc.placeText.text, "93"))
+        {
+            fc.placeSufijoText.text = "rd";
+        }
+        else
+        {
+            fc.placeSufijoText.text = "th";
+        }
+
+        fc.timeText.text = String.Format("{0:00}'{1:00}''", TimeScore.currentScore.minutes, TimeScore.currentScore.seconds);
+
+        Destroy(gameObject);
+    }
+
     public IEnumerator GameOver(float time)
     {
         yield return new WaitForSeconds(time);
         GameObject gameOverCam = Instantiate(gameOverCamera, new Vector3(0, -500, 0), Quaternion.identity);
-        if (Global.numPlayers == 1)
-        {
-            gameOverCam.GetComponent<Camera>().rect = new Rect(new Vector2(0, 0), new Vector2(1, 1));
-            gameOverCam.GetComponentInChildren<Image>().sprite = singleplayerGameOverSprite;
-        }
+        //if (Global.numPlayers == 1)
+        //{
+        //    gameOverCam.GetComponent<Camera>().rect = new Rect(new Vector2(0, 0), new Vector2(1, 1));
+        //    gameOverCam.GetComponentInChildren<Image>().sprite = singleplayerGameOverSprite;
+        //}
         Destroy(gameObject);
     }
 
