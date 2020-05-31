@@ -18,4 +18,16 @@ public class UISelect : EventTrigger
         // Call methods when the UI element is deselected
         GetComponent<Animator>().SetBool("Selected",false);
     }
+
+    public override void OnPointerEnter(PointerEventData eventData)
+    {
+        if (!Cursor.visible || Cursor.lockState == CursorLockMode.Locked) return;
+        else base.OnPointerEnter(eventData);
+    }
+
+    public override void OnPointerExit(PointerEventData eventData)
+    {
+        if (!Cursor.visible || Cursor.lockState == CursorLockMode.Locked) return;
+        else base.OnPointerExit(eventData);
+    }
 }
