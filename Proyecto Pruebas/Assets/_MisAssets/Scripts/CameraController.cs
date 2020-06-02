@@ -116,7 +116,10 @@ public class CameraController : Photon.PunBehaviour
     {
         print("Place: " + place);
         transform.SetParent(null);
-        GameObject finishCam = Instantiate(place==1? winnerCamera : finishCamera, new Vector3(0, -500, 0), Quaternion.identity);
+        GameObject finishCam = Instantiate(place==1? winnerCamera : finishCamera, transform.position, transform.rotation);
+
+        finishCam.GetComponent<Camera>().fieldOfView = GetComponent<Camera>().fieldOfView;
+
         FinishCamera fc =finishCam.GetComponent<FinishCamera>();
 
         fc.placeText.text = place.ToString();
@@ -146,7 +149,9 @@ public class CameraController : Photon.PunBehaviour
     public IEnumerator GameOver(float time)
     {
         yield return new WaitForSeconds(time);
-        GameObject gameOverCam = Instantiate(gameOverCamera, new Vector3(0, -500, 0), Quaternion.identity);
+        GameObject gameOverCam = Instantiate(gameOverCamera,transform.position, transform.rotation);
+
+        gameOverCam.GetComponent<Camera>().fieldOfView = GetComponent<Camera>().fieldOfView;
         //if (Global.numPlayers == 1)
         //{
         //    gameOverCam.GetComponent<Camera>().rect = new Rect(new Vector2(0, 0), new Vector2(1, 1));

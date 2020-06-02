@@ -12,6 +12,11 @@ public enum TipoNave
     Scavenger,Summoner, Trapper, Hacker, Tank
 }
 
+public enum ControllerType
+{
+    PS4,XBOXONE
+}
+
 public enum AbilityType
 {
     Player, Ship
