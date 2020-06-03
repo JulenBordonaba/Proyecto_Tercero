@@ -136,14 +136,32 @@ public class InputManager : MonoBehaviour
 
     public bool Shot()
     {
+        if (controllerType == ControllerType.XBOXONE)
+        {
+            if (Input.GetAxis(controllerType.ToString() + "Shot" + numPlayer.ToString()) > 0) return true;
+        }
+        else if (controllerType == ControllerType.XBOXONE)
+        {
+            return Input.GetButton("PCShot" + numPlayer.ToString()) || Input.GetButton(controllerType.ToString() + "Shot" + numPlayer.ToString());
+        }
+
         return Input.GetButton("PCShot" + numPlayer.ToString()) || Input.GetButton(controllerType.ToString() + "Shot" + numPlayer.ToString());
     }
 
     public float Accelerate()
     {
         float r = 0;
-        r += Input.GetAxis("PCAccelerate" + numPlayer.ToString());
-        r += Input.GetAxis(controllerType.ToString() + "Accelerate" + numPlayer.ToString());
+        if(controllerType== ControllerType.XBOXONE)
+        {
+            r += Input.GetAxis(controllerType.ToString() + "Accelerate" + numPlayer.ToString());
+            r += Input.GetAxis(controllerType.ToString() + "Decelerate" + numPlayer.ToString());
+        }
+        else if (controllerType == ControllerType.PS4)
+        {
+            r += Input.GetAxis("PCAccelerate" + numPlayer.ToString());
+            r += Input.GetAxis(controllerType.ToString() + "Accelerate" + numPlayer.ToString());
+        }
+        
         return r;
     }
 
