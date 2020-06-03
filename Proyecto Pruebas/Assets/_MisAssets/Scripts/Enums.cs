@@ -7,6 +7,11 @@ public enum TipoCombustible : byte
     Turbo,Salto,Escudo,Reparar
 }
 
+public enum SoundType
+{
+    music,effect
+}
+
 public enum TipoNave
 {
     Scavenger,Summoner, Trapper, Hacker, Tank

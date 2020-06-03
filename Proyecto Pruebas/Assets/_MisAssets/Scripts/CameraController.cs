@@ -178,7 +178,7 @@ public class CameraController : Photon.PunBehaviour
             if (front)
             {
                 currentX += inputManager.CameraHorizontal() * sensitivity.x;
-                currentY += inputManager.CameraVertical() * sensitivity.y * (PauseManager.invertY[inputManager.numPlayer - 1] ? 1 : -1);
+                currentY += inputManager.CameraVertical() * sensitivity.y * (OptionsMenu.inverted/*(PauseManager.invertY[inputManager.numPlayer - 1]*/ ? 1 : -1);
             }
             else
             {
