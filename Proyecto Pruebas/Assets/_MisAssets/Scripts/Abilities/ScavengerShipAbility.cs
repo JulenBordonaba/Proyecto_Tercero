@@ -29,6 +29,8 @@ public class ScavengerShipAbility : ShipAbility
     [PunRPC]
     public void UseMagnet(float forcedCooldown)
     {
+
+        audiSource.Play();
         if (inCooldown)
         {
             bool aux = !magnet.inverted;

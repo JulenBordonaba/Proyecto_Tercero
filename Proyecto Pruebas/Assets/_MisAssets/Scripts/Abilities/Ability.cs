@@ -7,6 +7,8 @@ public class Ability : Photon.PunBehaviour
 {
     [Tooltip("Pon el cooldown de la habilidad")]
     public float cooldown;
+
+    public AudioSource audiSource;
     [HideInInspector]
     public float currentCooldown=0f;
 

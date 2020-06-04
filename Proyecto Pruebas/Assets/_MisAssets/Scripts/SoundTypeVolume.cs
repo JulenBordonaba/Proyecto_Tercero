@@ -27,11 +27,11 @@ public class SoundTypeVolume : MonoBehaviour
         {
             if(soundType== SoundType.effect)
             {
-                return defaultVolume * OptionsMenu.effectVolume * OptionsMenu.generalVolume;
+                return defaultVolume * OptionsMenu.settings.effectVolume * OptionsMenu.settings.generalVolume;
             }
             else if (soundType== SoundType.music)
             {
-                return defaultVolume * OptionsMenu.musicVolume * OptionsMenu.generalVolume;
+                return defaultVolume * OptionsMenu.settings.musicVolume * OptionsMenu.settings.generalVolume;
             }
             return defaultVolume;
         }

@@ -37,6 +37,7 @@ public class SummonerAbility : PlayerAbility
             GameObject dron = PhotonNetwork.Instantiate("BlackHoleDron", dronSpawn.position,Quaternion.identity,0,null);
             dron.GetComponent<BlackHoleDron>().photonView.RPC("Move", PhotonTargets.All,myCam.transform.forward, rb.velocity.magnitude+dronVelocity);
 
+            audiSource.Play();
             inCooldown = true;
             StartCoroutine(Cooldown(cooldown * forcedCooldown));
         }

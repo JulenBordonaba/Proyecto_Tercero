@@ -24,6 +24,7 @@ public class SummonerShipAbility : ShipAbility
             {
                 PhotonNetwork.Destroy(currentBots);
             }
+            audiSource.Play();
             currentBots = PhotonNetwork.Instantiate("SummonerBotsPrefab", GetComponent<NaveController>().modelTransform.position,Quaternion.identity,0,null);
             currentBots.GetComponent<PhotonView>().RPC("SetParent", PhotonTargets.AllBuffered, photonView.owner.NickName);
             inCooldown = true;

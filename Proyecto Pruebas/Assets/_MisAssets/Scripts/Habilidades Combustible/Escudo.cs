@@ -43,14 +43,15 @@ public class Escudo : HabilidadCombustible
 
         if (inCooldown) return;
         StartCoroutine(Cooldown(cooldown+combustible.duration));
-        
+
+        audioSource.Play();
 
         //activar animacion escudo
         //GetComponentInParent<Animator>().SetBool("inShield",true);
 
         //activar sonido escudo
         //GetComponentInParent<AudioSource>().Play();
-        
+
         photonView.RPC("ActivateShield", PhotonTargets.All);
         
     }

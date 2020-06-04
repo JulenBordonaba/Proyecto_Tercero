@@ -90,6 +90,7 @@ public class TrapperAbility : PlayerAbility
         if (!inCooldown)
         {
             inCooldown = true;
+            audiSource.Play();
             castFire = StartCoroutine(CastFire(instanceRate));
             StartCoroutine(StopFire());
             StartCoroutine(Cooldown(cooldown * forcedCooldown));

@@ -27,6 +27,7 @@ public class HackerShipAbility : ShipAbility
         if (!inCooldown)
         {
             inCooldown = true;
+            audiSource.Play();
             StartCoroutine(Cooldown(cooldown* forcedCooldown));
             StartCoroutine(HologramDuration());
             List<int> positions = new List<int>();

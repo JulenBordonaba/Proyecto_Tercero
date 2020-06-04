@@ -31,7 +31,10 @@ public class TankAbility : PlayerAbility
             //Cooldown
             StartCoroutine(Cooldown(cooldown * forcedCooldown));
             inCooldown = true;
-            
+
+            //efectos
+            audiSource.Play();
+
             //Crear projectil
             GameObject proyectile = PhotonNetwork.Instantiate("TankProyectile", proyectileSpawn.position, myCamera.transform.rotation,0);
             proyectile.GetComponent<PhotonView>().RPC("SetTarget", PhotonTargets.All,(currentTarget? currentTarget.photonView.owner.NickName : ""));

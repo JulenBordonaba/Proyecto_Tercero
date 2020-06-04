@@ -21,6 +21,7 @@ public class TankShipAbility : ShipAbility
         if (!inCooldown)
         {
             inCooldown = true;
+            audiSource.Play();
             StartCoroutine(Cooldown(cooldown * forcedCooldown));
             photonView.RPC("StartEffect", PhotonTargets.All, damageReduction.id);
         }

@@ -9,7 +9,7 @@ public class InputManager : MonoBehaviour
 
     private EffectManager effectManager;
 
-    public static ControllerType controllerType = ControllerType.XBOXONE;
+    
 
     private void Start()
     {
@@ -33,7 +33,7 @@ public class InputManager : MonoBehaviour
     {
         float r = 0;
         r += Input.GetAxis("PCMainHorizontal" + numPlayer.ToString());
-        r += Input.GetAxis(controllerType.ToString() + "MainHorizontal" + numPlayer.ToString());
+        r += Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "MainHorizontal" + numPlayer.ToString());
         return r * InverseValue;
     }
 
@@ -42,7 +42,7 @@ public class InputManager : MonoBehaviour
     {
         float r = 0;
         r += Input.GetAxis("PCMainVertical" + numPlayer.ToString());
-        r += Input.GetAxis(controllerType.ToString() + "MainVertical" + numPlayer.ToString());
+        r += Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "MainVertical" + numPlayer.ToString());
         return r*InverseValue;
     }
 
@@ -57,7 +57,7 @@ public class InputManager : MonoBehaviour
     {
         float r = 0;
         r += Input.GetAxis("PCCameraHorizontal" + numPlayer.ToString()) * MouseSensitivityMultiplier;
-        r += Input.GetAxis(controllerType.ToString() + "CameraHorizontal" + numPlayer.ToString());
+        r += Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "CameraHorizontal" + numPlayer.ToString());
         return r*InverseValue;
     }
 
@@ -66,7 +66,7 @@ public class InputManager : MonoBehaviour
     {
         float r = 0;
         r += Input.GetAxis("PCCameraVertical" + numPlayer.ToString()) * MouseSensitivityMultiplier;
-        r += Input.GetAxis(controllerType.ToString() + "CameraVertical" + numPlayer.ToString());
+        r += Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "CameraVertical" + numPlayer.ToString());
         return r*InverseValue;
     }
 
@@ -84,83 +84,83 @@ public class InputManager : MonoBehaviour
     //botón de derrape
     public bool Drift()
     {
-        return Input.GetButton("PCDrift" + numPlayer.ToString()) || Input.GetButton(controllerType.ToString() + "Drift" + numPlayer.ToString());
+        return Input.GetButton("PCDrift" + numPlayer.ToString()) || Input.GetButton(OptionsMenu.settings.controllerType.ToString() + "Drift" + numPlayer.ToString());
     }
 
     //botón que activa el dash derecho
     public bool RightDash()
     {
         if (effectManager == null) return false;
-        return Input.GetButtonDown((effectManager.InvertControls ? "PCLeftDash":"PCRightDash") + numPlayer.ToString()) || Input.GetButtonDown(controllerType.ToString() + (effectManager.InvertControls ? "LeftDash" : "RightDash") + numPlayer.ToString());
+        return Input.GetButtonDown((effectManager.InvertControls ? "PCLeftDash":"PCRightDash") + numPlayer.ToString()) || Input.GetButtonDown(OptionsMenu.settings.controllerType.ToString() + (effectManager.InvertControls ? "LeftDash" : "RightDash") + numPlayer.ToString());
     }
 
     //botón que activa el dash izquierdo
     public bool LeftDash()
     {
         if (effectManager == null) return false;
-        return Input.GetButtonDown((effectManager? "PCLeftDash" : (effectManager.InvertControls ? "PCRightDash":"PCLeftDash")) + numPlayer.ToString()) || Input.GetButtonDown(controllerType.ToString() + (effectManager.InvertControls ? "RightDash" : "LeftDash") + numPlayer.ToString());
+        return Input.GetButtonDown((effectManager? "PCLeftDash" : (effectManager.InvertControls ? "PCRightDash":"PCLeftDash")) + numPlayer.ToString()) || Input.GetButtonDown(OptionsMenu.settings.controllerType.ToString() + (effectManager.InvertControls ? "RightDash" : "LeftDash") + numPlayer.ToString());
     }
 
     //botón para cambiar de cámara
     public bool ChangeCamera()
     {
-        return Input.GetButtonDown("PCChangeCamera" + numPlayer.ToString()) || Input.GetButtonDown(controllerType.ToString() + "ChangeCamera" + numPlayer.ToString());
+        return Input.GetButtonDown("PCChangeCamera" + numPlayer.ToString()) || Input.GetButtonDown(OptionsMenu.settings.controllerType.ToString() + "ChangeCamera" + numPlayer.ToString());
     }
 
     //botón para usar el combustible
     public bool UseFuel()
     {
-        return Input.GetButtonDown("PCUseFuel" + numPlayer.ToString()) || Input.GetButtonDown(controllerType.ToString() + "UseFuel" + numPlayer.ToString());
+        return Input.GetButtonDown("PCUseFuel" + numPlayer.ToString()) || Input.GetButtonDown(OptionsMenu.settings.controllerType.ToString() + "UseFuel" + numPlayer.ToString());
     }
 
     //botón para activar/desactivar el mapa
     public bool Map()
     {
-        return Input.GetButtonDown("PCMap" + numPlayer.ToString()) || Input.GetButtonDown(controllerType.ToString() + "Map" + numPlayer.ToString());
+        return Input.GetButtonDown("PCMap" + numPlayer.ToString()) || Input.GetButtonDown(OptionsMenu.settings.controllerType.ToString() + "Map" + numPlayer.ToString());
     }
 
     public bool Pause()
     {
-        return Input.GetButtonDown("PCPause" + numPlayer.ToString()) || Input.GetButtonDown(controllerType.ToString() + "Pause" + numPlayer.ToString());
+        return Input.GetButtonDown("PCPause" + numPlayer.ToString()) || Input.GetButtonDown(OptionsMenu.settings.controllerType.ToString() + "Pause" + numPlayer.ToString());
     }
 
     public bool PlayerAbility()
     {
-        return Input.GetButtonDown("PCPlayerAbility" + numPlayer.ToString()) || Input.GetButtonDown(controllerType.ToString() + "PlayerAbility" + numPlayer.ToString());
+        return Input.GetButtonDown("PCPlayerAbility" + numPlayer.ToString()) || Input.GetButtonDown(OptionsMenu.settings.controllerType.ToString() + "PlayerAbility" + numPlayer.ToString());
     }
 
     public bool ShipAbility()
     {
-        return Input.GetButtonDown("PCShipAbility" + numPlayer.ToString()) || Input.GetButtonDown(controllerType.ToString() + "ShipAbility" + numPlayer.ToString());
+        return Input.GetButtonDown("PCShipAbility" + numPlayer.ToString()) || Input.GetButtonDown(OptionsMenu.settings.controllerType.ToString() + "ShipAbility" + numPlayer.ToString());
     }
 
     public bool Shot()
     {
-        if (controllerType == ControllerType.XBOXONE)
+        if (OptionsMenu.settings.controllerType == ControllerType.XBOXONE)
         {
-            if (Input.GetButton("PCShot" + numPlayer.ToString()) || Input.GetAxis(controllerType.ToString() + "Shot" + numPlayer.ToString()) > 0) return true;
+            if (Input.GetButton("PCShot" + numPlayer.ToString()) || Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "Shot" + numPlayer.ToString()) > 0) return true;
         }
-        else if (controllerType == ControllerType.PS4)
+        else if (OptionsMenu.settings.controllerType == ControllerType.PS4)
         {
-            return Input.GetButton("PCShot" + numPlayer.ToString()) || Input.GetButton(controllerType.ToString() + "Shot" + numPlayer.ToString());
+            return Input.GetButton("PCShot" + numPlayer.ToString()) || Input.GetButton(OptionsMenu.settings.controllerType.ToString() + "Shot" + numPlayer.ToString());
         }
 
-        return Input.GetButton("PCShot" + numPlayer.ToString()) || Input.GetButton(controllerType.ToString() + "Shot" + numPlayer.ToString());
+        return Input.GetButton("PCShot" + numPlayer.ToString()) || Input.GetButton(OptionsMenu.settings.controllerType.ToString() + "Shot" + numPlayer.ToString());
     }
 
     public float Accelerate()
     {
         float r = 0;
         r += Input.GetAxis("PCAccelerate" + numPlayer.ToString());
-        if (controllerType== ControllerType.XBOXONE)
+        if (OptionsMenu.settings.controllerType == ControllerType.XBOXONE)
         {
-            r += Input.GetAxis(controllerType.ToString() + "Accelerate" + numPlayer.ToString());
-            r += Input.GetAxis(controllerType.ToString() + "Decelerate" + numPlayer.ToString());
+            r += Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "Accelerate" + numPlayer.ToString());
+            r += Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "Decelerate" + numPlayer.ToString());
         }
-        else if (controllerType == ControllerType.PS4)
+        else if (OptionsMenu.settings.controllerType == ControllerType.PS4)
         {
             
-            r += Input.GetAxis(controllerType.ToString() + "Accelerate" + numPlayer.ToString());
+            r += Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "Accelerate" + numPlayer.ToString());
         }
         
         return r;
@@ -170,35 +170,35 @@ public class InputManager : MonoBehaviour
     {
         float r = 0;
         r += Input.GetAxis("PCChangeFuel" + numPlayer.ToString());
-        r += Input.GetAxis(controllerType.ToString() + "ChangeFuel" + numPlayer.ToString());
+        r += Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "ChangeFuel" + numPlayer.ToString());
         return r;
         
     }
 
     public bool ResetCamera()
     {
-        return Input.GetButtonDown(controllerType.ToString() + "ResetCamera" + numPlayer.ToString());
+        return Input.GetButtonDown(OptionsMenu.settings.controllerType.ToString() + "ResetCamera" + numPlayer.ToString());
     }
 
 
     public bool UseJump()
     {
-        return (Input.GetAxis("PCJumpBoost" + numPlayer.ToString()) > 0.8f) || (Input.GetAxis(controllerType.ToString() + "JumpBoost" + numPlayer.ToString()) > 0.8f);
+        return (Input.GetAxis("PCJumpBoost" + numPlayer.ToString()) > 0.8f) || (Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "JumpBoost" + numPlayer.ToString()) > 0.8f);
     }
 
     public bool UseShield()
     {
-        return (Input.GetAxis("PCRepairShield" + numPlayer.ToString()) < -0.8f) || (Input.GetAxis(controllerType.ToString() + "RepairShield" + numPlayer.ToString()) < -0.8f);
+        return (Input.GetAxis("PCRepairShield" + numPlayer.ToString()) < -0.8f) || (Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "RepairShield" + numPlayer.ToString()) < -0.8f);
     }
 
     public bool UseBoost()
     {
-        return (Input.GetAxis("PCJumpBoost" + numPlayer.ToString()) < -0.8f) || (Input.GetAxis(controllerType.ToString() + "JumpBoost" + numPlayer.ToString()) < -0.8f);
+        return (Input.GetAxis("PCJumpBoost" + numPlayer.ToString()) < -0.8f) || (Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "JumpBoost" + numPlayer.ToString()) < -0.8f);
     }
 
     public bool UseRepair()
     {
-        return (Input.GetAxis("PCRepairShield" + numPlayer.ToString()) > 0.8f) || (Input.GetAxis(controllerType.ToString() + "RepairShield" + numPlayer.ToString()) > 0.8f);
+        return (Input.GetAxis("PCRepairShield" + numPlayer.ToString()) > 0.8f) || (Input.GetAxis(OptionsMenu.settings.controllerType.ToString() + "RepairShield" + numPlayer.ToString()) > 0.8f);
     }
     
     public float InverseValue

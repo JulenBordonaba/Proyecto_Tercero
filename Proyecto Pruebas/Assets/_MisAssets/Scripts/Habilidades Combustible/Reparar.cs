@@ -52,6 +52,7 @@ public class Reparar : HabilidadCombustible
         if (inCooldown) return;
         StartCoroutine(Cooldown(cooldown + combustible.duration));
 
+        audioSource.Play();
         combustible.currentAmmount -= combustible.activeConsumption;
 
         isRepairing = true;
