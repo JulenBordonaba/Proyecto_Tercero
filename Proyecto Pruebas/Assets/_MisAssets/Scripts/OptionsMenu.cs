@@ -46,10 +46,22 @@ public class OptionsMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        SetSliderValues();
+
+    }
+
+    public void OnEnable()
+    {
+        SetSliderValues();
+    }
+
+    public void SetSliderValues()
+    {
         //sonido
-        musicVolumeSlider.value = musicVolume ;
-        effectVolumeSlider.value = effectVolume ;
-        generalVolumeSlider.value = generalVolume ;
+        musicVolumeSlider.value = musicVolume;
+        effectVolumeSlider.value = effectVolume;
+        generalVolumeSlider.value = generalVolume;
 
         //graphics
         vSyncSlider.value = QualitySettings.vSyncCount;
@@ -62,8 +74,6 @@ public class OptionsMenu : MonoBehaviour
         controllerSlider.value = (int)InputManager.controllerType;
         invertControlsSlider.value = boolToInt[inverted];
         sensitivitySlider.value = sensitivity * 10;
-
-
     }
 
     // Update is called once per frame
