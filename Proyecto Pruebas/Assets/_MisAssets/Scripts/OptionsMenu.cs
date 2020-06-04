@@ -6,11 +6,7 @@ using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
 {
-    public static bool inverted = false;
-    public static float generalVolume = 1;
-    public static float musicVolume = 1;
-    public static float effectVolume = 1;
-    public static float sensitivity = 10f;
+    public static Settings settings;
 
     [Header("Graphics")]
     public Slider brightnessSlider;
@@ -41,62 +37,65 @@ public class OptionsMenu : MonoBehaviour
         {true,1 }
     };
 
-    
 
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
-
+        SetQualitySettings();
         SetSliderValues();
-
     }
 
     public void OnEnable()
     {
+        SetQualitySettings();
         SetSliderValues();
+    }
+
+    public void SetQualitySettings()
+    {
+        RenderSettings.ambientLight=new Color(settings.brightness, settings.brightness, settings.brightness,1f) ;
+        QualitySettings.vSyncCount=(int)settings.vSync;
+        QualitySettings.antiAliasing=(int)settings.antialiasing * 2;
+        QualitySettings.masterTextureLimit=  Mathf.Abs((int)settings.textureQuality-3);
+        QualitySettings.shadowResolution = (UnityEngine.ShadowResolution)settings.shadowResolution;
     }
 
     public void SetSliderValues()
     {
         //sonido
-        musicVolumeSlider.value = musicVolume;
-        effectVolumeSlider.value = effectVolume;
-        generalVolumeSlider.value = generalVolume;
+        musicVolumeSlider.value = settings.musicVolume;
+        effectVolumeSlider.value = settings.effectVolume;
+        generalVolumeSlider.value = settings.generalVolume;
 
         //graphics
-        vSyncSlider.value = QualitySettings.vSyncCount;
-        brightnessSlider.value = RenderSettings.ambientLight.r;
-        antialiasingSlider.value = QualitySettings.antiAliasing / 2f;
-        textureQualitySlider.value = QualitySettings.masterTextureLimit;
-        shadowResolutionSlider.value = (int)QualitySettings.shadowResolution;
+        vSyncSlider.value = settings.vSync;
+        brightnessSlider.value = settings.brightness;
+        antialiasingSlider.value = settings.antialiasing;
+        textureQualitySlider.value = settings.textureQuality;
+        shadowResolutionSlider.value = settings.shadowResolution;
 
         //controller
-        controllerSlider.value = (int)InputManager.controllerType;
-        invertControlsSlider.value = boolToInt[inverted];
-        sensitivitySlider.value = sensitivity * 10;
+        controllerSlider.value = (int)settings.controllerType;
+        invertControlsSlider.value = boolToInt[settings.inverted];
+        sensitivitySlider.value = settings.sensitivity.y / 10f;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     #region Music
 
     public void ChangeMusicVolume()
     {
-        musicVolume = musicVolumeSlider.value ;
+        settings.musicVolume = musicVolumeSlider.value;
     }
 
     public void ChangeEffectVolume()
     {
-        effectVolume = effectVolumeSlider.value ;
+        settings.effectVolume = effectVolumeSlider.value;
     }
 
     public void ChangeGeneralVolume()
     {
-        generalVolume = generalVolumeSlider.value ;
+        settings.generalVolume = generalVolumeSlider.value;
     }
 
     #endregion
@@ -105,17 +104,18 @@ public class OptionsMenu : MonoBehaviour
 
     public void ChangeSensitivity()
     {
-        sensitivity = sensitivitySlider.value/10f;
+        settings.sensitivity.x = sensitivitySlider.value * 10f;
+        settings.sensitivity.y = sensitivitySlider.value * 10f;
     }
 
     public void ChooseController()
     {
-        InputManager.controllerType = (ControllerType)controllerSlider.value;
+        settings.controllerType = (ControllerType)controllerSlider.value;
     }
 
     public void Inverted()
     {
-        inverted = intToBool[(int)invertControlsSlider.value];
+        settings.inverted = intToBool[(int)invertControlsSlider.value];
     }
 
     #endregion
@@ -124,29 +124,50 @@ public class OptionsMenu : MonoBehaviour
 
     public void TextureQuality()
     {
-        QualitySettings.masterTextureLimit = (int)textureQualitySlider.value;
+        settings.textureQuality = textureQualitySlider.value;
+        SetQualitySettings();
     }
 
     public void ShadowResolution()
     {
-        QualitySettings.shadowResolution = (UnityEngine.ShadowResolution)shadowResolutionSlider.value;
+        settings.shadowResolution = shadowResolutionSlider.value;
+        SetQualitySettings();
     }
 
     public void Brightness()
     {
-        RenderSettings.ambientLight = new Color(brightnessSlider.value, brightnessSlider.value, brightnessSlider.value, 1.0f);
+        settings.brightness =brightnessSlider.value;
+        SetQualitySettings();
     }
 
     public void VSync()
     {
-            QualitySettings.vSyncCount = (int)vSyncSlider.value;
+        settings.vSync = (int)vSyncSlider.value;
+        SetQualitySettings();
     }
 
     public void AntiAliasing(bool active)
     {
-        QualitySettings.antiAliasing = (int)antialiasingSlider.value * 2;
+        settings.antialiasing = (int)antialiasingSlider.value;
+        SetQualitySettings();
     }
 
     #endregion
 
+}
+
+public class Settings
+{
+    public float brightness = RenderSettings.ambientLight.r;
+    public float vSync = QualitySettings.vSyncCount;
+    public float antialiasing = QualitySettings.antiAliasing / 2f;
+    public float textureQuality = Mathf.Abs(QualitySettings.masterTextureLimit - 3);
+    public float shadowResolution = (int)QualitySettings.shadowResolution;
+
+    public bool inverted = false;
+    public float generalVolume = 1;
+    public float musicVolume = 1;
+    public float effectVolume = 1;
+    public Vector2 sensitivity = Vector2.one;
+    public ControllerType controllerType = ControllerType.PS4;
 }

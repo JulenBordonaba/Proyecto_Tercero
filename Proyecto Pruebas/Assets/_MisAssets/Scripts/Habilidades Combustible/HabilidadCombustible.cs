@@ -16,6 +16,7 @@ public  class HabilidadCombustible : Photon.PunBehaviour
     [Tooltip("Pon el cooldown de la habilidad, cuenta a partir de cuando se acaba")]
     public float cooldown;
     public float maxCooldown;
+    public AudioSource audioSource;
 
 
     public virtual void Use()

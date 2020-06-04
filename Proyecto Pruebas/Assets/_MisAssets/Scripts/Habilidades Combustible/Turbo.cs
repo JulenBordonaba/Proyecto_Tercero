@@ -60,6 +60,7 @@ public class Turbo : HabilidadCombustible
         if (inCooldown) return;
         StartCoroutine(Cooldown(cooldown + combustible.duration));
 
+        audioSource.Play();
         combustible.currentAmmount -= combustible.activeConsumption;
         
         naveController.inBoost = true;

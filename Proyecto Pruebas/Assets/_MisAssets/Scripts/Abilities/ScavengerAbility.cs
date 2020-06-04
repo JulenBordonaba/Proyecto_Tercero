@@ -26,6 +26,7 @@ public class ScavengerAbility : PlayerAbility
         if (effectManager.SilenceAbilities) return;
         if (inCooldown) return;
         inCooldown = true;
+        audiSource.Play();
         StartCoroutine(Cooldown(cooldown * forcedCooldown));
 
         Ray ray = new Ray();

@@ -27,6 +27,7 @@ public class TrapperShipAbility : ShipAbility
         if(!inCooldown)
         {
             inCooldown = true;
+            audiSource.Play();
             //instanciar arpón con photonview
             GameObject harpon=PhotonNetwork.Instantiate(harponPrefabName, harponPivot.position, harponPivot.rotation, 0);
             //asignar velocidad al rigidbody del arpón

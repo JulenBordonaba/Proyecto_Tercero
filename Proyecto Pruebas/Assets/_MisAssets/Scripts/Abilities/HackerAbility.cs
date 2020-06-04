@@ -23,6 +23,7 @@ public class HackerAbility : PlayerAbility
         if (effectManager.SilenceAbilities) return;
 
         if (inCooldown) return;
+        audiSource.Play();
         Hack();
         StartCoroutine(Cooldown(cooldown * forcedCooldown));
     }
