@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FuelPicker : MonoBehaviour
 {
+    public AudioSource combustibleAudioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,7 @@ public class FuelPicker : MonoBehaviour
         //print(other.name);
         if (other.gameObject.GetComponent<CombustibleObject>())
         {
+            combustibleAudioSource.Play();
             switch (other.gameObject.GetComponent<CombustibleObject>().tipo)
             {
                 case TipoCombustible.Escudo:

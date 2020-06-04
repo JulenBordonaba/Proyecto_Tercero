@@ -35,6 +35,11 @@ public class NaveManager : Photon.PunBehaviour
     public bool isIA = false;
     public bool isHologram = false;
 
+    public AudioSource shieldImpacAudioSource;
+    public AudioSource collisionAudioSource;
+    public AudioSource impacAudioSource;
+    public AudioSource quejaAudioSource;
+
     public EffectData startEffect;
 
     public int combustibleActivo = 0; //combustible activo, se usa como index para la lista "combustibles"
@@ -52,6 +57,8 @@ public class NaveManager : Photon.PunBehaviour
     
     private bool fuelInLeft = false;
     private bool fuelInRight = false;
+
+    private bool quejaInCooldown = false;
 
 
     private void Awake()
@@ -126,6 +133,16 @@ public class NaveManager : Photon.PunBehaviour
         audioListener.enabled = false;
     }
     
+    public void ShieldImpact()
+    {
+        photonView.RPC("ShieldImpactSound", PhotonTargets.All);
+    }
+
+    [PunRPC]
+    public void ShieldImpactSound()
+    {
+        shieldImpacAudioSource.Play();
+    }
 
     public void AddPieceStats()
     {
@@ -274,6 +291,8 @@ public class NaveManager : Photon.PunBehaviour
         if (isHologram) return;
         if (collision.gameObject.tag == "Obstacle" || collision.gameObject.tag == "Nave")
         {
+            collisionAudioSource.Play();
+            PlayQueja();
             DamageManager dm = collision.contacts[0].thisCollider.gameObject.GetComponentInParent<DamageManager>();
             float impactForce = Vector3.Dot(collision.contacts[0].normal, collision.relativeVelocity);
             impactForce = Mathf.Clamp(impactForce, 0, float.MaxValue);
@@ -313,10 +332,19 @@ public class NaveManager : Photon.PunBehaviour
         rb.AddForce(force, ForceMode.VelocityChange);
     }
 
+    void PlayQueja()
+    {
+        if (quejaInCooldown) return;
+        quejaAudioSource.Play();
+        StartCoroutine(QuejaCooldown());
+
+    }
     
     public void TakeDamageByWeapon(float damage, bool weapon, string target, string ownerNickname)
     {
         if (ownerNickname != photonView.owner.NickName) return;
+        impacAudioSource.Play();
+        PlayQueja();
         foreach (DamageManager dm in GetComponentsInChildren<DamageManager>())
         {
             print(dm.damagedObject);
@@ -327,6 +355,13 @@ public class NaveManager : Photon.PunBehaviour
                 return;
             }
         }
+    }
+
+    IEnumerator QuejaCooldown()
+    {
+        quejaInCooldown = true;
+        yield return new WaitForSeconds(1.5f);
+        quejaInCooldown = false;
     }
 
     public void SetWeaponObjectives(LayerMask layers)

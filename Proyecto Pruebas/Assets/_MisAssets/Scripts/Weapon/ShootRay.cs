@@ -130,7 +130,11 @@ public class ShootRay : ShootWeapon
     {
         if (PhotonNetwork.connected)
         {
-            if (other.layer == otherShield) return;
+            if (other.layer == otherShield)
+            {
+                other.GetComponentInParent<NaveManager>();
+                return;
+            }
             //print(other.gameObject.name);
             if (other.GetComponentInParent<DamageManager>())
             {

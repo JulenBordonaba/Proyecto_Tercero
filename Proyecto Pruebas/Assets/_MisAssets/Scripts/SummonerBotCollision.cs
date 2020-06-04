@@ -9,6 +9,8 @@ public class SummonerBotCollision : MonoBehaviour
     public bool inShot = false;
     public LayerMask ignoreLayers;
 
+    public AudioSource collisionAudioSource;
+
     private int shipLayer;
 
     private void Start()
@@ -40,7 +42,7 @@ public class SummonerBotCollision : MonoBehaviour
                 //sonido
             }
         }
-        
+        PlayDestroySound();
         Destroy(transform.parent.gameObject);
     }
 
@@ -48,5 +50,12 @@ public class SummonerBotCollision : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         shipLayer = GetComponentInParent<NaveManager>().gameObject.layer;
+    }
+
+    void PlayDestroySound()
+    {
+        collisionAudioSource.transform.SetParent(null);
+        collisionAudioSource.Play();
+        Destroy(collisionAudioSource.gameObject, collisionAudioSource.clip.length);
     }
 }

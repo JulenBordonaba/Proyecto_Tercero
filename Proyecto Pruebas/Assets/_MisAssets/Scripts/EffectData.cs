@@ -23,6 +23,7 @@ public class EffectData : ScriptableObject
     [Tooltip("Activar si el efecto no es permanente")]
     public bool permanent = false;
     public DOT dot = new DOT();
+    public AudioClip effectClip;
 
     #region PhotonSerialize
     public byte classId { get; set; }

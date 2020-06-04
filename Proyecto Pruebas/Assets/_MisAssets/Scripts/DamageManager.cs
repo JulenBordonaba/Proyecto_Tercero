@@ -8,6 +8,8 @@ public class DamageManager : Photon.PunBehaviour
     public float inmunityCooldown;
     [Tooltip("Pon el daño mínimo para que pueda recibir daño")]
     public float minDamage=-1;
+
+
     public DamagedObject damagedObject = DamagedObject.Other;
     private Coroutine fireDamage;
     private EffectManager effectManager;

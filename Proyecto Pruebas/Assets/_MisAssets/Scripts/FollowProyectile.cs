@@ -12,6 +12,7 @@ public class FollowProyectile : Photon.PunBehaviour
     [Tooltip("Pon el aumento de velocidad del bot respecto al tiempo")]
     public float velocityIncrease = 10;
     public float damage = 100f;
+    public AudioSource collisionAudioSource;
 
 
     private Vector3 direction;
@@ -105,14 +106,23 @@ public class FollowProyectile : Photon.PunBehaviour
                 //instanciar partículas explosión
                 //Instantiate(explosionPrefab);
                 //sonido
+                PlayDestroySound();
                 Destroy(gameObject);
             }
         }
         else
         {
+            PlayDestroySound();
             Destroy(gameObject);
         }
 
         
+    }
+
+    void PlayDestroySound()
+    {
+        collisionAudioSource.transform.SetParent(null);
+        collisionAudioSource.Play();
+        Destroy(collisionAudioSource.gameObject,collisionAudioSource.clip.length);
     }
 }

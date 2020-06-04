@@ -20,6 +20,8 @@ public class CheckpointManager : Photon.PunBehaviour
 
     public int checkpointNumber = 5;
 
+    public AudioSource unlockCheckpointAudioSource;
+
     public List<Checkpoint> circuit = new List<Checkpoint>();
 
 
@@ -186,6 +188,7 @@ public class CheckpointManager : Photon.PunBehaviour
     private void UnlockCheckpoint()
     {
         currentCheckpoint += 1;
+        unlockCheckpointAudioSource.Play();
         GameManager.current.popUp.ShowMessage("Nuevo Checkpoint", new Color(0.271f, 0.851f, 0.69f));
         circuit[currentCheckpoint].Unlock();
     }

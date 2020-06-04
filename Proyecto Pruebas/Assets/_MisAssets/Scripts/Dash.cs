@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dash : MonoBehaviour
+public class Dash : Photon.PunBehaviour
 {
     [Tooltip("Pon el impulso del dash")]
     public float dashForce;
@@ -13,6 +13,8 @@ public class Dash : MonoBehaviour
     [Tooltip("Pon la fuerza de frenada al acabar el dash, rango 0-1")]
     [Range(0, 1)]
     public float stopForce = 0.2f;
+
+    public AudioSource dashAudioSource;
 
     private bool canDash = true;    //variable que controla cuando puede dashear la nave
     private InputManager inputManager;
@@ -52,10 +54,12 @@ public class Dash : MonoBehaviour
             default:
                 break;
         }
-
+        dashAudioSource.Play();
         StartCoroutine(EndDash());
 
     }
+    
+
 
     private IEnumerator EndDash()
     {

@@ -6,6 +6,7 @@ public class TrapperHarpon : Photon.PunBehaviour
 {
     public float maxPull = 100000f;
 
+    public AudioSource collisionAudioSource;
 
     //SpringJoint springJoint;
     Transform parentTransform;
@@ -96,7 +97,7 @@ public class TrapperHarpon : Photon.PunBehaviour
 
                 //aplicar fuerza
                 pv.RPC("ApplyForce", PhotonTargets.All, force);
-
+                PlayDestroySound();
                 Destroy(GetComponent<BoxCollider>());
             }
             
@@ -114,6 +115,11 @@ public class TrapperHarpon : Photon.PunBehaviour
     }
 
 
-    
-    
+    void PlayDestroySound()
+    {
+        collisionAudioSource.transform.SetParent(null);
+        collisionAudioSource.Play();
+        Destroy(collisionAudioSource.gameObject, collisionAudioSource.clip.length);
+    }
+
 }

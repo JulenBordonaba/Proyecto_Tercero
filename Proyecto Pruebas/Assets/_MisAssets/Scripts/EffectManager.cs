@@ -9,6 +9,8 @@ public class EffectManager : Photon.PunBehaviour
 
     public GameObject iconPrefab;
 
+    public AudioSource effectAudioSource;
+
     public GameObject iconContainer;
 
     public List<EffectData> activeEffects = new List<EffectData>();
@@ -48,7 +50,10 @@ public class EffectManager : Photon.PunBehaviour
             }
 
             icon.durationCoroutine = StartCoroutine(EffectDuration(icon));
-            
+            if(_ed.effectClip)
+            {
+                effectAudioSource.PlayOneShot(_ed.effectClip);
+            }
             print("resetea tiempo");
         }
         else
@@ -58,6 +63,10 @@ public class EffectManager : Photon.PunBehaviour
             ed.dot.dotEffect = StartCoroutine(DOTEffect(ed.dot));
             EffectIcon icon = CreateIcon(ed);
             icon.durationCoroutine = StartCoroutine(EffectDuration(icon));
+            if (ed.effectClip)
+            {
+                effectAudioSource.PlayOneShot(ed.effectClip);
+            }
         }
 
 
