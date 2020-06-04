@@ -9,6 +9,7 @@ public class UISelect : EventTrigger
     {
         base.OnSelect(eventData);
         // Call methods when the UI element is selected
+        if(GetComponent<Animator>())
         GetComponent<Animator>().SetBool("Selected",true);
     }
 
@@ -16,7 +17,8 @@ public class UISelect : EventTrigger
     {
         base.OnDeselect(eventData);
         // Call methods when the UI element is deselected
-        GetComponent<Animator>().SetBool("Selected",false);
+        if (GetComponent<Animator>())
+            GetComponent<Animator>().SetBool("Selected",false);
     }
 
     public override void OnPointerEnter(PointerEventData eventData)
